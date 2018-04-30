@@ -1,0 +1,489 @@
+
+===================================REPORT START=================================================
+OASIS Purge process Started on 04/24/2018 16:42:51
+------------------------------ 
+***    Input Parameters    *** 
+------------------------------ 
+p_arch_id       : FMXTARCH
+p_arch_sql_type : BYMONTHS
+p_params        : ^param1^12^
+p_preview       : Y
+p_to_email_addr : 
+------------------------------ 
+***    Session Variable    *** 
+------------------------------ 
+G_WEEKENDS:,SAT,SUN,
+G_WEEKDAY_START_HOUR:6
+G_WEEKDAY_STOP_HOUR:22
+G_STOP_ROW_LIMIT:1000
+G_RUN_WEEKDAY_CHK:Y
+G_RUN_DEPEND_CHK:Y
+G_RUN_PARENT_CHK:Y
+G_RUN_ARCH_CHK:Y
+G_RUN_DELTRG_OPT:C
+G_RUN_INSTRG_OPT:C
+G_RUN_INST_CHK:Y
+G_TABLE_ALIAS:pt
+G_ARCHIVE_SCHEMA_TAG:{archive_schema}
+G_ARCH_DBLINK_TAG:{archive_dblink}
+G_SRC_DBLINK_TAG:{source_dblink}
+G_OASIS_DBLINK_TAG:{oasis_dblink}
+G_SRC_SCHEMA_TAG:{source_schema}
+G_ARCH_LISTCOL_TAG:{list of columns}
+G_LIST_OF_IDS_TAG:{list of ids}
+G_COPY_ONLY:N
+G_ARCH_CHK_TAB_ROWS:Y
+G_SENDER_EMAIL:noreply_oasis_archive@delphi-tech.com
+G_EMAIL_SUBJECT:
+G_EMAIL_BODY:OASIS Archive/Restore Log.
+G_EMAIL_FILE_NAME:archivie_log.txt
+G_PACKAGE_CNT:100
+G_CRT_IDS_TEMP_TABLE:Y
+G_CRT_IDTAB_BOTH_SITE:Y
+G_ARCH_INS_HINT:APPEND
+G_SHOW_ZERO_CNT_TAB:TRUE
+------------------------------ 
+CREATE TABLE ARCH_IDS_$34 AS SELECT p.request_id FROM fm_invoice_extract_header p WHERE p.sys_create_time < ADD_MONTHS(SYSDATE,- '12')
+SELECT COUNT(*) FROM XT_ADDRESS pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$34)
+Table: XT_ADDRESS - 36102 Rows will Purge. Estimated space: 6381.3105(KB).
+SELECT COUNT(*) FROM XT_NAME pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$34)
+Table: XT_NAME - 33442 Rows will Purge. Estimated space: 4506.832(KB).
+SELECT COUNT(*) FROM XT_PHONE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$34)
+Table: XT_PHONE - 2086 Rows will Purge. Estimated space: 254.6387(KB).
+SELECT COUNT(*) FROM XTF_INVOICE_RISK_SUMMARY pt WHERE pt.xir_request_id IN (SELECT request_id FROM ARCH_IDS_$34)
+Table: XTF_INVOICE_RISK_SUMMARY - 30731 Rows will Purge. Estimated space: 24218.6689(KB).
+SELECT COUNT(*) FROM XTF_INVOICE_POLICY_SUMMARY pt WHERE pt.xip_request_id IN (SELECT request_id FROM ARCH_IDS_$34)
+Table: XTF_INVOICE_POLICY_SUMMARY - 1328 Rows will Purge. Estimated space: 1071.2188(KB).
+SELECT COUNT(*) FROM XTF_INVOICE_ACCT_SUMMARY pt WHERE pt.xia_request_id IN (SELECT request_id FROM ARCH_IDS_$34)
+Table: XTF_INVOICE_ACCT_SUMMARY - 1315 Rows will Purge. Estimated space: 970.8398(KB).
+CREATE TABLE ARCH_IDS_$37 AS SELECT p.fm_invoice_extract_header_pk FROM fm_invoice_extract_header p WHERE p.sys_create_time < ADD_MONTHS(SYSDATE,- '12')
+SELECT COUNT(*) FROM FM_INVOICE_RISK_EXTRACT pt WHERE pt.fm_invoice_extract_header_fk IN (SELECT fm_invoice_extract_header_pk FROM ARCH_IDS_$37)
+Table: FM_INVOICE_RISK_EXTRACT - 30973 Rows will Purge. Estimated space: 3629.6484(KB).
+SELECT COUNT(*) FROM FM_INVOICE_POLICY_EXTRACT pt WHERE pt.fm_invoice_extract_header_fk IN (SELECT fm_invoice_extract_header_pk FROM ARCH_IDS_$37)
+Table: FM_INVOICE_POLICY_EXTRACT - 1325 Rows will Purge. Estimated space: 427.002(KB).
+SELECT COUNT(*) FROM FM_INVOICE_EXTRACT_MASTER pt WHERE pt.fm_invoice_extract_header_fk IN (SELECT fm_invoice_extract_header_pk FROM ARCH_IDS_$37)
+Table: FM_INVOICE_EXTRACT_MASTER - 33809 Rows will Purge. Estimated space: 6570.3037(KB).
+SELECT COUNT(*) FROM FM_INVOICE_EXTRACT_HEADER pt WHERE pt.fm_invoice_extract_header_pk IN (SELECT fm_invoice_extract_header_pk FROM ARCH_IDS_$37)
+Table: FM_INVOICE_EXTRACT_HEADER - 1333 Rows will Purge. Estimated space: 338.457(KB).
+RENAME ARCH_IDS_$34 TO ARCH_IDS_$34_042418164251
+RENAME ARCH_IDS_$37 TO ARCH_IDS_$37_042418164251
+OASIS Purge process Completed on 04/24/2018 16:42:51
+===================================REPORT END===================================================
+
+===================================REPORT START=================================================
+OASIS Purge process Started on 04/24/2018 16:42:50
+------------------------------ 
+***    Input Parameters    *** 
+------------------------------ 
+p_arch_id       : XTFARCH
+p_arch_sql_type : BYMONTHS
+p_params        : ^param1^12^
+p_preview       : Y
+p_to_email_addr : 
+------------------------------ 
+***    Session Variable    *** 
+------------------------------ 
+G_WEEKENDS:,SAT,SUN,
+G_WEEKDAY_START_HOUR:6
+G_WEEKDAY_STOP_HOUR:22
+G_STOP_ROW_LIMIT:1000
+G_RUN_WEEKDAY_CHK:Y
+G_RUN_DEPEND_CHK:Y
+G_RUN_PARENT_CHK:Y
+G_RUN_ARCH_CHK:Y
+G_RUN_DELTRG_OPT:C
+G_RUN_INSTRG_OPT:C
+G_RUN_INST_CHK:Y
+G_TABLE_ALIAS:pt
+G_ARCHIVE_SCHEMA_TAG:{archive_schema}
+G_ARCH_DBLINK_TAG:{archive_dblink}
+G_SRC_DBLINK_TAG:{source_dblink}
+G_OASIS_DBLINK_TAG:{oasis_dblink}
+G_SRC_SCHEMA_TAG:{source_schema}
+G_ARCH_LISTCOL_TAG:{list of columns}
+G_LIST_OF_IDS_TAG:{list of ids}
+G_COPY_ONLY:N
+G_ARCH_CHK_TAB_ROWS:Y
+G_SENDER_EMAIL:noreply_oasis_archive@delphi-tech.com
+G_EMAIL_SUBJECT:
+G_EMAIL_BODY:OASIS Archive/Restore Log.
+G_EMAIL_FILE_NAME:archivie_log.txt
+G_PACKAGE_CNT:100
+G_CRT_IDS_TEMP_TABLE:Y
+G_CRT_IDTAB_BOTH_SITE:Y
+G_ARCH_INS_HINT:APPEND
+G_SHOW_ZERO_CNT_TAB:TRUE
+------------------------------ 
+CREATE TABLE ARCH_IDS_$31 AS SELECT p.xp_request_id FROM xtf_policy p WHERE p.sys_create_time < ADD_MONTHS(SYSDATE,- '12')
+SELECT COUNT(*) FROM XTF_TAIL_QUOTE pt WHERE pt.XTQ_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_TAIL_QUOTE - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_SPECIAL_HANDLING pt WHERE pt.XSH_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_SPECIAL_HANDLING - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_RISK_RELATION pt WHERE pt.XRR_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_RISK_RELATION - 8364 Rows will Purge. Estimated space: 3863.4492(KB).
+SELECT COUNT(*) FROM XTF_RISK_COVERAGE pt WHERE pt.XRC_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_RISK_COVERAGE - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_RISK pt WHERE pt.XR_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_RISK - 561572 Rows will Purge. Estimated space: 586250.457(KB).
+SELECT COUNT(*) FROM XTF_POLICY pt WHERE pt.XP_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_POLICY - 7839 Rows will Purge. Estimated space: 6614.1563(KB).
+SELECT COUNT(*) FROM XTF_NATIONAL_PROGRAM pt WHERE pt.XNP_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_NATIONAL_PROGRAM - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_MANU_ENDORSEMENT_DTL pt WHERE pt.XMD_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_MANU_ENDORSEMENT_DTL - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_MANUSCRIPT_ENDORSEMENT pt WHERE pt.XME_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_MANUSCRIPT_ENDORSEMENT - 48530 Rows will Purge. Estimated space: 9431.123(KB).
+SELECT COUNT(*) FROM XTF_IBNR_INACTIVE_RISK pt WHERE pt.XIIR_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_IBNR_INACTIVE_RISK - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_FINANCE_MASTER pt WHERE pt.XFM_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_FINANCE_MASTER - 2912 Rows will Purge. Estimated space: 745.0625(KB).
+SELECT COUNT(*) FROM XTF_FINANCE_DETAIL pt WHERE pt.XFD_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_FINANCE_DETAIL - 19144 Rows will Purge. Estimated space: 2710.8203(KB).
+SELECT COUNT(*) FROM XTF_CUSTOM pt WHERE pt.XCM_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_CUSTOM - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_COVERAGE pt WHERE pt.XC_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_COVERAGE - 563357 Rows will Purge. Estimated space: 178799.8291(KB).
+SELECT COUNT(*) FROM XTF_COMPONENT pt WHERE pt.XC_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_COMPONENT - 179991 Rows will Purge. Estimated space: 38494.1689(KB).
+SELECT COUNT(*) FROM XTF_COI_HOLDER pt WHERE pt.XCH_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_COI_HOLDER - 480 Rows will Purge. Estimated space: 420.9375(KB).
+SELECT COUNT(*) FROM XTF_CLAIM pt WHERE pt.XCL_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_CLAIM - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_CHG_ON_TRANS pt WHERE pt.XCT_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_CHG_ON_TRANS - 20410 Rows will Purge. Estimated space: 2351.9336(KB).
+SELECT COUNT(*) FROM XTF_BILL_RELCHG pt WHERE pt.XBR_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_BILL_RELCHG - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_BANNER pt WHERE pt.XB_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_BANNER - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_AUDIT pt WHERE pt.XAU_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_AUDIT - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_ADDTL_INSURED_DETAIL pt WHERE pt.XAD_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_ADDTL_INSURED_DETAIL - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XTF_ADDRESS pt WHERE pt.XA_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_ADDRESS - 8199 Rows will Purge. Estimated space: 768.6563(KB).
+SELECT COUNT(*) FROM XTF_ADDITIONAL_INSURED pt WHERE pt.XAI_REQUEST_ID IN (SELECT xp_request_id FROM ARCH_IDS_$31)
+Table: XTF_ADDITIONAL_INSURED - 30 Rows will Purge. Estimated space: 10.4004(KB).
+RENAME ARCH_IDS_$31 TO ARCH_IDS_$31_042418164251
+OASIS Purge process Completed on 04/24/2018 16:42:51
+===================================REPORT END===================================================
+
+===================================REPORT START=================================================
+OASIS Purge process Started on 04/24/2018 16:42:49
+------------------------------ 
+***    Input Parameters    *** 
+------------------------------ 
+p_arch_id       : NONPMOSARCH
+p_arch_sql_type : BYMONTHS
+p_params        : ^param1^12^
+p_preview       : Y
+p_to_email_addr : 
+------------------------------ 
+***    Session Variable    *** 
+------------------------------ 
+G_WEEKENDS:,SAT,SUN,
+G_WEEKDAY_START_HOUR:6
+G_WEEKDAY_STOP_HOUR:22
+G_STOP_ROW_LIMIT:1000
+G_RUN_WEEKDAY_CHK:Y
+G_RUN_DEPEND_CHK:Y
+G_RUN_PARENT_CHK:Y
+G_RUN_ARCH_CHK:Y
+G_RUN_DELTRG_OPT:C
+G_RUN_INSTRG_OPT:C
+G_RUN_INST_CHK:Y
+G_TABLE_ALIAS:pt
+G_ARCHIVE_SCHEMA_TAG:{archive_schema}
+G_ARCH_DBLINK_TAG:{archive_dblink}
+G_SRC_DBLINK_TAG:{source_dblink}
+G_OASIS_DBLINK_TAG:{oasis_dblink}
+G_SRC_SCHEMA_TAG:{source_schema}
+G_ARCH_LISTCOL_TAG:{list of columns}
+G_LIST_OF_IDS_TAG:{list of ids}
+G_COPY_ONLY:N
+G_ARCH_CHK_TAB_ROWS:Y
+G_SENDER_EMAIL:noreply_oasis_archive@delphi-tech.com
+G_EMAIL_SUBJECT:
+G_EMAIL_BODY:OASIS Archive/Restore Log.
+G_EMAIL_FILE_NAME:archivie_log.txt
+G_PACKAGE_CNT:100
+G_CRT_IDS_TEMP_TABLE:Y
+G_CRT_IDTAB_BOTH_SITE:Y
+G_ARCH_INS_HINT:APPEND
+G_SHOW_ZERO_CNT_TAB:TRUE
+------------------------------ 
+CREATE TABLE ARCH_IDS_$4 AS SELECT r.request_id FROM os_form_request r WHERE r.subsystem_code <> 'PM' AND r.sys_create_time < ADD_MONTHS(SYSDATE,- '12')
+SELECT COUNT(*) FROM OS_FORM_DISTRIBUTION pt WHERE pt.source_record_fk in
+       (SELECT v.os_form_version_pk
+          FROM OS_FORM_VERSION v,
+               OS_CRYSTAL_TRIGGER c
+         WHERE v.os_crystal_trigger_fk = c.os_crystal_trigger_pk
+           AND c.request_id IN (SELECT request_id FROM ARCH_IDS_$4)
+         UNION
+        SELECT bq.os_bundle_queue_pk
+          FROM OS_BUNDLE_QUEUE bq
+         WHERE bq.request_id IN (SELECT request_id FROM ARCH_IDS_$4))
+Table: OS_FORM_DISTRIBUTION - 42 Rows will Purge. Estimated space: 9.6797(KB).
+SELECT COUNT(*) FROM OS_FORM_VERSION pt WHERE pt.os_crystal_trigger_fk in
+       (SELECT os_crystal_trigger_pk
+          FROM OS_CRYSTAL_TRIGGER c
+         WHERE c.request_id IN (SELECT request_id FROM ARCH_IDS_$4))
+Table: OS_FORM_VERSION - 14 Rows will Purge. Estimated space: 2.5156(KB).
+SELECT COUNT(*) FROM OS_FORM_TRIGGER_PARAM pt WHERE pt.os_crystal_trigger_fk in
+      (SELECT os_crystal_trigger_pk
+         FROM OS_CRYSTAL_TRIGGER c
+        WHERE c.request_id IN (SELECT request_id FROM ARCH_IDS_$4))
+Table: OS_FORM_TRIGGER_PARAM - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM OS_QUEST_EXTRACT pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$4)
+Table: OS_QUEST_EXTRACT - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM OS_CRYSTAL_TRIGGER_PRINTLOG pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$4)
+Table: OS_CRYSTAL_TRIGGER_PRINTLOG - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM OS_CRYSTAL_TRIGGER pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$4)
+Table: OS_CRYSTAL_TRIGGER - 14 Rows will Purge. Estimated space: 3.2402(KB).
+SELECT COUNT(*) FROM OS_BUNDLE_QUEUE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$4)
+Table: OS_BUNDLE_QUEUE - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM OS_REQUEST_QUEUE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$4)
+Table: OS_REQUEST_QUEUE - 14 Rows will Purge. Estimated space: 1.0938(KB).
+SELECT COUNT(*) FROM OS_REQUEST_DETAIL pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$4)
+Table: OS_REQUEST_DETAIL - 14 Rows will Purge. Estimated space: 1.668(KB).
+SELECT COUNT(*) FROM OS_FORM_REQUEST pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$4)
+Table: OS_FORM_REQUEST - 18 Rows will Purge. Estimated space: 2.1797(KB).
+RENAME ARCH_IDS_$4 TO ARCH_IDS_$4_042418164249
+OASIS Purge process Completed on 04/24/2018 16:42:49
+===================================REPORT END===================================================
+
+===================================REPORT START=================================================
+OASIS Purge process Started on 04/24/2018 16:42:49
+------------------------------ 
+***    Input Parameters    *** 
+------------------------------ 
+p_arch_id       : XTARCH
+p_arch_sql_type : BYMONTHS
+p_params        : ^param1^12^
+p_preview       : Y
+p_to_email_addr : 
+------------------------------ 
+***    Session Variable    *** 
+------------------------------ 
+G_WEEKENDS:,SAT,SUN,
+G_WEEKDAY_START_HOUR:6
+G_WEEKDAY_STOP_HOUR:22
+G_STOP_ROW_LIMIT:1000
+G_RUN_WEEKDAY_CHK:Y
+G_RUN_DEPEND_CHK:Y
+G_RUN_PARENT_CHK:Y
+G_RUN_ARCH_CHK:Y
+G_RUN_DELTRG_OPT:C
+G_RUN_INSTRG_OPT:C
+G_RUN_INST_CHK:Y
+G_TABLE_ALIAS:pt
+G_ARCHIVE_SCHEMA_TAG:{archive_schema}
+G_ARCH_DBLINK_TAG:{archive_dblink}
+G_SRC_DBLINK_TAG:{source_dblink}
+G_OASIS_DBLINK_TAG:{oasis_dblink}
+G_SRC_SCHEMA_TAG:{source_schema}
+G_ARCH_LISTCOL_TAG:{list of columns}
+G_LIST_OF_IDS_TAG:{list of ids}
+G_COPY_ONLY:N
+G_ARCH_CHK_TAB_ROWS:Y
+G_SENDER_EMAIL:noreply_oasis_archive@delphi-tech.com
+G_EMAIL_SUBJECT:
+G_EMAIL_BODY:OASIS Archive/Restore Log.
+G_EMAIL_FILE_NAME:archivie_log.txt
+G_PACKAGE_CNT:100
+G_CRT_IDS_TEMP_TABLE:Y
+G_CRT_IDTAB_BOTH_SITE:Y
+G_ARCH_INS_HINT:APPEND
+G_SHOW_ZERO_CNT_TAB:TRUE
+------------------------------ 
+CREATE TABLE ARCH_IDS_$21 AS SELECT p.request_id FROM transaction_log t, xt_policy p WHERE t.transaction_log_pk = p.transaction_fk AND LEAST(t.accounting_date, t.effective_from_date, t.sys_create_time) < ADD_MONTHS(SYSDATE,- '12')
+SELECT COUNT(*) FROM XT_UW_TEAM_MEMBER pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_UW_TEAM_MEMBER - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_TAIL_QUOTE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_TAIL_QUOTE - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_SUB_COVERAGE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_SUB_COVERAGE - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_SPECIAL_HANDLING pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_SPECIAL_HANDLING - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_SCHEDULE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_SCHEDULE - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_RISK_RELATION pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_RISK_RELATION - 7308 Rows will Purge. Estimated space: 834.9961(KB).
+SELECT COUNT(*) FROM XT_RISK_ALL pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_RISK_ALL - 698523 Rows will Purge. Estimated space: 111190.6729(KB).
+SELECT COUNT(*) FROM XT_RISK pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_RISK - 525943 Rows will Purge. Estimated space: 167952.501(KB).
+SELECT COUNT(*) FROM XT_PRIOR_TERM pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_PRIOR_TERM - 10 Rows will Purge. Estimated space: .8301(KB).
+SELECT COUNT(*) FROM XT_PREMIUM_TAX pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_PREMIUM_TAX - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_PREMIUM_BY_PMT pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_PREMIUM_BY_PMT - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_POLICY_UNDERLYING_INFO pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_POLICY_UNDERLYING_INFO - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_POLICY_REINSURANCE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_POLICY_REINSURANCE - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_ENTITY_MODULE_EMAIL pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_ENTITY_MODULE_EMAIL - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_ELECTRONIC_DISTRIBUTION pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_ELECTRONIC_DISTRIBUTION - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_POLICY_COMPONENT pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_POLICY_COMPONENT - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_POLICY pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_POLICY - 5202 Rows will Purge. Estimated space: 1747.5469(KB).
+SELECT COUNT(*) FROM XT_PM_FM_CHARGE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_PM_FM_CHARGE - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_PHONE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_PHONE - 16617 Rows will Purge. Estimated space: 2028.4424(KB).
+SELECT COUNT(*) FROM XT_PCF pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_PCF - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_NATIONAL_PROGRAM pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_NATIONAL_PROGRAM - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_NAME pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_NAME - 1234227 Rows will Purge. Estimated space: 166331.373(KB).
+SELECT COUNT(*) FROM XT_MINITAIL pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_MINITAIL - 26141 Rows will Purge. Estimated space: 3216.5684(KB).
+SELECT COUNT(*) FROM XT_MANU_ENDORSEMENT_DTL pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_MANU_ENDORSEMENT_DTL - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_MANUSCRIPT_ENDORSEMENT pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_MANUSCRIPT_ENDORSEMENT - 47770 Rows will Purge. Estimated space: 6297.8027(KB).
+SELECT COUNT(*) FROM XT_IBNR_INACTIVE_RISK pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_IBNR_INACTIVE_RISK - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_FTE_RELATION pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_FTE_RELATION - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_FINANCE_SCHED pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_FINANCE_SCHED - 59910 Rows will Purge. Estimated space: 7079.209(KB).
+CREATE TABLE ARCH_IDS_$22 AS SELECT m.xt_finance_master_pk FROM xt_finance_master m, transaction_log t, xt_policy p WHERE m.request_id = p.request_id AND t.transaction_log_pk = p.transaction_fk AND LEAST(t.accounting_date, t.effective_from_date, t.sys_create_time) < ADD_MONTHS(SYSDATE,- '12')
+SELECT COUNT(*) FROM XT_FINANCE_DETAIL pt WHERE pt.xt_finance_master_fk IN (SELECT xt_finance_master_pk FROM ARCH_IDS_$22)
+Table: XT_FINANCE_DETAIL - 11478 Rows will Purge. Estimated space: 907.9277(KB).
+SELECT COUNT(*) FROM XT_FINANCE_MASTER pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_FINANCE_MASTER - 1939 Rows will Purge. Estimated space: 225.333(KB).
+SELECT COUNT(*) FROM XT_FEE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_FEE - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_ENT_PREM_CONTRIB pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_ENT_PREM_CONTRIB - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_COV_PART_COMPONENT pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_COV_PART_COMPONENT - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_COVERAGE_RELATED_ENTITY pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_COVERAGE_RELATED_ENTITY - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_COVERAGE_PART pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_COVERAGE_PART - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_COVERAGE_ALL pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_COVERAGE_ALL - 736803 Rows will Purge. Estimated space: 115125.4688(KB).
+SELECT COUNT(*) FROM XT_COVERAGE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_COVERAGE - 529311 Rows will Purge. Estimated space: 129226.3184(KB).
+SELECT COUNT(*) FROM XT_COMPONENT pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_COMPONENT - 173739 Rows will Purge. Estimated space: 26807.3848(KB).
+SELECT COUNT(*) FROM XT_COI_HOLDER pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_COI_HOLDER - 349 Rows will Purge. Estimated space: 56.2354(KB).
+SELECT COUNT(*) FROM XT_CLAIM_SUMMARY pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_CLAIM_SUMMARY - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_CLAIM_PARM pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_CLAIM_PARM - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_CLAIM pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_CLAIM - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_CHG_ON_TRANS pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_CHG_ON_TRANS - 19012 Rows will Purge. Estimated space: 2042.3047(KB).
+SELECT COUNT(*) FROM XT_BINDER pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_BINDER - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_BILL_RELCHG pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_BILL_RELCHG - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_BILLING_RELATION pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_BILLING_RELATION - 96842 Rows will Purge. Estimated space: 12483.5391(KB).
+SELECT COUNT(*) FROM XT_AGENT pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_AGENT - 3 Rows will Purge. Estimated space: .3486(KB).
+CREATE TABLE ARCH_IDS_$23 AS SELECT a.xt_addtional_insured_pk FROM xt_addtional_insured a, transaction_log t, xt_policy p WHERE a.request_id = p.request_id AND t.transaction_log_pk = p.transaction_fk AND LEAST(t.accounting_date, t.effective_from_date, t.sys_create_time) < ADD_MONTHS(SYSDATE,- '12')
+SELECT COUNT(*) FROM XT_ADDTL_INSURED_DETAIL pt WHERE pt.xt_additional_insured_fk IN (SELECT xt_addtional_insured_pk FROM ARCH_IDS_$23)
+Table: XT_ADDTL_INSURED_DETAIL - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_ADDTIONAL_INSURED pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_ADDTIONAL_INSURED - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM XT_ADDRESS pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$21)
+Table: XT_ADDRESS - 1247930 Rows will Purge. Estimated space: 220581.377(KB).
+RENAME ARCH_IDS_$21 TO ARCH_IDS_$21_042418164250
+RENAME ARCH_IDS_$22 TO ARCH_IDS_$22_042418164250
+RENAME ARCH_IDS_$23 TO ARCH_IDS_$23_042418164250
+OASIS Purge process Completed on 04/24/2018 16:42:50
+===================================REPORT END===================================================
+
+===================================REPORT START=================================================
+OASIS Purge process Started on 04/24/2018 16:42:48
+------------------------------ 
+***    Input Parameters    *** 
+------------------------------ 
+p_arch_id       : OSARCH
+p_arch_sql_type : BYMONTHS
+p_params        : ^param1^12^
+p_preview       : Y
+p_to_email_addr : 
+------------------------------ 
+***    Session Variable    *** 
+------------------------------ 
+G_WEEKENDS:,SAT,SUN,
+G_WEEKDAY_START_HOUR:6
+G_WEEKDAY_STOP_HOUR:22
+G_STOP_ROW_LIMIT:1000
+G_RUN_WEEKDAY_CHK:N
+G_RUN_DEPEND_CHK:Y
+G_RUN_PARENT_CHK:Y
+G_RUN_ARCH_CHK:Y
+G_RUN_DELTRG_OPT:D
+G_RUN_INSTRG_OPT:C
+G_RUN_INST_CHK:Y
+G_TABLE_ALIAS:pt
+G_ARCHIVE_SCHEMA_TAG:{archive_schema}
+G_ARCH_DBLINK_TAG:{archive_dblink}
+G_SRC_DBLINK_TAG:{source_dblink}
+G_OASIS_DBLINK_TAG:{oasis_dblink}
+G_SRC_SCHEMA_TAG:{source_schema}
+G_ARCH_LISTCOL_TAG:{list of columns}
+G_LIST_OF_IDS_TAG:{list of ids}
+G_COPY_ONLY:N
+G_ARCH_CHK_TAB_ROWS:Y
+G_SENDER_EMAIL:noreply_oasis_archive@delphi-tech.com
+G_EMAIL_SUBJECT:
+G_EMAIL_BODY:OASIS Archive/Restore Log.
+G_EMAIL_FILE_NAME:archivie_log.txt
+G_PACKAGE_CNT:100
+G_CRT_IDS_TEMP_TABLE:Y
+G_CRT_IDTAB_BOTH_SITE:Y
+G_ARCH_INS_HINT:APPEND
+G_SHOW_ZERO_CNT_TAB:TRUE
+------------------------------ 
+CREATE TABLE ARCH_IDS_$1 AS SELECT r.request_id FROM transaction_log t, os_form_request r WHERE t.transaction_log_pk = r.transaction_log_fk AND LEAST(t.accounting_date, t.effective_from_date, t.sys_create_time) < ADD_MONTHS(SYSDATE,- '12')
+SELECT COUNT(*) FROM OS_FORM_DISTRIBUTION pt WHERE pt.source_record_fk in
+       (SELECT v.os_form_version_pk
+          FROM OS_FORM_VERSION v,
+               OS_CRYSTAL_TRIGGER c
+         WHERE v.os_crystal_trigger_fk = c.os_crystal_trigger_pk
+           AND c.request_id IN (SELECT request_id FROM ARCH_IDS_$1)
+         UNION
+        SELECT bq.os_bundle_queue_pk
+          FROM OS_BUNDLE_QUEUE bq
+         WHERE bq.request_id IN (SELECT request_id FROM ARCH_IDS_$1))
+Table: OS_FORM_DISTRIBUTION - 5805 Rows will Purge. Estimated space: 1337.8711(KB).
+SELECT COUNT(*) FROM OS_FORM_VERSION pt WHERE pt.os_crystal_trigger_fk in
+       (SELECT os_crystal_trigger_pk
+          FROM OS_CRYSTAL_TRIGGER c
+         WHERE c.request_id IN (SELECT request_id FROM ARCH_IDS_$1))
+Table: OS_FORM_VERSION - 5640 Rows will Purge. Estimated space: 1013.4375(KB).
+SELECT COUNT(*) FROM OS_FORM_TRIGGER_PARAM pt WHERE pt.os_crystal_trigger_fk in
+      (SELECT os_crystal_trigger_pk
+         FROM OS_CRYSTAL_TRIGGER c
+        WHERE c.request_id IN (SELECT request_id FROM ARCH_IDS_$1))
+Table: OS_FORM_TRIGGER_PARAM - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM OS_QUEST_EXTRACT pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$1)
+Table: OS_QUEST_EXTRACT - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM OS_CRYSTAL_TRIGGER_PRINTLOG pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$1)
+Table: OS_CRYSTAL_TRIGGER_PRINTLOG - 0 Rows will Purge. Estimated space: 0(KB).
+SELECT COUNT(*) FROM OS_CRYSTAL_TRIGGER pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$1)
+Table: OS_CRYSTAL_TRIGGER - 5640 Rows will Purge. Estimated space: 1305.3516(KB).
+SELECT COUNT(*) FROM OS_BUNDLE_QUEUE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$1)
+Table: OS_BUNDLE_QUEUE - 132 Rows will Purge. Estimated space: 26.4258(KB).
+SELECT COUNT(*) FROM OS_REQUEST_QUEUE pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$1)
+Table: OS_REQUEST_QUEUE - 5640 Rows will Purge. Estimated space: 440.625(KB).
+SELECT COUNT(*) FROM OS_REQUEST_DETAIL pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$1)
+Table: OS_REQUEST_DETAIL - 5640 Rows will Purge. Estimated space: 671.9531(KB).
+SELECT COUNT(*) FROM OS_FORM_REQUEST pt WHERE pt.request_id IN (SELECT request_id FROM ARCH_IDS_$1)
+Table: OS_FORM_REQUEST - 226 Rows will Purge. Estimated space: 27.3672(KB).
+RENAME ARCH_IDS_$1 TO ARCH_IDS_$1_042418164249
+OASIS Purge process Completed on 04/24/2018 16:42:49
+===================================REPORT END===================================================
