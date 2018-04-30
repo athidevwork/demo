@@ -213,12 +213,10 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
           FETCH v_validate_cursor INTO v_ohc_record; --fetch a row in it
           EXIT WHEN v_validate_cursor%NOTFOUND;
 
-          --validate_xtf(category, v_ohc_record);
-          --validate_ods(category, v_ohc_record);
-          --validate_os(category, v_ohc_record);
-
           oasis_health_check_output.validate_ods_parm(category, v_ohc_record, v_run_date_str);
           oasis_health_check_output.validate_os_parm(category, v_ohc_record, v_run_date_str);
+          
+          oasis_health_check_policy.validate_pm_parm(category, v_ohc_record, v_run_date_str);
        END LOOP;
       CLOSE v_validate_cursor;
     END;
@@ -317,9 +315,8 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
 
   PROCEDURE perform_ohc_validations IS
   BEGIN
-      --check_parms('INFO', 'ODS', ods_sys_parms);
-      --check_parms('INFO', 'OS', os_sys_parms);
       oasis_health_check_output.main;
+      oasis_health_check_policy.main;
   END perform_ohc_validations;
 
   PROCEDURE validate_yesno_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2, 

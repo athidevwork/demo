@@ -24,6 +24,12 @@ CREATE OR REPLACE PACKAGE oasis_health_check_policy
   g_trace   BOOLEAN := FALSE; -- To turn output on/off for debug purposes.
   g_updated BOOLEAN := FALSE; -- To turn output on/off for heatlh check table being altered.
 
+  PROCEDURE main;
+  
+  PROCEDURE validate_pm_parm(category VARCHAR2,
+                              v_ohc_record oasis_health_check_main.oasis_health_check_type,
+                              v_run_date VARCHAR2);
+                              
 END oasis_health_check_policy;
 /
 CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
@@ -48,7 +54,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
   -- === Types.
   -- === Variables of user-defined Types.
   -- === Cursors.
-    pm_sys_parms VARCHAR2(200) := '''ODS_INSTALLED'', ''ODS_VERSION''';
+    pm_sys_parms VARCHAR2(200) := '''PM_CHECK_NOTICE''';
 
   /**************************************************************************
   * pl
@@ -71,20 +77,11 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
   v_update_stmt VARCHAR2(500);
   BEGIN
     BEGIN
-      --pl ('value : '|| v_ohc_record.VALUE);
-        v_parm := 'ODS_INSTALLED';      
-        IF (v_ohc_record.NAME =  v_parm) THEN
-           IF (v_ohc_record.VALUE <> 'Y') THEN
-              oasis_health_check_main.update_ohc_outcome(v_parm, v_sub_system, category,
-                                 v_run_date,'REVIEW', 'Should be set to Y');
-           ELSIF (v_ohc_record.VALUE = 'Y') THEN
-              oasis_health_check_main.update_ohc_outcome(v_parm, v_sub_system, category, 
-                                 v_run_date,'OK', '');
-           ELSE
-              oasis_health_check_main.update_ohc_outcome(v_parm, v_sub_system, category, 
-                                 v_run_date,'REVIEW', v_parm || ' parameter not set.');
-           END IF;
-         END IF;
+      IF (v_ohc_record.VALUE IS NOT NULL) THEN
+         oasis_health_check_main.validate_yesno_parm(v_ohc_record.NAME, v_ohc_record.VALUE, 
+                                 'PM_CHECK_NOTICE', v_sub_system, category,v_run_date, 
+                                 'Should be set to Y');
+       END IF;
     END;
   END validate_pm_parm;
   
@@ -94,8 +91,8 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
   PROCEDURE main IS
   BEGIN
     BEGIN
-      pl ('PM paramaters');
-      --oasis_health_check_main.check_parms('INFO', 'PM', pm_sys_parms);
+      --pl ('PM paramaters');
+      oasis_health_check_main.check_parms('INFO', v_sub_system, 'PM', pm_sys_parms);
     END;
   END main;
   
