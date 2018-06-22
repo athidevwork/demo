@@ -15,8 +15,8 @@ SPOOL &1
 
 set termout off
 
-prompt "PK","DATE","LEVEL","CATEGORY","STATUS","STATUS MESSAGE","PARAMETER NAME","PARAMETER VALUE","STATUS","STATUS MESSAGE","PARAMETER DESCRIPTION"
-SELECT o.ohc_pk||','||o.ohc_date||','||o.ohc_level||','||o.ohc_category||','||o.ohc_status||','||o.ohc_status_msg||','||o.parm_name||','||o.parm_value||','||o.parm_desc
+prompt "PK","DATE","LEVEL","SUB SYSTEM","CATEGORY","STATUS","STATUS MESSAGE","PARAMETER NAME","PARAMETER VALUE","STATUS","STATUS MESSAGE","PARAMETER DESCRIPTION"
+SELECT o.ohc_pk||','||o.run_date||','||o.ohc_level||','||o.sub_system||','||o.ohc_category||','||o.status||','||o.msg||','||o.parm_name||','||o.parm_value||','||o.parm_desc
 FROM oasis_health_check o
 order by o.ohc_pk;
 

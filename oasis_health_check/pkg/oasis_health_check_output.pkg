@@ -27,11 +27,11 @@ CREATE OR REPLACE PACKAGE oasis_health_check_output
   PROCEDURE main;
 
   PROCEDURE validate_ods_parm(category VARCHAR2,
-                              v_ohc_record oasis_health_check_main.oasis_health_check_type,
-                              v_run_date VARCHAR2);
+                            v_ohc_record oasis_health_check_main.oasis_health_check_type,
+                            v_run_date VARCHAR2);
   PROCEDURE validate_os_parm(category VARCHAR2,
-                              v_ohc_record oasis_health_check_main.oasis_health_check_type,
-                              v_run_date VARCHAR2);
+                             v_ohc_record oasis_health_check_main.oasis_health_check_type,
+                             v_run_date VARCHAR2);
 
 END oasis_health_check_output;
 /
@@ -52,7 +52,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
   v_sub_system VARCHAR2(25) := 'OUTPUT';
   v_ok VARCHAR2(2) := 'OK';
   v_review VARCHAR2(7) := 'REVIEW';
-  v_parm VARCHAR2(25);  
+  v_parm VARCHAR2(25);
 
   -- === Constants: <ConstantName> CONSTANT <DataType> := <Value>;
   -- === Types.
@@ -69,9 +69,9 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
   PROCEDURE pl(s IN VARCHAR2) IS
   BEGIN
     IF g_trace=TRUE THEN
-      dbms_output.enable(500000);
-      dbms_output.put_line(substr(s, 1, 255));
-      --dbms_output.put_line(s);
+      dbms_output.enable(1000000);
+      --dbms_output.put_line(substr(s, 1, 255));
+      dbms_output.put_line(s);
     END IF;
   END pl;
 
@@ -81,18 +81,39 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
   v_update_stmt VARCHAR2(500);
   BEGIN
     BEGIN
-      --pl ('value : '|| v_ohc_record.VALUE);
       IF (v_ohc_record.VALUE IS NOT NULL) THEN
-         oasis_health_check_main.validate_yesno_parm(v_ohc_record.NAME, v_ohc_record.VALUE, 
-                                 'ODS_INSTALLED', v_sub_system, category,v_run_date, 
+         oasis_health_check_main.validate_yesno_parm(v_ohc_record.NAME, v_ohc_record.VALUE,
+                                 'ODS_INSTALLED', v_sub_system, category,v_run_date,
                                  'Should be set to Y');
-         
-         oasis_health_check_main.validate_float_xx_parm(v_ohc_record.NAME, v_ohc_record.VALUE, 
-                       'ODS_VERSION',v_sub_system, category,v_run_date, 
+
+         oasis_health_check_main.validate_float_xx_parm(v_ohc_record.NAME, v_ohc_record.VALUE,
+                       'ODS_VERSION',v_sub_system, category,v_run_date,
                        'Value should be 2.1', '2.1');
-       END IF;
+      END IF;
     END;
   END validate_ods_parm;
+  
+  procedure validate_os_sort_form(category in VARCHAR2, v_ohc_record in oasis_health_check_main.oasis_health_check_type, v_run_date in VARCHAR2) is
+  begin
+    v_parm := 'OS_SORT_FORM';
+    IF (v_ohc_record.NAME =  v_parm) THEN
+       IF (v_ohc_record.VALUE <> 'Y') THEN
+          oasis_health_check_main.update_ohc_outcome(v_parm, v_sub_system, category,
+                      v_run_date, v_review, 'Should be set to Y');
+       ELSIF (v_ohc_record.VALUE = 'Y') THEN
+          IF oasis_health_check_main.doJobsExist = 'Y' THEN
+            oasis_health_check_main.update_ohc_outcome(v_parm, v_sub_system, category,
+                      v_run_date, v_ok, '');
+          ELSE
+            oasis_health_check_main.update_ohc_outcome(v_parm, v_sub_system, category,
+                      v_run_date, v_review, 'DBA jobs do not exist for End of Day Jobs');
+          END IF;
+       ELSE
+          oasis_health_check_main.update_ohc_outcome(v_parm, category, v_run_date,
+                       v_review, v_parm||' parameter not set.');
+       END IF;
+     END IF;
+  end validate_os_sort_form;
 
   PROCEDURE validate_os_parm(category VARCHAR2,
                              v_ohc_record oasis_health_check_main.oasis_health_check_type,
@@ -101,33 +122,16 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
   BEGIN
     BEGIN
       IF (v_ohc_record.VALUE IS NOT NULL) THEN
-        v_parm := 'OS_SORT_FORM';
-        IF (v_ohc_record.NAME =  v_parm) THEN
-           IF (v_ohc_record.VALUE <> 'Y') THEN
-              oasis_health_check_main.update_ohc_outcome(v_parm, v_sub_system, category, 
-                          v_run_date, v_review, 'Should be set to Y');
-           ELSIF (v_ohc_record.VALUE = 'Y') THEN
-              IF oasis_health_check_main.doJobsExist = 'Y' THEN
-                oasis_health_check_main.update_ohc_outcome(v_parm, v_sub_system, category, 
-                          v_run_date, v_ok, '');
-              ELSE
-                oasis_health_check_main.update_ohc_outcome(v_parm, v_sub_system, category, 
-                          v_run_date, v_review, 'DBA jobs do not exist for End of Day Jobs');
-              END IF;
-           ELSE
-              oasis_health_check_main.update_ohc_outcome(v_parm, category, v_run_date,
-                           v_review, v_parm||' parameter not set.');
-           END IF;
-         END IF;
+        validate_os_sort_form(category, v_ohc_record, v_run_date);
 
-         oasis_health_check_main.validate_integer_parm(v_ohc_record.NAME, v_ohc_record.VALUE, 
-                                 'OS_DIRECTORY_SIZE',v_sub_system, category,v_run_date, 
+        oasis_health_check_main.validate_integer_parm(v_ohc_record.NAME, v_ohc_record.VALUE,
+                                 'OS_DIRECTORY_SIZE',v_sub_system, category,v_run_date,
                                  'Should be set to 1000 for optimal performance', '1000');
-                                 
-         oasis_health_check_main.validate_string_parm(v_ohc_record.NAME, v_ohc_record.VALUE, 
-                                 'OS_APP_DATE_TO_DIR',v_sub_system, category,v_run_date, 
+
+        oasis_health_check_main.validate_string_parm(v_ohc_record.NAME, v_ohc_record.VALUE,
+                                 'OS_APP_DATE_TO_DIR',v_sub_system, category,v_run_date,
                                  'Should be set to YYYYMM', 'YYYYMM');
-       END IF;
+      END IF;
     END;
   END validate_os_parm;
 

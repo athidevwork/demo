@@ -16,9 +16,9 @@ SPOOL &1
 set termout off
 
 prompt "PARAMETER NAME","PARAMETER VALUE","STATUS","STATUS MESSAGE","PARAMETER DESCRIPTION"
-SELECT o.parm_name||','||o.parm_value||','||o.ohc_status||','||o.ohc_status_msg||','||o.parm_desc
+SELECT o.parm_name||','||o.parm_value||','||o.status||','||o.msg||','||o.parm_desc
 FROM oasis_health_check o
-WHERE o.ohc_date = '&&2'
+WHERE o.run_date = '&&2'
 order by o.parm_name;
 
 SPOOL OFF

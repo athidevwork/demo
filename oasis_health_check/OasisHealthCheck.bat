@@ -28,6 +28,8 @@ GOTO:END_CASE
   echo sqlplus.exe %oracleSchema% %installScriptName%
   sqlplus.exe %oracleSchema% %installScriptName%
   sqlplus.exe %oracleSchema% %packageInstallScriptName%
+  echo Running install again to clean up errors on previous install
+  sqlplus.exe %oracleSchema% %packageInstallScriptName%
   GOTO:END_CASE
 :CASE_uninstall
   echo sqlplus.exe %oracleSchema% %uninstallScriptName%

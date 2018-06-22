@@ -25,9 +25,10 @@ CREATE OR REPLACE PACKAGE oasis_health_check_main
   g_updated BOOLEAN := FALSE; -- To turn output on/off for heatlh check table being altered.
 
   TYPE oasis_health_check_type IS RECORD (
-   pk      number(15),
-   NAME    varchar2(50),
-   VALUE   varchar2(200)
+   pk         number(15),
+   SUB_SYSTEM varchar2(25),
+   NAME       varchar2(50),
+   VALUE      varchar2(200)
   );
   v_ohc_record    oasis_health_check_type;
 
@@ -36,36 +37,27 @@ CREATE OR REPLACE PACKAGE oasis_health_check_main
 
   FUNCTION doJobsExist
     RETURN VARCHAR2 DETERMINISTIC PARALLEL_ENABLE;
-  
-  /*TYPE oasis_health_check_result IS RECORD (
-   SUBSYSTEM    varchar2(25),
-   CATEGORY   varchar2(25),
-   STATUS     VARCHAR2(25),
-   TESTS      NUMBER(3)
-  ); 
-  TYPE ohc_result_type IS TABLE OF oasis_health_check_result;
-  FUNCTION get_stats RETURN ohc_result_type PIPELINED;*/
-  
-  PROCEDURE validate_yesno_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2, 
-                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2, 
+
+  PROCEDURE validate_yesno_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
+                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
                                  msg VARCHAR2);
 
-  PROCEDURE validate_string_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2, 
-                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2, 
-                                 msg VARCHAR2, exp_value VARCHAR2);
-                                 
-  PROCEDURE validate_integer_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2, 
-                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2, 
+  PROCEDURE validate_string_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
+                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
                                  msg VARCHAR2, exp_value VARCHAR2);
 
-  PROCEDURE validate_float_xx_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2, 
-                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2, 
+  PROCEDURE validate_integer_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
+                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
                                  msg VARCHAR2, exp_value VARCHAR2);
-                                                                                                   
-  PROCEDURE update_ohc_outcome(parm VARCHAR2, subsystem VARCHAR2, category VARCHAR2, 
+
+  PROCEDURE validate_float_xx_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
+                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
+                                 msg VARCHAR2, exp_value VARCHAR2);
+
+  PROCEDURE update_ohc_outcome(parm VARCHAR2, subsystem VARCHAR2, category VARCHAR2,
                                run_date VARCHAR2, outcome VARCHAR2, msg VARCHAR2 DEFAULT NULL);
 
-  PROCEDURE check_parms (plevel IN varchar2, subsystem IN VARCHAR2, category IN varchar2, 
+  PROCEDURE check_parms (plevel IN varchar2, subsystem IN VARCHAR2, category IN varchar2,
                          input_parms IN VARCHAR2);
 
   PROCEDURE main(recv_email_addr IN VARCHAR2);
@@ -89,7 +81,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
   v_run_date_str VARCHAR2(25) := TO_CHAR (v_run_date, 'MM/DD/YYYY HH24:MI:SS');
   v_ok VARCHAR2(2) := 'OK';
   v_review VARCHAR2(7) := 'REVIEW';
-  v_pending VARCHAR2(7) := 'PENDING';  
+  v_pending VARCHAR2(7) := 'PENDING';
 
   -- === Constants: <ConstantName> CONSTANT <DataType> := <Value>;
   -- === Types.
@@ -120,16 +112,16 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
   PROCEDURE pl(s IN VARCHAR2) IS
   BEGIN
     IF g_trace=TRUE THEN
-      dbms_output.enable(500000);
-      dbms_output.put_line(substr(s, 1, 255));
-      --dbms_output.put_line(s);
+      dbms_output.enable(1000000);
+      --dbms_output.put_line(substr(s, 1, 255));
+      dbms_output.put_line(s);
     END IF;
   END pl;
 
   PROCEDURE add_ohc_outcome (plevel IN varchar2, subsystem VARCHAR2, category IN varchar2,
                              pcode IN system_parameter_util.sysparm_code%TYPE,
                              pvalue IN system_parameter_util.sysparm_value%TYPE,
-                             pdesc IN system_parameter_util.sysparm_description%TYPE,                            
+                             pdesc IN system_parameter_util.sysparm_description%TYPE,
                              status VARCHAR2 DEFAULT NULL,
                              msg VARCHAR2 DEFAULT NULL) IS
   v_sql_stmt VARCHAR2(3000);
@@ -169,7 +161,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
     END;
   END add_ohc_outcome;
 
-  PROCEDURE get_system_param_util_for_parm (plevel IN varchar2, subsystem IN VARCHAR2, 
+  PROCEDURE get_system_param_util_for_parm (plevel IN varchar2, subsystem IN VARCHAR2,
                                             category IN varchar2, parm IN VARCHAR2) IS
   v_sql_stmt VARCHAR2(1000);
   v_seq number(15);
@@ -196,11 +188,11 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
   PROCEDURE validate_sys_param(category VARCHAR2) IS
   TYPE validate_cursor IS REF CURSOR;
   v_validate_cursor validate_cursor;
-  v_sql_stmt VARCHAR2(299);
+  v_sql_stmt VARCHAR2(3000);
   v_rowcount NUMBER(15);
   BEGIN
     BEGIN
-      v_sql_stmt := 'SELECT ohc_pk, parm_name, parm_value '||
+      v_sql_stmt := 'SELECT ohc_pk, sub_system, parm_name, parm_value '||
                     'FROM oasis_health_check '||
                     'WHERE ohc_category = ''' || category || ''' and run_date = ''' ||
                     v_run_date_str || '''';
@@ -213,16 +205,27 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
           FETCH v_validate_cursor INTO v_ohc_record; --fetch a row in it
           EXIT WHEN v_validate_cursor%NOTFOUND;
 
-          oasis_health_check_output.validate_ods_parm(category, v_ohc_record, v_run_date_str);
-          oasis_health_check_output.validate_os_parm(category, v_ohc_record, v_run_date_str);
-          
-          oasis_health_check_policy.validate_pm_parm(category, v_ohc_record, v_run_date_str);
+          /*v_sql_stmt := 'oasis_health_check_output.validate_ods_parm('||category||','||v_ohc_record||','||v_run_date_str||')';
+          EXECUTE IMMEDIATE v_sql_stmt;
+
+          v_sql_stmt := 'oasis_health_check_output.validate_os_parm('||category||','||v_ohc_record||','||v_run_date_str||')';
+          EXECUTE IMMEDIATE v_sql_stmt;
+
+          v_sql_stmt := 'oasis_health_check_policy.validate_pm_parm('||category||','||v_ohc_record||','||v_run_date_str||')';
+          EXECUTE IMMEDIATE v_sql_stmt;*/
+          IF (v_ohc_record.SUB_SYSTEM = 'OUTPUT') THEN
+            oasis_health_check_output.validate_ods_parm(category, v_ohc_record, v_run_date_str);
+            oasis_health_check_output.validate_os_parm(category, v_ohc_record, v_run_date_str);
+          END IF;
+          IF (v_ohc_record.SUB_SYSTEM = 'POLICY') THEN
+             oasis_health_check_policy.validate_pm_parm(category, v_ohc_record, v_run_date_str);
+          END IF;
        END LOOP;
       CLOSE v_validate_cursor;
     END;
   END validate_sys_param;
 
-  PROCEDURE check_parms (plevel IN varchar2, subsystem IN VARCHAR2, category IN varchar2, 
+  PROCEDURE check_parms (plevel IN varchar2, subsystem IN VARCHAR2, category IN varchar2,
                          input_parms IN VARCHAR2) IS
   v_sql_stmt VARCHAR2(1000);
   BEGIN
@@ -272,14 +275,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
       END IF;
   END doJobsExist;
 
-  PROCEDURE update_ohc_outcome(parm VARCHAR2, subsystem VARCHAR2, category VARCHAR2, 
+  PROCEDURE update_ohc_outcome(parm VARCHAR2, subsystem VARCHAR2, category VARCHAR2,
                                run_date VARCHAR2, outcome VARCHAR2, msg VARCHAR2 DEFAULT NULL) IS
   v_update_stmt VARCHAR2(500);
   BEGIN
     IF outcome = 'OK' THEN
       v_update_stmt := 'UPDATE oasis_health_check o '||
                        'SET o.status = ''OK'' ' ||
-                       'WHERE o.sub_system = ''' || subsystem || 
+                       'WHERE o.sub_system = ''' || subsystem ||
                        ''' AND o.ohc_category = ''' || category ||
                        ''' AND '||'o.run_date = '''||run_date||''''||
                        ' and o.parm_name = '''||parm||'''';
@@ -287,7 +290,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
       v_update_stmt := 'UPDATE oasis_health_check o '||
                        'SET o.status = ''REVIEW'' '||
                        ', o.msg = '''||msg||''''||
-                       'WHERE o.sub_system = ''' || subsystem || 
+                       'WHERE o.sub_system = ''' || subsystem ||
                        ''' AND o.ohc_category = ''' || category ||
                        ''' AND '|| 'o.run_date = '''||run_date||''''||
                        ' and o.parm_name = '''||parm||'''';
@@ -313,63 +316,57 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
     END;
   END send_email;
 
-  PROCEDURE perform_ohc_validations IS
-  BEGIN
-      oasis_health_check_output.main;
-      oasis_health_check_policy.main;
-  END perform_ohc_validations;
-
-  PROCEDURE validate_yesno_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2, 
-                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2, 
+  PROCEDURE validate_yesno_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
+                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
                                  msg VARCHAR2) IS
   BEGIN
-    IF (v_value IS NOT NULL) THEN        
+    IF (v_value IS NOT NULL) THEN
       IF (v_name =  v_parm) THEN
          IF (v_value<> 'Y') THEN
             update_ohc_outcome(v_parm, v_sub_system, category,v_run_date,v_review, msg);
          ELSIF (v_value = 'Y') THEN
             update_ohc_outcome(v_parm, v_sub_system, category,v_run_date,v_ok, msg);
          ELSE
-            update_ohc_outcome(v_parm, v_sub_system, category,v_run_date,v_review, 
+            update_ohc_outcome(v_parm, v_sub_system, category,v_run_date,v_review,
                                v_parm||' ' ||msg);
          END IF;
        END IF;
     END IF;
   END validate_yesno_parm;
 
-  PROCEDURE validate_string_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2, 
-                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2, 
+  PROCEDURE validate_string_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
+                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
                                  msg VARCHAR2, exp_value VARCHAR2) IS
   BEGIN
-    IF (v_value IS NOT NULL) THEN        
+    IF (v_value IS NOT NULL) THEN
       IF (v_name =  v_parm) THEN
          IF (v_value<> exp_value) THEN
             update_ohc_outcome(v_parm, v_sub_system, category, v_run_date,v_review, msg);
          ELSIF (v_value = exp_value) THEN
             update_ohc_outcome(v_parm, v_sub_system, category,v_run_date,v_ok, msg);
          ELSE
-            update_ohc_outcome(v_parm, v_sub_system, category,v_run_date,v_review, 
+            update_ohc_outcome(v_parm, v_sub_system, category,v_run_date,v_review,
                                v_parm||' ' ||msg);
          END IF;
        END IF;
     END IF;
   END validate_string_parm;
 
-  PROCEDURE validate_integer_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2, 
-                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2, 
+  PROCEDURE validate_integer_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
+                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
                                  msg VARCHAR2, exp_value VARCHAR2) IS
   BEGIN
-    IF (v_value IS NOT NULL) THEN        
+    IF (v_value IS NOT NULL) THEN
       IF (v_name =  v_parm) THEN
 	       IF is_number(v_value) = 'N' THEN
-          update_ohc_outcome(v_parm, v_sub_system, category, 
+          update_ohc_outcome(v_parm, v_sub_system, category,
                       v_run_date, v_review, v_parm||' parameter is not a number');
          ELSE
            IF (TO_NUMBER(v_value) = TO_NUMBER(exp_value)) THEN
-            update_ohc_outcome(v_parm, v_sub_system, category, 
+            update_ohc_outcome(v_parm, v_sub_system, category,
                         v_run_date, v_ok, '');
            ELSIF (TO_NUMBER(v_value) <> TO_NUMBER(exp_value) ) THEN
-            update_ohc_outcome(v_parm, v_sub_system, category, 
+            update_ohc_outcome(v_parm, v_sub_system, category,
                         v_run_date, v_review, 'Should be set to 1000 for optimal performance');
            ELSE
             update_ohc_outcome(v_parm, v_sub_system, category, v_run_date,
@@ -380,54 +377,45 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
     END IF;
   END validate_integer_parm;
 
-  PROCEDURE validate_float_xx_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2, 
-                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2, 
+  PROCEDURE validate_float_xx_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
+                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
                                  msg VARCHAR2, exp_value VARCHAR2) IS
   BEGIN
-    IF (v_value IS NOT NULL) THEN        
+    IF (v_value IS NOT NULL) THEN
       IF (v_name =  v_parm) THEN
            IF REGEXP_LIKE (v_value, '^\d+(\.\d+)?$', '') THEN
              IF (TO_NUMBER(v_value, '9.9') = TO_NUMBER(exp_value, '9.9')) THEN
               update_ohc_outcome(v_parm, v_sub_system, category, v_run_date, v_ok, '');
-             ELSIF (TO_NUMBER(v_value, '9.9') < TO_NUMBER(exp_value, '9.9') OR 
+             ELSIF (TO_NUMBER(v_value, '9.9') < TO_NUMBER(exp_value, '9.9') OR
                     TO_NUMBER(v_value, '9.9') > TO_NUMBER(exp_value, '9.9')) THEN
-              update_ohc_outcome(v_parm, v_sub_system, category, 
+              update_ohc_outcome(v_parm, v_sub_system, category,
                           v_run_date, v_review, 'Value should be 2.1');
              ELSE
-              update_ohc_outcome(v_parm, v_sub_system, category, 
+              update_ohc_outcome(v_parm, v_sub_system, category,
                           v_run_date,v_review, v_parm||' parameter not set or set to wrong value.');
              END IF;
           ELSE
-             update_ohc_outcome(v_parm, v_sub_system, category, 
+             update_ohc_outcome(v_parm, v_sub_system, category,
                           v_run_date, v_review, 'Not a decimal number');
            END IF;
        END IF;
     END IF;
   END validate_float_xx_parm;
-        
-  /*FUNCTION get_stats RETURN ohc_result_type PIPELINED IS
-  BEGIN
-    FOR row in (
-      select o.sub_system, o.ohc_category, o.status, count(*) as checks_count
-      from oasis_health_check o
-      where run_date=''||v_run_date_str||''
-      group by rollup (o.sub_system, o.ohc_category, o.status)
-    )
-    LOOP
-      PIPE ROW(row);
-    END LOOP;
-    RETURN;
-  END;*/
-    
+
   PROCEDURE get_ohc_stats IS
+    v_ss VARCHAR2(10);
     v_sub VARCHAR2(25);
     v_cat VARCHAR2(25);
     v_status VARCHAR2(25);
-    v_line VARCHAR2(3000);
+    v_line VARCHAR2(9000);
+    v_new_line VARCHAR2(25) := chr(13) || chr(10);
+    v_two_tabs VARCHAR2(25) := chr(9)||chr(9);
+    v_three_tabs VARCHAR2(25) := chr(9)||chr(9)||chr(9);
+    v_four_tabs VARCHAR2(25) := chr(9)||chr(9)||chr(9)||chr(9);
   BEGIN
-      v_line := chr(13) || chr(10) || 'OASIS Health Check Stats' || chr(13) || chr(10);
-      v_line := v_line || '------------------------' || chr(13) || chr(10);
-      v_line := v_line || 'SUB_SYSTEM'||chr(9)|| 'CATEGORY'||chr(9)||'STATUS'||chr(9)||'COUNT' || chr(13) || chr(10);
+      v_line := chr(13) || chr(10) || 'OASIS Health Check Stats' || v_new_line;
+      v_line := v_line || '------------------------' || v_new_line;
+      v_line := v_line || 'SUB_SYSTEM'||v_two_tabs|| 'CATEGORY'||v_two_tabs||'STATUS'||v_two_tabs||'COUNT' || v_new_line;
 
       FOR row in (
         select o.sub_system, o.ohc_category, o.status, count(*) as checks_count
@@ -436,17 +424,18 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
         group by rollup (o.sub_system, o.ohc_category, o.status)
       )
       LOOP
-        IF (row.sub_system IS NULL and row.ohc_category is null AND row.status IS NULL) THEN        
+        IF (row.sub_system IS NULL and row.ohc_category is null AND row.status IS NULL) THEN
           v_sub := 'TOTAL';
           v_cat := 'CHECKS';
           v_status := 'RUN';
         ELSIF (row.ohc_category is null AND row.status IS NULL) THEN
           v_cat := '   ';
-          v_status := '   ';
+          v_status := 'TOTAL';
+          v_ss := 'Y';
         ELSIF (row.status IS NULL) then
           IF (row.ohc_category IS NULL) THEN
             v_status := '   ';
-            v_cat := 'TOTAL';           
+            v_cat := 'TOTAL';
           ELSE
             v_status := 'TOTAL';
           END IF;
@@ -455,18 +444,27 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
           v_sub := row.sub_system;
           v_status := row.status;
         END IF;
-        pl('start='||row.sub_system || ',' ||row.ohc_category || ',' || row.status || ',' || row.checks_count);
 
-        --PIPE ROW(row);
-        v_line := v_line ||lpad(v_sub, 6)||chr(9)|| lpad(v_cat, 5)||chr(9)||lpad(v_status, 7)||chr(9)||lpad(row.checks_count, 2) || chr(13) || chr(10);
-        pl(v_sub || ',' || v_cat || ',' || v_status || ',' || row.checks_count);
-        pl(v_line);
-        pl('----------------------------------------------');
+        v_line := v_line ||lpad(v_sub, 6)||v_three_tabs
+                  || lpad(v_cat, 6)||v_three_tabs
+                  || lpad(v_status, 7)||v_four_tabs
+                  || lpad(row.checks_count, 2) || v_new_line;
+
+        IF (v_ss = 'Y') THEN
+          v_line := v_line || v_new_line;
+        END IF;
+        v_ss := null;
         v_status := null;
       END LOOP;
       pl(v_line);
   END get_ohc_stats;
-  
+
+  PROCEDURE perform_ohc_validations IS
+  BEGIN
+      oasis_health_check_output.main;
+      oasis_health_check_policy.main;
+  END perform_ohc_validations;
+
   /**************************************************************************
   * Main
   ***************************************************************************/
