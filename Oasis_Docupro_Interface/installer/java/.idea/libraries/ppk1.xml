@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="ppk1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/resource/services/ppk/genericunixppk.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/resource/services/ppk/aixppk.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/resource/services/ppk/solarisppk.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/resource/services/ppk/macosxppk.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/resource/services/ppk/windowsppk.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/resource/services/ppk/hpuxppk.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/resource/services/ppk/linuxppk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

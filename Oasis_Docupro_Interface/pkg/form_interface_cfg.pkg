@@ -1,0 +1,933 @@
+CREATE OR REPLACE Package form_interface_cfg
+/****************************************************************************
+* DO NOT EDIT! Source control information.
+* ---------------------------------------------------------------------------
+* $Id: //DTI/DEV/OASIS-2018.1.0/oasis/db/cs/pkg/form_interface_cfg.pkg#2 $
+* $Change: 315865 $$DateTime: 2018/06/29 03:44:36 $$Author: amuthukumarasamy $
+*****************************************************************************/
+  AUTHID CURRENT_USER -- [ DO NOT EDIT! Invoker Rights Clause ]
+  IS
+/****************************************************************************
+*  Copyright(C) 2005-2010 - Delphi Technology Inc.
+*   File Name : form_interface_cfg.pkg
+* Object Name : form_interface_cfg package specification and body
+* Description : Creates  Form Interface config
+*  Created By : athi
+*  Created On : 06/29/2018
+*----------------------------------------------------------------------------
+* Revisions:
+*   Date    By  Purpose
+* -------- ---- -------------------------------------------------------------
+* 06/29/18  athi intial revision
+*****************************************************************************/
+  g_trace   BOOLEAN := FALSE; -- To turn output on/off for debug purposes.
+
+  PROCEDURE handle_spu_data (
+    p_formsengine_code       IN VARCHAR2,
+    p_formsengine_value      IN VARCHAR2,
+    p_xmldir_code            IN VARCHAR2,
+    p_xmldir_value           IN VARCHAR2
+  );
+  
+  PROCEDURE ghostdraft_os_form_intf_config(
+     p_gd_instance        IN VARCHAR2,
+     p_gd_document_svc    IN VARCHAR2,
+     p_gd_template_svc    IN VARCHAR2
+  );
+  
+  PROCEDURE eloquence_os_form_intf_config (
+    p_output_host                  IN VARCHAR2,
+    p_output_port                  IN VARCHAR2,
+    p_web_host                     IN VARCHAR2,
+    p_web_port                     IN VARCHAR2,
+    p_interactive                  IN VARCHAR2,
+    p_input_res_loc                IN VARCHAR2,
+    p_default_device               IN VARCHAR2,
+    p_map_file_name                IN VARCHAR2,
+    p_config_path                  IN VARCHAR2,
+    p_preview_archive_path         IN VARCHAR2,
+    p_preview_general_collection   IN VARCHAR2,
+    p_preview_general_entity       IN VARCHAR2,
+    p_preview_local_device         IN VARCHAR2,
+    p_preview_log_level            IN VARCHAR2,
+    p_preview_network_device       IN VARCHAR2,
+    p_preview_variable_set         IN VARCHAR2,
+    p_archive_path                 IN VARCHAR2,
+    p_general_collection           IN VARCHAR2,
+    p_general_entity               IN VARCHAR2,
+    p_local_device                 IN VARCHAR2,
+    p_log_level                    IN VARCHAR2,
+    p_network_device               IN VARCHAR2,
+    p_variable_set                 IN VARCHAR2,
+    p_cleanup_after_preview        IN VARCHAR2,
+    p_pms_collection               IN VARCHAR2,
+    p_pms_entity                   IN VARCHAR2,
+    p_fms_collection               IN VARCHAR2,
+    p_fms_entity                   IN VARCHAR2,
+    p_cms_collection               IN VARCHAR2,
+    p_cms_entity                   IN VARCHAR2,
+    p_rms_collection               IN VARCHAR2,
+    p_rms_entity                   IN VARCHAR2
+  );
+  
+  PROCEDURE copy_os_form_interface_cfg (
+     p_username        IN VARCHAR2,
+     p_password        IN VARCHAR2,
+     p_host            IN VARCHAR2,
+     p_sid             IN VARCHAR2,
+     p_port            IN VARCHAR2
+  );
+  
+  PROCEDURE display_eloquence_config;
+  
+  PROCEDURE display_ghostdraft_config;
+  
+  PROCEDURE display_os_form_interface_cfg;
+  
+  PROCEDURE display_system_parm_config;
+  
+  PROCEDURE get_sys_parm_cfg (
+    result_cursor OUT SYS_REFCURSOR
+  );
+  
+  PROCEDURE get_os_form_interface_cfg (
+    result_cursor OUT SYS_REFCURSOR
+  );
+End form_interface_cfg;
+/
+CREATE OR REPLACE Package Body form_interface_cfg
+is
+
+ -- Define Global variables
+  v_obj_name          CONSTANT VARCHAR2(30) := 'form_interface_cfg'; -- Oracle object name
+  v_msg_pref          CONSTANT VARCHAR2(20) := 'Error ';
+  v_msg                        VARCHAR2(4000); -- error/info message
+  v_line                       VARCHAR2(255);
+  v_not_implemented            VARCHAR2(1) := 'N';
+
+  /* Ghostdraft Configuration */
+  v_gd_instance                VARCHAR2(25);
+  v_gd_document_svc            VARCHAR2(25);
+  v_gd_template_svc            VARCHAR2(25);
+  v_gd_uri                     VARCHAR2(100) := 'https://secure.ghostdraft.com/instances';
+
+  v_desc                       VARCHAR2(1000);
+  v_value                      VARCHAR2(1000);
+  v_cfg_data                   VARCHAR2(1000);
+  v_cis_model                  VARCHAR2(100) := 'OASIS CIS Form Letter Model Library';
+  v_cis_model_version          VARCHAR2(10) := '1.0';
+  v_cis_version                VARCHAR2(10) := '1.0';
+  v_cis_mapping                VARCHAR2(100) := 'OASIS CIS Form Letter Mapping v1.0';
+
+  v_cms_model                  VARCHAR2(100) := 'OASIS Claim Form Letter Model Library';
+  v_cms_model_version          VARCHAR2(10) := '1.0';
+  v_cms_version                VARCHAR2(10) := '1.0';
+  v_cms_mapping                VARCHAR2(100) := 'OASIS Claim Form Letter Mapping v1.0';
+
+  v_fms_model                  VARCHAR2(100) := 'OASIS Finance Model Library';
+  v_fms_model_version          VARCHAR2(10) := '1.0';
+  v_fms_version                VARCHAR2(10) := '1.0';
+  v_fms_mapping                VARCHAR2(100) := 'OASIS Finance Mapping v1.0';
+  v_fms_default_design         VARCHAR2(100) := 'Memo Data Capture';
+  v_fms_output_format          VARCHAR2(100) := 'PDF';
+
+  v_general_logo               VARCHAR2(100) := 'project/Delphi Logo';
+  v_general_default_design     VARCHAR2(100) := 'Memo Data Capture';
+  v_general_output_format      VARCHAR2(100) := 'PDF';
+  v_general_uri                VARCHAR2(100) := '/ui/captureData';
+  v_general_template_catalog   VARCHAR2(100) := 'GetTemplateCatalogs';
+  v_general_compression_type   VARCHAR2(100) := 'gzip';
+  v_general_ns_uri             VARCHAR2(100) := 'http://ghostdraft.korbitec.com/delphitechservice';
+  v_general_ns_uri_local       VARCHAR2(100) := 'DelphiTechService';
+  v_general_password           VARCHAR2(100) := 'P@ssw0rd';
+  v_general_username           VARCHAR2(100) := 'oasis';
+  v_general_watermark_template VARCHAR2(100) := '';
+  v_general_webservice_name    VARCHAR2(100) := 'delphitech';
+  v_general_mirn               VARCHAR2(100) := 'GetMappingInfo';
+  v_general_sxrn               VARCHAR2(100) := 'GetServerXml';
+
+  v_manuscript_mapping         VARCHAR2(100) := 'OASIS Manuscript Mapping v1.0';
+
+  v_pms_model                  VARCHAR2(100) := 'OASIS Policy Model Library';
+  v_pms_model_version          VARCHAR2(10) := '1.0';
+  v_pms_version                VARCHAR2(10) := '1.0';
+  v_pms_mapping                VARCHAR2(100) := 'OASIS Policy Mapping v1.0';
+  v_pms_default_design         VARCHAR2(100) := 'Memo Data Capture';
+  v_pms_output_format          VARCHAR2(100) := 'PDF';
+
+  v_rms_model                  VARCHAR2(100) := 'OASIS RM Model Library';
+  v_rms_model_version          VARCHAR2(10) := '1.0';
+  v_rms_version                VARCHAR2(10) := '1.0';
+  v_rms_mapping                VARCHAR2(100) := 'OASIS RM Mapping v1.0';
+  
+  /* Eloqeunce Configuration */
+  v_output_host                VARCHAR2(100);
+  v_output_port                VARCHAR2(100);
+  v_web_host                   VARCHAR2(100);
+  v_web_port                   VARCHAR2(100);
+  v_interactive                VARCHAR2(100);
+  v_input_res_loc              VARCHAR2(100);
+  v_default_device             VARCHAR2(100);
+  v_map_file_name              VARCHAR2(100);
+  v_config_path                VARCHAR2(100);
+  v_preview_archive_path       VARCHAR2(100);
+  v_preview_general_collection VARCHAR2(100);
+  v_preview_general_entity     VARCHAR2(100);
+  v_preview_local_device       VARCHAR2(100);
+  v_preview_log_level          VARCHAR2(100);
+  v_preview_network_device     VARCHAR2(100);
+  v_preview_variable_set       VARCHAR2(100);
+  v_archive_path               VARCHAR2(100);
+  v_general_collection         VARCHAR2(100);
+  v_general_entity             VARCHAR2(100);
+  v_local_device               VARCHAR2(100);
+  v_log_level                  VARCHAR2(100);
+  v_network_device             VARCHAR2(100);
+  v_variable_set               VARCHAR2(100);
+  v_cleanup_after_preview      VARCHAR2(100);
+  v_pms_collection             VARCHAR2(100);
+  v_pms_entity                 VARCHAR2(100);
+  v_fms_collection             VARCHAR2(100);
+  v_fms_entity                 VARCHAR2(100);
+  v_cms_collection             VARCHAR2(100);
+  v_cms_entity                 VARCHAR2(100);
+  v_rms_collection             VARCHAR2(100);
+  v_rms_entity                 VARCHAR2(100);
+
+  /**************************************************************************
+  * pl
+  *--------------------------------------------------------------------------
+  * Short form for put_line. Output is controlled by the g_trace variable.
+  ***************************************************************************/
+  PROCEDURE pl(s IN VARCHAR2) IS
+  BEGIN
+    IF g_trace=TRUE THEN
+      dbms_output.enable(1000000);
+      --dbms_output.put_line(substr(s, 1, 255));
+      dbms_output.put_line(s);
+    END IF;
+  END pl;
+
+ /**********************************************************
+  Local Procedure/Functions
+  **********************************************************/
+  procedure insert_or_update_spu(
+    p_code  IN VARCHAR2, 
+    p_value IN VARCHAR2,
+    p_desc  IN VARCHAR2
+  ) 
+  is
+    v_count         NUMBER(15);
+    v_src_name      VARCHAR2(61) := 'insert_or_update_spu';
+  begin
+    SELECT COUNT(1)
+    INTO v_count
+    FROM system_parameter_util spu
+    WHERE spu.sysparm_code = p_code;
+    
+    IF v_count > 0 THEN
+       pl('  '||'UPDATE - ('||p_code||', '||p_value||')');
+      UPDATE system_parameter_util spu 
+      SET spu.sysparm_value = p_value
+      WHERE spu.sysparm_code = p_code;
+    ELSE
+      pl('  '||'INSERT - ('||p_code||', '||p_value||')');
+      INSERT INTO system_parameter_util 
+      (SYSPARM_CODE, SYSPARM_DESCRIPTION, SYSPARM_VALUE)
+      VALUES 
+      (p_code, p_desc, p_value);
+    END IF;
+  EXCEPTION
+   WHEN OTHERS THEN
+    cs_log.err('Error: '||SQLERRM, v_obj_name||v_src_name);  
+  end insert_or_update_spu;
+  
+  PROCEDURE handle_spu_data (
+    p_formsengine_code       IN VARCHAR2,
+    p_formsengine_value      IN VARCHAR2,
+    p_xmldir_code            IN VARCHAR2,
+    p_xmldir_value           IN VARCHAR2
+  )
+  IS
+  BEGIN
+    insert_or_update_spu(p_formsengine_code, p_formsengine_value, 'Forms Engine used in Solution');
+    insert_or_update_spu(p_xmldir_code, p_xmldir_value, 'The network location to save XML file used by 3rd party ODS form generation product');
+  END handle_spu_data;
+
+  PROCEDURE map_cat_code_to_value (
+    p_category       IN VARCHAR2,
+    p_sub_cat        IN VARCHAR2,
+    p_code           IN VARCHAR2
+  )
+  IS
+  BEGIN
+    v_not_implemented := 'N';
+    v_value := 'VALUE_NOT_CONFIGURED';
+    IF p_code = 'MAPPING_NAME' THEN
+      v_desc := 'A value that indicates Mapping Name.';
+      IF p_category = 'CIS_FORM_LETTER' THEN
+        v_value := v_cis_mapping;
+      ELSIF p_category = 'CMS_FORM_LETTER' THEN
+        v_value := v_cms_mapping;
+      ELSIF p_category = 'FMS' OR p_category = 'FMS_FORM_LETTER' THEN
+        v_value := v_fms_mapping;
+      ELSIF p_category = 'PMS' OR p_category = 'PMS_FORM_LETTER' THEN
+        v_value := v_pms_mapping;
+      ELSIF p_category = 'RMS_FORM_LETTER' THEN
+        v_value := v_rms_mapping;
+      ELSIF p_category = 'MANUSCRIPT' THEN
+        v_value := v_manuscript_mapping;
+      END IF;
+    ELSIF p_code = 'PACKAGE_NAME' THEN
+      v_desc := 'A value that indicates Document Package Name.';
+      IF p_category = 'CIS_FORM_LETTER' THEN
+        v_value := v_cis_model;
+      ELSIF p_category = 'CMS_FORM_LETTER' THEN
+        v_value := v_cms_model;
+      ELSIF p_category = 'FMS' OR p_category = 'FMS_FORM_LETTER' THEN
+        v_value := v_fms_model;
+      ELSIF p_category = 'PMS' OR p_category = 'PMS_FORM_LETTER' THEN
+        v_value := v_pms_model;
+      ELSIF p_category = 'RMS_FORM_LETTER' THEN
+        v_value := v_rms_model;
+      END IF;
+    ELSIF p_code = 'PACKAGE_VERSION' THEN
+      v_desc := 'A value that indicates Document Package Version.';
+      IF p_category = 'CIS_FORM_LETTER' THEN
+        v_value := v_cis_version;
+      ELSIF p_category = 'CMS_FORM_LETTER' THEN
+        v_value := v_cms_version;
+      ELSIF p_category = 'FMS' OR p_category = 'FMS_FORM_LETTER' THEN
+        v_value := v_fms_version;
+      ELSIF p_category = 'PMS' OR p_category = 'PMS_FORM_LETTER' THEN
+        v_value := v_pms_version;
+      ELSIF p_category = 'RMS_FORM_LETTER' THEN
+        v_value := v_rms_version;
+      END IF;
+    ELSIF p_code = 'PACKAGE_URI' THEN
+      v_desc := 'A URL value that indicates the  document service used to launch interactive form.';
+      IF p_category = 'CIS_FORM_LETTER' THEN
+        v_value := v_gd_uri||'/'||v_gd_instance||'/'||v_gd_document_svc||'/'||
+                   v_cis_model||'/'||v_cis_model_version||'/';
+      ELSIF p_category = 'CMS_FORM_LETTER' THEN
+        v_value := v_gd_uri||'/'||v_gd_instance||'/'||v_gd_document_svc||'/'||
+                   v_cms_model||'/'||v_cms_model_version||'/';
+      ELSIF p_category = 'FMS' OR p_category = 'FMS_FORM_LETTER' THEN
+        v_value := v_gd_uri||'/'||v_gd_instance||'/'||v_gd_document_svc||'/'||
+                   v_fms_model||'/'||v_fms_model_version||'/';
+      ELSIF p_category = 'PMS' OR p_category = 'PMS_FORM_LETTER' THEN
+        v_value := v_gd_uri||'/'||v_gd_instance||'/'||v_gd_document_svc||'/'||
+                   v_pms_model||'/'||v_pms_model_version||'/';
+      ELSIF p_category = 'RMS_FORM_LETTER' THEN
+        v_value := v_gd_uri||'/'||v_gd_instance||'/'||v_gd_document_svc||'/'||
+                   v_rms_model||'/'||v_rms_model_version||'/';
+      END IF;
+    ELSIF p_code = 'DEFAULT_DESIGN' THEN
+      v_desc := 'Indicates the default U/I design for data entry page.';
+      IF p_category = 'FMS' THEN
+        v_value := v_fms_default_design;
+      ELSIF p_category = 'PMS' THEN
+        v_value := v_pms_default_design;
+      ELSIF p_category = 'GENERAL' THEN
+        v_value := v_general_default_design;
+      END IF;
+    ELSIF p_code = 'OUTPUT_FORMAT' THEN
+      v_desc := 'Indicates the default output format for data entry page.';
+      IF p_category = 'FMS' THEN
+        v_value := v_fms_output_format;
+      ELSIF p_category = 'PMS' THEN
+        v_value := v_pms_output_format;
+      ELSIF p_category = 'GENERAL' THEN
+        v_value := v_general_output_format;
+      END IF;
+    ELSIF p_code = 'LOGO' THEN
+      v_desc := 'Indicates the logo to be rendered in the data entry page.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_logo;
+      END IF;
+    ELSIF p_code = 'URI' THEN
+      v_desc := 'Indicates the entry point URI for prologue data entry page.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_uri;
+      END IF;
+    ELSIF p_code = 'REST_URI' THEN
+      v_desc := 'A value that indicates the REST URI.';
+      IF p_category = 'GENERAL' and p_sub_cat = 'DOCUMENT_SERVICE' THEN
+        v_value := v_gd_uri||'/'||v_gd_instance||'/GhostDraftServer/RestApi/';
+      ELSIF p_category = 'GENERAL' and p_sub_cat ='MAPPING_SERVICE' THEN
+        v_value := v_gd_uri||'/'||v_gd_instance||'/GhostDraftDataMappingServer/RestApi/';
+      END IF;
+    ELSIF p_code = 'SERVICE_NAME' THEN
+      v_desc := 'A value that indicates GhostDraft Document Service Name.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_gd_document_svc;
+      ELSIF p_category = 'MAPPING_SERVICE' THEN
+        v_value := v_gd_document_svc;
+      END IF;
+    ELSIF p_code = 'TEMPLATE_CATALOGS_RESOURCE_NAME' THEN
+      v_desc := 'A value that indicates the resource name for invoking Get Template Catalogs call using REST Service.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_template_catalog;
+      END IF;
+    ELSIF p_code = 'COMPRESSION_TYPE' THEN
+      v_desc := 'A value that indicates the compress type to be used for XML compression. Default is Plain.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_compression_type;
+      END IF;
+    ELSIF p_code = 'INSTANCE_URI' THEN
+      v_desc := 'A value that indicates GhostDraft instance URI.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_gd_uri||'/'||v_gd_instance||'/';
+      END IF;
+    ELSIF p_code = 'NAMESPACE_URI' THEN
+      v_desc := 'NamespaceUri associated with GhostDraft DelphiTech Web Service.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_ns_uri;
+      END IF;
+    ELSIF p_code = 'NAMESPACE_URI_LOCAL_PART' THEN
+      v_desc := 'NamespaceUri LocalPart associated with GhostDraft DelphiTech Web Service.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_ns_uri_local;
+      END IF;
+    ELSIF p_code = 'OS_TEMP_DIRECTORY' THEN
+      v_desc := 'A value that indicates a temporary location for processing individual pdf files from compressed GD output.';
+      IF p_category = 'GENERAL' THEN
+        v_value := '';
+      END IF;
+    ELSIF p_code = 'PASSWORD' THEN
+      IF p_category = 'GENERAL' and p_sub_cat = 'GENERAL' THEN
+        v_desc := 'A valid password to access GhostDraft configuration manager portal.';        
+        v_value := v_general_password;
+      ELSIF p_category = 'GENERAL' and p_sub_cat = 'CE_OUTPUT' THEN
+        v_desc := 'The password to connect to OutputWSPort.';        
+        v_value := '';
+      END IF;
+    ELSIF p_code = 'USERNAME' THEN
+      IF p_category = 'GENERAL' and p_sub_cat = 'CE_OUTPUT' THEN
+        v_desc := 'The username to connect to OutputWSPort.';
+        v_value := '';
+      END IF;
+    ELSIF p_code = 'USER_NAME' THEN
+      v_desc := 'A valid username to access GhostDraft configuration manager portal.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_username;
+      END IF;
+    ELSIF p_code = 'WATERMARK_TEMPLATE_NAME' THEN
+      v_desc := 'A value that indicates the GD document name for watermark content.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_watermark_template;
+      END IF;
+    ELSIF p_code = 'WEB_SERVICE_NAME' THEN
+      v_desc := 'A value that indicates the GhostDraft DelphiTech Web Service Name.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_webservice_name;
+      END IF;
+    ELSIF p_code = 'WEB_SERVICE_WSDL_URI' THEN
+      v_desc := 'WSDL link to GhostDraft DelphiTech Web Service.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_gd_uri||'/'||v_gd_instance||'/DelphiTech?wsdl';
+      END IF;
+    ELSIF p_code = 'MAPPING_INFO_RESOURCE_NAME' THEN
+      v_desc := 'A value that indicates the resource name for invoking MappingInfo call for REST Service.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_mirn;
+      END IF;
+    ELSIF p_code = 'SERVER_XML_RESOURCE_NAME' THEN
+      v_desc := 'A value that indicates the resource name for invoking ServerXml call for REST Service.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_general_sxrn;
+      END IF;
+    ELSIF p_code = 'CLEANUP_AFTER_PREVIEW' THEN
+      v_desc := 'Boolean value that instructs whether to cleanup Extract and output tables after preview PDF gets generated. Default value is true, if property not defined.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_cleanup_after_preview;
+      END IF;
+    ELSIF p_code = 'PDF_TEMPLATE_LOCATION' THEN
+      v_desc := 'Specify the PREVIEW watermark template designed in GhostDraft. This is mutually exclusive with TEMPLATE_NAME Configuration.';
+      IF p_category = 'GENERAL' THEN
+        v_value := '';
+      END IF;
+    ELSIF p_code = 'TEMPLATE_NAME' THEN
+      v_desc := 'Specify the location of the PREVIEW watermark pdf (eg. dti/templates/GDPreview.pdf).This is mutually exclusive with PDF_TEMPLATE_LOCATION Configuration.';
+      IF p_category = 'GENERAL' THEN
+        v_value := '';
+      END IF;
+    ELSIF p_code = 'COLLECTION_NAME' THEN
+      IF p_category = 'PMS' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+         v_desc := 'The collection name value that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_pms_collection;
+      ELSIF p_category = 'FMS' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+         v_desc := 'The collection name value that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_fms_collection;
+      ELSIF p_category = 'CMS' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+         v_desc := 'The collection name value that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_cms_collection;
+      ELSIF p_category = 'RMS' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+         v_desc := 'The collection name value that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_rms_collection;
+      ELSIF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+         v_desc := 'The collection name value that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_general_collection;
+      ELSIF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_PREVIEW_REQUEST' THEN
+        v_desc := 'The collection name value that needs to be set in the CEOutput request XML for CEOutput Preview Invocation.';
+        v_value := v_preview_general_collection;
+      END IF;
+    ELSIF p_code = 'ENTITY_NAME' THEN
+      IF p_category = 'PMS' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+        v_desc := 'The entity name that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_pms_entity;
+      ELSIF p_category = 'FMS' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+        v_desc := 'The entity name that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_fms_entity;
+      ELSIF p_category = 'CMS' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+        v_desc := 'The entity name that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_cms_entity;
+      ELSIF p_category = 'RMS' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+        v_desc := 'The entity name that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_rms_entity;
+      ELSIF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+        v_desc := 'The entity name that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_general_entity;
+      ELSIF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_PREVIEW_REQUEST' THEN
+        v_desc := 'The entity name that needs to be set in the CEOutput request XML for CEOutput Preview Invocation.';
+        v_value := v_preview_general_entity;
+      END IF;
+    ELSIF p_code = 'ENDPOINT_URL' THEN
+      v_desc := 'The end point URI to OutputWSPort for CEOutput.';
+      IF p_category = 'GENERAL' THEN
+        v_value := 'http://' || v_output_host || ':' || v_output_port || '/CEOutput/OutputWSPort';
+      END IF;
+    ELSIF p_code = 'FORWARD_URL' THEN
+      v_desc := 'The URL to forward from OASIS for rendering Eloquence Web within eOASIS.';
+      IF p_category = 'GENERAL' THEN
+        v_value := 'http://' || v_web_host || ':' || v_web_port || '/delphidev_CEWeb/api.do';
+      END IF;
+    ELSIF p_code = 'INIT_ENTITY_NAME' THEN
+      v_desc := 'The initial entity name that needs to be set in the CSOutput request XML for Eloquence Web Invocation.';
+      IF p_category = 'GENERAL' THEN
+        v_value := '';
+      END IF;
+    ELSIF p_code = 'INIT_LABEL' THEN
+      v_desc := 'The initial Eloquence web folder name for listing interactive forms in Eloquence Web. This value will be set in the CSOutput request XML for Eloquence Web Invocation.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_interactive;
+      END IF;
+    ELSIF p_code = 'INPUT_RESOURCE_LOCATOR' THEN
+      v_desc := 'The input resource locator name defined in Eloquence that maps to the XML folder where OASIS XML files are stored. This value will be set in the CSOutput request XML for Eloquence Web Invocation.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_input_res_loc;
+      END IF;
+    ELSIF p_code = 'LOCAL_DEFAULT_DEVICE_NAME' THEN
+      v_desc := 'The default device where the final delivery from eloquence web needs to be made that invokes OWS calls. This value will be set in the CSOutput request XML for Eloquence Web Invocation.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_default_device;
+      END IF;
+    ELSIF p_code = 'MAP_FILENAME' THEN
+      v_desc := 'The variable set name that needs to be set in the CSOutput request XML for Eloquence Web Invocation.';
+      IF p_category = 'GENERAL' THEN
+        v_value := v_map_file_name;
+      END IF;
+    ELSIF p_code = 'CONFIG_PATH' THEN
+      v_desc := 'The location on web logic server, where eloquence config xml files are located. eg. dti\eloquence.';
+      IF p_category = 'GENERAL' and p_sub_cat = 'GENERAL' THEN
+        v_value := v_config_path;
+      END IF;
+    ELSIF p_code = 'ARCHIVE_PATH' THEN
+      IF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_PREVIEW_REQUEST' THEN
+         v_desc := 'The local archive path with respect to the eloquence server that needs to be set in the CEOutput request XML for CEOutput Preview Invocation.';
+        v_value := v_preview_archive_path;
+      ELSIF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+         v_desc := 'The local archive path with respect to the eloquence server that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_archive_path;
+      END IF;
+    ELSIF p_code = 'LOCAL_DEVICE_NAME' THEN
+      IF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_PREVIEW_REQUEST' THEN
+        v_desc := 'The local device name where PDF files are stored locally on Eloquence server that will be set in the CEOutput request XML for CEOutput Preview Invocation.';
+        v_value := v_preview_local_device;
+      ELSIF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+        v_desc := 'The local device name where PDF files are stored locally on Eloquence server that will be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_local_device;
+      END IF;
+    ELSIF p_code = 'LOG_LEVEL' THEN
+      IF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_PREVIEW_REQUEST' THEN
+        v_desc := 'The log level value that needs to be set in the CEOutput request XML for CEOutput Preview Invocation.';
+        v_value := v_preview_log_level;
+      ELSIF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+        v_desc := 'The log level value that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_log_level;
+      END IF;
+    ELSIF p_code = 'NETWORK_DEVICE_NAME' THEN
+      IF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_PREVIEW_REQUEST' THEN
+        v_desc := 'The network device name where PDF files are stored, which will be set in the CEOutput request XML for CEOutput Preview Invocation.';
+        v_value := v_preview_network_device;
+      ELSIF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+        v_desc := 'The network device name where PDF files are stored, which will be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_network_device;
+      END IF;
+    ELSIF p_code = 'VARIABLESET_NAME' THEN
+      IF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_PREVIEW_REQUEST' THEN
+        v_desc := 'The variable set value that needs to be set in the CEOutput request XML for CEOutput Preview Invocation.';
+        v_value := v_preview_variable_set;
+      ELSIF p_category = 'GENERAL' and p_sub_cat = 'OUTPUT_REQUEST' THEN
+        v_desc := 'The variable set value that needs to be set in the CEOutput request XML for CEOutput Invocation.';
+        v_value := v_variable_set;
+      END IF;
+    ELSE
+      pl('Error: ' || p_category || ', ' || p_sub_cat || ', ' ||', ' || p_code || ' not implemented.');
+      v_not_implemented := 'Y';
+    END IF;
+  END map_cat_code_to_value;
+
+  PROCEDURE fix_ofic_data (
+     p_forms_engine       IN VARCHAR2,
+     p_category           IN VARCHAR2,
+     p_sub_cat            IN VARCHAR2, 
+     p_code               IN VARCHAR2,
+     p_value              IN VARCHAR2
+  )
+  IS
+   v_src_name      VARCHAR2(61) := 'fix_ofic_data';
+   v_str           VARCHAR2(32000);
+   v_count         NUMBER(15);
+  BEGIN
+    SELECT COUNT(1)
+    INTO v_count
+    FROM os_form_interface_config ofic
+    WHERE ofic.DOC_GEN_PRD_NAME = p_forms_engine AND ofic.CATEGORY = p_category 
+          AND ofic.sub_category = p_sub_cat AND ofic.code = p_code;
+
+    IF v_count > 0 THEN
+       pl('  '||'UPDATE - ('||p_forms_engine||', '||p_category||', '||p_sub_cat||
+             ', '||p_code||', '||p_value||')');
+      UPDATE os_form_interface_config ofic 
+      SET ofic.value = p_value
+      WHERE ofic.DOC_GEN_PRD_NAME = p_forms_engine AND ofic.CATEGORY = p_category 
+          AND ofic.sub_category = p_sub_cat AND ofic.code = p_code;
+    ELSE
+      pl('  '||'INSERT - ('||p_forms_engine||', '||p_category||', '||p_sub_cat||
+             ', '||p_code||', '||p_value||')');
+      INSERT INTO os_form_interface_config 
+      (OS_FORM_INTERFACE_CONFIG_PK, DOC_GEN_PRD_NAME, CATEGORY, SUB_CATEGORY, CODE, DESCRIPTION, VALUE, SYS_CREATE_TIME, SYS_CREATED_BY, SYS_UPDATE_TIME, SYS_UPDATED_BY)
+      VALUES 
+      (oasis_sequence.nextval, p_forms_engine, p_category, p_sub_cat, p_code, v_desc, p_value, null, null, null, null);
+    END IF;
+
+  EXCEPTION
+   WHEN OTHERS THEN
+    cs_log.err('Error: '||SQLERRM, v_obj_name||v_src_name);
+  END fix_ofic_data;
+
+  PROCEDURE create_cfg_data (
+     p_forms_engine       IN VARCHAR2,
+     p_category           IN VARCHAR2,
+     p_cfg_data           IN VARCHAR2
+  )
+  IS
+   v_sub_cat  VARCHAR2(25);
+   v_code     VARCHAR2(500);
+  BEGIN
+  FOR j IN
+      (SELECT trim(regexp_substr(p_cfg_data, '[^,]+', 1, LEVEL)) sub_category
+      FROM dual
+        CONNECT BY LEVEL <= regexp_count(p_cfg_data, ',')+1
+      )
+  LOOP
+    FOR token in (SELECT level, TRIM(regexp_substr(j.sub_category, '[^^,]+', 1, LEVEL)) str
+                 FROM dual
+                 CONNECT BY regexp_substr(j.sub_category , '[^^,]+', 1, LEVEL) IS NOT NULL)
+    LOOP
+      v_code := REGEXP_REPLACE( token.str, '[[:space:]]', '' );
+      IF token.level = 1 THEN
+        --pl('     '||v_code);
+        v_sub_cat := v_code;
+      ELSE
+        --pl('           '||v_code);
+        map_cat_code_to_value(p_category, v_sub_cat, v_code);
+        IF (v_value = 'VALUE_NOT_CONFIGURED') THEN
+          pl('Error: ' || p_category || ', ' || v_sub_cat || ', ' || v_code || ' value not set.');
+        END IF;
+        IF (v_not_implemented = 'N' AND v_value != 'VALUE_NOT_CONFIGURED') THEN
+           fix_ofic_data(p_forms_engine, p_category, v_sub_cat, v_code, v_value);
+        END IF;
+      END IF;
+    END LOOP;
+  END LOOP;
+  END create_cfg_data;
+
+  PROCEDURE ghostdraft_os_form_intf_config(
+     p_gd_instance        IN VARCHAR2,
+     p_gd_document_svc    IN VARCHAR2,
+     p_gd_template_svc    IN VARCHAR2
+  )
+  IS
+   v_src_name      VARCHAR2(61) := 'create_os_form_interface_config';
+   v_str           VARCHAR2(32000);
+   v_value         VARCHAR2(1000);
+   v_category      VARCHAR2(1000);
+   v_sub_category  VARCHAR2(1000);
+   v_code          VARCHAR2(1000);
+   v_forms_engine  VARCHAR2(25);
+   v_count         NUMBER(15);
+  BEGIN
+    v_forms_engine := 'GHOSTDRAFT';
+    v_category := 'CIS_FORM_LETTER,CMS_FORM_LETTER,FMS,FMS_FORM_LETTER,GENERAL,MANUSCRIPT,PMS,PMS_FORM_LETTER,RMS_FORM_LETTER';
+
+    v_gd_instance := p_gd_instance;
+    v_gd_document_svc := p_gd_document_svc;
+    v_gd_template_svc := p_gd_template_svc;
+    
+    FOR i IN
+        (SELECT trim(regexp_substr(v_category, '[^,]+', 1, LEVEL)) category
+        FROM dual
+          CONNECT BY LEVEL <= regexp_count(v_category, ',')+1
+        )
+    LOOP
+     dbms_output.put_line(i.category);
+     IF i.category = 'CIS_FORM_LETTER' OR i.category = 'CMS_FORM_LETTER' 
+        OR i.category = 'FMS' OR i.category = 'FMS_FORM_LETTER' 
+        OR i.category = 'PMS' OR i.category = 'PMS_FORM_LETTER' 
+        OR i.category = 'RMS_FORM_LETTER' THEN
+        v_cfg_data := 'DOCUMENT_SERVICE^PACKAGE_NAME^PACKAGE_URI^PACKAGE_VERSION,'||
+                                  'MAPPING_SERVICE^MAPPING_NAME';
+        create_cfg_data(v_forms_engine, i.category, v_cfg_data);
+        IF i.category = 'FMS' OR i.category = 'PMS' THEN
+           v_cfg_data := 'DATA_ENTRY^DEFAULT_DESIGN^OUTPUT_FORMAT';
+           create_cfg_data(v_forms_engine, i.category, v_cfg_data);
+        END IF;
+     ELSIF i.category = 'GENERAL' THEN
+       v_cfg_data := 'DATA_ENTRY^DEFAULT_DESIGN^LOGO^OUTPUT_FORMAT^URI,'||
+                     'DOCUMENT_SERVICE^REST_URI^SERVICE_NAME^TEMPLATE_CATALOGS_RESOURCE_NAME,'||
+                     'GENERAL^COMPRESSION_TYPE^INSTANCE_URI^NAMESPACE_URI^'||
+                     'NAMESPACE_URI_LOCAL_PART^OS_TEMP_DIRECTORY^PASSWORD^USER_NAME^'||
+                     'WATERMARK_TEMPLATE_NAME^WEB_SERVICE_NAME^WEB_SERVICE_WSDL_URI,'||
+                     'MAPPING_SERVICE^MAPPING_INFO_RESOURCE_NAME^REST_URI^'||
+                     'SERVER_XML_RESOURCE_NAME^SERVICE_NAME,'||
+                     'PREVIEW^CLEANUP_AFTER_PREVIEW^PDF_TEMPLATE_LOCATION^TEMPLATE_NAME';
+        create_cfg_data(v_forms_engine, i.category, v_cfg_data);
+     ELSIF i.category = 'MANUSCRIPT' THEN
+       v_cfg_data := 'MAPPING_SERVICE^MAPPING_NAME';
+       create_cfg_data(v_forms_engine, i.category, v_cfg_data);
+     ELSE
+       dbms_output.put_line(i.category);
+     END IF;
+    END LOOP;
+  EXCEPTION
+   WHEN OTHERS THEN
+    cs_log.err('Error: '||SQLERRM, v_obj_name||v_src_name);
+  END ghostdraft_os_form_intf_config;
+
+  PROCEDURE eloquence_os_form_intf_config (
+    p_output_host                  IN VARCHAR2,
+    p_output_port                  IN VARCHAR2,
+    p_web_host                     IN VARCHAR2,
+    p_web_port                     IN VARCHAR2,
+    p_interactive                  IN VARCHAR2,
+    p_input_res_loc                IN VARCHAR2,
+    p_default_device               IN VARCHAR2,
+    p_map_file_name                IN VARCHAR2,
+    p_config_path                  IN VARCHAR2,
+    p_preview_archive_path         IN VARCHAR2,
+    p_preview_general_collection   IN VARCHAR2,
+    p_preview_general_entity       IN VARCHAR2,
+    p_preview_local_device         IN VARCHAR2,
+    p_preview_log_level            IN VARCHAR2,
+    p_preview_network_device       IN VARCHAR2,
+    p_preview_variable_set         IN VARCHAR2,
+    p_archive_path                 IN VARCHAR2,
+    p_general_collection           IN VARCHAR2,
+    p_general_entity               IN VARCHAR2,
+    p_local_device                 IN VARCHAR2,
+    p_log_level                    IN VARCHAR2,
+    p_network_device               IN VARCHAR2,
+    p_variable_set                 IN VARCHAR2,
+    p_cleanup_after_preview        IN VARCHAR2,
+    p_pms_collection               IN VARCHAR2,
+    p_pms_entity                   IN VARCHAR2,
+    p_fms_collection               IN VARCHAR2,
+    p_fms_entity                   IN VARCHAR2,
+    p_cms_collection               IN VARCHAR2,
+    p_cms_entity                   IN VARCHAR2,
+    p_rms_collection               IN VARCHAR2,
+    p_rms_entity                   IN VARCHAR2
+  )
+  IS
+   v_src_name      VARCHAR2(61) := 'eloquence_os_form_intf_config';
+   v_str           VARCHAR2(32000);
+   v_value         VARCHAR2(1000);
+   v_category      VARCHAR2(1000);
+   v_sub_category  VARCHAR2(1000);
+   v_code          VARCHAR2(1000);
+   v_forms_engine  VARCHAR2(25);
+   v_count         NUMBER(15);
+  BEGIN
+    v_forms_engine := 'ELOQUENCE';
+    v_category := 'GENERAL,PMS,FMS,CMS,RMS';
+
+    v_output_host                := p_output_host;
+    v_output_port                := p_output_port;
+    v_web_host                   := p_web_host;
+    v_web_port                   := p_web_port;
+    v_interactive                := p_interactive;
+    v_input_res_loc              := p_input_res_loc;
+    v_default_device             := p_default_device;
+    v_map_file_name              := p_map_file_name;
+    v_config_path                := p_config_path;
+    v_preview_archive_path       := p_preview_archive_path;
+    v_preview_general_collection := p_preview_general_collection;
+    v_preview_general_entity     := p_preview_general_entity;
+    v_preview_local_device       := p_preview_local_device;
+    v_preview_log_level          := p_preview_log_level;
+    v_preview_network_device     := p_preview_network_device;
+    v_preview_variable_set       := p_preview_variable_set;
+    v_archive_path               := p_archive_path;
+    v_general_collection         := p_general_collection;
+    v_general_entity             := p_general_entity;
+    v_local_device               := p_local_device;
+    v_log_level                  := p_log_level ;
+    v_network_device             := p_network_device;
+    v_variable_set               := p_variable_set;
+    v_cleanup_after_preview      := p_cleanup_after_preview;
+    v_pms_collection             := p_pms_collection;
+    v_pms_entity                 := p_pms_entity;
+    v_fms_collection             := p_fms_collection;
+    v_fms_entity                 := p_fms_entity;
+    v_cms_collection             := p_cms_collection;
+    v_cms_entity                 := p_cms_entity;
+    v_rms_collection             := p_rms_collection;
+    v_rms_entity                 := p_rms_entity;
+    
+    FOR i IN
+        (SELECT trim(regexp_substr(v_category, '[^,]+', 1, LEVEL)) category
+        FROM dual
+          CONNECT BY LEVEL <= regexp_count(v_category, ',')+1
+        )
+    LOOP
+     dbms_output.put_line(i.category);
+     IF i.category = 'PMS' OR i.category = 'FMS' OR i.category = 'CMS' OR i.category = 'RMS'THEN
+        v_cfg_data := 'OUTPUT_REQUEST^COLLECTION_NAME^ENTITY_NAME';
+        create_cfg_data(v_forms_engine, i.category, v_cfg_data);
+     ELSIF i.category = 'GENERAL' THEN
+       v_cfg_data := 'CE_OUTPUT^ENDPOINT_URL^PASSWORD^USERNAME,CS_REQUEST^FORWARD_URL^'||
+                     'INIT_ENTITY_NAME^INIT_LABEL^INPUT_RESOURCE_LOCATOR^'||
+                     'LOCAL_DEFAULT_DEVICE_NAME^MAP_FILENAME,GENERAL^CONFIG_PATH,'||
+                     'OUTPUT_PREVIEW_REQUEST^ARCHIVE_PATH^COLLECTION_NAME^ENTITY_NAME^'||
+                     'LOCAL_DEVICE_NAME^LOG_LEVEL^NETWORK_DEVICE_NAME^VARIABLESET_NAME,'||
+                     'OUTPUT_REQUEST^ARCHIVE_PATH^COLLECTION_NAME^ENTITY_NAME^'||
+                     'LOCAL_DEVICE_NAME^LOG_LEVEL^NETWORK_DEVICE_NAME^VARIABLESET_NAME,'||
+                     'PREVIEW^CLEANUP_AFTER_PREVIEW';
+        create_cfg_data(v_forms_engine, i.category, v_cfg_data);
+     ELSE
+       dbms_output.put_line(i.category);
+     END IF;
+    END LOOP;
+  EXCEPTION
+   WHEN OTHERS THEN
+    cs_log.err('Error: '||SQLERRM, v_obj_name||v_src_name);
+  END eloquence_os_form_intf_config;
+ 
+  PROCEDURE display_system_parm_config
+  IS
+  BEGIN
+    FOR i in (
+      select * 
+      from system_parameter_util spu 
+      where spu.sysparm_code in ('DOC_GEN_PRD_NAME','OS_XML_DIRECTORY')
+      )
+    LOOP
+      pl(rpad(i.sysparm_code,30) || rpad(i.sysparm_value,100) || rpad(i.sysparm_description,1000));
+    END LOOP;
+  END display_system_parm_config;
+   
+  PROCEDURE display_eloquence_config
+  IS
+  BEGIN
+    FOR i in (
+      select ofic.doc_gen_prd_name forms_engine, ofic.category cat, ofic.sub_category sub_cat, ofic.code pcode, ofic.value val, ofic.* 
+      from os_form_interface_config ofic
+      where ofic.doc_gen_prd_name = 'ELOQUENCE'
+      order by ofic.doc_gen_prd_name, ofic.category, ofic.sub_category, ofic.code
+      )
+    LOOP
+      pl(rpad(i.forms_engine,15) || rpad(i.cat,20) || rpad(i.sub_cat,30) ||
+         rpad(i.pcode,30) || rpad(i.val,100));
+    END LOOP;
+  END display_eloquence_config;
+  
+  PROCEDURE display_ghostdraft_config
+  IS
+  BEGIN
+    FOR i in (
+      select ofic.doc_gen_prd_name forms_engine, ofic.category cat, ofic.sub_category sub_cat, ofic.code pcode, ofic.value val, ofic.* 
+      from os_form_interface_config ofic
+      where ofic.doc_gen_prd_name = 'GHOSTDRAFT'
+      order by ofic.doc_gen_prd_name, ofic.category, ofic.sub_category, ofic.code
+      )
+    LOOP
+      pl(rpad(i.forms_engine,15) || rpad(i.cat,20) || rpad(i.sub_cat,30) ||
+         rpad(i.pcode,30) || rpad(i.val,100));
+    END LOOP;  
+  END display_ghostdraft_config;
+  
+  PROCEDURE display_os_form_interface_cfg
+  IS
+  BEGIN
+    display_eloquence_config();
+    display_ghostdraft_config();
+  END display_os_form_interface_cfg;
+ 
+  PROCEDURE get_sys_parm_cfg (
+    result_cursor OUT SYS_REFCURSOR
+  )
+  IS
+  BEGIN
+    OPEN result_cursor FOR
+    select * 
+    from system_parameter_util spu 
+    where spu.sysparm_code in ('DOC_GEN_PRD_NAME','OS_DOC_DIRECTORY','OS_XML_DIRECTORY');
+  END get_sys_parm_cfg;
+  
+  PROCEDURE get_os_form_interface_cfg (
+    result_cursor OUT SYS_REFCURSOR
+  )
+  IS
+  BEGIN
+    OPEN result_cursor FOR
+    select ofic.doc_gen_prd_name, ofic.category, ofic.sub_category, ofic.code, ofic.value
+    from os_form_interface_config ofic
+    order by ofic.doc_gen_prd_name, ofic.category, ofic.sub_category, ofic.code;
+  END get_os_form_interface_cfg;
+      
+  PROCEDURE copy_os_form_interface_cfg (
+     p_username        IN VARCHAR2,
+     p_password        IN VARCHAR2,
+     p_host            IN VARCHAR2,
+     p_sid             IN VARCHAR2,
+     p_port            IN VARCHAR2
+  )
+  IS
+  v_count         NUMBER(15);
+  BEGIN
+    pl('Copying schema from db : ' || p_username||'/'||p_password||'@'||p_host||'_'||p_sid);
+    
+    select 1
+    into v_count
+    from user_db_links u
+    where u.host like '(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = '|| p_host || 
+    '%)(PORT = ' || p_port || ')) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME =' || 
+    p_sid || '%))) or u.host = ''' || p_host || '_' || p_sid || '';
+ 
+    IF v_count > 0 THEN
+      pl('Link to remote database found.');
+    ELSE
+      pl('Link to remote database not found. Creating link...');
+      /*CREATE DATABASE LINK p_username||'.ad.dti'
+      CONNECT TO p_username IDENTIFIED BY p_password 
+      USING '(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = '|| p_host || 
+      '.ad.dti)(PORT = ' || p_port || 
+      ')) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME =' || p_sid || '.ad.dti)))';*/
+    END IF;
+  END copy_os_form_interface_cfg;  
+BEGIN
+  g_trace := TRUE;
+End form_interface_cfg;
+/

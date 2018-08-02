@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list id="f64a5d7b-b1fe-49bd-a2bf-81df3f6142c4" name="Fix for &quot;Invalid Http Sessions&quot; java stack trace errors in weblogic logs" comment="Fix for &quot;Invalid Http Sessions&quot; java stack trace errors in weblogic logs" />
+    <list default="true" id="51a609aa-7565-4cf3-8709-2cedae48846a" name="Oasis Docupro Interface Tool initial revision - Issue # : 194637" comment="Oasis Docupro Interface Tool initial revision - Issue # : 194637">
+      <change afterPath="$PROJECT_DIR$/.idea/ant.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/ppk.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/ppk1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/services.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OasisDocuproInterface.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/BuildApplied.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/CreateOsFormIntfConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/CreateSystemParameterUtilConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/EloquenceInformationPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/ExecuteInstallScript.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/GetOsFormIntfConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/GetSystemParameterUtilConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/GhostdraftInformationPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/GhostdraftInformationPanelListener.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/InstallConstants.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/InstallUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/PostCompleteLog.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/PrepareConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/SchemaOwnerPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/SystemParameterUtilPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/ValidateGhostdraftInformation.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/dti/ic/installer/ValidateSchemaOwner.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customcode.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/IAClasses.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/commons-codec-1.8.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/commons-httpclient-3.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/commons-logging-1.1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/delphi-custom-1.1.0-actions.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/form-ext-3.11.0-actions.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/log4j-1.2.16.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ojdbc6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resource/services/ppk/aixppk.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resource/services/ppk/genericunixppk.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resource/services/ppk/hpuxppk.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resource/services/ppk/linuxppk.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resource/services/ppk/macosxppk.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resource/services/ppk/solarisppk.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resource/services/ppk/windowsppk.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resource/services/services.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/stax-1.2.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/tdes-5.2.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/form_interface_cfg.pkg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/build.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/BuildApplied.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/CheckSqlplus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/CreateOsFormIntfConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/CreateSystemParameterUtilConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/EloquenceInformationPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/GetOsFormIntfConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/GetSystemParameterUtilConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/GhostdraftInformationPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/GhostdraftInformationPanelListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/InstallConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/InstallPackage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/InstallUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/PostCompleteLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/PrepareConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/SchemaOwnerPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/SystemParameterUtilPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/ValidateGhostdraftInformation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dti/ic/installer/ValidateSchemaOwner.java" afterDir="false" />
+    </list>
+    <list readonly="true" id="a427624b-394b-4394-9c15-8cc272f6ef19" name="Default" comment="" />
+    <list id="7e3b3f4b-9add-43cc-a9c6-252d096166c6" name="issue 176689 - Fix for the repeated error during create policy action." comment="issue 176689 - Fix for the repeated error during create policy action." />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any converted="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="InstallUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/InstallUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="327" column="25" selection-start-line="327" selection-start-column="25" selection-end-line="327" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SchemaOwnerPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/SchemaOwnerPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="278" column="98" selection-start-line="278" selection-start-column="77" selection-end-line="278" selection-end-column="98" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InstallPackage.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/InstallPackage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="265" column="11" lean-forward="true" selection-start-line="265" selection-start-column="11" selection-end-line="265" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ValidateSchemaOwner.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/ValidateSchemaOwner.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CheckSqlplus.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/CheckSqlplus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="55" column="66" lean-forward="true" selection-start-line="55" selection-start-column="66" selection-end-line="55" selection-end-column="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BuildApplied.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/BuildApplied.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetOsFormIntfConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/GetOsFormIntfConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="311">
+              <caret line="148" column="9" selection-start-line="148" selection-start-column="9" selection-end-line="148" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PrepareConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/PrepareConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="42" column="79" selection-start-line="42" selection-start-column="79" selection-end-line="42" selection-end-column="79" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GhostdraftInformationPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/GhostdraftInformationPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2567">
+              <caret line="158" column="10" selection-start-line="158" selection-start-column="10" selection-end-line="158" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InstallConstants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/InstallConstants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="197" lean-forward="true" selection-start-line="197" selection-end-line="197" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>m_hostIPAddressTextField</find>
+      <find>m_databaseUserNameLabel</find>
+      <find>m_databaseUserNameTextField</find>
+      <find>validateData</find>
+      <find>initializeSetting</find>
+      <find>VAR_IS_DB_SCHEMA_VALID</find>
+      <find>getSys</find>
+      <find>archive</find>
+      <find>m_patScriptPath</find>
+      <find>readPatScript</find>
+      <find>readPackageInstallScript</find>
+      <find>executePkgScript</find>
+      <find>Invalid number format for port number</find>
+    </findStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/dti/interfaceconfig/CreateOsFormIntfConfig.java" />
+        <option value="$PROJECT_DIR$/src/dti/eapp/installer/PrepareConfig.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/DisplayOsFormIntfConfig.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/BuildApplied.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/PostCompleteLog.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/SchemaOwnerPanel.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/ValidateSchemaOwner.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/ValidateGhostdraftInformation.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/CreateSystemParameterUtilConfig.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/GetSystemParameterConfig.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/SystemParameterUtilInformationPanel.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/GetOsFormIntfConfig.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/GetSystemParameterUtilConfig.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/InstallUtil.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/CreateOsFormIntfConfig.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/EloquenceInformationPanel.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/GhostdraftInformationPanelListener.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/GhostdraftInformationPanel.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/SystemParameterUtilPanel.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/ExecuteInstallScript.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/PrepareConfig.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/PublishDB.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/CheckSqlplus.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/InstallConstants.java" />
+        <option value="$PROJECT_DIR$/src/dti/ic/installer/InstallPackage.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="LastSuccessfulUpdateTracker">
+    <option name="changeLists">
+      <list>
+        <PersistentChangeList>
+          <option name="name" value="issue 176689 - Fix for the repeated error during create policy action." />
+        </PersistentChangeList>
+        <PersistentChangeList>
+          <option name="name" value="Fix for &quot;Invalid Http Sessions&quot; java stack trace errors in weblogic logs" />
+        </PersistentChangeList>
+        <PersistentChangeList>
+          <option name="name" value="Oasis Docupro Interface Tool initial revision - Issue # : 194637" />
+          <option name="files">
+            <list>
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/commons-logging-1.1.3.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/InstallConstants.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/libraries/lib1.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/resource/services/ppk/linuxppk.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/IAClasses.zip" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/build.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/GhostdraftInformationPanelListener.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/InstallConstants.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/GhostdraftInformationPanel.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/GhostdraftInformationPanel.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/log4j-1.2.16.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/InstallPackage.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/CreateSystemParameterUtilConfig.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/ValidateSchemaOwner.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/GhostdraftInformationPanelListener.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/resource/services/ppk/macosxppk.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/GetSystemParameterUtilConfig.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/SchemaOwnerPanel.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/commons-httpclient-3.1.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/ValidateSchemaOwner.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/PostCompleteLog.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/OasisDocuproInterface.iml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/BuildApplied.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/libraries/ppk.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/libraries/ppk1.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/resource/services/ppk/hpuxppk.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/CreateSystemParameterUtilConfig.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/SystemParameterUtilPanel.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/EloquenceInformationPanel.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/libraries/services.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/CreateOsFormIntfConfig.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/commons-codec-1.8.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/PostCompleteLog.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/ExecuteInstallScript.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/GetOsFormIntfConfig.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/InstallUtil.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/ant.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/resource/services/services.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/ValidateGhostdraftInformation.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/GetOsFormIntfConfig.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/resource/services/ppk/genericunixppk.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/resource/services/ppk/aixppk.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/PrepareConfig.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/customcode.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/EloquenceInformationPanel.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/stax-1.2.0.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/ValidateGhostdraftInformation.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/GetSystemParameterUtilConfig.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/delphi-custom-1.1.0-actions.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/resource/services/ppk/windowsppk.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/CreateOsFormIntfConfig.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/resource/services/ppk/solarisppk.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/PrepareConfig.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/tdes-5.2.0.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/CheckSqlplus.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/InstallUtil.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/pkg/form_interface_cfg.pkg" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/form-ext-3.11.0-actions.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/SystemParameterUtilPanel.java" />
+              <ChangedFile afterPath="$PROJECT_DIR$/bin/dti/ic/installer/BuildApplied.class" />
+              <ChangedFile afterPath="$PROJECT_DIR$/lib/ojdbc6.jar" />
+              <ChangedFile afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/src/dti/ic/installer/SchemaOwnerPanel.java" />
+            </list>
+          </option>
+        </PersistentChangeList>
+        <PersistentChangeList>
+          <option name="name" value="Default" />
+        </PersistentChangeList>
+      </list>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="PerforceNumberNameSynchronizer">
+    <option name="listMappings">
+      <map>
+        <entry>
+          <key>
+            <ConnectionKeyBean>
+              <option name="server" value="" />
+              <option name="client" value="" />
+              <option name="user" value="" />
+            </ConnectionKeyBean>
+          </key>
+          <value>
+            <PerforceNumberNameMap>
+              <option name="mapping">
+                <entry key="263701" value="Fix for &quot;Invalid Http Sessions&quot; java stack trace errors in weblogic logs" />
+                <entry key="282277" value="issue 176689 - Fix for the repeated error during create policy action." />
+                <entry key="323466" value="Oasis Docupro Interface Tool initial revision - Issue # : 194637" />
+              </option>
+            </PerforceNumberNameMap>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1456" />
+    <option name="height" value="876" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <autoscrollFromSource ProjectPane="true" />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="installer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="dti.ic.installer" />
+      <recent name="dti.interfaceconfig" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\p4\Delphi\OasisAddOns\InterfaceConfigInstaller\java\src\dti\ic\installer" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="dti.ic.installer" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="dti.ic.installer" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <module name="" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <properties />
+      <listeners />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a427624b-394b-4394-9c15-8cc272f6ef19" name="Default" comment="" />
+      <created>1530802357861</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1530802357861</updated>
+      <workItem from="1530802359287" duration="7456000" />
+      <workItem from="1530890553866" duration="5265000" />
+      <workItem from="1531100774317" duration="2734000" />
+      <workItem from="1531143271685" duration="13774000" />
+      <workItem from="1531226022378" duration="2077000" />
+      <workItem from="1531281729639" duration="2410000" />
+      <workItem from="1531311570983" duration="1551000" />
+      <workItem from="1531422966861" duration="2280000" />
+      <workItem from="1531487775782" duration="17540000" />
+      <workItem from="1531706580856" duration="830000" />
+      <workItem from="1531742534570" duration="16272000" />
+      <workItem from="1531833302567" duration="19360000" />
+      <workItem from="1531877735175" duration="1782000" />
+      <workItem from="1531918994383" duration="4081000" />
+      <workItem from="1531933621184" duration="593000" />
+      <workItem from="1531937781894" duration="6162000" />
+      <workItem from="1532087552582" duration="5170000" />
+      <workItem from="1532943470783" duration="4224000" />
+      <workItem from="1532961354435" duration="2831000" />
+      <workItem from="1533010147629" duration="1502000" />
+      <workItem from="1533030076937" duration="3435000" />
+      <workItem from="1533042794470" duration="1680000" />
+      <workItem from="1533110804002" duration="7882000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="130891000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <layout>
+      <window_info anchor="right" id="Palette" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32711864" />
+      <window_info anchor="right" id="Palette&#9;" order="1" />
+      <window_info id="Image Layers" order="0" />
+      <window_info anchor="right" id="Capture Analysis" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50075644" side_tool="true" weight="0.32881355" />
+      <window_info anchor="right" id="Maven Projects" order="4" weight="0.32980332" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49924356" visible="true" weight="0.32881355" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32881355" />
+      <window_info id="Capture Tool" order="1" />
+      <window_info id="Designer" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="3" visible="true" weight="0.2397882" />
+      <window_info anchor="right" id="Database" order="5" />
+      <window_info id="Learn" order="4" />
+      <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="3" visible="true" weight="0.15506808" />
+      <window_info id="UI Designer" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="7" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32881355" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+    <buildFile url="file://$PROJECT_DIR$/src/build.xml">
+      <targetFilters>
+        <filter targetName="build_jar" isVisible="true" />
+      </targetFilters>
+      <expanded value="true" />
+    </buildFile>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/ValidateSchemaOwner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="44" column="30" selection-start-line="44" selection-start-column="30" selection-end-line="44" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/PostCompleteLog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/CreateOsFormIntfConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1343">
+          <caret line="86" column="54" selection-start-line="86" selection-start-column="54" selection-end-line="86" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/GetOsFormIntfConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1598">
+          <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/PrepareConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="51" column="10" selection-start-line="51" selection-start-column="10" selection-end-line="51" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/InstallUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4709">
+          <caret line="277" column="10" selection-start-line="277" selection-start-column="10" selection-end-line="277" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="30" lean-forward="true" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/BuildApplied.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1377">
+          <caret line="81" selection-start-line="81" selection-end-line="84" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/ValidateSchemaOwner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="44" column="30" selection-start-line="44" selection-start-column="30" selection-end-line="44" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/PostCompleteLog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/SchemaOwnerPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4794">
+          <caret line="282" column="36" selection-start-line="282" selection-start-column="12" selection-end-line="282" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/CreateOsFormIntfConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1343">
+          <caret line="86" column="54" selection-start-line="86" selection-start-column="54" selection-end-line="86" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/GetOsFormIntfConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1445">
+          <caret line="85" column="36" lean-forward="true" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/PrepareConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="51" column="10" selection-start-line="51" selection-start-column="10" selection-end-line="51" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/BuildApplied.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1377">
+          <caret line="81" selection-start-line="81" selection-end-line="84" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/SchemaOwnerPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4828">
+          <caret line="284" column="91" selection-start-line="284" selection-start-column="76" selection-end-line="284" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/ValidateSchemaOwner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="44" column="30" selection-start-line="44" selection-start-column="30" selection-end-line="44" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/PostCompleteLog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/InstallUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="87" selection-start-line="39" selection-start-column="87" selection-end-line="39" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/CreateOsFormIntfConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1462">
+          <caret line="86" column="54" lean-forward="true" selection-start-line="86" selection-start-column="54" selection-end-line="86" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/GetOsFormIntfConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="36" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/SchemaOwnerPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4828">
+          <caret line="284" column="91" selection-start-line="284" selection-start-column="76" selection-end-line="284" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/ValidateSchemaOwner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="44" column="30" lean-forward="true" selection-start-line="44" selection-start-column="30" selection-end-line="44" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/PostCompleteLog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/PrepareConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="51" column="10" selection-start-line="51" selection-start-column="10" selection-end-line="51" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/eapp/installer/XmlUtils.java" />
+    <entry file="file://$PROJECT_DIR$/src/dti/eapp/installer/ExecutePatScript.java" />
+    <entry file="file://$PROJECT_DIR$/src/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/DTIapps/JDK/jdk1.8.0_101/src.zip!/javax/swing/text/JTextComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="1664" column="16" selection-start-line="1664" selection-start-column="16" selection-end-line="1664" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/DTIapps/JDK/jdk1.8.0_101/src.zip!/java/awt/Container.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="415" column="21" selection-start-line="415" selection-start-column="21" selection-end-line="415" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/ValidateGhostdraftInformation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/IAClasses.zip!/com/zerog/ia/api/pub/CustomCodePanel.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/DTIapps/JDK/jdk1.8.0_101/src.zip!/java/sql/ResultSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15708">
+          <caret line="950" column="8" selection-start-line="950" selection-start-column="8" selection-end-line="950" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/GetSystemParameterUtilConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2550">
+          <caret line="160" column="5" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/PostCompleteLog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/CreateSystemParameterUtilConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/CreateOsFormIntfConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2329">
+          <caret line="143" column="56" selection-start-line="143" selection-start-column="56" selection-end-line="143" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/EloquenceInformationPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2040">
+          <caret line="127" column="46" selection-start-line="127" selection-start-column="46" selection-end-line="127" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/SystemParameterUtilPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2618">
+          <caret line="165" column="55" selection-start-line="165" selection-start-column="55" selection-end-line="165" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/GhostdraftInformationPanelListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="11" column="64" selection-start-line="11" selection-start-column="64" selection-end-line="11" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/GhostdraftInformationPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2567">
+          <caret line="158" column="10" selection-start-line="158" selection-start-column="10" selection-end-line="158" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/PrepareConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="42" column="79" selection-start-line="42" selection-start-column="79" selection-end-line="42" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/GetOsFormIntfConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="148" column="9" selection-start-line="148" selection-start-column="9" selection-end-line="148" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/ExecuteInstallScript.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/InstallUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="327" column="25" selection-start-line="327" selection-start-column="25" selection-end-line="327" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/SchemaOwnerPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="278" column="98" selection-start-line="278" selection-start-column="77" selection-end-line="278" selection-end-column="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/BuildApplied.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/InstallConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="197" lean-forward="true" selection-start-line="197" selection-end-line="197" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/CheckSqlplus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="55" column="66" lean-forward="true" selection-start-line="55" selection-start-column="66" selection-end-line="55" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/ValidateSchemaOwner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dti/ic/installer/InstallPackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="265" column="11" lean-forward="true" selection-start-line="265" selection-start-column="11" selection-end-line="265" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>scala-sdk-2.12.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>InterfaceConfigInstaller</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>lib</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -19,6 +19,7 @@ DECLARE
 
   tablename varchar2(128) := 'OASIS_HEALTH_CHECK';
   tableseq varchar2(128) := 'OASIS_HEALTH_CHECK_SEQ';
+  dailyseq varchar2(128) := 'DAILY_OHC_SEQ';
   
   PROCEDURE pl(s IN VARCHAR2, v IN BOOLEAN DEFAULT TRUE) IS
   BEGIN 
@@ -35,6 +36,7 @@ DECLARE
     create_table_sql := 'create table '||tablename||chr(10)||
                          '(OHC_PK number(15),'||chr(10)||
                          ' RUN_DATE varchar2(75),'||chr(10)||
+						 ' RUN_NO number(15),'||chr(10)||
                          ' OHC_LEVEL varchar2(50),'||chr(10)||
 						 ' SUB_SYSTEM varchar2(50),'||chr(10)||
                          ' OHC_CATEGORY varchar2(50),'||chr(10)||
@@ -42,7 +44,8 @@ DECLARE
                          ' MSG varchar2(300),'||chr(10)||                           
                          ' PARM_NAME varchar2(50),'||chr(10)||
                          ' PARM_VALUE varchar(200),'||chr(10)||
-                         ' PARM_DESC varchar2(2000)'||chr(10)||
+                         ' PARM_DESC varchar2(2000),'||chr(10)||
+						 ' OHC_SQL CLOB'||chr(10)||
                          ' )';
   END init_sql;
   
@@ -77,10 +80,20 @@ DECLARE
        else
          pl('OASIS_HEALTH_CHECK_SEQ sequence already found in schema');         
      END IF;
-       
-    --pl('Creating package: OASIS_HEALTH_CHECK_MAIN');
-    --@oasis_health_check_main.pkg 
-    --PL('Package OASIS_HEALTH_CHECK_MAIN created successfully');
+
+     v_sql_stmt := 'SELECT count(1) FROM user_sequences u WHERE u.sequence_name = ''DAILY_OHC_SEQ''';
+     --pl('stmt : ' || v_sql_stmt);
+     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+     --pl('count : ' || v_count);
+     IF (v_count = 0) THEN      
+        pl('Creating sequence ' || dailyseq);
+        dailyseq := 'CREATE SEQUENCE ' || dailyseq || ' start with 1 increment by 1 NOCYCLE';
+        EXECUTE IMMEDIATE dailyseq;
+        pl(dailyseq||' sequence was created successfully');
+       else
+         pl('DAILY_OHC_SEQ sequence already found in schema');         
+     END IF;
+	 
   END install_oasis_health_check;
 
 BEGIN

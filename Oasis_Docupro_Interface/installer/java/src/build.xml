@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build_custom_code_jar" default="build_jar" basedir="..">
+
+  <description>
+  	NOTE: This build file is used to build installer custom code jar file. 
+  </description>
+    
+  <target name="build_jar" description="Call InstallAnywhere" >
+      <path id="custom_code.classpath">
+      	      <fileset dir="${basedir}/lib/resource/services"  includes="*.jar"/>
+		      <fileset dir="${basedir}/lib/resource/services/ppk"  includes="*.jar"/>
+		      <fileset dir="${basedir}/lib"  includes="*.jar"/>
+      	      <fileset dir="${basedir}/lib"  includes="*.zip"/>
+      </path>
+	  <mkdir dir="${basedir}/bin"/>
+	  <javac srcdir="${basedir}/src" destdir="${basedir}/bin" classpathref="custom_code.classpath" fork="true" target="1.6" source="1.6" />
+	  <copy todir="${basedir}/bin">
+		<fileset dir="${basedir}/src">
+		   <include name="dti/**/*.properties"/>
+		</fileset>
+	  </copy>
+	  <jar destfile="${basedir}/customcode.jar" basedir="${basedir}/bin" /> 
+  </target>
+
+</project>

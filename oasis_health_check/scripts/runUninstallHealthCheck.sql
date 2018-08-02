@@ -89,7 +89,35 @@ DECLARE
         pl('dropped package OASIS_HEALTH_CHECK_POLICY'); 
        else
          pl('OASIS_HEALTH_CHECK_POLICY package not found in schema');               
-       END IF;	   
+       END IF;
+
+       v_sql_stmt := 'select count(1)  FROM USER_OBJECTS WHERE OBJECT_TYPE = ''PACKAGE'' AND OBJECT_NAME = ''OASIS_HEALTH_CHECK_CLAIMS''';
+       --pl('stmt : ' || v_sql_stmt);
+       EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+       --pl('count : ' || v_count);
+       IF (v_count > 0) then
+        v_sql_stmt := 'DROP PACKAGE BODY OASIS_HEALTH_CHECK_CLAIMS';
+        EXECUTE IMMEDIATE v_sql_stmt;
+        v_sql_stmt := 'DROP PACKAGE OASIS_HEALTH_CHECK_CLAIMS';
+        EXECUTE IMMEDIATE v_sql_stmt;        
+        pl('dropped package OASIS_HEALTH_CHECK_CLAIMS'); 
+       else
+         pl('OASIS_HEALTH_CHECK_CLAIMS package not found in schema');               
+       END IF;
+	   
+       v_sql_stmt := 'select count(1)  FROM USER_OBJECTS WHERE OBJECT_TYPE = ''PACKAGE'' AND OBJECT_NAME = ''OASIS_HEALTH_CHECK_CIS''';
+       --pl('stmt : ' || v_sql_stmt);
+       EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+       --pl('count : ' || v_count);
+       IF (v_count > 0) then
+        v_sql_stmt := 'DROP PACKAGE BODY OASIS_HEALTH_CHECK_CIS';
+        EXECUTE IMMEDIATE v_sql_stmt;
+        v_sql_stmt := 'DROP PACKAGE OASIS_HEALTH_CHECK_CIS';
+        EXECUTE IMMEDIATE v_sql_stmt;        
+        pl('dropped package OASIS_HEALTH_CHECK_CIS'); 
+       else
+         pl('OASIS_HEALTH_CHECK_CIS package not found in schema');               
+       END IF;		   
     END; 
   END uninstall_oasis_health_check;
 
