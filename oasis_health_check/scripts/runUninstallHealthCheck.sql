@@ -37,6 +37,18 @@ DECLARE
          pl('OASIS_HEALTH_CHECK table not found in schema');
        end if;
 
+       v_sql_stmt := 'SELECT   count(1) FROM  tab t WHERE   t.tname=''OASIS_HEALTH_CHECK_ENV''';
+       --pl('stmt : ' || v_sql_stmt);
+       EXECUTE IMMEDIATE v_sql_stmt INTO v_count;  
+       --pl('count : ' || v_count);
+       if (v_count > 0) then
+        v_sql_stmt := 'drop table OASIS_HEALTH_CHECK_ENV';
+        EXECUTE IMMEDIATE v_sql_stmt;
+        pl('dropped table OASIS_HEALTH_CHECK_ENV');
+       else
+         pl('OASIS_HEALTH_CHECK_ENV table not found in schema');
+       end if;
+	   
        v_sql_stmt := 'SELECT   count(1) FROM  all_sequences a WHERE   a.SEQUENCE_NAME=''OASIS_HEALTH_CHECK_SEQ''';
        --pl('stmt : ' || v_sql_stmt);
        EXECUTE IMMEDIATE v_sql_stmt INTO v_count;

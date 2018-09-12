@@ -45,6 +45,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
   v_sub_system VARCHAR2(25) := 'FM';
   v_category VARCHAR(25) := 'FM_CFG';
   v_data_code VARCHAR2(25) := 'FM_CFG_DATA';
+  v_sql_stmt   VARCHAR2(3000) := '';
   v_ok VARCHAR2(2) := 'OK';
   v_review VARCHAR2(7) := 'REVIEW';
   v_desc VARCHAR2(255) := '';
@@ -72,184 +73,194 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
 
   PROCEDURE finance_data_check_001 IS
   BEGIN
-    v_desc := 'Invoices that exist in FM_BILL but not in FM_BILL_ACCOUNT table';
+    v_desc := 'finance_data_check_001 - Invoices that exist in FM_BILL but not in FM_BILL_ACCOUNT table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM FM_BILL b
     WHERE NOT EXISTS (SELECT * FROM fm_bill_account ba 
-                      WHERE ba.fm_bill_fk = b.fm_bill_pk);
+                      WHERE ba.fm_bill_fk = b.fm_bill_pk)';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_001;
 
   PROCEDURE finance_data_check_002 IS
   BEGIN
-    v_desc := 'Identify FM_Master records that transaction accounting date is less than minimum'||
+    v_desc := 'finance_data_check_002 - Identify FM_Master records that transaction accounting date is less than minimum'||
               'accounting date of RISK table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    WITH r AS (
+    v_sql_stmt := 'WITH r AS (
               SELECT r1.risk_base_record_fk, MIN(r1.accounting_from_date) min_acct_from_date
               FROM   Risk r1
               GROUP  BY r1.risk_base_record_fk) 
     SELECT COUNT(*)
-    INTO v_count
     FROM   fm_master fm,
            r
     WHERE  fm.risk_fk = r.risk_base_record_fk
-    AND    fm.accounting_date < r.min_acct_from_date;
+    AND    fm.accounting_date < r.min_acct_from_date';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_002;
 
   PROCEDURE finance_data_check_003 IS
   BEGIN
-    v_desc := 'Identify FM_Master records that transaction accounting date is less than minimum'||
+    v_desc := 'finance_data_check_003 - Identify FM_Master records that transaction accounting date is less than minimum'||
               'accounting date of COVERAGE table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    WITH c AS (
+    v_sql_stmt := 'WITH c AS (
               SELECT c1.coverage_base_record_fk, MIN(c1.accounting_from_date) min_acct_from_date
               FROM   Coverage c1
               GROUP  BY c1.coverage_base_record_fk) 
     SELECT COUNT(*)
-    INTO v_count
     FROM   fm_master fm,
            c
     WHERE  fm.coverage_fk = c.coverage_base_record_fk
-    AND    fm.accounting_date < c.min_acct_from_date;
+    AND    fm.accounting_date < c.min_acct_from_date';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_003;
 
   PROCEDURE finance_data_check_004 IS
   BEGIN
-    v_desc := 'Transaction amount different between FM_MASTER and FM_OPEN_ITEM_CHANGE';
+    v_desc := 'finance_data_check_004 - Transaction amount different between FM_MASTER and FM_OPEN_ITEM_CHANGE';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   Fm_Master fm,
            Fm_Open_Item_Change ic
     WHERE  fm.fm_master_pk = ic.source_record_fk
-    AND    ic.source_table_name = 'FM_MASTER'
-    AND    fm.amount <> (ic.amount + ic.open_balance);
+    AND    ic.source_table_name = ''FM_MASTER''
+    AND    fm.amount <> (ic.amount + ic.open_balance)';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_004;
 
   PROCEDURE finance_data_check_005 IS
   BEGIN
-    v_desc := 'Transactions with accounting date is unreasonably high';
+    v_desc := 'finance_data_check_005 -Transactions with accounting date is unreasonably high';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   fm_master fm
-    WHERE  fm.accounting_date > add_months(SYSDATE,24);
+    WHERE  fm.accounting_date > add_months(SYSDATE,24)';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_005;
 
   PROCEDURE finance_data_check_006 IS
   BEGIN
-    v_desc := 'Transactions with accounting date is unreasonably low';
+    v_desc := 'finance_data_check_006 -Transactions with accounting date is unreasonably low';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count 
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   fm_master fm
-    WHERE  fm.accounting_date < to_date('1/1/1950','mm/dd/yyyy');
+    WHERE  fm.accounting_date < to_date(''1/1/1950'',''mm/dd/yyyy'')';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_006;
 
   PROCEDURE finance_data_check_007 IS
   BEGIN
-    v_desc := 'Transactions with effective from date is unreasonably high';
+    v_desc := 'finance_data_check_007 - Transactions with effective from date is unreasonably high';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count 
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   fm_master fm
-    WHERE  fm.effective_from_date > add_months(SYSDATE,24);
+    WHERE  fm.effective_from_date > add_months(SYSDATE,24)';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_007;
 
   PROCEDURE finance_data_check_008 IS
   BEGIN
-    v_desc := 'Transactions with effective from date is unreasonably low';
+    v_desc := 'finance_data_check_008 - Transactions with effective from date is unreasonably low';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count 
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   fm_master fm
-    WHERE  fm.effective_from_date < to_date('1/1/1950','mm/dd/yyyy');
+    WHERE  fm.effective_from_date < to_date(''1/1/1950'',''mm/dd/yyyy'')';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_008;
 
   PROCEDURE finance_data_check_009 IS
   BEGIN
-    v_desc := 'Transactions with transaction date is unreasonably high';
+    v_desc := 'finance_data_check_009 - Transactions with transaction date is unreasonably high';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count 
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   fm_master fm
-    WHERE  fm.transaction_date > add_months(SYSDATE,24);
+    WHERE  fm.transaction_date > add_months(SYSDATE,24)';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_009;
 
   PROCEDURE finance_data_check_010 IS
   BEGIN
-    v_desc := 'Transactions with transaction date is unreasonably low';
+    v_desc := 'finance_data_check_010 - Transactions with transaction date is unreasonably low';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   fm_master fm
-    WHERE  fm.transaction_date < to_date('1/1/1950','mm/dd/yyyy');
+    WHERE  fm.transaction_date < to_date(''1/1/1950'',''mm/dd/yyyy'')';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_010;
 
   PROCEDURE finance_data_check_011 IS
   BEGIN
-    v_desc := 'Accounts that balance do not match between FM_OPEN_ITEM and FM_OPEN_ITEM_CHANGE';
+    v_desc := 'finance_data_check_011 - Accounts that balance do not match between FM_OPEN_ITEM and FM_OPEN_ITEM_CHANGE';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    WITH a AS 
+    v_sql_stmt := 'WITH a AS 
         (SELECT ba.Account_No, 
                 SUM(NVL(i.open_balance,0)) i_balance
          FROM   FM_Open_Item    i,
                 Billing_Account ba
-         WHERE  NVl(ba.Accounting_Mode, 'BAL_FWD') = 'OPEN_ITEM'
+         WHERE  NVl(ba.Accounting_Mode, ''BAL_FWD'') = ''OPEN_ITEM''
          AND    ba.Billing_Account_Pk              = i.Billing_Account_Fk
          GROUP  BY ba.Account_No), 
          b AS 
@@ -258,48 +269,51 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
          FROM   FM_Open_Item    i,
                 Billing_Account ba, 
                 Fm_Open_Item_Change ic
-         WHERE  NVl(ba.Accounting_Mode, 'BAL_FWD') = 'OPEN_ITEM'
+         WHERE  NVl(ba.Accounting_Mode, ''BAL_FWD'') = ''OPEN_ITEM''
          AND    ic.fm_open_item_fk = i.fm_open_item_pk
          AND    ba.Billing_Account_Pk              = i.Billing_Account_Fk
          GROUP  BY ba.Account_No)
     SELECT count(1)
-    INTO v_count
     FROM   a, b 
     WHERE  a.account_no = b.account_no
-    AND    a.i_balance <> b.ic_balance;
+    AND    a.i_balance <> b.ic_balance';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'accounts');
+                        v_data_code, '>0', v_count, v_desc, 'accounts', v_sql_stmt);
   END finance_data_check_011;
 
   PROCEDURE finance_data_check_012 IS
   BEGIN
-    v_desc := 'Records in FM_OPEN_ITEM table that OPEN_BALANCE is null';
+    v_desc := 'finance_data_check_012 - Records in FM_OPEN_ITEM table that OPEN_BALANCE is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   FM_Open_Item i
-    WHERE  i.open_balance IS NULL;
+    WHERE  i.open_balance IS NULL';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_012;
 
   PROCEDURE finance_data_check_013 IS
   BEGIN
-    v_desc := 'Records in FM_OPEN_ITEM_CHANGE table that OPEN_BALANCE is null';
+    v_desc := 'finance_data_check_013 - Records in FM_OPEN_ITEM_CHANGE table that OPEN_BALANCE is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   FM_Open_Item_Change i
-    WHERE  i.open_balance IS NULL OR i.amount IS NULL;
+    WHERE  i.open_balance IS NULL OR i.amount IS NULL';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END finance_data_check_013;
 
   /**************************************************************************
@@ -325,7 +339,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
   END main;
 
   BEGIN
-    g_trace := TRUE;
+    g_trace := FALSE;
 
   EXCEPTION
     WHEN OTHERS THEN

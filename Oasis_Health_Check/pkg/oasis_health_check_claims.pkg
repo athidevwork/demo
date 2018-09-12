@@ -49,6 +49,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
   v_sub_system VARCHAR2(25) := 'CLAIMS';
   v_category VARCHAR(25) := 'CLAIMS_CFG';
   v_data_code VARCHAR2(25) := 'CLAIMS_CFG_DATA';
+  v_sql_stmt   VARCHAR2(3000) := '';
   v_ok VARCHAR2(2) := 'OK';
   v_review VARCHAR2(7) := 'REVIEW';
   v_desc VARCHAR2(255) := '';
@@ -92,35 +93,35 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
 
   PROCEDURE claims_data_check_001 IS
   BEGIN
-    v_desc := 'cm_transaction_detail w/o matching CIX and claimant on CCX';
+    v_desc := 'claims_data_check_001 - cm_transaction_detail w/o matching CIX and claimant on CCX';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM system_parameter_util sys,
            cm_transaction_detail d
-    WHERE sysparm_code = 'CM_AUTO_INS_CLMNTCOV'
-          and sysparm_value = 'Y'
+    WHERE sysparm_code = ''CM_AUTO_INS_CLMNTCOV''
+          and sysparm_value = ''Y''
           and not EXISTS
-          (SELECT 'x'
+          (SELECT ''x''
            FROM claimant_coverage_xref ccx
            WHERE d.claimant_fk = ccx.claimant_fk
                  and d.coverage_insured_xref_fk = ccx.coverage_insured_xref_fk
-          );
+          )';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions');
+                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
   END claims_data_check_001;
   
   PROCEDURE claims_data_check_002 IS
   BEGIN
-    v_desc := 'cm_transaction w/ data_checking cm_trans_status_history row';
+    v_desc := 'claims_data_check_002 - cm_transaction w/ data_checking cm_trans_status_history row';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM cm_transaction t, 
          cm_trans_status_history tsh
     WHERE t.cm_transaction_pk = tsh.cm_transaction_fk
@@ -129,76 +130,80 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
            FROM cm_trans_status_history
            WHERE cm_Transaction_fk = t.cm_transaction_pk
            )
-           and t.trans_status_code <> tsh.cm_transaction_status_code;
+           and t.trans_status_code <> tsh.cm_transaction_status_code';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions');
+                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
   END claims_data_check_002;
   
   PROCEDURE claims_data_check_003 IS
   BEGIN
-    v_desc := 'cm_transaction w/ missing  cm_trans_status_history row';
+    v_desc := 'claims_data_check_003 - cm_transaction w/ missing  cm_trans_status_history row';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM cm_transaction t
-    WHERE not exists(select 'x'
+    WHERE not exists(select ''x''
                      from cm_trans_status_history tsh
-                     where tsh.cm_transaction_fk = t.cm_transaction_pk);
+                     where tsh.cm_transaction_fk = t.cm_transaction_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions');
+                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
   END claims_data_check_003;
 
   PROCEDURE claims_data_check_004 IS
   BEGIN
-    v_desc := 'cm_transaction w/o matching cm_transaction_detail row';
+    v_desc := 'claims_data_check_004 - cm_transaction w/o matching cm_transaction_detail row';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM cm_transaction t
-    WHERE source_table_name = 'CLAIM'
-          and not exists(select 'x'
+    WHERE source_table_name = ''CLAIM''
+          and not exists(select ''x''
                          from cm_transaction_detail d
-                         where d.cm_transaction_fk = t.cm_transaction_pk);
+                         where d.cm_transaction_fk = t.cm_transaction_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions');
+                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
   END claims_data_check_004;
 
   PROCEDURE claims_data_check_005 IS
   BEGIN
-    v_desc := 'cm_transaction where trans_amt <> sum amount on det row';
+    v_desc := 'claims_data_check_005 - cm_transaction where trans_amt <> sum amount on det row';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM (select cm_transaction_pk,
                trans_amt
           from cm_transaction t,
                cm_transaction_detail d
-          where t.source_table_name = 'CLAIM'
+          where t.source_table_name = ''CLAIM''
            and t.cm_transaction_pk = d.cm_transaction_fk
            group by cm_transaction_pk,trans_amt
-           having min(trans_amt) <> sum(amount));
+           having min(trans_amt) <> sum(amount))';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions');
+                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
   END claims_data_check_005;
 
   PROCEDURE claims_data_check_006 IS
   BEGIN
-    v_desc := 'txn dtl rows where the txn claim differs from CIX claim';
+    v_desc := 'claims_data_check_006 - txn dtl rows where the txn claim differs from CIX claim';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM cm_transaction_detail d,
          cm_transaction t,
          coverage_insured_xref cix,
@@ -208,195 +213,206 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
           and d.coverage_insured_xref_fk = cix.coverage_insured_xref_pk
           and cix.claim_insured_fk       = ci.claim_insured_pk
           and ci.entity_role_fk          = er.entity_role_pk
-          and er.source_record_fk        <> t.source_record_fk;
+          and er.source_record_fk        <> t.source_record_fk';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions');
+                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
   END claims_data_check_006;
 
   PROCEDURE claims_data_check_007 IS
   BEGIN
-    v_desc := 'entity_role roles where entity fk is not on entity table';
+    v_desc := 'claims_data_check_007 - entity_role roles where entity fk is not on entity table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM entity_Role er
-    WHERE not exists(select 'x'
+    WHERE not exists(select ''x''
                     from entity e
-                   where e.entity_pk = er.entity_fk);
+                   where e.entity_pk = er.entity_fk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'entities');
+                        v_data_code, '>0', v_count, v_desc, 'entities', v_sql_stmt);
   END claims_data_check_007;
 
   PROCEDURE claims_data_check_008 IS
   BEGIN
-    v_desc := 'claimant rows where entity role not on entity role table';
+    v_desc := 'claims_data_check_008 - claimant rows where entity role not on entity role table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count  
+    v_sql_stmt := 'SELECT count(*)
     FROM claimant c
-    WHERE not exists(select 'x'
+    WHERE not exists(select ''x''
                      from entity_role er
-                     where er.entity_role_pk = c.entity_role_fk);
+                     where er.entity_role_pk = c.entity_role_fk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'claimants');
+                        v_data_code, '>0', v_count, v_desc, 'claimants', v_sql_stmt);
   END claims_data_check_008;
 
   PROCEDURE claims_data_check_009 IS
   BEGIN
-    v_desc := 'claim_insured rows where entity role not on entity role table';
+    v_desc := 'claims_data_check_009 - claim_insured rows where entity role not on entity role table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM claim_insured ci
-    WHERE not exists(select 'x'
+    WHERE not exists(select ''x''
                      from entity_role er
-                     where er.entity_role_pk = ci.entity_role_fk);
+                     where er.entity_role_pk = ci.entity_role_fk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'claim insureds');
+                        v_data_code, '>0', v_count, v_desc, 'claim insureds', v_sql_stmt);
   END claims_data_check_009;
 
   PROCEDURE claims_data_check_010 IS
   BEGIN
-    v_desc := 'CIX rows where claim_insured_fk does not exist';
+    v_desc := 'claims_data_check_010 - CIX rows where claim_insured_fk does not exist';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM coverage_insured_xref cix
-    WHERE not exists(select 'x'
+    WHERE not exists(select ''x''
                      from claim_insured ci
-                     where ci.claim_insured_pk = cix.claim_insured_fk);
+                     where ci.claim_insured_pk = cix.claim_insured_fk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_010;
 
   PROCEDURE claims_data_check_011 IS
   BEGIN
-    v_desc := 'claims where min claim type and claim hist dates are not equal';
+    v_desc := 'claims_data_check_011 - claims where min claim type and claim hist dates are not equal';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM (
          SELECT csh.source_record_fk
          FROM claim_status_history csh,
               claim_type_history cth
          WHERE csh.source_record_fk = cth.source_record_fk
-               and csh.source_table_name = 'CLAIM'
-               and cth.source_table_name = 'CLAIM'
+               and csh.source_table_name = ''CLAIM''
+               and cth.source_table_name = ''CLAIM''
          GROUP BY csh.Source_Record_Fk
          HAVING min(cth.type_start_date) <> min(csh.status_start_date)
-    );
+    )';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_011;
 
   PROCEDURE claims_data_check_012 IS
   BEGIN
-    v_desc := ' missing cm_transaction sys_update_time';
+    v_desc := 'claims_data_check_012 - missing cm_transaction sys_update_time';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM cm_transaction
-    WHERE sys_update_time is null;
+    WHERE sys_update_time is null';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_012;
 
   PROCEDURE claims_data_check_013 IS
   BEGIN
-    v_desc := 'claimant_fk on txn detail, not on claimant table';
+    v_desc := 'claims_data_check_013 - claimant_fk on txn detail, not on claimant table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM cm_transaction_detail d
-    WHERE not exists(select 'x'
+    WHERE not exists(select ''x''
                      from claimant c
-                     where c.claimant_pk = d.claimant_fk);
+                     where c.claimant_pk = d.claimant_fk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_013;
 
   PROCEDURE claims_data_check_014 IS
   BEGIN
-    v_desc := 'CIX fks on txn detail, not on CIX table';
+    v_desc := 'claims_data_check_014 - CIX fks on txn detail, not on CIX table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM cm_transaction_detail d
-    WHERE not exists(SELECT 'x'
+    WHERE not exists(SELECT ''x''
                      FROM coverage_insured_xref c
-                     WHERE c.coverage_insured_xref_pk = d.coverage_insured_xref_fk);
+                     WHERE c.coverage_insured_xref_pk = d.coverage_insured_xref_fk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_014;
 
   PROCEDURE claims_data_check_015 IS
   BEGIN
-    v_desc := 'cm_trans_status_history w/ null status_start_date';
+    v_desc := 'claims_data_check_015 - cm_trans_status_history w/ null status_start_date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*) 	
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*) 	
     FROM cm_trans_status_history
-    WHERE status_start_date is null;
+    WHERE status_start_date is null';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_015;
 
   PROCEDURE claims_data_check_016 IS
   BEGIN
-    v_desc := 'cm_trans_status_history rows w/ null accounting_date';
+    v_desc := 'claims_data_check_016 - cm_trans_status_history rows w/ null accounting_date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM cm_trans_status_history
-    WHERE accounting_date is null;
+    WHERE accounting_date is null';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_016;
 
   PROCEDURE claims_data_check_017 IS
   BEGIN
-    v_desc := 'claims where min txn start date < min claim start date';
+    v_desc := 'claims_data_check_017 - claims where min txn start date < min claim start date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM (select *
           from (select csh.source_record_fk clm_fk,
                            min(status_start_date) clm_status_start_date
                       from claim_status_history csh
-                     where source_table_name = 'CLAIM'
+                     where source_table_name = ''CLAIM''
                      group by source_record_fk) v1,
                (select t.source_record_fk txn_clm_fk,
                            min(status_start_date) txn_status_start_date
@@ -404,428 +420,454 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
                      where t.cm_transaction_pk = tsh.cm_transaction_fk
                      group by t.source_record_fk) v2
           where v1.clm_fk = v2.txn_clm_fk
-                and txn_status_start_date < clm_status_start_date);
+                and txn_status_start_date < clm_status_start_date)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_017;
 
   PROCEDURE claims_data_check_018 IS
   BEGIN
-    v_desc := 'CIX rows where policy fk not on cm_policy';
+    v_desc := 'claims_data_check_018 - CIX rows where policy fk not on cm_policy';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM coverage_insured_xref cix
-    WHERE source_table_name = 'CLAIM_POLICY'
-          and not exists(select 'x'
+    WHERE source_table_name = ''CLAIM_POLICY''
+          and not exists(select ''x''
                         from cm_policy p
-                       where cix.policy_fk = p.cm_policy_pk);
+                       where cix.policy_fk = p.cm_policy_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_018;
 
   PROCEDURE claims_data_check_019 IS
   BEGIN
-    v_desc := 'CIX rows where risk fk not on cm_risk';
+    v_desc := 'claims_data_check_019 - CIX rows where risk fk not on cm_risk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM coverage_insured_xref cix
-    WHERE source_table_name = 'CLAIM_POLICY'
-          and not exists(select 'x'
+    WHERE source_table_name = ''CLAIM_POLICY''
+          and not exists(select ''x''
                          from cm_risk r
-                         where cix.risk_fk = r.cm_risk_pk);
+                         where cix.risk_fk = r.cm_risk_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_019;
 
   PROCEDURE claims_data_check_020 IS
   BEGIN
-    v_desc := 'CIX rows where cvg fk not on cm_coverage';
+    v_desc := 'claims_data_check_020 - CIX rows where cvg fk not on cm_coverage';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM coverage_insured_xref cix
-    WHERE source_table_name = 'CLAIM_POLICY'
-          and not exists(select 'x'
+    WHERE source_table_name = ''CLAIM_POLICY''
+          and not exists(select ''x''
                          from cm_coverage c
-                         where cix.coverage_fk = c.cm_coverage_pk);
+                         where cix.coverage_fk = c.cm_coverage_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_020;
 
   PROCEDURE claims_data_check_021 IS
   BEGIN
-    v_desc := ' CIX rows where policy fk not on policy';
+    v_desc := 'claims_data_check_021 - CIX rows where policy fk not on policy';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM coverage_insured_xref cix
-    WHERE source_table_name = 'OASIS PM'
-          and not exists(select 'x'
+    WHERE source_table_name = ''OASIS PM''
+          and not exists(select ''x''
                          from policy p
-                         where cix.policy_fk = p.policy_pk);
+                         where cix.policy_fk = p.policy_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_021;
 
   PROCEDURE claims_data_check_022 IS
   BEGIN
-    v_desc := 'CIX rows where policy term fk not on policy term history';
+    v_desc := 'claims_data_check_022 - CIX rows where policy term fk not on policy term history';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM coverage_insured_xref cix
-    WHERE source_table_name = 'OASIS PM'
-          and not exists(select 'x'
+    WHERE source_table_name = ''OASIS PM''
+          and not exists(select ''x''
                          from policy_term_history p
-                         where cix.policy_term_fk = p.policy_term_history_pk);
+                         where cix.policy_term_fk = p.policy_term_history_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_022;
 
   PROCEDURE claims_data_check_023 IS
   BEGIN
-    v_desc := 'CIX rows where risk fk not on risk';
+    v_desc := 'claims_data_check_023 - CIX rows where risk fk not on risk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    select count(*)
-    INTO v_count
+    v_sql_stmt := 'select count(*)
     from coverage_insured_xref cix
-    where source_table_name = 'OASIS PM'
-          and not exists(select 'x'
+    where source_table_name = ''OASIS PM''
+          and not exists(select ''x''
                          from risk r
-                         where cix.risk_fk = r.risk_pk);
+                         where cix.risk_fk = r.risk_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_023;
 
   PROCEDURE claims_data_check_024 IS
   BEGIN
-    v_desc := 'CIX rows where cvg fk not on coverage';
+    v_desc := 'claims_data_check_024 - CIX rows where cvg fk not on coverage';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM coverage_insured_xref cix
-    where source_table_name = 'OASIS PM'
-          and not exists(select 'x'
+    where source_table_name = ''OASIS PM''
+          and not exists(select ''x''
                          from coverage c
-                         where cix.coverage_fk = c.coverage_pk);
+                         where cix.coverage_fk = c.coverage_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_024;
 
   PROCEDURE claims_data_check_025 IS
   BEGIN
-    v_desc := 'cm_transaction_detail rows where CIX fk is null';
+    v_desc := 'claims_data_check_025 - cm_transaction_detail rows where CIX fk is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM cm_transaction_detail
-    WHERE coverage_insured_xref_fk is null;
+    WHERE coverage_insured_xref_fk is null';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_025;
 
   PROCEDURE claims_data_check_026 IS
   BEGIN
-    v_desc := 'cm_transaction_detail rows where claimant fk is null';
+    v_desc := 'claims_data_check_026 - cm_transaction_detail rows where claimant fk is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    select count(*)
-    INTO v_count
+    v_sql_stmt := 'select count(*)
     from cm_transaction_detail
-    where claimant_fk is null;
+    where claimant_fk is null';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_026;
 
   PROCEDURE claims_data_check_027 IS
   BEGIN
-    v_desc := 'wacky CM_TRANSACTION accounting dates in yyyy/mm/dd format';
+    v_desc := 'claims_data_check_027 - wacky CM_TRANSACTION accounting dates in yyyy/mm/dd format';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    select count(*)
-    into v_count
+    v_sql_stmt := 'select count(*)
     from cm_transaction
     where accounting_date > SYSDATE
-        or accounting_date < to_date('01/01/1950','mm/dd/yyyy')
-    order by 1;
+        or accounting_date < to_date(''01/01/1950'',''mm/dd/yyyy'')
+    order by 1';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_027;
 
   PROCEDURE claims_data_check_028 IS
   BEGIN
-    v_desc := 'Checking for cm_trans_status_history rows where lastest status record '||
+    v_desc := 'claims_data_check_028 - Checking for cm_trans_status_history rows where lastest status record '||
               'does not have the max Trans PK of transaction';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   cm_trans_status_history ctsh
-    WHERE  ctsh.status_end_date = to_date('1/1/3000','mm/dd/yyyy')
+    WHERE  ctsh.status_end_date = to_date(''1/1/3000'',''mm/dd/yyyy'')
     AND    ctsh.cm_trans_status_history_pk <> 
            (SELECT MAX(ctsh1.cm_trans_status_history_pk)
             FROM   cm_trans_status_history ctsh1
-            WHERE  ctsh1.cm_transaction_fk = ctsh.cm_transaction_fk);
+            WHERE  ctsh1.cm_transaction_fk = ctsh.cm_transaction_fk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_028;
 
   PROCEDURE claims_data_check_029 IS
   BEGIN
-    v_desc := 'CM Coverage records where sys update time is null';
+    v_desc := 'claims_data_check_029 - CM Coverage records where sys update time is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   Cm_Coverage cc
-    WHERE  cc.sys_update_time IS NULL;
+    WHERE  cc.sys_update_time IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_029;
 
   PROCEDURE claims_data_check_030 IS
   BEGIN
-    v_desc := 'CM Risk records where sys update time is null';
+    v_desc := 'claims_data_check_030 - CM Risk records where sys update time is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   Cm_Risk cc
-    WHERE  cc.sys_update_time IS NULL;
+    WHERE  cc.sys_update_time IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_030;
 
   PROCEDURE claims_data_check_031 IS
   BEGIN
-    v_desc := 'CM Policy records where sys update time is null';
+    v_desc := 'claims_data_check_031 - CM Policy records where sys update time is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   Cm_Policy cc
-    WHERE  cc.sys_update_time IS NULL;
+    WHERE  cc.sys_update_time IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_031;
 
   PROCEDURE claims_data_check_032 IS
   BEGIN
-    v_desc := 'CM Coverage records where eff from date is null';
+    v_desc := 'claims_data_check_032 - CM Coverage records where eff from date is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   Cm_Coverage cc
-    WHERE  cc.effective_from_date IS NULL;
+    WHERE  cc.effective_from_date IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_032;
 
   PROCEDURE claims_data_check_033 IS
   BEGIN
-    v_desc := 'CM Risk records where eff from date is null';
+    v_desc := 'claims_data_check_033 - CM Risk records where eff from date is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   Cm_Risk cc
-    WHERE  cc.effective_from_date IS NULL;
+    WHERE  cc.effective_from_date IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_033;
 
   PROCEDURE claims_data_check_034 IS
   BEGIN
-    v_desc := 'CM Policy records where eff from date is null';
+    v_desc := 'claims_data_check_034 - CM Policy records where eff from date is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   Cm_Policy cc
-    WHERE  cc.policy_start_date IS NULL;
+    WHERE  cc.policy_start_date IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_034;
 
   PROCEDURE claims_data_check_035 IS
   BEGIN
-    v_desc := 'CM Trans History records where sys create time is null';
+    v_desc := 'claims_data_check_035 - CM Trans History records where sys create time is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   Cm_Trans_Status_History ctsh
-    WHERE  ctsh.sys_create_time IS NULL;
+    WHERE  ctsh.sys_create_time IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_035;
 
   PROCEDURE claims_data_check_036 IS
   BEGIN
-    v_desc := 'CM Trans records whose trans date is less than claim report date';
+    v_desc := 'claims_data_check_036 - CM Trans records whose trans date is less than claim report date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   claim c,
            cm_transaction ct
     WHERE  c.claim_pk = ct.source_record_fk
-    AND    ct.trans_date < c.report_date;
+    AND    ct.trans_date < c.report_date';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_036;
 
   PROCEDURE claims_data_check_037 IS
   BEGIN
-    v_desc := 'Wacky claim final disposition date';
+    v_desc := 'claims_data_check_037 - Wacky claim final disposition date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   claim c
-    WHERE  c.final_disposition_date > SYSDATE;
+    WHERE  c.final_disposition_date > SYSDATE';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_037;
 
   PROCEDURE claims_data_check_038 IS
   BEGIN
-    v_desc := 'Wacky claim type start date';
+    v_desc := 'claims_data_check_038 - Wacky claim type start date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   claim_type_history cth
-    WHERE  cth.type_start_date < to_date('1/1/1950','mm/dd/yyyy')
-    OR     cth.type_start_date > SYSDATE;
+    WHERE  cth.type_start_date < to_date(''1/1/1950'',''mm/dd/yyyy'')
+    OR     cth.type_start_date > SYSDATE';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_038;
 
   PROCEDURE claims_data_check_039 IS
   BEGIN
-    v_desc := 'Wacky claim status start date';
+    v_desc := 'claims_data_check_039 - Wacky claim status start date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   claim_status_history csh
-    WHERE  csh.status_start_date < to_date('1/1/1950','mm/dd/yyyy')
-    OR     csh.status_start_date > SYSDATE;
+    WHERE  csh.status_start_date < to_date(''1/1/1950'',''mm/dd/yyyy'')
+    OR     csh.status_start_date > SYSDATE';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_039;
 
   PROCEDURE claims_data_check_040 IS
   BEGIN
-    v_desc := 'Wacky cm_policy start date';
+    v_desc := 'claims_data_check_040 - Wacky cm_policy start date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   cm_policy p
-    WHERE  p.policy_start_date < to_date('1/1/1950','mm/dd/yyyy')
-    OR     p.policy_start_date > SYSDATE;
+    WHERE  p.policy_start_date < to_date(''1/1/1950'',''mm/dd/yyyy'')
+    OR     p.policy_start_date > SYSDATE';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_040;
 
   PROCEDURE claims_data_check_041 IS
   BEGIN
-    v_desc := 'Claims that status start date is greater than end date';
+    v_desc := 'claims_data_check_041 - Claims that status start date is greater than end date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   claim_status_history csh
-    WHERE  trunc(csh.status_start_date) > trunc(csh.status_end_date);
+    WHERE  trunc(csh.status_start_date) > trunc(csh.status_end_date)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_041;
 
   PROCEDURE claims_data_check_042 IS
   BEGIN
-    v_desc := 'Claims that type start date is greater than end date';
+    v_desc := 'claims_data_check_042 - Claims that type start date is greater than end date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   claim_type_history csh
-    WHERE  trunc(csh.type_start_date) > trunc(csh.type_end_date);
+    WHERE  trunc(csh.type_start_date) > trunc(csh.type_end_date)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_042;
 
   PROCEDURE claims_data_check_043 IS
   BEGIN
-    v_desc := 'Claims that has trans acct date less than policy acct date';
+    v_desc := 'claims_data_check_043 - Claims that has trans acct date less than policy acct date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   claim c,
            coverage_insured_xref cix,
            entity_role er,
@@ -840,35 +882,37 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
             FROM   cm_transaction ct
             WHERE  ct.source_record_fk = c.claim_pk
             AND    ct.accounting_date < pth.accounting_from_date)
-    ORDER  BY 1;
+    ORDER  BY 1';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_043;
 
   PROCEDURE claims_data_check_044 IS
   BEGIN
-    v_desc := 'Trans that status start date is greater than status end date';
+    v_desc := 'claims_data_check_044 - Trans that status start date is greater than status end date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   cm_trans_status_history ctsh
-    WHERE  trunc(ctsh.status_start_date) > trunc(ctsh.status_end_date);
+    WHERE  trunc(ctsh.status_start_date) > trunc(ctsh.status_end_date)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_044;
 
   PROCEDURE claims_data_check_045 IS
   BEGIN
-    v_desc := 'Mini policies that have overlap terms';
+    v_desc := 'claims_data_check_045 - Mini policies that have overlap terms';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(1)
     FROM CM_POLICY CP1, CM_POLICY CP2
     WHERE  CP1.POLICY_NO = CP2.POLICY_NO
        AND CP1.CM_POLICY_PK <> CP2.CM_POLICY_PK
@@ -881,113 +925,120 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
        AND EXISTS
            (SELECT 1 
             FROM   coverage_insured_xref cix
-            WHERE  cix.policy_fk = cp2.cm_policy_pk);
+            WHERE  cix.policy_fk = cp2.cm_policy_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_045;
 
   PROCEDURE claims_data_check_046 IS
   BEGIN
-    v_desc := 'Trans that transaction accounting date is null';
+    v_desc := 'claims_data_check_046 - Trans that transaction accounting date is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   cm_transaction ct
-    WHERE  ct.accounting_date is null;
+    WHERE  ct.accounting_date is null';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_046;
 
   PROCEDURE claims_data_check_047 IS
   BEGIN
-    v_desc := 'CIX records that do not have correspond records in CCX';
+    v_desc := 'claims_data_check_047 - CIX records that do not have correspond records in CCX';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1) 
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1) 
     FROM   coverage_insured_xref cix
     WHERE  NOT EXISTS 
            (SELECT 1 
             FROM   claimant_coverage_xref ccx
-            WHERE  ccx.coverage_insured_xref_fk = cix.coverage_insured_xref_pk);
+            WHERE  ccx.coverage_insured_xref_fk = cix.coverage_insured_xref_pk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_047;
 
   PROCEDURE claims_data_check_048 IS
   BEGIN
-    v_desc := 'CM Trans Detail records where sys update time is null';
+    v_desc := 'claims_data_check_048 - CM Trans Detail records where sys update time is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   cm_transaction_detail d
-    WHERE  d.sys_update_time IS NULL;
+    WHERE  d.sys_update_time IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_048;
 
   PROCEDURE claims_data_check_049 IS
   BEGIN
-    v_desc := 'CM Trans Detail records where trans type code is null';
+    v_desc := 'claims_data_check_049 - CM Trans Detail records where trans type code is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   cm_transaction_detail d
-    WHERE  d.cm_transaction_type_code IS NULL;
+    WHERE  d.cm_transaction_type_code IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_049;
 
   PROCEDURE claims_data_check_050 IS
   BEGIN
-    v_desc := 'CM Trans Detail records where trans status code is null';
+    v_desc := 'claims_data_check_050 - CM Trans Detail records where trans status code is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   cm_transaction_detail d
-    WHERE  d.trans_status_code IS NULL;
+    WHERE  d.trans_status_code IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_050;
 
   PROCEDURE claims_data_check_051 IS
   BEGIN
-    v_desc := 'CM Trans Detail records where trans source fk is null';
+    v_desc := 'claims_data_check_051 - CM Trans Detail records where trans source fk is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   cm_transaction_detail d
-    WHERE  d.trans_source_record_fk IS NULL;
+    WHERE  d.trans_source_record_fk IS NULL';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_051;
 
   PROCEDURE claims_data_check_052 IS
   BEGIN
-    v_desc := 'Claim records that CLAIMANT_COVERAGE_XREF link to different claim';
+    v_desc := 'claims_data_check_052 - Claim records that CLAIMANT_COVERAGE_XREF link to different claim';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   claim c, 
            claimant cla, 
            entity_role   er,
@@ -1001,25 +1052,28 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     AND    ccx.coverage_insured_xref_fk = cix.coverage_insured_xref_pk
     AND    cix.claim_insured_fk = ci.claim_insured_pk
     AND    ci.entity_role_fk = er1.entity_role_pk
-    AND    er1.source_record_fk <> er.source_record_fk;
+    AND    er1.source_record_fk <> er.source_record_fk';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_052;
 
   PROCEDURE claims_data_check_053 IS
   BEGIN
-    v_desc := 'ENTITY records that CLIENT_ID is null';
+    v_desc := 'claims_data_check_053 - ENTITY records that CLIENT_ID is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   entity 
-    where  client_id is null;
+    where  client_id is null';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END claims_data_check_053;
 
   /**************************************************************************
@@ -1089,7 +1143,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
   END main;
 
   BEGIN
-    g_trace := TRUE;
+    g_trace := FALSE;
 
   EXCEPTION
     WHEN OTHERS THEN

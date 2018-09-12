@@ -45,6 +45,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_cis IS
   v_sub_system VARCHAR2(25) := 'CIS';
   v_category VARCHAR(25) := 'CIS_CFG';
   v_data_code VARCHAR2(25) := 'CIS_CFG_DATA';
+  v_sql_stmt   VARCHAR2(3000) := '';
   v_ok VARCHAR2(2) := 'OK';
   v_review VARCHAR2(7) := 'REVIEW';
   v_desc VARCHAR2(255) := '';
@@ -76,36 +77,38 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_cis IS
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM entity_role er, entity e
     WHERE er.entity_fk = e.entity_pk
-          AND e.discarded_b = 'Y';
+          AND e.discarded_b = ''Y''';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>100', v_count, v_desc, 'ENTITY_ROLE records pointing to a discarded ENTITY record');
+                        v_data_code, '>100', v_count, v_desc, 'ENTITY_ROLE records pointing to a discarded ENTITY record', v_sql_stmt);
   END orphan_entity_roles;
 
   PROCEDURE entities_without_primary_addr IS
   BEGIN
-    v_desc := 'entities without primary address';
+    v_desc := 'Entities without primary address';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
     --get all entities with no primary address
-    select count(*)
-    into v_count
+    v_sql_stmt := 'select count(*)
     from entity e
     where not exists(
     select null from address a
-    where a.PRIMARY_ADDRESS_B='Y'
-    and a.EFFECTIVE_TO_DATE = TO_DATE('01/01/3000', 'MM/DD/YYYY')
-    and a.SOURCE_TABLE_NAME='ENTITY'
+    where a.PRIMARY_ADDRESS_B=''Y''
+    and a.EFFECTIVE_TO_DATE = TO_DATE(''01/01/3000'', ''MM/DD/YYYY'')
+    and a.SOURCE_TABLE_NAME=''ENTITY''
     and a.SOURCE_RECORD_FK=e.entity_pk
-    );
+    )';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'entities found with no primary address');
+                        v_data_code, '>0', v_count, v_desc, 'entities found with no primary address', v_sql_stmt);
   END entities_without_primary_addr;
 
   /**************************************************************************
@@ -120,7 +123,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_cis IS
   END main;
 
   BEGIN
-    g_trace := TRUE;
+    g_trace := FALSE;
 
   EXCEPTION
     WHEN OTHERS THEN

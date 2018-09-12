@@ -66,7 +66,9 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
   -- === Cursors.
   ods_sys_parms VARCHAR2(200) := 'ODS_INSTALLED^ERROR, ODS_VERSION^ERROR';
   os_sys_parms VARCHAR2(200) := 'OS_SORT_FORM^ERROR, OS_DIRECTORY_SIZE^WARNING, 
-                                 OS_APP_DATE_TO_DIR^INFO, OS_BASE_VERSION^WARNING';
+                                 OS_APP_DATE_TO_DIR^INFO, OS_BASE_VERSION^WARNING,
+                                 OS_DOC_DIRECTORY^WARNING';
+  output_sys_parms VARCHAR2(200) := 'DOC_GEN_PRD_NAME^INFO, OS_XML_DIRECTORY^INFO';
   /**************************************************************************
   * pl
   *--------------------------------------------------------------------------
@@ -115,7 +117,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
                       v_run_date, v_review, 'DBA jobs do not exist for End of Day Jobs');
           END IF;
        ELSE
-          oasis_health_check_main.update_ohc_outcome(v_parm, category, v_run_date,
+          oasis_health_check_main.update_ohc_outcome(v_parm, v_sub_system, category, v_run_date,
                        v_review, v_parm||' parameter not set.');
        END IF;
      END IF;
@@ -127,6 +129,11 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
   v_update_stmt VARCHAR2(500);
   BEGIN
     BEGIN
+      --pl('value:'||v_ohc_record.VALUE);
+      oasis_health_check_main.validate_empty_parm(v_ohc_record.NAME, v_ohc_record.VALUE,
+                               v_ohc_record.NAME,v_sub_system, category,v_run_date,
+                               v_ohc_record.NAME || ' is not set.');
+ 
       IF (v_ohc_record.VALUE IS NOT NULL) THEN
         validate_os_sort_form(category, v_ohc_record, v_run_date);
 
@@ -140,14 +147,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
                                  
         oasis_health_check_main.validate_integer_parm(v_ohc_record.NAME, v_ohc_record.VALUE,
                                  'OS_BASE_VERSION',v_sub_system, category,v_run_date,
-                                 'Should be set to 1 or 2', '1', '2');
+                                 'Should be set to 1 or 2', '1', '2');      
       END IF;
     END;
   END validate_os_parm;
 
   PROCEDURE forms_check_001 IS
   BEGIN
-    v_desc := 'Non bundled forms with no mapping transaction';
+    v_desc := 'forms_check_001 - Non bundled forms with no mapping transaction';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -175,7 +182,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
 
   PROCEDURE forms_check_002 IS
   BEGIN
-    v_desc := 'Non bundled forms with no mapping copy type';
+    v_desc := 'forms_check_002 - Non bundled forms with no mapping copy type';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -203,7 +210,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
 
   PROCEDURE forms_check_003 IS
   BEGIN
-    v_desc := 'Non bundled forms with no mapping schedule';
+    v_desc := 'forms_check_003 - Non bundled forms with no mapping schedule';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -231,7 +238,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
 
   PROCEDURE forms_check_004 IS
   BEGIN
-    v_desc := 'Non bundled forms with no mapping device';
+    v_desc := 'forms_check_004 - Non bundled forms with no mapping device';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -259,7 +266,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
 
   PROCEDURE forms_check_005 IS
   BEGIN
-    v_desc := 'Non bundled forms with no mapping base rule';
+    v_desc := 'forms_check_005 - Non bundled forms with no mapping base rule';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
       
@@ -289,7 +296,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
 
   PROCEDURE forms_ufe_check_001 IS
   BEGIN
-    v_desc := 'UFE Form ID missing in UFE form';
+    v_desc := 'forms_ufe_check_001 - UFE Form ID missing in UFE form';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -315,7 +322,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
   
   PROCEDURE forms_bundle_check_001 IS
   BEGIN
-    v_desc := 'OS Bundle ID missing in os_form';
+    v_desc := 'forms_bundle_check_001 - OS Bundle ID missing in os_form';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -341,6 +348,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
     BEGIN
       oasis_health_check_main.check_parms('INFO', v_sub_system, 'ODS_SYS_PARM', ods_sys_parms);
       oasis_health_check_main.check_parms('INFO', v_sub_system, 'OS_SYS_PARM', os_sys_parms);
+      oasis_health_check_main.check_parms('INFO', v_sub_system, 'OUTPUT_SYS_PARM', output_sys_parms);
       forms_check_001();
       forms_check_002();
       forms_check_003();

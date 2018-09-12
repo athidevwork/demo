@@ -46,6 +46,10 @@ CREATE OR REPLACE PACKAGE oasis_health_check_main
 
   PROCEDURE reset_daily_ohc_sequence;
 
+  PROCEDURE validate_empty_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
+                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
+                                 msg VARCHAR2);
+                                 
   PROCEDURE validate_yesno_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
                                  v_sub_system VARCHAR2, category VARCHAR2,
                                  v_run_date VARCHAR2, msg VARCHAR2);
@@ -307,14 +311,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
                      ''','''||v_code||''', '''||pvalue||''', '''||pdesc||''', '''||v_sql||''')';
        ELSE
          IF status IS NULL OR status = '' OR status = v_ok OR status = v_review THEN
-            pl('in else if');
+            --pl('in else if');
             v_sql_stmt := 'INSERT INTO OASIS_HEALTH_CHECK (OHC_PK, RUN_DATE, RUN_NO, OHC_LEVEL,'||
                      ' SUB_SYSTEM,OHC_CATEGORY,STATUS, MSG, PARM_NAME, PARM_VALUE, PARM_DESC, OHC_SQL) '||
                      'VALUES ('||v_seq||', ''' ||v_run_date_str|| ''', '||v_run_no||', ''' || plevel ||
                      ''', ''' || subsystem || ''',''' || category || ''', '''||status||''', 
                      '''||msg||''', '''||v_code||''', '''||pvalue||''', '''||pdesc||''', '''||v_sql||''')';
          ELSE
-           pl('in else');
+           --pl('in else');
             v_sql_stmt := 'INSERT INTO OASIS_HEALTH_CHECK (OHC_PK, RUN_DATE, RUN_NO, OHC_LEVEL,'||
                      ' SUB_SYSTEM, OHC_CATEGORY,STATUS, PARM_NAME, PARM_VALUE, PARM_DESC, OHC_SQL) '||
                      'VALUES ('||v_seq||', ''' ||v_run_date_str|| ''', '||v_run_no||', ''' || plevel ||
@@ -322,7 +326,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
                      v_code||''', '''||pvalue||''', '''||pdesc||''', '''||v_sql||''')';
          END IF;
        END IF;
-       pl(v_sql_stmt);
+       --pl(v_sql_stmt);
        EXECUTE IMMEDIATE v_sql_stmt;
        v_line := rpad(pcode, 30) || rpad(NVL(pvalue, '  '), 75) || rpad(pdesc, 100);
        --pl(v_line);
@@ -463,6 +467,18 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
     END;
   END send_email;
 
+  PROCEDURE validate_empty_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
+                                 v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
+                                 msg VARCHAR2) IS
+  BEGIN
+    --pl ('value:'||v_value);
+    IF (v_value IS NULL) THEN
+      update_ohc_outcome(v_parm, v_sub_system, category,v_run_date,v_review, v_parm||' is not set.');
+    ELSE
+      update_ohc_outcome(v_parm, v_sub_system, category,v_run_date,v_ok, '');      
+    END IF;
+  END validate_empty_parm;
+        
   PROCEDURE validate_yesno_parm (v_name VARCHAR2, v_value VARCHAR2, v_parm VARCHAR2,
                                  v_sub_system VARCHAR2, category VARCHAR2,v_run_date VARCHAR2,
                                  msg VARCHAR2) IS
@@ -748,7 +764,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_main IS
 
   BEGIN
     g_trace := TRUE;
-    g_updated := FALSE;
+    --g_updated := FALSE;
   EXCEPTION
     WHEN OTHERS THEN
       g_date_format := 'YYYY-MM-DD';

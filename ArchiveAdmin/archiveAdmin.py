@@ -43,11 +43,100 @@ def compressPdf():
         print ('completed compressing pdf :' + str(datetime.now()));
         shutil.rmtree('ODSOutput')
 
+def init_run(prefix):
+    if os.path.exists(prefix):
+        shutil.rmtree(prefix)
+    if os.path.exists('policy_pdf.zip'):        
+        os.remove('policy_pdf.zip')
+
+def move_or_copy_file(ofile, prefix, tuple):
+    tokenList = ['ODSOutput', 'ODS', 'odsoutput']
+    #print ('TESTING----' + "[0]" + str(tuplesList[0]) + ", [1]=" + str(tuplesList[1]))
+    #print ('----------------')
+    '''for filepath,formstatus in tuplesList:
+        print ('xx filepath = ' + filepath + ", formstatus = " + formstatus)'''
+    #for src in str(tuplesList[0]):
+    cnt=1
+    src=tuple[0]
+    formstatus=tuple[1]
+    
+    #for src,formstatus in tuple:
+    #print ('yy filepath = ' + src + ", formstatus = " + formstatus)
+    
+    #if cnt % 1000 == 0:
+    #    print(cnt,',',end='', flush=True)
+    cnt=cnt+1
+    if len(src) != 0:
+        '''searchStr='ODSOutput'
+        odsindex = src.find("ODSOutput")
+        if odsindex == -1:
+            odsindex = src.find("ODS")
+            searchStr='ODS'
+        if odsindex == -1:
+            print ('ODSOutput or ODS not found in the file path')
+            break;
+        '''
+        searchStr=''
+        if searchStr == '':
+            for token in tokenList:
+                tokenIndex = src.find(token)
+                #print ('%s - token Index = %s ' % (src, tokenIndex))
+                if tokenIndex == -1:
+                    #print ('%s token not found in file path' % token)
+                    continue
+                else:
+                    searchStr = token;
+                    #print ('%s token found in file path' % token)
+                    break
+        newlist = src.split(searchStr)
+        #print(newlist)
+        dstfilename = prefix + newlist[-1]
+        '''print ('source' + src)
+        print ('dest : ' + dst)
+        print ('...... ')'''
+        #newStr = src.replace('\\', '\\\\')
+        #tfile.write ('new Str : %s\n' %newStr)
+        #srcfile = Path(newStr.strip())
+        #tfile.write ('%s - %s - %s - %s\n' % (src, srcfile.exists(), os.path.exists(src.strip()), os.path.exists(newStr.strip())))
+        srcfilename = src.strip()
+        '''print ('source : ' + srcfilename)
+        print ('dest : ' + dstfilename)'''
+        if os.path.exists(srcfilename):
+            if previewMode == True:
+                try:
+                    shutil.copy(srcfilename, dstfilename)
+                except IOError as e:
+                    os.makedirs(os.path.dirname(dstfilename))
+                    shutil.copy(srcfilename, dstfilename)
+                ofile.write("%s - Copied file to %s.\n" % (srcfilename, dstfilename))
+            else:
+                try:
+                    shutil.move(srcfilename, dstfilename)
+                except IOError as e:
+                    os.makedirs(os.path.dirname(dstfilename))
+                    shutil.move(srcfilename, dstfilename)                     
+                ofile.write("%s - Moved file to %s.\n" % (srcfilename, dstfilename))
+                #copyfile(srcfilename, dstfilename)
+                #shutil.move(srcfilename, dstfilename)
+            #ofile.write("%s - Moved/Copied file to %s.\n" % (srcfilename, dstfilename))
+        else:
+            #print(src + ' file does not exist');
+            #writer.writerow(src + '- file not found')
+            #print ('status = ' + formstatus + ', condition = ' + str(formstatus == "ERROR"))
+            if formstatus.find("ERROR")>0:
+                #print ('error')
+                ofile.write("%s - file not created, error in transaction.\n" % srcfilename)
+            else:
+                ofile.write("%s - file not found.\n" % srcfilename)
+
 def archivePdf(args, previewMode):
     ## show values ##
     print ("Input file: %s" % args.input )
     print ("Output file: %s" % args.output )
-    
+
+    # List of Data
+    #version, product, category, subcategory, code, description, value, comments = []
+
     #ifile  = open('test.csv', "rb")
     ifile  = open(args.input, "rt")
     reader = csv.reader(ifile)
@@ -59,122 +148,50 @@ def archivePdf(args, previewMode):
     rows = defaultdict(list) # each value in each row is appended to a list
     columns = defaultdict(list) # each value in each column is appended to a list
     tuplesList = []#defaultdict(list)
-    for row in reader:
-        #print (row)
-        #print (row[2], row[12])
-        #tuplesList = [list(zip(row[2], row[12]))]
-        tuple = (row[2], row[12])
-        tuplesList.append(tuple)
-        #writer.writerow(row)
-        for (i,v) in enumerate(row):
-            columns[i].append(v)
 
-    #print(columns[0])
-    #print(columns[2])
-    print ('completed reading input file :' + str(datetime.now()));
-
-    filesList = columns[2]
-    filesList.pop(0)
-    #print(filesList)
-    #print (rows[0])
-    #print (keys)
-
-    #del tuplesList[0]
-    tuplesList.pop(0)
-    #print (tuplesList)
-    #print ('========================')
-                    
-    #dictList = dict(zip(columns[2], columns[13], columns[14]))
-    #print (dictList)
-
-    #tfile  = open("testout.txt", "wt")
-
-    #ofile = open(args.output, 'w')
-    print ('reading file list :' + str(datetime.now()))
     cwd = os.getcwd()
     #prefix = "c:\dev\shell_scripts\ODSOutput"
     prefix = cwd + '\ODSOutput'
-    if os.path.exists(prefix):
-        shutil.rmtree(prefix)
-    if os.path.exists('policy_pdf.zip'):        
-        os.remove('policy_pdf.zip')
-    print ('Reading from list ...')
-    tokenList = ['ODSOutput', 'ODS', 'odsoutput']
-    #print ('TESTING----' + "[0]" + str(tuplesList[0]) + ", [1]=" + str(tuplesList[1]))
-    #print ('----------------')
-    '''for filepath,formstatus in tuplesList:
-        print ('xx filepath = ' + filepath + ", formstatus = " + formstatus)'''
-    #for src in str(tuplesList[0]):
-    cnt=1
-    for src,formstatus in tuplesList:
-        #print ('yy filepath = ' + src + ", formstatus = " + formstatus)
-        #if cnt % 1000 == 0:
-        #    print(cnt,',',end='', flush=True)
-        cnt=cnt+1
-        if len(src) != 0:
-            '''searchStr='ODSOutput'
-            odsindex = src.find("ODSOutput")
-            if odsindex == -1:
-                odsindex = src.find("ODS")
-                searchStr='ODS'
-            if odsindex == -1:
-                print ('ODSOutput or ODS not found in the file path')
-                break;
-            '''
-            searchStr=''
-            if searchStr == '':
-                for token in tokenList:
-                    tokenIndex = src.find(token)
-                    #print ('%s - token Index = %s ' % (src, tokenIndex))
-                    if tokenIndex == -1:
-                        #print ('%s token not found in file path' % token)
-                        continue
-                    else:
-                        searchStr = token;
-                        #print ('%s token found in file path' % token)
-                        break
-            newlist = src.split(searchStr)
-            #print(newlist)
-            dstfilename = prefix + newlist[-1]
-            '''print ('source' + src)
-            print ('dest : ' + dst)
-            print ('...... ')'''
-            #newStr = src.replace('\\', '\\\\')
-            #tfile.write ('new Str : %s\n' %newStr)
-            #srcfile = Path(newStr.strip())
-            #tfile.write ('%s - %s - %s - %s\n' % (src, srcfile.exists(), os.path.exists(src.strip()), os.path.exists(newStr.strip())))
-            srcfilename = src.strip()
-            '''print ('source : ' + srcfilename)
-            print ('dest : ' + dstfilename)'''
-            if os.path.exists(srcfilename):
-                if previewMode == True:
-                    try:
-                        shutil.copy(srcfilename, dstfilename)
-                    except IOError as e:
-                        os.makedirs(os.path.dirname(dstfilename))
-                        shutil.copy(srcfilename, dstfilename)
-                    ofile.write("%s - Copied file to %s.\n" % (srcfilename, dstfilename))
-                else:
-                    try:
-                        shutil.move(srcfilename, dstfilename)
-                    except IOError as e:
-                        os.makedirs(os.path.dirname(dstfilename))
-                        shutil.move(srcfilename, dstfilename)                     
-                    ofile.write("%s - Moved file to %s.\n" % (srcfilename, dstfilename))
-                    #copyfile(srcfilename, dstfilename)
-                    #shutil.move(srcfilename, dstfilename)
-                #ofile.write("%s - Moved/Copied file to %s.\n" % (srcfilename, dstfilename))
-            else:
-                #print(src + ' file does not exist');
-                #writer.writerow(src + '- file not found')
-                #print ('status = ' + formstatus + ', condition = ' + str(formstatus == "ERROR"))
-                if formstatus.find("ERROR")>0:
-                    #print ('error')
-                    ofile.write("%s - file not created, error in transaction.\n" % srcfilename)
-                else:
-                    ofile.write("%s - file not found.\n" % srcfilename)
-    #print ('', end='\n')
-    print ('completed reading file list :' + str(datetime.now()));
+        
+    init_run(prefix)
+    
+    for row in reader:
+        if not(row[0] == 'CURRENT STATUS TIME'):
+            #print ('pass through')
+            #print (row)
+            #print (row[2], row[12])
+            #tuplesList = [list(zip(row[2], row[12]))]
+
+            fileWithPath = "".join((row[2],row[1]))
+            #print (fileWithPath)
+            #tuple - filename with path, status
+            tuple = (fileWithPath, row[11])
+            tuplesList.append(tuple)
+            #writer.writerow(row)
+            for (i,v) in enumerate(row):
+                columns[i].append(v)
+
+            #print(columns[0])
+            #print(columns[2])
+            #print ('completed reading input file :' + str(datetime.now()));
+
+            filesList = columns[2]
+
+            #print(tuple)
+            #print('processing row : %s ' % row[0])
+            if (tuple[1] != 'OUTPUTDONE' or tuple[1] != 'ERROR'):
+                print (tuple[0], tuple[1])
+            #print(columns[2])
+            #filesList.pop(0)
+            #tuplesList.pop(0)
+
+            #print ('reading file list :' + str(datetime.now()))
+            
+            #print ('Reading from list ...')
+
+            move_or_copy_file(ofile, prefix, tuple)
+            #print ('', end='\n')
+            #print ('completed reading file list :' + str(datetime.now()));
 
     #tfile.close()
     ifile.close()
@@ -408,7 +425,17 @@ def send_email(args):
 
 def upload_reports(args):
     shutil.copy('policy_pdf.zip', args.upload_ftp_dir)
-    
+
+def validate_input_file(args, parser):
+    if not args.input:
+        parser.error('Input file -i argument is required for archive admin to run. Exiting ...')
+        sys.exit
+
+def validate_output_file(args, parser):
+    if not args.output:
+        parser.error('Output file -o argument is required for archive admin to run. Exiting ...')
+        sys.exit
+
 def main():
     #common parameters for all 3 actions
     parent_parser = argparse.ArgumentParser(add_help=False)
@@ -416,8 +443,10 @@ def main():
 
     parser = argparse.ArgumentParser(parents=[parent_parser], description='DB/PDF Archival Script.')
     parser.add_argument('-c','--conn', help='Connection string to database of format user/password@host_sid',required=True)
-    parser.add_argument('-i','--input', help='Name of comma separated metadata file.',required=True)
-    parser.add_argument('-o','--output',help='Output file name to get all errors listed, if any', required=True)
+    parser.add_argument('-i','--input', help='Name of comma separated metadata file.')
+    parser.add_argument('-o','--output',help='Output file name to get all errors listed, if any')
+    #parser.add_argument('-i','--input', help='Name of comma separated metadata file.',required=True)
+    #parser.add_argument('-o','--output',help='Output file name to get all errors listed, if any', required=True)
     parser.add_argument('-m','--emailAddr',help='Email Address to send reports')
     parser.add_argument('-u','--upload_ftp_dir',help='Ftp directory for reports to be uploaded.')      
     parser.add_argument('--pdf_archive',help='Archive pdf', action='store_true')
@@ -431,23 +460,39 @@ def main():
     parser.add_argument('previewMode',help='Purge data parameter - preview mode', nargs='?', default='Y')    
     args = parser.parse_args()
 
+    '''if not args.conn:
+        parser.error('Connection -c argument is required for archive admin to run. Exiting ...')
+        sys.exit'''
+
+    if (args.purge_db_data or args.get_metadata):
+        if (not (args.monthsToGoBack and args.previewMode)):
+            parser.error('--monthsToGoBack or --previewMode arguments are required for archive admin to run. Exiting ...')
+            sys.exit
+                
     if args.upload_reports:
         upload_reports(args) 
     elif args.send_reports:
         send_reports(args)    
     elif args.get_metadata:
+        validate_input_file(args, parser)
         get_meta_data(args)
     elif args.purge_db_data:
         print('in purge data with parameters : %s, %s, %s' % (args.emailAddr, args.monthsToGoBack, args.previewMode))
-        sys.exit
+        validate_output_file(args, parser)
         purge_db_data(args)    
     elif args.pdf_archive:
+        validate_input_file(args, parser)
+        validate_output_file(args, parser)
         pdf_archive(args, False)
     elif args.preview_pdf_archive:
         #get_meta_data(args)
+        validate_input_file(args, parser)
+        validate_output_file(args, parser)
         pdf_archive(args, True)        
     else:
         print("Processing all - getting metadata, purge data from db and archive pdf files")
+        validate_input_file(args, parser)
+        validate_output_file(args, parser)
         get_meta_data(args)
         purge_db_data(args) 
         pdf_archive(args, False)

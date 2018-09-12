@@ -94,7 +94,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
 
   PROCEDURE policy_data_check_001 IS
   BEGIN
-    v_desc := 'policy term records that have incorrect closing trans log fk';
+    v_desc := 'policy_data_check_001 - policy term records that have incorrect closing trans log fk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -122,7 +122,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
 
   PROCEDURE policy_data_check_002 IS
   BEGIN
-    v_desc := 'transaction_applied_term that has more than one term affected by a '||
+    v_desc := 'policy_data_check_002 - transaction_applied_term that has more than one term affected by a '||
               'transaction but has same policy_term_history_fk in transaction_applied_term';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
@@ -151,7 +151,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
 
   PROCEDURE policy_data_check_003 IS
   BEGIN
-    v_desc := 'strange effective date in mini policy coverage';
+    v_desc := 'policy_data_check_003 - strange effective date in mini policy coverage';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -168,116 +168,120 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
 
   PROCEDURE policy_data_check_004 IS
   BEGIN
-    v_desc := 'strange effective date in mini policy risk';
+    v_desc := 'policy_data_check_004 - strange effective date in mini policy risk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   cm_risk cr
-    WHERE  cr.effective_from_date < to_date('1/1/1950','mm/dd/yyyy')
-    or     cr.effective_from_date > add_months(SYSDATE,24);
+    WHERE  cr.effective_from_date < to_date(''1/1/1950'',''mm/dd/yyyy'')
+    or     cr.effective_from_date > add_months(SYSDATE,24)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_004;
 
   PROCEDURE policy_data_check_005 IS
   BEGIN
-    v_desc := 'strange effective date in mini policy';
+    v_desc := 'policy_data_check_005 - strange effective date in mini policy';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   cm_policy p
-    WHERE  p.policy_start_date < to_date('1/1/1950','mm/dd/yyyy')
-    or     p.policy_start_date > add_months(SYSDATE,24);
+    WHERE  p.policy_start_date < to_date(''1/1/1950'',''mm/dd/yyyy'')
+    or     p.policy_start_date > add_months(SYSDATE,24)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_005;
 
   PROCEDURE policy_data_check_006 IS
   BEGIN
-    v_desc := 'Transactions that have timestamp info in ACCOUNTING_DATE';
+    v_desc := 'policy_data_check_006 - Transactions that have timestamp info in ACCOUNTING_DATE';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   Transaction_Log tl, policy p
     WHERE  tl.policy_fk = p.policy_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    tl.transaction_status_code = 'COMPLETE'
-    AND    tl.accounting_date <> TRUNC(tl.accounting_date);
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    tl.transaction_status_code = ''COMPLETE''
+    AND    tl.accounting_date <> TRUNC(tl.accounting_date)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_006;
 
   PROCEDURE policy_data_check_007 IS
   BEGIN
-    v_desc := 'Policies with more than one primary risk';
+    v_desc := 'policy_data_check_007 - Policies with more than one primary risk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   Policy p,
            Risk   r,
            Risk   r1
     WHERE  r.policy_fk = p.policy_pk
-    AND    r.base_record_b = 'N'
-    AND    r.primary_risk_b = 'Y'
-    AND    r.accounting_to_date = to_date('1/1/3000','mm/dd/yyyy')
-    AND    r.effective_to_date = to_date('1/1/3000','mm/dd/yyyy')
-    AND    r.record_mode_code = 'OFFICIAL'
+    AND    r.base_record_b = ''N''
+    AND    r.primary_risk_b =''Y''
+    AND    r.accounting_to_date = to_date(''1/1/3000'',''mm/dd/yyyy'')
+    AND    r.effective_to_date = to_date(''1/1/3000'',''mm/dd/yyyy'')
+    AND    r.record_mode_code = ''OFFICIAL''
     AND    r1.policy_fk = p.policy_pk
-    AND    r1.base_record_b = 'N'
-    AND    r1.primary_risk_b = 'Y'
-    AND    r1.accounting_to_date = to_date('1/1/3000','mm/dd/yyyy')
-    AND    r1.effective_to_date = to_date('1/1/3000','mm/dd/yyyy')
-    AND    r1.record_mode_code = 'OFFICIAL'
+    AND    r1.base_record_b = ''N''
+    AND    r1.primary_risk_b = ''Y''
+    AND    r1.accounting_to_date = to_date(''1/1/3000'',''mm/dd/yyyy'')
+    AND    r1.effective_to_date = to_date(''1/1/3000'',''mm/dd/yyyy'')
+    AND    r1.record_mode_code = ''OFFICIAL''
     AND    r1.risk_base_record_fk <> r.risk_base_record_fk
     AND    r1.effective_from_date BETWEEN r.effective_from_date AND r.effective_to_date
-    AND    p.policy_cycle_code = 'POLICY';
+    AND    p.policy_cycle_code = ''POLICY''';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_007;
 
   PROCEDURE policy_data_check_008 IS
   BEGIN
-    v_desc := 'Policy terms that acct from date is greater than acct to date';
+    v_desc := 'policy_data_check_008 - Policy terms that acct from date is greater than acct to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(1)
     FROM   Policy_Term_History pth, Transaction_Log tl, policy p
     WHERE  pth.policy_fk = p.policy_pk
     AND    pth.transaction_log_fk = tl.transaction_log_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    tl.transaction_status_code = 'COMPLETE'
-    AND    pth.record_mode_code = 'OFFICIAL'
-    AND    pth.accounting_from_date > pth.accounting_to_date; 
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    tl.transaction_status_code = ''COMPLETE''
+    AND    pth.record_mode_code = ''OFFICIAL''
+    AND    pth.accounting_from_date > pth.accounting_to_date'; 
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_008;
 
   PROCEDURE policy_data_check_009 IS
   BEGIN
-    v_desc := 'Records in Transaction_Applied_Term with policy_term_history_fk ' ||
+    v_desc := 'policy_data_check_009 - Records in Transaction_Applied_Term with policy_term_history_fk ' ||
               'does not match term_base_record_fk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   transaction_log tl,
            transaction_applied_term tat,
            policy_term_history pth, 
@@ -286,109 +290,114 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     AND    tat.policy_term_history_fk = pth.policy_term_history_pk
     AND    pth.term_base_record_fk <> tat.term_base_record_fk
     AND    p.policy_pk = tl.policy_fk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    tl.transaction_status_code = 'COMPLETE'
-    AND    pth.record_mode_code = 'OFFICIAL';
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    tl.transaction_status_code = ''COMPLETE''
+    AND    pth.record_mode_code = ''OFFICIAL''';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_009;
 
   PROCEDURE policy_data_check_010 IS
   BEGIN
-    v_desc := 'Risk records that eff from date is greater than eff to date';
+    v_desc := 'policy_data_check_010 - Risk records that eff from date is greater than eff to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   risk r, 
            policy p
     WHERE  r.effective_to_date < r.effective_from_date
     AND    p.policy_pk = r.policy_fk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    r.record_mode_code = 'OFFICIAL';
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    r.record_mode_code = ''OFFICIAL''';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_010;
 
   PROCEDURE policy_data_check_011 IS
   BEGIN
-    v_desc := 'Risk that acct from date is greater than acct to date';
+    v_desc := 'policy_data_check_011 - Risk that acct from date is greater than acct to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(1)
     FROM   Risk r, 
            policy p
     WHERE  r.accounting_from_date > r.accounting_to_date
     AND    p.policy_pk = r.policy_fk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    r.record_mode_code = 'OFFICIAL';
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    r.record_mode_code = ''OFFICIAL''';
+    
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_011;
 
   PROCEDURE policy_data_check_012 IS
   BEGIN
-    v_desc := 'Coverage with eff from date is greater than eff to date';
+    v_desc := 'policy_data_check_012 - Coverage with eff from date is greater than eff to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   coverage c, 
            risk     r,
            policy   p
     WHERE  c.risk_base_record_fk = r.risk_pk
     AND    r.policy_fk = p.policy_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    r.record_mode_code = 'OFFICIAL'
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    r.record_mode_code = ''OFFICIAL''
     AND    c.effective_to_date < c.effective_from_date
-    AND    c.record_mode_code = 'OFFICIAL';
+    AND    c.record_mode_code = ''OFFICIAL''';
+    
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_012;
 
   PROCEDURE policy_data_check_013 IS
   BEGIN
-    v_desc := 'Coverage with acct from date is greater than acct to date';
+    v_desc := 'policy_data_check_013 - Coverage with acct from date is greater than acct to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(1)
     FROM   coverage c, 
            risk     r,
            policy   p
     WHERE  c.risk_base_record_fk = r.risk_pk
     AND    r.policy_fk = p.policy_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    r.record_mode_code = 'OFFICIAL'
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    r.record_mode_code = ''OFFICIAL''
     AND    c.accounting_to_date < c.accounting_from_date
-    AND    c.record_mode_code = 'OFFICIAL';
+    AND    c.record_mode_code = ''OFFICIAL''';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_013;
 
   PROCEDURE policy_data_check_014 IS
   BEGIN
-    v_desc := 'Component with eff from date is greater than eff to date';
+    v_desc := 'policy_data_check_014 - Component with eff from date is greater than eff to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   policy_coverage_component pcc, 
            coverage c, 
            risk     r,
@@ -396,37 +405,38 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     WHERE  c.risk_base_record_fk = r.risk_pk
     AND    r.policy_fk = p.policy_pk
     AND    c.coverage_pk = pcc.coverage_base_record_fk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    r.record_mode_code = 'OFFICIAL'
-    AND    c.record_mode_code = 'OFFICIAL'
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    r.record_mode_code = ''OFFICIAL''
+    AND    c.record_mode_code = ''OFFICIAL''
     AND    pcc.effective_to_date < pcc.effective_from_date
-    AND    pcc.record_mode_code = 'OFFICIAL';
+    AND    pcc.record_mode_code = ''OFFICIAL''';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_014;
 
   PROCEDURE policy_data_check_015 IS
   BEGIN
-    v_desc := 'Risk effective from or to date is less than transaction effective from date';
+    v_desc := 'policy_data_check_015 - Risk effective from or to date is less than transaction effective from date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   transaction_log tl,
            Risk r, 
            Policy p
     WHERE  tl.transaction_log_pk = r.transaction_log_fk
     AND    r.policy_fk = p.policy_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    tl.transaction_status_code = 'COMPLETE'
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    tl.transaction_status_code = ''COMPLETE''
     AND    (r.effective_to_date < tl.effective_from_date or 
             r.effective_from_date < tl.effective_from_date)
-    AND    r.base_record_b = 'N'
-    AND    r.record_mode_code = 'OFFICIAL'
+    AND    r.base_record_b = ''N''
+    AND    r.record_mode_code = ''OFFICIAL''
     -- Exclude prior acts
     AND    r.exposure_basis_code IS NULL
     AND    NOT EXISTS
@@ -434,100 +444,103 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
            FROM   Risk r1
            WHERE  r1.risk_pk = r.risk_base_record_fk
            AND    r1.transaction_log_fk <> r.transaction_log_fk)
-    ORDER  BY 1;
+    ORDER  BY 1';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_015;
 
   PROCEDURE policy_data_check_016 IS
   BEGIN
-    v_desc := 'coverage effective from or to date is less than transaction effective from date';
+    v_desc := 'policy_data_check_016 - coverage effective from or to date is less than transaction effective from date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   transaction_log tl,
            coverage c, 
            policy   p
     WHERE  tl.transaction_log_pk = c.transaction_log_fk
-    AND    tl.transaction_status_code = 'COMPLETE'
+    AND    tl.transaction_status_code = ''COMPLETE''
     -- Exclude cancellation and reinstate transactions 
-    AND    tl.transaction_type_code NOT IN ('CANCEL','REINSTATE') 
-    AND    tl.transaction_code NOT IN ('RISKCANCEL','COVGCANCEL')
+    AND    tl.transaction_type_code NOT IN (''CANCEL'',''REINSTATE'') 
+    AND    tl.transaction_code NOT IN (''RISKCANCEL'',''COVGCANCEL'')
     AND    tl.policy_fk = p.policy_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
     AND    (c.effective_to_date < tl.effective_from_date or
             c.effective_from_date < tl.effective_from_date)
-    AND    c.base_record_b = 'N'
-    AND    c.record_mode_code = 'OFFICIAL'
+    AND    c.base_record_b = ''N''
+    AND    c.record_mode_code = ''OFFICIAL''
     AND    c.coverage_pk NOT IN
             (SELECT coverage_child_fk 
              FROM   coverage_relation cr 
-             WHERE  cr.cvg_relation_type_code = 'NOSE'
-             AND    cr.record_mode_code = 'OFFICIAL'
-             AND    cr.accounting_to_date = to_date('1/1/3000','mm/dd/yyyy'))
+             WHERE  cr.cvg_relation_type_code = ''NOSE''
+             AND    cr.record_mode_code = ''OFFICIAL''
+             AND    cr.accounting_to_date = to_date(''1/1/3000'',''mm/dd/yyyy''))
     AND    NOT EXISTS
           (SELECT 1
            FROM   coverage c1
            WHERE  c1.coverage_pk = c.coverage_base_record_fk
-           AND    c1.transaction_log_fk <> c.transaction_log_fk);
+           AND    c1.transaction_log_fk <> c.transaction_log_fk)';
 
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_016;
 
   PROCEDURE policy_data_check_017 IS
   BEGIN
-    v_desc := 'Component effective from or to date is less than transaction effective from date';
+    v_desc := 'policy_data_check_017 - Component effective from or to date is less than transaction effective from date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM   transaction_log tl,
            policy_coverage_component pcc, 
            policy p
     WHERE  tl.transaction_log_pk = pcc.transaction_log_fk
-    AND    tl.transaction_status_code = 'COMPLETE'
+    AND    tl.transaction_status_code = ''COMPLETE''
     AND    tl.policy_fk = p.policy_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
     AND    (pcc.effective_to_date < tl.effective_from_date or
             pcc.effective_from_date < tl.effective_from_date)
-    AND    pcc.base_record_b = 'N'
-    AND    pcc.record_mode_code = 'OFFICIAL'
+    AND    pcc.base_record_b = ''N''
+    AND    pcc.record_mode_code = ''OFFICIAL''
     AND    NOT EXISTS
           (SELECT 1
            FROM   policy_coverage_component pcc1
            WHERE  pcc1.policy_cov_component_pk = pcc.pol_cov_comp_base_rec_fk
            AND    pcc1.transaction_log_fk <> pcc.transaction_log_fk)
     AND    NOT EXISTS (
-           (SELECT 'X'
+           (SELECT ''X''
             FROM   Coverage_Relation cr, Coverage C 
-            WHERE  cr.accounting_to_date = to_date('01/01/3000','mm/dd/yyyy')
-            AND    cr.record_mode_code = 'OFFICIAL'
-            AND    cr.cvg_relation_type_code = 'NOSE' 
+            WHERE  cr.accounting_to_date = to_date(''01/01/3000'',''mm/dd/yyyy'')
+            AND    cr.record_mode_code = ''OFFICIAL''
+            AND    cr.cvg_relation_type_code = ''NOSE'' 
             AND    pcc.effective_from_date < c.effective_to_date 
             AND    pcc.effective_to_date > c.effective_from_date 
             AND    cr.coverage_child_fk = c.coverage_pk 
             AND    cr.coverage_parent_fk = c.coverage_base_record_fk 
-            AND    c.coverage_base_record_fk = pcc.coverage_base_record_fk) );
+            AND    c.coverage_base_record_fk = pcc.coverage_base_record_fk) )';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_017;
 
   PROCEDURE policy_data_check_018 IS
   BEGIN
-    v_desc := 'Trans_Applied_Term records that link to TEMP status PTH record';
+    v_desc := 'policy_data_check_018 - Trans_Applied_Term records that link to TEMP status PTH record';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   transaction_applied_term tat,
            policy_term_history      pth,
            transaction_log          tl, 
@@ -535,36 +548,37 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     WHERE  pth.term_base_record_fk = tat.term_base_record_fk
     AND    tl.transaction_log_pk   = tat.transaction_log_fk
     AND    tl.policy_fk            = p.policy_pk
-    AND    tat.init_term_b         = 'N'
-    AND    pth.base_record_b       = 'N'
-    AND    pth.record_mode_code    <> 'OFFICIAL'   
-    AND    tl.transaction_status_code = 'COMPLETE'
-    AND    p.policy_cycle_code     = 'POLICY'
-    AND    p.pol_curr_status_code  <> 'PENDING'
+    AND    tat.init_term_b         = ''N''
+    AND    pth.base_record_b       = ''N''
+    AND    pth.record_mode_code    <> ''OFFICIAL''   
+    AND    tl.transaction_status_code = ''COMPLETE''
+    AND    p.policy_cycle_code     = ''POLICY''
+    AND    p.pol_curr_status_code  <> ''PENDING''
     AND    NOT EXISTS 
            (SELECT 1
             FROM   policy_term_history pth1
             WHERE  pth1.term_base_record_fk = pth.term_base_record_fk
-            AND    pth1.base_record_b = 'N'
-            AND    pth1.record_mode_code = 'OFFICIAL')
+            AND    pth1.base_record_b = ''N''
+            AND    pth1.record_mode_code = ''OFFICIAL'')
     -- Only look at premium bearing transactions
     AND    EXISTS 
            (SELECT 1 
             FROM   Policy_Premium_Net_V pp
-            WHERE  pp.transaction_log_fk = tl.transaction_log_pk);
+            WHERE  pp.transaction_log_fk = tl.transaction_log_pk)';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_018;
 
   PROCEDURE policy_data_check_019 IS
   BEGIN
-    v_desc := 'Policy_Term_History records that have gap in accounting dates';
+    v_desc := 'policy_data_check_019 - Policy_Term_History records that have gap in accounting dates';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   policy_term_history pth,
            policy              p,
            policy_term_history pth1, --Closed record
@@ -573,55 +587,57 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     AND    pth.official_record_fk = pth1.policy_term_history_pk
     AND    pth.term_base_record_fk = pth1.term_base_record_fk
     AND    pth1.transaction_log_fk = tl.transaction_log_pk
-    AND    pth.base_record_b = 'N'
-    AND    pth.record_mode_code = 'OFFICIAL'
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    tl.transaction_status_code = 'COMPLETE'
-    AND    pth.accounting_from_date <> pth1.accounting_to_date;
+    AND    pth.base_record_b = ''N''
+    AND    pth.record_mode_code = ''OFFICIAL''
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    tl.transaction_status_code = ''COMPLETE''
+    AND    pth.accounting_from_date <> pth1.accounting_to_date';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_019;
 
   PROCEDURE policy_data_check_020 IS
   BEGIN
-    v_desc := 'Policy that have incorrect transaction accounting date';
+    v_desc := 'policy_data_check_020 - Policy that have incorrect transaction accounting date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(DISTINCT tl.policy_fk)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(DISTINCT tl.policy_fk)
     FROM   ( SELECT MIN(t.transaction_log_pk) min_pk
              FROM   policy          p,
                     transaction_log t                
-             WHERE  p.policy_cycle_code = 'POLICY'
-             AND    p.pol_curr_status_code <> 'PENDING'
-             AND    t.transaction_status_code = 'COMPLETE'
+             WHERE  p.policy_cycle_code = ''POLICY''
+             AND    p.pol_curr_status_code <> ''PENDING''
+             AND    t.transaction_status_code = ''COMPLETE''
              AND    t.policy_fk = p.policy_pk
              GROUP  BY p.policy_pk ) a,
            transaction_log           tl,
            transaction_log           tl2
     WHERE  tl.transaction_log_pk = a.min_pk
     AND    tl2.policy_fk = tl.policy_fk
-    AND    tl.transaction_status_code = 'COMPLETE'
-    AND    tl2.transaction_status_code = 'COMPLETE'
+    AND    tl.transaction_status_code = ''COMPLETE''
+    AND    tl2.transaction_status_code = ''COMPLETE''
     AND    tl2.accounting_date < tl.accounting_date
-    AND    tl2.transaction_code <> 'ENDPOLADD'
-    AND    tl2.transaction_type_code <> 'ENDORSE';
+    AND    tl2.transaction_code <> ''ENDPOLADD''
+    AND    tl2.transaction_type_code <> ''ENDORSE''';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_020;
 
   PROCEDURE policy_data_check_021 IS
   BEGIN
-    v_desc := 'Agent without proper row in ENTITY_ROLE table';
+    v_desc := 'policy_data_check_021 - Agent without proper row in ENTITY_ROLE table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt:= 'SELECT COUNT(1)
     FROM   AGENT       a,
            entity      e
     WHERE  a.entity_fk = e.entity_pk
@@ -629,214 +645,219 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
            (SELECT 1
             FROM   entity_role er
             WHERE  er.entity_fk = e.entity_pk
-            AND    er.role_type_code = 'AGENT');
+            AND    er.role_type_code = ''AGENT'')';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_021;
 
   PROCEDURE policy_data_check_022 IS
   BEGIN
-    v_desc := 'Policy term that eff from date is greater than eff to date';
+    v_desc := 'policy_data_check_022 - Policy term that eff from date is greater than eff to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   policy_term_history pth, 
            policy              p
     WHERE  pth.policy_fk = p.policy_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    pth.record_mode_code = 'OFFICIAL'
-    AND    pth.effective_to_date < pth.effective_from_date;
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    pth.record_mode_code = ''OFFICIAL''
+    AND    pth.effective_to_date < pth.effective_from_date';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_022;
 
   PROCEDURE policy_data_check_023 IS
   BEGIN
-    v_desc := 'Policy term that acct from date is greater than acct to date';
+    v_desc := 'policy_data_check_023 - Policy term that acct from date is greater than acct to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   policy_term_history pth, 
            policy              p
     WHERE  pth.policy_fk = p.policy_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    pth.record_mode_code = 'OFFICIAL'
-    AND    pth.accounting_to_date < pth.accounting_from_date;
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    pth.record_mode_code = ''OFFICIAL''
+    AND    pth.accounting_to_date < pth.accounting_from_date';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_023;
 
   PROCEDURE policy_data_check_024 IS
   BEGIN
-    v_desc := 'Policy prem that rate from date is greater than rate to date';
+    v_desc := 'policy_data_check_024 - Policy prem that rate from date is greater than rate to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   policy_premium_v ppv,
            transaction_log tl,
            policy          p
     WHERE  ppv.transaction_log_fk = tl.transaction_log_pk
     AND    tl.policy_fk = p.policy_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    tl.transaction_status_code = 'COMPLETE'
-    AND    ppv.record_mode_code = 'OFFICIAL'
-    AND    ppv.RATE_PERIOD_TO_DATE < ppv.RATE_PERIOD_FROM_DATE;
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    tl.transaction_status_code = ''COMPLETE''
+    AND    ppv.record_mode_code = ''OFFICIAL''
+    AND    ppv.RATE_PERIOD_TO_DATE < ppv.RATE_PERIOD_FROM_DATE';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_024;
 
   PROCEDURE policy_data_check_025 IS
   BEGIN
-    v_desc := 'Policy prem that acct from date is greater than acct to date';
+    v_desc := 'policy_data_check_025 - Policy prem that acct from date is greater than acct to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT count(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT count(*)
     FROM   policy_premium_v ppv,
            transaction_log tl,
            policy          p
     WHERE  ppv.transaction_log_fk = tl.transaction_log_pk
     AND    tl.policy_fk = p.policy_pk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    tl.transaction_status_code = 'COMPLETE'
-    AND    ppv.record_mode_code = 'OFFICIAL'
-    AND    ppv.ACCOUNTING_TO_DATE < ppv.ACCOUNTING_FROM_DATE;
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    tl.transaction_status_code = ''COMPLETE''
+    AND    ppv.record_mode_code = ''OFFICIAL''
+    AND    ppv.ACCOUNTING_TO_DATE < ppv.ACCOUNTING_FROM_DATE';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_025;
 
   PROCEDURE policy_data_check_026 IS
   BEGIN
-    v_desc := 'Pm trans that Gross prem plus Comp do not equal to Net premium';
+    v_desc := 'policy_data_check_026 - Pm trans that Gross prem plus Comp do not equal to Net premium';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(*)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(*)
     FROM  (
           SELECT p.policy_no,
                  pp.policy_term_fk,
                  pp.transaction_log_fk,
-                 SUM(decode(pp.coverage_component_code,'GROSS',pp.premium_amount)) gross_premium,
-                 SUM(DECODE(pp.coverage_component_code,'NETPREM',pp.premium_amount)) net_premium,
-                 SUM(DECODE(pp.coverage_component_code,'GROSS',0,'NETPREM',0,pp.premium_amount)) component_prem
+                 SUM(decode(pp.coverage_component_code,''GROSS'',pp.premium_amount)) gross_premium,
+                 SUM(DECODE(pp.coverage_component_code,''NETPREM'',pp.premium_amount)) net_premium,
+                 SUM(DECODE(pp.coverage_component_code,''GROSS'',0,''NETPREM'',0,pp.premium_amount)) component_prem
           FROM  (SELECT t.policy_term_fk, t.transaction_log_fk, t.premium_amount,
                         t.coverage_component_code
                  FROM   policy_premium_net_v t
-           WHERE  t.ACTIVE_PREMIUM_B = 'Y'
+           WHERE  t.ACTIVE_PREMIUM_B = ''Y''
                  UNION ALL
                  SELECT t.policy_term_fk, t.transaction_log_fk, t.premium_amount,
                         t.coverage_component_code
                  FROM   policy_premium_trm_v t
-           WHERE  t.ACTIVE_PREMIUM_B = 'Y') pp,
+           WHERE  t.ACTIVE_PREMIUM_B = ''Y'') pp,
                  policy_term_history  pth,
                  transaction_log      tl,
                  policy               p
           WHERE  pp.policy_term_fk = pth.policy_term_history_pk
           AND    p.policy_pk = pth.policy_fk
           AND    pp.transaction_log_fk = tl.transaction_log_pk  
-          AND    p.policy_cycle_code = 'POLICY'
-          AND    p.pol_curr_status_code <> 'PENDING'
-          AND    tl.transaction_status_code = 'COMPLETE'
+          AND    p.policy_cycle_code = ''POLICY''
+          AND    p.pol_curr_status_code <> ''PENDING''
+          AND    tl.transaction_status_code = ''COMPLETE''
           GROUP  BY p.policy_no, pp.policy_term_fk, pp.transaction_log_fk
-          HAVING (SUM(decode(pp.coverage_component_code,'GROSS',pp.premium_amount)) +
-                  SUM(DECODE(pp.coverage_component_code,'GROSS',0,'NETPREM',0,pp.premium_amount))) <> 
-                  SUM(DECODE(pp.coverage_component_code,'NETPREM',pp.premium_amount))
-        );
+          HAVING (SUM(decode(pp.coverage_component_code,''GROSS'',pp.premium_amount)) +
+                  SUM(DECODE(pp.coverage_component_code,''GROSS'',0,''NETPREM'',0,pp.premium_amount))) <> 
+                  SUM(DECODE(pp.coverage_component_code,''NETPREM'',pp.premium_amount))
+        )';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_026;
 
   PROCEDURE policy_data_check_027 IS
   BEGIN
-    v_desc := 'Records with invalid transaction fk in COVERAGE table';
+    v_desc := 'policy_data_check_027 - Records with invalid transaction fk in COVERAGE table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   coverage c, 
            risk     r,
            policy   p
     WHERE  p.policy_pk = r.policy_fk
     AND    r.risk_pk = c.risk_base_record_fk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    c.record_mode_code = 'OFFICIAL'
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    c.record_mode_code = ''OFFICIAL''
     AND    c.transaction_log_fk NOT IN
-           (SELECT transaction_log_pk FROM transaction_log);
+           (SELECT transaction_log_pk FROM transaction_log)';
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_027;
 
   PROCEDURE policy_data_check_028 IS
   BEGIN
-    v_desc := 'Records with invalid transaction fk in RISK table';
+    v_desc := 'policy_data_check_028 - Records with invalid transaction fk in RISK table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   risk r,
            policy   p
     WHERE  p.policy_pk = r.policy_fk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    r.record_mode_code = 'OFFICIAL'
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    r.record_mode_code = ''OFFICIAL''
     AND    r.transaction_log_fk NOT IN
-           (SELECT transaction_log_pk FROM transaction_log);
+           (SELECT transaction_log_pk FROM transaction_log)';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_028;
 
   PROCEDURE policy_data_check_029 IS
   BEGIN
-    v_desc := 'Records with invalid transaction fk in POLICY_TERM_HISTORY table';
+    v_desc := 'policy_data_check_029 - Records with invalid transaction fk in POLICY_TERM_HISTORY table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   policy_term_history pth, 
            policy  p
     WHERE  p.policy_pk = pth.policy_fk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    pth.record_mode_code = 'OFFICIAL'
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    pth.record_mode_code = ''OFFICIAL''
     AND    pth.transaction_log_fk NOT IN
-           (SELECT transaction_log_pk FROM transaction_log);
+           (SELECT transaction_log_pk FROM transaction_log)';
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_029;
 
   PROCEDURE policy_data_check_030 IS
   BEGIN
-    v_desc := 'Records with invalid transaction fk in POLICY_COVERAGE_COMPONENT table';
+    v_desc := 'policy_data_check_030 - Records with invalid transaction fk in POLICY_COVERAGE_COMPONENT table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    SELECT COUNT(1)
-    INTO v_count
+    v_sql_stmt := 'SELECT COUNT(1)
     FROM   policy_coverage_component pcc,
            coverage c, 
            risk     r,
@@ -844,90 +865,94 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     WHERE  p.policy_pk = r.policy_fk
     AND    r.risk_pk = c.risk_base_record_fk
     AND    c.coverage_pk = pcc.coverage_base_record_fk
-    AND    p.policy_cycle_code = 'POLICY'
-    AND    p.pol_curr_status_code <> 'PENDING'
-    AND    pcc.record_mode_code = 'OFFICIAL'
+    AND    p.policy_cycle_code = ''POLICY''
+    AND    p.pol_curr_status_code <> ''PENDING''
+    AND    pcc.record_mode_code = ''OFFICIAL''
     AND    pcc.transaction_log_fk NOT IN
-           (SELECT transaction_log_pk FROM transaction_log);
+           (SELECT transaction_log_pk FROM transaction_log)';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_030;
 
   PROCEDURE policy_data_check_031 IS
   BEGIN
-    v_desc := 'Records with incorrect transaction fk in POLICY_COVERAGE_COMPONENT table';
+    v_desc := 'policy_data_check_031 - Records with incorrect transaction fk in POLICY_COVERAGE_COMPONENT table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    WITH x AS (
+    v_sql_stmt := 'WITH x AS (
            SELECT pcc.coverage_base_record_fk, MIN(pcc.transaction_log_fk) min_trans_fk
            FROM   policy_coverage_component pcc, 
                   coverage                  c,
                   risk                      r,
                   policy                    p
-           WHERE  pcc.record_mode_code = 'OFFICIAL'
+           WHERE  pcc.record_mode_code = ''OFFICIAL''
            AND    pcc.coverage_base_record_fk = c.coverage_pk
            AND    c.risk_base_record_fk = r.risk_pk
            AND    r.policy_fk = p.policy_pk
-           AND    p.policy_cycle_code = 'POLICY'
-           AND    p.pol_curr_status_code <> 'PENDING'
+           AND    p.policy_cycle_code = ''POLICY''
+           AND    p.pol_curr_status_code <> ''PENDING''
            GROUP  BY pcc.coverage_base_record_fk), 
          y AS (
            SELECT c.coverage_base_record_fk, MIN(c.transaction_log_fk) min_trans_fk
            FROM   coverage c, 
                   risk     r,
                   policy   p
-           WHERE  c.record_mode_code = 'OFFICIAL'
+           WHERE  c.record_mode_code = ''OFFICIAL''
            AND    c.risk_base_record_fk = r.risk_pk
            AND    r.policy_fk = p.policy_pk
-           AND    p.policy_cycle_code = 'POLICY'
-           AND    p.pol_curr_status_code <> 'PENDING'
+           AND    p.policy_cycle_code = ''POLICY''
+           AND    p.pol_curr_status_code <> ''PENDING''
            GROUP  BY c.coverage_base_record_fk)
     SELECT COUNT(1)
-    INTO v_count
     FROM   x, y
     WHERE  x.coverage_base_record_fk = y.coverage_base_record_fk
-    AND    x.min_trans_fk < y.min_trans_fk;
+    AND    x.min_trans_fk < y.min_trans_fk';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_031;
 
   PROCEDURE policy_data_check_032 IS
   BEGIN
-    v_desc := 'Records with incorrect transaction fk in COVERAGE table';
+    v_desc := 'policy_data_check_032 - Records with incorrect transaction fk in COVERAGE table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
-    WITH x AS (
+    v_sql_stmt := 'WITH x AS (
            SELECT c.risk_base_record_fk, MIN(c.transaction_log_fk) min_trans_fk
            FROM   coverage c, 
                   risk     r,
                   policy   p
-           WHERE  c.record_mode_code = 'OFFICIAL'
+           WHERE  c.record_mode_code = ''OFFICIAL''
            AND    c.risk_base_record_fk = r.risk_pk
            AND    r.policy_fk = p.policy_pk
-           AND    p.policy_cycle_code = 'POLICY'
-           AND    p.pol_curr_status_code <> 'PENDING'
+           AND    p.policy_cycle_code = ''POLICY''
+           AND    p.pol_curr_status_code <> ''PENDING''
            GROUP  BY c.risk_base_record_fk), 
          y AS (
            SELECT r.risk_base_record_fk, MIN(r.transaction_log_fk) min_trans_fk
            FROM   risk     r,
                   policy   p
-           WHERE  r.record_mode_code = 'OFFICIAL'
+           WHERE  r.record_mode_code = ''OFFICIAL''
            AND    r.policy_fk = p.policy_pk
-           AND    p.policy_cycle_code = 'POLICY'
-           AND    p.pol_curr_status_code <> 'PENDING'
+           AND    p.policy_cycle_code = ''POLICY''
+           AND    p.pol_curr_status_code <> ''PENDING''
            GROUP  BY r.risk_base_record_fk)
     SELECT COUNT(1)
-    INTO v_count
     FROM   x, y
     WHERE  x.risk_base_record_fk = y.risk_base_record_fk
-    AND    x.min_trans_fk < y.min_trans_fk;
+    AND    x.min_trans_fk < y.min_trans_fk';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows');
+                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
   END policy_data_check_032;
 
   /**************************************************************************
@@ -974,7 +999,7 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
   END main;
 
   BEGIN
-    g_trace := TRUE;
+    g_trace := FALSE;
 
   EXCEPTION
     WHEN OTHERS THEN

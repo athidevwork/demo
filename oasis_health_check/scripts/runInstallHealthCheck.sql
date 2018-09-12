@@ -16,8 +16,10 @@ DECLARE
   drop_table_sql varchar(200);
   trunc_table_sql varchar2(200);
   create_table_sql varchar(4000);
+  env_table_sql varchar(4000);
 
   tablename varchar2(128) := 'OASIS_HEALTH_CHECK';
+  envtablename varchar2(128) := 'OASIS_HEALTH_CHECK_ENV';
   tableseq varchar2(128) := 'OASIS_HEALTH_CHECK_SEQ';
   dailyseq varchar2(128) := 'DAILY_OHC_SEQ';
   
@@ -47,6 +49,10 @@ DECLARE
                          ' PARM_DESC varchar2(2000),'||chr(10)||
 						 ' OHC_SQL CLOB'||chr(10)||
                          ' )';
+	env_table_sql := 'CREATE TABLE '||envtablename||chr(10)||
+					 '(ENV_NAME varchar2(25),'||chr(10)||
+					 ' ENV_CONN_STR varchar2(75)'||chr(10)||
+					 ')';
   END init_sql;
   
   procedure install_oasis_health_check IS
@@ -68,6 +74,17 @@ DECLARE
          pl('OASIS_HEALTH_CHECK table already found in schema');       
      END IF;
 
+	 v_sql_stmt := 'SELECT count(1) FROM  tab t WHERE t.tname=''OASIS_HEALTH_CHECK_ENV''';
+	 EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+     IF (v_count = 0) THEN
+       PL('Creating table: '||envtablename);
+       PL('sql = ' || env_table_sql);
+       EXECUTE IMMEDIATE env_table_sql;
+       pl('created table OASIS_HEALTH_CHECK_ENV successfully');
+       else
+         pl('OASIS_HEALTH_CHECK_ENV table already found in schema');       
+     END IF;
+		  
      v_sql_stmt := 'SELECT count(1) FROM user_sequences u WHERE u.sequence_name = ''OASIS_HEALTH_CHECK_SEQ''';
      --pl('stmt : ' || v_sql_stmt);
      EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
