@@ -18,27 +18,33 @@ def run_option(args, cmd):
     arg3=''
     if cmd == 'run':
         script = 'runHealthCheck.sql'
-        #arg1=args.subsystem
-        #arg2=args.email
-        arg1=''
-        arg2=''
+        arg1=args.subsystem
+        arg2=args.email
         arg3='FALSE'
     elif cmd == 'list':
         script = 'runListHealthCheck.sql'
         arg1='ALL'        
     elif cmd == 'lastreport':
         script = 'getLastOasisHealthCheckReport.sql'
+        username=args.conn.split("/",1)[0]
+        host_sid=args.conn.split("@",1)[1]
         if args.report is None:
-            arg1='lastreport.csv'
+            arg1='lastreport_' + username + '_' + host_sid + '.csv'
         else:
             arg1=args.report
     elif cmd == 'datereport':
-        script = 'getReportByDateOasisHealthCheckReport.sql'
-        arg1=args.report
-        arg2=args.runDate        
+        script = 'getReportByDateOasisHealthCheckReport.sql' 
+        if args.report is None:
+            arg1='datereport_' + username + '_' + host_sid + '.csv'
+        else:
+            arg1=args.report
+        arg2=args.runDate
     elif cmd == 'allreport':
         script = 'getAllOasisHealthCheckReport.sql'
-        arg1=args.report
+        if args.report is None:
+            arg1='allreport_' + username + '_' + host_sid + '.csv'
+        else:
+            arg1=args.report
     elif cmd == 'install':
         script = 'runInstallHealthCheck.sql'
     elif cmd == 'install_packages':
@@ -62,7 +68,7 @@ def run_sql_script(conn, script, arg1, arg2, arg3):
     script = '@' + os.path.join('scripts', script)
     ret_status = False
 
-    #print ('args : conn=' + conn + ', script=' + script + ', arg1=' + str(arg1) + ', arg2=' + arg2 + ', arg3=' + arg3)
+    print ('args : conn=' + conn + ', script=' + script + ', arg1=' + str(arg1) + ', arg2=' + arg2 + ', arg3=' + arg3)
 
     logger.info('\n\nvvvvvvvvvv {} - START vvvvvvvvvv\n'.format(script))
     print('\n\nvvvvvvvvvv {} - START vvvvvvvvvv\n'.format(script))

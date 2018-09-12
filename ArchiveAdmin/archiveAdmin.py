@@ -49,7 +49,7 @@ def init_run(prefix):
     if os.path.exists('policy_pdf.zip'):        
         os.remove('policy_pdf.zip')
 
-def move_or_copy_file(ofile, prefix, tuple):
+def move_or_copy_file(ofile, prefix, tuple, previewMode):
     tokenList = ['ODSOutput', 'ODS', 'odsoutput']
     #print ('TESTING----' + "[0]" + str(tuplesList[0]) + ", [1]=" + str(tuplesList[1]))
     #print ('----------------')
@@ -156,13 +156,13 @@ def archivePdf(args, previewMode):
     init_run(prefix)
     
     for row in reader:
-        if not(row[0] == 'CURRENT STATUS TIME'):
+        if not(row[0] == 'DOCUMENT DATE'):
             #print ('pass through')
             #print (row)
             #print (row[2], row[12])
             #tuplesList = [list(zip(row[2], row[12]))]
 
-            fileWithPath = "".join((row[2],row[1]))
+            fileWithPath = "\\".join((row[2].strip(),row[1].strip()))
             #print (fileWithPath)
             #tuple - filename with path, status
             tuple = (fileWithPath, row[11])
@@ -189,7 +189,7 @@ def archivePdf(args, previewMode):
             
             #print ('Reading from list ...')
 
-            move_or_copy_file(ofile, prefix, tuple)
+            move_or_copy_file(ofile, prefix, tuple, previewMode)
             #print ('', end='\n')
             #print ('completed reading file list :' + str(datetime.now()));
 

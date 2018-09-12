@@ -15,7 +15,7 @@ SPOOL &2
 
 set termout off
 
-prompt "CURRENT STATUS TIME","FILE_NAME","FILE OUTPUT PATH","POLICY NUMBER","FORM ID","FORM DESCRIPTION","FORM LEVEL","TRANSACTION CODE","TERM ACCOUNTING DATE","TERM EFFECTIVE DATE","TRANSACTION NUMBER","FORM STATUS","SUB SYSTEM","REQUEST ID","RISK NAME",
+prompt "DOCUMENT DATE","FILE NAME","FILE OUTPUT PATH(Delphi Use Only)","POLICY NUMBER","FORM ID","FORM DESCRIPTION","FORM LEVEL","TRANSACTION CODE","TERM ACCOUNTING DATE","TERM EFFECTIVE DATE","TRANSACTION NUMBER(Delphi Use Only)","FORM STATUS","SUB SYSTEM","REQUEST ID(Delphi Use Only)","RISK NAME",
 SELECT ov.current_status_date || ', ' || ov.filename || ', ' || ov.output_path || ', ' || ov.external_id || ', ' || ov.form_id || ', ' || ov.form_desc || ', ' || f.form_level || ', ' || ov.transaction_code || ', ' || ov.req_accounting_date || ', ' || ov.req_effective_date || ', ' || ov.transaction_log_fk || ', ' || ov.trigger_status || ', ' || ov.subsystem_code || ', ' || ov.request_id || ', ' || replace(ov.risk_name, ',', '')
 FROM os_form_info_ct_dw_view ov, os_form f
 WHERE ov.form_id = f.form_id
