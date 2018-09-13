@@ -7,6 +7,7 @@ import os.path
 import cx_Oracle
 import pprint
 import sys
+import textwrap
 
 __author__ = 'athi'
 __version__ = '1.0.0'
@@ -16,18 +17,27 @@ def run_option(args, cmd):
     arg1=''
     arg2=''
     arg3=''
+    username=args.conn.split("/",1)[0]
+    host_sid=args.conn.split("@",1)[1]
     if cmd == 'run':
         script = 'runHealthCheck.sql'
-        arg1=args.subsystem
-        arg2=args.email
+        if args.subsystem is None:
+            arg1=''
+        else:
+            arg1=args.subsystem
+        if args.email is None:
+            arg2=''
+        else:
+            arg2=args.email
         arg3='FALSE'
     elif cmd == 'list':
         script = 'runListHealthCheck.sql'
-        arg1='ALL'        
+        if args.subsystem is None:
+            arg1='ALL'
+        else:
+            arg1=args.subsystem
     elif cmd == 'lastreport':
         script = 'getLastOasisHealthCheckReport.sql'
-        username=args.conn.split("/",1)[0]
-        host_sid=args.conn.split("@",1)[1]
         if args.report is None:
             arg1='lastreport_' + username + '_' + host_sid + '.csv'
         else:
@@ -53,8 +63,14 @@ def run_option(args, cmd):
         script = 'runUninstallHealthCheck.sql'
     else:
         script = 'runHealthCheck.sql'
-        arg1=args.subsystem
-        arg1=args.email
+        if args.subsystem is None:
+            arg1=''
+        else:
+            arg1=args.subsystem
+        if args.email is None:
+            arg2=''
+        else:
+            arg2=args.email
         arg3='FALSE'
         
     if not run_sql_script(args.conn, script, arg1, arg2, arg3):
@@ -68,7 +84,7 @@ def run_sql_script(conn, script, arg1, arg2, arg3):
     script = '@' + os.path.join('scripts', script)
     ret_status = False
 
-    print ('args : conn=' + conn + ', script=' + script + ', arg1=' + str(arg1) + ', arg2=' + arg2 + ', arg3=' + arg3)
+    #print ('args : conn=' + conn + ', script=' + script + ', arg1=' + str(arg1) + ', arg2=' + arg2 + ', arg3=' + arg3)
 
     logger.info('\n\nvvvvvvvvvv {} - START vvvvvvvvvv\n'.format(script))
     print('\n\nvvvvvvvvvv {} - START vvvvvvvvvv\n'.format(script))
@@ -132,8 +148,7 @@ def run_ohc(args):
     run_option(args, 'run')
 
 def get_env(args):
-    print("Running Get Env from %s with db name as %s ... " % (args.envconn, args.key))
-    #run_option(args, 'getenv')
+    #print("Running Get Env from %s with db name as %s ... " % (args.envconn, args.key))
     env = []
     sql_stmt = 'SELECT * FROM OASIS_HEALTH_CHECK_ENV e WHERE e.ENV_NAME = %s' % repr(str(args.key));
 
@@ -156,6 +171,7 @@ def get_env(args):
     #print(len(env))
     #pprint.pprint(env)
 
+    #print ([i[1] for i in env])
     # convert the list of tuples into a list of values.
     return [i[1] for i in env]
 
@@ -164,7 +180,34 @@ def main():
     parent_parser = argparse.ArgumentParser(add_help=False)
     parent_parser.add_argument('runDate',help='Health Check run date', nargs='?')
 
-    parser = argparse.ArgumentParser(parents=[parent_parser], description='Oasis Health Check Script.')
+    parser = argparse.ArgumentParser(parents=[parent_parser]
+                                     , formatter_class=argparse.RawDescriptionHelpFormatter
+                                     , description='''Oasis Health Check Script.
+    All actions to be specified with --<option>.
+    All parameters to be specified with -<char> or --<option>.''',
+                                     epilog=textwrap.dedent('''
+Usage examples:
+
+Run install health check from file for all env : python OasisHealthCheck.py -f oasishealthcheckenv.txt --install
+Run install health check from file for one env : python OasisHealthCheck.py -f oasishealthcheckenv.txt -k ODEV20181SE --install
+
+Run uninstall health check from file for all env : python OasisHealthCheck.py -f oasishealthcheckenv.txt --uninstall
+Run uninstall health check from file for one env : python OasisHealthCheck.py -f oasishealthcheckenv.txt -k ODEV20181SE --uninstall
+
+Run health check from file for all env : python OasisHealthCheck.py -f oasishealthcheckenv.txt
+Run health check from file for one env : python OasisHealthCheck.py -f oasishealthcheckenv.txt -k ODEV20181SE
+
+Run health check specifying connection string for all env : python OasisHealthCheck.py -c ODEV20191/ODEV20191@NY2ORA12CBASE01_ODEV122
+Run health check specifying connection string for one env : python OasisHealthCheck.py -c ODEV20191/ODEV20191@NY2ORA12CBASE01_ODEV122 -k ODEV20181SE
+
+Display all health checks that are run : python OasisHealthCheck.py -c ODEV20191/ODEV20191@NY2ORA12CBASE01_ODEV122 --list
+Display health checks for a subsystem : python OasisHealthCheck.py -c ODEV20191/ODEV20191@NY2ORA12CBASE01_ODEV122 -s OUTPUT --list
+
+Run a report for health check run on date : python OasisHealthCheck.py -c ODEV20191/ODEV20191@NY2ORA12CBASE01_ODEV122 --datereport '09/13/2018 11:48:51'
+
+Run report for all health check run on db : python OasisHealthCheck.py -c ODEV20191/ODEV20191@NY2ORA12CBASE01_ODEV122 --allreport
+'''))
+    
     #parser.add_argument('-c','--conn', help='Connection string to database of format user/password@host_sid',required=True)
     parser.add_argument('-c','--conn', help='Connection string to database of format user/password@host_sid')
     parser.add_argument('-e','--email', help='email to send report of health check run. defaults to none.')
@@ -176,7 +219,7 @@ def main():
 
     parser.add_argument('--install',help='Install OasisHealthCheck', action='store_true')
     parser.add_argument('--uninstall',help='Uninstall OasisHealthCheck', action='store_true')
-    parser.add_argument('--run',help='Run OasisHealthCheck and get last run report to csv file.', action='store_true')
+    parser.add_argument('--run',help='Run OasisHealthCheck and get last run report to csv file. Defaults to this option if no other option is provided.', action='store_true')
     parser.add_argument('--list',help='List OasisHealthCheck', action='store_true')  
     parser.add_argument('--lastreport',help='Run Report on last performed health check.', action='store_true')
     parser.add_argument('--datereport',help='Run report for a particular dated run', action='store_true')    
@@ -205,35 +248,47 @@ def main():
             else:
                 connlist.append(conn1)
     else:
-        connlist.append(args.conn)
-        
-    print ('------------------------')
-    print ('Environments health check would run on :')
-    print (connlist)
-    print ('------------------------')
-        
-    if not (args.key or args.conn):
-        #if (args.configGhostdraft and not(args.inputfile and args.instance and args.env and args.docservice and args.mapping)):
-        parser.error('Either -c or -e argument is required for oasis health check to run. Exiting ...')
-        sys.exit
-
-    if len(connlist) == 0:
-        print ('No environment found to perform an action.')
-        sys.exit
-               
-    for y in connlist:
-        j = y.split()
-        print ('*************current env = %s*************' % (j[0]))
-        args.conn = j[0]
-
         if args.key:
             if not args.conn:
                 if not args.envconn:
                     parser.error('connection sring parameter for env not found. Exiting ...')
                     sys.exit
                 else:
-                    args.conn = get_env(args)[0]
-                    print ('connection retrieved from db : %s' % args.conn)
+                    if (len(get_env(args)) == 0):
+                        print ('connection cannot be retrieved from db for key : %s' % args.key)
+                        sys.exit
+                    else:
+                        args.conn = get_env(args)[0]
+                        print ('connection retrieved from db : %s' % args.key)
+                        connlist.append(args.conn)
+        
+    if not (args.key or args.conn):
+        #if (args.configGhostdraft and not(args.inputfile and args.instance and args.env and args.docservice and args.mapping)):
+        parser.error('Either -c or -f argument is required for oasis health check to run. Exiting ...')
+        sys.exit
+
+    if args.conn:
+        connlist.append(args.conn)
+
+    if (args.datereport and (args.runDate is None)):
+        print ('DateTime argument as parameter is required.')
+        sys.exit            
+      
+    if not (len(connlist) == 0): 
+        print ('------------------------')
+        print ('Environments health check would run on :')
+        print (connlist)
+        print ('------------------------')
+    
+    if len(connlist) == 0:
+        print ('No environment found to perform an action.')
+        sys.exit
+
+    #print(len(connlist))
+    for y in connlist:
+        j = y.split()
+        print ('*************current env = %s*************' % (j[0]))
+        args.conn = j[0]
                 
         if not args.conn:
             parser.error('connection parameter not found. Exiting ...')
