@@ -37,20 +37,24 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_cis IS
   g_time_format VARCHAR2(12);
   g_date_format VARCHAR2(12);
 
-  v_obj_name    CONSTANT VARCHAR2(30) := 'oasis_health_check_cis'; -- Oracle object name
-  v_msg_pref    CONSTANT VARCHAR2(20) := 'Error ';
-  v_msg VARCHAR2(4000); -- error/info message
-  v_line VARCHAR2 (255);
-  v_run_date DATE  := SYSDATE;
-  v_sub_system VARCHAR2(25) := 'CIS';
-  v_category VARCHAR(25) := 'CIS_CFG';
-  v_data_code VARCHAR2(25) := 'CIS_CFG_DATA';
-  v_sql_stmt   VARCHAR2(3000) := '';
-  v_ok VARCHAR2(2) := 'OK';
-  v_review VARCHAR2(7) := 'REVIEW';
-  v_desc VARCHAR2(255) := '';
-  v_level VARCHAR2(25);
-  v_count NUMBER(15);
+  v_obj_name        CONSTANT VARCHAR2(30) := 'oasis_health_check_cis'; -- Oracle object name
+  v_msg_pref        CONSTANT VARCHAR2(20) := 'Error ';
+  v_msg             VARCHAR2(4000); -- error/info message
+  v_line            VARCHAR2 (255);
+  v_run_date        DATE  := SYSDATE;
+  v_run_code        VARCHAR2(50) := '';
+  v_proc_name       VARCHAR2(50) := '';
+  v_sub_system      VARCHAR2(25) := 'CIS';
+  v_category        VARCHAR(25) := 'CIS_CFG';
+  --v_data_code       VARCHAR2(25) := 'CIS_CFG_DATA';
+  v_data_code       VARCHAR2(25) := '';
+  v_sql_stmt        VARCHAR2(3000) := '';
+  v_ok              VARCHAR2(2) := 'OK';
+  v_review          VARCHAR2(7) := 'REVIEW';
+  v_desc            VARCHAR2(255) := '';
+  v_level           VARCHAR2(25);
+  v_count           NUMBER(15);
+  v_test_criteria_0 VARCHAR2(25) := 'COUNT=0';
 
   -- === Constants: <ConstantName> CONSTANT <DataType> := <Value>;
   -- === Types.
@@ -71,9 +75,11 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_cis IS
     END IF;
   END pl;
 
-  PROCEDURE orphan_entity_roles IS
+  PROCEDURE CIS_001 IS
   BEGIN
-    v_desc := 'Orphaned Entity Roles in the system';
+    v_proc_name := 'CIS_001';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Orphaned Entity Roles in the system';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -84,13 +90,16 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_cis IS
 
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
-    oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>100', v_count, v_desc, 'ENTITY_ROLE records pointing to a discarded ENTITY record', v_sql_stmt);
-  END orphan_entity_roles;
+    oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, v_data_code, v_test_criteria_0, 
+                        v_count, v_desc,'ENTITY_ROLE records pointing to a discarded ENTITY record', 
+                        v_sql_stmt, v_run_code);
+  END CIS_001;
 
-  PROCEDURE entities_without_primary_addr IS
+  PROCEDURE CIS_002 IS
   BEGIN
-    v_desc := 'Entities without primary address';
+    v_proc_name := 'CIS_002';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Entities without primary address';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
@@ -107,9 +116,10 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_cis IS
 
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
-    oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'entities found with no primary address', v_sql_stmt);
-  END entities_without_primary_addr;
+    oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, v_data_code, v_test_criteria_0, 
+                        v_count, v_desc, 'entities found with no primary address', 
+                        v_sql_stmt, v_run_code);
+  END CIS_002;
 
   /**************************************************************************
   * Main
@@ -117,8 +127,8 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_cis IS
   PROCEDURE main IS
   BEGIN
     BEGIN
-      orphan_entity_roles();
-      entities_without_primary_addr();
+      CIS_001();
+      CIS_002();
     END;
   END main;
 

@@ -41,20 +41,24 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
   g_time_format VARCHAR2(12);
   g_date_format VARCHAR2(12);
 
-  v_obj_name    CONSTANT VARCHAR2(30) := 'oasis_health_check_claims'; -- Oracle object name
-  v_msg_pref    CONSTANT VARCHAR2(20) := 'Error ';
-  v_msg VARCHAR2(4000); -- error/info message
-  v_line VARCHAR2 (255);
-  v_run_date DATE  := SYSDATE;
-  v_sub_system VARCHAR2(25) := 'CLAIMS';
-  v_category VARCHAR(25) := 'CLAIMS_CFG';
-  v_data_code VARCHAR2(25) := 'CLAIMS_CFG_DATA';
-  v_sql_stmt   VARCHAR2(3000) := '';
-  v_ok VARCHAR2(2) := 'OK';
-  v_review VARCHAR2(7) := 'REVIEW';
-  v_desc VARCHAR2(255) := '';
-  v_level VARCHAR2(25);
-  v_count NUMBER(15);
+  v_obj_name        CONSTANT VARCHAR2(30) := 'oasis_health_check_claims'; -- Oracle object name
+  v_msg_pref        CONSTANT VARCHAR2(20) := 'Error ';
+  v_msg             VARCHAR2(4000); -- error/info message
+  v_line            VARCHAR2 (255);
+  v_run_date        DATE  := SYSDATE;
+  v_run_code        VARCHAR2(50) := '';
+  v_proc_name       VARCHAR2(50) := '';
+  v_sub_system      VARCHAR2(25) := 'CLAIMS';
+  v_category        VARCHAR(25) := 'CLAIMS_CFG';
+  v_data_code       VARCHAR2(25) := '';
+  --v_data_code       VARCHAR2(25) := 'CLAIMS_CFG_DATA';
+  v_sql_stmt        VARCHAR2(3000) := '';
+  v_ok              VARCHAR2(2) := 'OK';
+  v_review          VARCHAR2(7) := 'REVIEW';
+  v_desc            VARCHAR2(255) := '';
+  v_level           VARCHAR2(25);
+  v_count           NUMBER(15);
+  v_test_criteria_0 VARCHAR2(25) := 'COUNT=0';
 
 
   -- === Constants: <ConstantName> CONSTANT <DataType> := <Value>;
@@ -91,9 +95,11 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     END;
   END validate_claims_parm;
 
-  PROCEDURE claims_data_check_001 IS
+  PROCEDURE CM_001 IS
   BEGIN
-    v_desc := 'claims_data_check_001 - cm_transaction_detail w/o matching CIX and claimant on CCX';
+    v_proc_name := 'CM_001';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - cm_transaction_detail w/o matching CIX and claimant on CCX';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
@@ -112,12 +118,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
-  END claims_data_check_001;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'transactions', v_sql_stmt, v_run_code);
+  END CM_001;
   
-  PROCEDURE claims_data_check_002 IS
+  PROCEDURE CM_002 IS
   BEGIN
-    v_desc := 'claims_data_check_002 - cm_transaction w/ data_checking cm_trans_status_history row';
+    v_proc_name := 'CM_002';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - cm_transaction w/ data_checking cm_trans_status_history row';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -135,12 +143,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
-  END claims_data_check_002;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'transactions', v_sql_stmt, v_run_code);
+  END CM_002;
   
-  PROCEDURE claims_data_check_003 IS
+  PROCEDURE CM_003 IS
   BEGIN
-    v_desc := 'claims_data_check_003 - cm_transaction w/ missing  cm_trans_status_history row';
+    v_proc_name := 'CM_003';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - cm_transaction w/ missing  cm_trans_status_history row';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -153,12 +163,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
-  END claims_data_check_003;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'transactions', v_sql_stmt, v_run_code);
+  END CM_003;
 
-  PROCEDURE claims_data_check_004 IS
+  PROCEDURE CM_004 IS
   BEGIN
-    v_desc := 'claims_data_check_004 - cm_transaction w/o matching cm_transaction_detail row';
+    v_proc_name := 'CM_004';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - cm_transaction w/o matching cm_transaction_detail row';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
@@ -172,12 +184,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
-  END claims_data_check_004;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'transactions', v_sql_stmt, v_run_code);
+  END CM_004;
 
-  PROCEDURE claims_data_check_005 IS
+  PROCEDURE CM_005 IS
   BEGIN
-    v_desc := 'claims_data_check_005 - cm_transaction where trans_amt <> sum amount on det row';
+    v_proc_name := 'CM_005';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - cm_transaction where trans_amt <> sum amount on det row';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
@@ -194,12 +208,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
-  END claims_data_check_005;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'transactions', v_sql_stmt, v_run_code);
+  END CM_005;
 
-  PROCEDURE claims_data_check_006 IS
+  PROCEDURE CM_006 IS
   BEGIN
-    v_desc := 'claims_data_check_006 - txn dtl rows where the txn claim differs from CIX claim';
+    v_proc_name := 'CM_006';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - txn dtl rows where the txn claim differs from CIX claim';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
@@ -218,12 +234,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'transactions', v_sql_stmt);
-  END claims_data_check_006;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'transactions', v_sql_stmt, v_run_code);
+  END CM_006;
 
-  PROCEDURE claims_data_check_007 IS
+  PROCEDURE CM_007 IS
   BEGIN
-    v_desc := 'claims_data_check_007 - entity_role roles where entity fk is not on entity table';
+    v_proc_name := 'CM_007';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - entity_role roles where entity fk is not on entity table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
     
@@ -236,12 +254,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'entities', v_sql_stmt);
-  END claims_data_check_007;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'entities', v_sql_stmt, v_run_code);
+  END CM_007;
 
-  PROCEDURE claims_data_check_008 IS
+  PROCEDURE CM_008 IS
   BEGIN
-    v_desc := 'claims_data_check_008 - claimant rows where entity role not on entity role table';
+    v_proc_name := 'CM_008';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - claimant rows where entity role not on entity role table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -254,12 +274,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'claimants', v_sql_stmt);
-  END claims_data_check_008;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'claimants', v_sql_stmt, v_run_code);
+  END CM_008;
 
-  PROCEDURE claims_data_check_009 IS
+  PROCEDURE CM_009 IS
   BEGIN
-    v_desc := 'claims_data_check_009 - claim_insured rows where entity role not on entity role table';
+    v_proc_name := 'CM_009';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - claim_insured rows where entity role not on entity role table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -272,12 +294,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'claim insureds', v_sql_stmt);
-  END claims_data_check_009;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'claim insureds', v_sql_stmt, v_run_code);
+  END CM_009;
 
-  PROCEDURE claims_data_check_010 IS
+  PROCEDURE CM_010 IS
   BEGIN
-    v_desc := 'claims_data_check_010 - CIX rows where claim_insured_fk does not exist';
+    v_proc_name := 'CM_010';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CIX rows where claim_insured_fk does not exist';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -290,12 +314,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_010;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_010;
 
-  PROCEDURE claims_data_check_011 IS
+  PROCEDURE CM_011 IS
   BEGIN
-    v_desc := 'claims_data_check_011 - claims where min claim type and claim hist dates are not equal';
+    v_proc_name := 'CM_011';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - claims where min claim type and claim hist dates are not equal';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -314,12 +340,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_011;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_011;
 
-  PROCEDURE claims_data_check_012 IS
+  PROCEDURE CM_012 IS
   BEGIN
-    v_desc := 'claims_data_check_012 - missing cm_transaction sys_update_time';
+    v_proc_name := 'CM_012';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - missing cm_transaction sys_update_time';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -330,12 +358,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_012;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_012;
 
-  PROCEDURE claims_data_check_013 IS
+  PROCEDURE CM_013 IS
   BEGIN
-    v_desc := 'claims_data_check_013 - claimant_fk on txn detail, not on claimant table';
+    v_proc_name := 'CM_013';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - claimant_fk on txn detail, not on claimant table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -348,12 +378,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_013;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_013;
 
-  PROCEDURE claims_data_check_014 IS
+  PROCEDURE CM_014 IS
   BEGIN
-    v_desc := 'claims_data_check_014 - CIX fks on txn detail, not on CIX table';
+    v_proc_name := 'CM_014';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CIX fks on txn detail, not on CIX table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -366,12 +398,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_014;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_014;
 
-  PROCEDURE claims_data_check_015 IS
+  PROCEDURE CM_015 IS
   BEGIN
-    v_desc := 'claims_data_check_015 - cm_trans_status_history w/ null status_start_date';
+    v_proc_name := 'CM_015';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - cm_trans_status_history w/ null status_start_date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -382,12 +416,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_015;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_015;
 
-  PROCEDURE claims_data_check_016 IS
+  PROCEDURE CM_016 IS
   BEGIN
-    v_desc := 'claims_data_check_016 - cm_trans_status_history rows w/ null accounting_date';
+    v_proc_name := 'CM_016';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - cm_trans_status_history rows w/ null accounting_date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -398,12 +434,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_016;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_016;
 
-  PROCEDURE claims_data_check_017 IS
+  PROCEDURE CM_017 IS
   BEGIN
-    v_desc := 'claims_data_check_017 - claims where min txn start date < min claim start date';
+    v_proc_name := 'CM_017';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - claims where min txn start date < min claim start date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -425,12 +463,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_017;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_017;
 
-  PROCEDURE claims_data_check_018 IS
+  PROCEDURE CM_018 IS
   BEGIN
-    v_desc := 'claims_data_check_018 - CIX rows where policy fk not on cm_policy';
+    v_proc_name := 'CM_018';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CIX rows where policy fk not on cm_policy';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -444,12 +484,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_018;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_018;
 
-  PROCEDURE claims_data_check_019 IS
+  PROCEDURE CM_019 IS
   BEGIN
-    v_desc := 'claims_data_check_019 - CIX rows where risk fk not on cm_risk';
+    v_proc_name := 'CM_019';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CIX rows where risk fk not on cm_risk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -463,12 +505,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_019;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_019;
 
-  PROCEDURE claims_data_check_020 IS
+  PROCEDURE CM_020 IS
   BEGIN
-    v_desc := 'claims_data_check_020 - CIX rows where cvg fk not on cm_coverage';
+    v_proc_name := 'CM_020';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CIX rows where cvg fk not on cm_coverage';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -482,12 +526,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_020;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_020;
 
-  PROCEDURE claims_data_check_021 IS
+  PROCEDURE CM_021 IS
   BEGIN
-    v_desc := 'claims_data_check_021 - CIX rows where policy fk not on policy';
+    v_proc_name := 'CM_021';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CIX rows where policy fk not on policy';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -501,12 +547,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_021;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_021;
 
-  PROCEDURE claims_data_check_022 IS
+  PROCEDURE CM_022 IS
   BEGIN
-    v_desc := 'claims_data_check_022 - CIX rows where policy term fk not on policy term history';
+    v_proc_name := 'CM_022';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CIX rows where policy term fk not on policy term history';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -520,12 +568,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_022;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_022;
 
-  PROCEDURE claims_data_check_023 IS
+  PROCEDURE CM_023 IS
   BEGIN
-    v_desc := 'claims_data_check_023 - CIX rows where risk fk not on risk';
+    v_proc_name := 'CM_023';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CIX rows where risk fk not on risk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -539,12 +589,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_023;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_023;
 
-  PROCEDURE claims_data_check_024 IS
+  PROCEDURE CM_024 IS
   BEGIN
-    v_desc := 'claims_data_check_024 - CIX rows where cvg fk not on coverage';
+    v_proc_name := 'CM_024';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CIX rows where cvg fk not on coverage';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -558,12 +610,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_024;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_024;
 
-  PROCEDURE claims_data_check_025 IS
+  PROCEDURE CM_025 IS
   BEGIN
-    v_desc := 'claims_data_check_025 - cm_transaction_detail rows where CIX fk is null';
+    v_proc_name := 'CM_025';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - cm_transaction_detail rows where CIX fk is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -574,12 +628,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_025;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_025;
 
-  PROCEDURE claims_data_check_026 IS
+  PROCEDURE CM_026 IS
   BEGIN
-    v_desc := 'claims_data_check_026 - cm_transaction_detail rows where claimant fk is null';
+    v_proc_name := 'CM_026';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - cm_transaction_detail rows where claimant fk is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -590,12 +646,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_026;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_026;
 
-  PROCEDURE claims_data_check_027 IS
+  PROCEDURE CM_027 IS
   BEGIN
-    v_desc := 'claims_data_check_027 - wacky CM_TRANSACTION accounting dates in yyyy/mm/dd format';
+    v_proc_name := 'CM_027';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - wacky CM_TRANSACTION accounting dates in yyyy/mm/dd format';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -608,12 +666,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_027;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_027;
 
-  PROCEDURE claims_data_check_028 IS
+  PROCEDURE CM_028 IS
   BEGIN
-    v_desc := 'claims_data_check_028 - Checking for cm_trans_status_history rows where lastest status record '||
+    v_proc_name := 'CM_028';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Checking for cm_trans_status_history rows where lastest status record '||
               'does not have the max Trans PK of transaction';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
@@ -629,12 +689,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_028;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_028;
 
-  PROCEDURE claims_data_check_029 IS
+  PROCEDURE CM_029 IS
   BEGIN
-    v_desc := 'claims_data_check_029 - CM Coverage records where sys update time is null';
+    v_proc_name := 'CM_029';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Coverage records where sys update time is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -645,12 +707,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_029;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_029;
 
-  PROCEDURE claims_data_check_030 IS
+  PROCEDURE CM_030 IS
   BEGIN
-    v_desc := 'claims_data_check_030 - CM Risk records where sys update time is null';
+    v_proc_name := 'CM_030';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Risk records where sys update time is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -661,12 +725,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_030;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_030;
 
-  PROCEDURE claims_data_check_031 IS
+  PROCEDURE CM_031 IS
   BEGIN
-    v_desc := 'claims_data_check_031 - CM Policy records where sys update time is null';
+    v_proc_name := 'CM_031';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Policy records where sys update time is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -677,12 +743,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_031;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_031;
 
-  PROCEDURE claims_data_check_032 IS
+  PROCEDURE CM_032 IS
   BEGIN
-    v_desc := 'claims_data_check_032 - CM Coverage records where eff from date is null';
+    v_proc_name := 'CM_032';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Coverage records where eff from date is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -693,12 +761,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_032;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_032;
 
-  PROCEDURE claims_data_check_033 IS
+  PROCEDURE CM_033 IS
   BEGIN
-    v_desc := 'claims_data_check_033 - CM Risk records where eff from date is null';
+    v_proc_name := 'CM_033';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Risk records where eff from date is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -709,12 +779,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_033;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_033;
 
-  PROCEDURE claims_data_check_034 IS
+  PROCEDURE CM_034 IS
   BEGIN
-    v_desc := 'claims_data_check_034 - CM Policy records where eff from date is null';
+    v_proc_name := 'CM_034';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Policy records where eff from date is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -725,12 +797,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_034;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_034;
 
-  PROCEDURE claims_data_check_035 IS
+  PROCEDURE CM_035 IS
   BEGIN
-    v_desc := 'claims_data_check_035 - CM Trans History records where sys create time is null';
+    v_proc_name := 'CM_035';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Trans History records where sys create time is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -741,12 +815,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_035;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_035;
 
-  PROCEDURE claims_data_check_036 IS
+  PROCEDURE CM_036 IS
   BEGIN
-    v_desc := 'claims_data_check_036 - CM Trans records whose trans date is less than claim report date';
+    v_proc_name := 'CM_036';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Trans records whose trans date is less than claim report date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -759,12 +835,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_036;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_036;
 
-  PROCEDURE claims_data_check_037 IS
+  PROCEDURE CM_037 IS
   BEGIN
-    v_desc := 'claims_data_check_037 - Wacky claim final disposition date';
+    v_proc_name := 'CM_037';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Wacky claim final disposition date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -775,12 +853,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_037;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_037;
 
-  PROCEDURE claims_data_check_038 IS
+  PROCEDURE CM_038 IS
   BEGIN
-    v_desc := 'claims_data_check_038 - Wacky claim type start date';
+    v_proc_name := 'CM_038';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Wacky claim type start date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -792,12 +872,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_038;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_038;
 
-  PROCEDURE claims_data_check_039 IS
+  PROCEDURE CM_039 IS
   BEGIN
-    v_desc := 'claims_data_check_039 - Wacky claim status start date';
+    v_proc_name := 'CM_039';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Wacky claim status start date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -809,12 +891,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_039;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_039;
 
-  PROCEDURE claims_data_check_040 IS
+  PROCEDURE CM_040 IS
   BEGIN
-    v_desc := 'claims_data_check_040 - Wacky cm_policy start date';
+    v_proc_name := 'CM_040';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Wacky cm_policy start date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -826,12 +910,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_040;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_040;
 
-  PROCEDURE claims_data_check_041 IS
+  PROCEDURE CM_041 IS
   BEGIN
-    v_desc := 'claims_data_check_041 - Claims that status start date is greater than end date';
+    v_proc_name := 'CM_041';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Claims that status start date is greater than end date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -842,12 +928,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_041;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_041;
 
-  PROCEDURE claims_data_check_042 IS
+  PROCEDURE CM_042 IS
   BEGIN
-    v_desc := 'claims_data_check_042 - Claims that type start date is greater than end date';
+    v_proc_name := 'CM_042';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Claims that type start date is greater than end date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -858,12 +946,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_042;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_042;
 
-  PROCEDURE claims_data_check_043 IS
+  PROCEDURE CM_043 IS
   BEGIN
-    v_desc := 'claims_data_check_043 - Claims that has trans acct date less than policy acct date';
+    v_proc_name := 'CM_043';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Claims that has trans acct date less than policy acct date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -887,12 +977,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_043;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_043;
 
-  PROCEDURE claims_data_check_044 IS
+  PROCEDURE CM_044 IS
   BEGIN
-    v_desc := 'claims_data_check_044 - Trans that status start date is greater than status end date';
+    v_proc_name := 'CM_044';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Trans that status start date is greater than status end date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -903,12 +995,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_044;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_044;
 
-  PROCEDURE claims_data_check_045 IS
+  PROCEDURE CM_045 IS
   BEGIN
-    v_desc := 'claims_data_check_045 - Mini policies that have overlap terms';
+    v_proc_name := 'CM_045';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Mini policies that have overlap terms';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -930,12 +1024,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_045;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_045;
 
-  PROCEDURE claims_data_check_046 IS
+  PROCEDURE CM_046 IS
   BEGIN
-    v_desc := 'claims_data_check_046 - Trans that transaction accounting date is null';
+    v_proc_name := 'CM_046';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Trans that transaction accounting date is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -946,12 +1042,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_046;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_046;
 
-  PROCEDURE claims_data_check_047 IS
+  PROCEDURE CM_047 IS
   BEGIN
-    v_desc := 'claims_data_check_047 - CIX records that do not have correspond records in CCX';
+    v_proc_name := 'CM_047';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CIX records that do not have correspond records in CCX';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -965,12 +1063,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_047;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_047;
 
-  PROCEDURE claims_data_check_048 IS
+  PROCEDURE CM_048 IS
   BEGIN
-    v_desc := 'claims_data_check_048 - CM Trans Detail records where sys update time is null';
+    v_proc_name := 'CM_048';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Trans Detail records where sys update time is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -981,12 +1081,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_048;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_048;
 
-  PROCEDURE claims_data_check_049 IS
+  PROCEDURE CM_049 IS
   BEGIN
-    v_desc := 'claims_data_check_049 - CM Trans Detail records where trans type code is null';
+    v_proc_name := 'CM_049';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Trans Detail records where trans type code is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -997,12 +1099,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_049;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_049;
 
-  PROCEDURE claims_data_check_050 IS
+  PROCEDURE CM_050 IS
   BEGIN
-    v_desc := 'claims_data_check_050 - CM Trans Detail records where trans status code is null';
+    v_proc_name := 'CM_050';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Trans Detail records where trans status code is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -1013,12 +1117,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_050;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_050;
 
-  PROCEDURE claims_data_check_051 IS
+  PROCEDURE CM_051 IS
   BEGIN
-    v_desc := 'claims_data_check_051 - CM Trans Detail records where trans source fk is null';
+    v_proc_name := 'CM_051';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - CM Trans Detail records where trans source fk is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -1029,12 +1135,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_051;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_051;
 
-  PROCEDURE claims_data_check_052 IS
+  PROCEDURE CM_052 IS
   BEGIN
-    v_desc := 'claims_data_check_052 - Claim records that CLAIMANT_COVERAGE_XREF link to different claim';
+    v_proc_name := 'CM_052';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Claim records that CLAIMANT_COVERAGE_XREF link to different claim';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -1057,12 +1165,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_052;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_052;
 
-  PROCEDURE claims_data_check_053 IS
+  PROCEDURE CM_053 IS
   BEGIN
-    v_desc := 'claims_data_check_053 - ENTITY records that CLIENT_ID is null';
+    v_proc_name := 'CM_053';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - ENTITY records that CLIENT_ID is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -1073,8 +1183,8 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END claims_data_check_053;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END CM_053;
 
   /**************************************************************************
   * Main
@@ -1086,59 +1196,59 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_claims IS
       oasis_health_check_main.check_parms('INFO', v_sub_system, 
                                           'CLAIMS_SYS_PARM', claims_sys_parms);
       --Claims data checks
-      claims_data_check_001();
-      claims_data_check_002();
-      claims_data_check_003();
-      claims_data_check_004();
-      claims_data_check_005();
-      claims_data_check_006();
-      claims_data_check_007();
-      claims_data_check_008();
-      claims_data_check_009();
-      claims_data_check_010();
-      claims_data_check_011();
-      claims_data_check_012();
-      claims_data_check_013();
-      claims_data_check_014();
-      claims_data_check_015();
-      claims_data_check_016();
-      claims_data_check_017();
-      claims_data_check_018();
-      claims_data_check_019();
-      claims_data_check_020();
-      claims_data_check_021();
-      claims_data_check_022();
-      claims_data_check_023();
-      claims_data_check_024();
-      claims_data_check_025();
-      claims_data_check_026();
-      claims_data_check_027();
-      claims_data_check_028();
-      claims_data_check_029();
-      claims_data_check_030();
-      claims_data_check_031();
-      claims_data_check_032();
-      claims_data_check_033();
-      claims_data_check_034();
-      claims_data_check_035();
-      claims_data_check_036();
-      claims_data_check_037();
-      claims_data_check_038();
-      claims_data_check_039();
-      claims_data_check_040();
-      claims_data_check_041();
-      claims_data_check_042();
-      claims_data_check_043();
-      claims_data_check_044();
-      claims_data_check_045();
-      claims_data_check_046();
-      claims_data_check_047();
-      claims_data_check_048();
-      claims_data_check_049();
-      claims_data_check_050();
-      claims_data_check_051();
-      claims_data_check_052();
-      claims_data_check_053();
+      CM_001();
+      CM_002();
+      CM_003();
+      CM_004();
+      CM_005();
+      CM_006();
+      CM_007();
+      CM_008();
+      CM_009();
+      CM_010();
+      CM_011();
+      CM_012();
+      CM_013();
+      CM_014();
+      CM_015();
+      CM_016();
+      CM_017();
+      CM_018();
+      CM_019();
+      CM_020();
+      CM_021();
+      CM_022();
+      CM_023();
+      CM_024();
+      CM_025();
+      CM_026();
+      CM_027();
+      CM_028();
+      CM_029();
+      CM_030();
+      CM_031();
+      CM_032();
+      CM_033();
+      CM_034();
+      CM_035();
+      CM_036();
+      CM_037();
+      CM_038();
+      CM_039();
+      CM_040();
+      CM_041();
+      CM_042();
+      CM_043();
+      CM_044();
+      CM_045();
+      CM_046();
+      CM_047();
+      CM_048();
+      CM_049();
+      CM_050();
+      CM_051();
+      CM_052();
+      CM_053();
     END;
   END main;
 

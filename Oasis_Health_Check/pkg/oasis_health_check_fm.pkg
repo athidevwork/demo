@@ -37,20 +37,24 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
   g_time_format VARCHAR2(12);
   g_date_format VARCHAR2(12);
 
-  v_obj_name    CONSTANT VARCHAR2(30) := 'oasis_health_check_fm'; -- Oracle object name
-  v_msg_pref    CONSTANT VARCHAR2(20) := 'Error ';
-  v_msg VARCHAR2(4000); -- error/info message
-  v_line VARCHAR2 (255);
-  v_run_date DATE  := SYSDATE;
-  v_sub_system VARCHAR2(25) := 'FM';
-  v_category VARCHAR(25) := 'FM_CFG';
-  v_data_code VARCHAR2(25) := 'FM_CFG_DATA';
-  v_sql_stmt   VARCHAR2(3000) := '';
-  v_ok VARCHAR2(2) := 'OK';
-  v_review VARCHAR2(7) := 'REVIEW';
-  v_desc VARCHAR2(255) := '';
-  v_level VARCHAR2(25);
-  v_count NUMBER(15);
+  v_obj_name        CONSTANT VARCHAR2(30) := 'oasis_health_check_fm'; -- Oracle object name
+  v_msg_pref        CONSTANT VARCHAR2(20) := 'Error ';
+  v_msg             VARCHAR2(4000); -- error/info message
+  v_line            VARCHAR2 (255);
+  v_run_date        DATE  := SYSDATE;
+  v_run_code        VARCHAR2(50) := '';
+  v_proc_name       VARCHAR2(50) := '';
+  v_sub_system      VARCHAR2(25) := 'FM';
+  v_category        VARCHAR(25) := 'FM_CFG';
+  --v_data_code       VARCHAR2(25) := 'FM_CFG_DATA';
+  v_data_code       VARCHAR2(25) := '';
+  v_sql_stmt        VARCHAR2(3000) := '';
+  v_ok              VARCHAR2(2) := 'OK';
+  v_review          VARCHAR2(7) := 'REVIEW';
+  v_desc            VARCHAR2(255) := '';
+  v_level           VARCHAR2(25);
+  v_count           NUMBER(15);
+  v_test_criteria_0 VARCHAR2(25) := 'COUNT=0';
 
   -- === Constants: <ConstantName> CONSTANT <DataType> := <Value>;
   -- === Types.
@@ -71,9 +75,11 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     END IF;
   END pl;
 
-  PROCEDURE finance_data_check_001 IS
+  PROCEDURE FM_001 IS
   BEGIN
-    v_desc := 'finance_data_check_001 - Invoices that exist in FM_BILL but not in FM_BILL_ACCOUNT table';
+    v_proc_name := 'FM_001';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Invoices that exist in FM_BILL but not in FM_BILL_ACCOUNT table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -85,12 +91,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_001;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_001;
 
-  PROCEDURE finance_data_check_002 IS
+  PROCEDURE FM_002 IS
   BEGIN
-    v_desc := 'finance_data_check_002 - Identify FM_Master records that transaction accounting date is less than minimum'||
+    v_proc_name := 'FM_002';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Identify FM_Master records that transaction accounting date is less than minimum'||
               'accounting date of RISK table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
@@ -108,12 +116,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_002;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_002;
 
-  PROCEDURE finance_data_check_003 IS
+  PROCEDURE FM_003 IS
   BEGIN
-    v_desc := 'finance_data_check_003 - Identify FM_Master records that transaction accounting date is less than minimum'||
+    v_proc_name := 'FM_003';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Identify FM_Master records that transaction accounting date is less than minimum'||
               'accounting date of COVERAGE table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
@@ -131,12 +141,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_003;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_003;
 
-  PROCEDURE finance_data_check_004 IS
+  PROCEDURE FM_004 IS
   BEGIN
-    v_desc := 'finance_data_check_004 - Transaction amount different between FM_MASTER and FM_OPEN_ITEM_CHANGE';
+    v_proc_name := 'FM_004';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Transaction amount different between FM_MASTER and FM_OPEN_ITEM_CHANGE';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -150,12 +162,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_004;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_004;
 
-  PROCEDURE finance_data_check_005 IS
+  PROCEDURE FM_005 IS
   BEGIN
-    v_desc := 'finance_data_check_005 -Transactions with accounting date is unreasonably high';
+    v_proc_name := 'FM_005';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Transactions with accounting date is unreasonably high';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -166,12 +180,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_005;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_005;
 
-  PROCEDURE finance_data_check_006 IS
+  PROCEDURE FM_006 IS
   BEGIN
-    v_desc := 'finance_data_check_006 -Transactions with accounting date is unreasonably low';
+    v_proc_name := 'FM_006';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Transactions with accounting date is unreasonably low';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -182,12 +198,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_006;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_006;
 
-  PROCEDURE finance_data_check_007 IS
+  PROCEDURE FM_007 IS
   BEGIN
-    v_desc := 'finance_data_check_007 - Transactions with effective from date is unreasonably high';
+    v_proc_name := 'FM_007';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Transactions with effective from date is unreasonably high';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -198,12 +216,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_007;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_007;
 
-  PROCEDURE finance_data_check_008 IS
+  PROCEDURE FM_008 IS
   BEGIN
-    v_desc := 'finance_data_check_008 - Transactions with effective from date is unreasonably low';
+    v_proc_name := 'FM_008';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Transactions with effective from date is unreasonably low';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -214,12 +234,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_008;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_008;
 
-  PROCEDURE finance_data_check_009 IS
+  PROCEDURE FM_009 IS
   BEGIN
-    v_desc := 'finance_data_check_009 - Transactions with transaction date is unreasonably high';
+    v_proc_name := 'FM_009';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Transactions with transaction date is unreasonably high';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -230,12 +252,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_009;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_009;
 
-  PROCEDURE finance_data_check_010 IS
+  PROCEDURE FM_010 IS
   BEGIN
-    v_desc := 'finance_data_check_010 - Transactions with transaction date is unreasonably low';
+    v_proc_name := 'FM_010';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Transactions with transaction date is unreasonably low';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -246,12 +270,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_010;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_010;
 
-  PROCEDURE finance_data_check_011 IS
+  PROCEDURE FM_011 IS
   BEGIN
-    v_desc := 'finance_data_check_011 - Accounts that balance do not match between FM_OPEN_ITEM and FM_OPEN_ITEM_CHANGE';
+    v_proc_name := 'FM_011';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Accounts that balance do not match between FM_OPEN_ITEM and FM_OPEN_ITEM_CHANGE';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -281,12 +307,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'accounts', v_sql_stmt);
-  END finance_data_check_011;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'accounts', v_sql_stmt, v_run_code);
+  END FM_011;
 
-  PROCEDURE finance_data_check_012 IS
+  PROCEDURE FM_012 IS
   BEGIN
-    v_desc := 'finance_data_check_012 - Records in FM_OPEN_ITEM table that OPEN_BALANCE is null';
+    v_proc_name := 'FM_012';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Records in FM_OPEN_ITEM table that OPEN_BALANCE is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -297,12 +325,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_012;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_012;
 
-  PROCEDURE finance_data_check_013 IS
+  PROCEDURE FM_013 IS
   BEGIN
-    v_desc := 'finance_data_check_013 - Records in FM_OPEN_ITEM_CHANGE table that OPEN_BALANCE is null';
+    v_proc_name := 'FM_013';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Records in FM_OPEN_ITEM_CHANGE table that OPEN_BALANCE is null';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -313,8 +343,8 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END finance_data_check_013;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END FM_013;
 
   /**************************************************************************
   * Main
@@ -322,19 +352,19 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_fm IS
   PROCEDURE main IS
   BEGIN
     BEGIN
-      finance_data_check_001();
-      finance_data_check_002();
-      finance_data_check_003();
-      finance_data_check_004();
-      finance_data_check_005();
-      finance_data_check_006();
-      finance_data_check_007();
-      finance_data_check_008();
-      finance_data_check_009();
-      finance_data_check_010();
-      finance_data_check_011();
-      finance_data_check_012();
-      finance_data_check_013();
+      FM_001();
+      FM_002();
+      FM_003();
+      FM_004();
+      FM_005();
+      FM_006();
+      FM_007();
+      FM_008();
+      FM_009();
+      FM_010();
+      FM_011();
+      FM_012();
+      FM_013();
     END;
   END main;
 
