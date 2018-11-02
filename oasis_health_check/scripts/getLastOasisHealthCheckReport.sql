@@ -15,14 +15,14 @@ SPOOL &1
 
 set termout off
 
-prompt "PARAMETER NAME","PARAMETER VALUE","STATUS","STATUS MESSAGE","PARAMETER DESCRIPTION"
-SELECT o.parm_name||','||o.parm_value||','||o.status||','||o.msg||','||o.parm_desc
+prompt "SUB SYSTEM","TEST ID","PARAMETER NAME","EXPECTED VALUE/CONDITION","STATUS","STATUS MESSAGE","PARAMETER DESCRIPTION"
+SELECT o.sub_system||','||o.ohc_code||','||o.parm_name||','||o.parm_value||','||o.status||','||o.msg||','||o.parm_desc
 FROM oasis_health_check o
 WHERE o.run_date IN (
   select max(o1.run_date)
   FROM oasis_health_check o1
 )
-order by o.parm_name;
+order by o.sub_system, o.ohc_code;
 
 SPOOL OFF
 

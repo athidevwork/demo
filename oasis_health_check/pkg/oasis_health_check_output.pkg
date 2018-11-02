@@ -44,21 +44,25 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
   g_time_format VARCHAR2(12);
   g_date_format VARCHAR2(12);
 
-  v_obj_name   CONSTANT VARCHAR2(30) := 'oasis_health_check_output'; -- Oracle object name
-  v_msg_pref   CONSTANT VARCHAR2(20) := 'Error ';
-  v_msg        VARCHAR2(4000); -- error/info message
-  v_line       VARCHAR2 (255);
-  v_run_date   DATE  := SYSDATE;
-  v_ok         VARCHAR2(2) := 'OK';
-  v_review     VARCHAR2(7) := 'REVIEW';
-  v_sub_system VARCHAR2(25) := 'OUTPUT';
-  v_category   VARCHAR(25) := 'OUTPUT_CFG';
-  v_data_code  VARCHAR2(25) := 'OUTPUT_CFG_DATA';
-  v_sql_stmt   VARCHAR2(3000) := '';
-  v_parm       VARCHAR2(25);
-  v_desc       VARCHAR2(255) := '';
-  v_level      VARCHAR2(25);
-  v_count      NUMBER(15);
+  v_obj_name       CONSTANT VARCHAR2(30) := 'oasis_health_check_output'; -- Oracle object name
+  v_msg_pref       CONSTANT VARCHAR2(20) := 'Error ';
+  v_msg            VARCHAR2(4000); -- error/info message
+  v_line           VARCHAR2 (255);
+  v_run_date       DATE  := SYSDATE;
+  v_run_code       VARCHAR2(50) := '';
+  v_proc_name      VARCHAR2(50) := '';
+  v_ok             VARCHAR2(2) := 'OK';
+  v_review         VARCHAR2(7) := 'REVIEW';
+  v_sub_system     VARCHAR2(25) := 'OUTPUT';
+  v_category       VARCHAR(25) := 'OUTPUT_CFG';
+  --v_data_code     VARCHAR2(25) := 'OUTPUT_CFG_DATA';
+  v_data_code      VARCHAR2(25) := '';
+  v_sql_stmt       VARCHAR2(3000) := '';
+  v_parm           VARCHAR2(25);
+  v_desc           VARCHAR2(255) := '';
+  v_level           VARCHAR2(25);
+  v_count           NUMBER(15);
+  v_test_criteria_0 VARCHAR2(25) := 'COUNT=0';
 
   -- === Constants: <ConstantName> CONSTANT <DataType> := <Value>;
   -- === Types.
@@ -152,9 +156,11 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
     END;
   END validate_os_parm;
 
-  PROCEDURE forms_check_001 IS
+  PROCEDURE OUTPUT_001 IS
   BEGIN
-    v_desc := 'forms_check_001 - Non bundled forms with no mapping transaction';
+    v_proc_name := 'OUTPUT_001';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Non bundled forms with no mapping transaction';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -177,12 +183,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'forms', v_sql_stmt);
-  END forms_check_001;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'forms', v_sql_stmt, v_run_code);
+  END OUTPUT_001;
 
-  PROCEDURE forms_check_002 IS
+  PROCEDURE OUTPUT_002 IS
   BEGIN
-    v_desc := 'forms_check_002 - Non bundled forms with no mapping copy type';
+    v_proc_name := 'OUTPUT_002';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Non bundled forms with no mapping copy type';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -205,12 +213,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'forms', v_sql_stmt);
-  END forms_check_002;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'forms', v_sql_stmt, v_run_code);
+  END OUTPUT_002;
 
-  PROCEDURE forms_check_003 IS
+  PROCEDURE OUTPUT_003 IS
   BEGIN
-    v_desc := 'forms_check_003 - Non bundled forms with no mapping schedule';
+    v_proc_name := 'OUTPUT_003';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Non bundled forms with no mapping schedule';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -233,12 +243,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'forms', v_sql_stmt);
-  END forms_check_003;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'forms', v_sql_stmt, v_run_code);
+  END OUTPUT_003;
 
-  PROCEDURE forms_check_004 IS
+  PROCEDURE OUTPUT_004 IS
   BEGIN
-    v_desc := 'forms_check_004 - Non bundled forms with no mapping device';
+    v_proc_name := 'OUTPUT_004';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Non bundled forms with no mapping device';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -261,12 +273,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'forms', v_sql_stmt);
-  END forms_check_004;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'forms', v_sql_stmt, v_run_code);
+  END OUTPUT_004;
 
-  PROCEDURE forms_check_005 IS
+  PROCEDURE OUTPUT_005 IS
   BEGIN
-    v_desc := 'forms_check_005 - Non bundled forms with no mapping base rule';
+    v_proc_name := 'OUTPUT_005';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Non bundled forms with no mapping base rule';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
       
@@ -291,12 +305,38 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'forms', v_sql_stmt);
-  END forms_check_005;
-
-  PROCEDURE forms_ufe_check_001 IS
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'forms', v_sql_stmt, v_run_code);
+  END OUTPUT_005;
+  
+  PROCEDURE OUTPUT_006 IS
   BEGIN
-    v_desc := 'forms_ufe_check_001 - UFE Form ID missing in UFE form';
+    v_proc_name := 'OUTPUT_006';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - OS Bundle ID missing in os_form';
+    v_level := 'ERROR';
+    --pl('Checking for ' || v_desc || ' : ' || v_level);
+
+    v_sql_stmt := 'SELECT COUNT(1)
+    FROM os_bundle ob
+    WHERE ob.bundle_id is not null 
+          and ob.bundle_id not in (
+              select o.form_id
+              from os_form o 
+              where o.form_id = ob.bundle_id
+          )';
+
+    EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
+    
+    oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'forms', v_sql_stmt, v_run_code);
+  END OUTPUT_006;
+
+
+  PROCEDURE OUTPUT_007 IS
+  BEGIN
+    v_proc_name := 'OUTPUT_007';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - UFE Form ID missing in UFE form';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -317,45 +357,52 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_output IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'forms', v_sql_stmt);
-  END forms_ufe_check_001;
-  
-  PROCEDURE forms_bundle_check_001 IS
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'forms', v_sql_stmt, v_run_code);
+  END OUTPUT_007;
+ 
+  PROCEDURE OUTPUT_008 IS
   BEGIN
-    v_desc := 'forms_bundle_check_001 - OS Bundle ID missing in os_form';
+    v_proc_name := 'OUTPUT_008';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Invalid data format in os_form_rule - value_low column';
     v_level := 'ERROR';
     --pl('Checking for ' || v_desc || ' : ' || v_level);
 
     v_sql_stmt := 'SELECT COUNT(1)
-    FROM os_bundle ob
-    WHERE ob.bundle_id is not null 
-          and ob.bundle_id not in (
-              select o.form_id
-              from os_form o 
-              where o.form_id = ob.bundle_id
-          )';
+    FROM os_form_rule o
+    WHERE o.attribute_code like ''%DT'' 
+    and oasis_health_check_main.is_valid_date(o.value_low) > 0';
 
+    --pl(v_sql_stmt);
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'forms', v_sql_stmt);
-  END forms_bundle_check_001;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rule', v_sql_stmt, v_run_code);
+  END OUTPUT_008;
+   
   /**************************************************************************
   * Main
   ***************************************************************************/
   PROCEDURE main IS
+  v_release VARCHAR2(25);
   BEGIN
     BEGIN
       oasis_health_check_main.check_parms('INFO', v_sub_system, 'ODS_SYS_PARM', ods_sys_parms);
       oasis_health_check_main.check_parms('INFO', v_sub_system, 'OS_SYS_PARM', os_sys_parms);
       oasis_health_check_main.check_parms('INFO', v_sub_system, 'OUTPUT_SYS_PARM', output_sys_parms);
-      forms_check_001();
-      forms_check_002();
-      forms_check_003();
-      forms_check_004();
-      forms_check_005();
-      forms_ufe_check_001();
-      forms_bundle_check_001();
+      OUTPUT_001();
+      OUTPUT_002();
+      OUTPUT_003();
+      OUTPUT_004();
+      OUTPUT_005();
+      OUTPUT_006();
+      --pl('oasis env : '||oasis_health_check_main.g_oasis_env_version);
+      v_release := substr(get_oasis_version, 0, INSTR(get_oasis_version, '.')-1);
+      pl('build release :'|| v_release);
+      IF TO_NUMBER(v_release) > 2016 THEN
+        OUTPUT_007();
+      END IF;
+      OUTPUT_008();
     END;
   END main;
 

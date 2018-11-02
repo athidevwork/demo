@@ -41,20 +41,24 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
   g_time_format VARCHAR2(12);
   g_date_format VARCHAR2(12);
 
-  v_obj_name   CONSTANT VARCHAR2(30) := 'oasis_health_check_policy'; -- Oracle object name
-  v_msg_pref   CONSTANT VARCHAR2(20) := 'Error ';
-  v_msg        VARCHAR2(4000); -- error/info message
-  v_line       VARCHAR2 (255);
-  v_run_date   DATE  := SYSDATE;
-  v_sub_system VARCHAR2(25) := 'POLICY';
-  v_category   VARCHAR(25) := 'POLICY_CFG';
-  v_data_code  VARCHAR2(25) := 'POLICY_CFG_DATA';
-  v_sql_stmt   VARCHAR2(3000) := '';
-  v_ok         VARCHAR2(2) := 'OK';
-  v_review     VARCHAR2(7) := 'REVIEW';
-  v_desc       VARCHAR2(255) := '';
-  v_level      VARCHAR2(25);
-  v_count      NUMBER(15);
+  v_obj_name        CONSTANT VARCHAR2(30) := 'oasis_health_check_policy'; -- Oracle object name
+  v_msg_pref        CONSTANT VARCHAR2(20) := 'Error ';
+  v_msg             VARCHAR2(4000); -- error/info message
+  v_line            VARCHAR2 (255);
+  v_run_date        DATE  := SYSDATE;
+  v_run_code        VARCHAR2(50) := '';
+  v_proc_name       VARCHAR2(50) := '';
+  v_sub_system      VARCHAR2(25) := 'POLICY';
+  v_category        VARCHAR(25) := 'POLICY_CFG';
+  --v_data_code       VARCHAR2(25) := 'POLICY_CFG_DATA';
+  v_data_code       VARCHAR2(25) := '';
+  v_sql_stmt        VARCHAR2(3000) := '';
+  v_ok              VARCHAR2(2) := 'OK';
+  v_review          VARCHAR2(7) := 'REVIEW';
+  v_desc            VARCHAR2(255) := '';
+  v_level           VARCHAR2(25);
+  v_count           NUMBER(15);
+  v_test_criteria_0 VARCHAR2(25) := 'COUNT=0';
 
   -- === Constants: <ConstantName> CONSTANT <DataType> := <Value>;
   -- === Types.
@@ -92,9 +96,11 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     END;
   END validate_pm_parm;
 
-  PROCEDURE policy_data_check_001 IS
+  PROCEDURE PM_001 IS
   BEGIN
-    v_desc := 'policy_data_check_001 - policy term records that have incorrect closing trans log fk';
+    v_proc_name := 'PM_001';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Policy term records that have incorrect closing trans log fk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -117,12 +123,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_001;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_001;
 
-  PROCEDURE policy_data_check_002 IS
+  PROCEDURE PM_002 IS
   BEGIN
-    v_desc := 'policy_data_check_002 - transaction_applied_term that has more than one term affected by a '||
+    v_proc_name := 'PM_002';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Transaction_applied_term that has more than one term affected by a '||
               'transaction but has same policy_term_history_fk in transaction_applied_term';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
@@ -146,12 +154,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_002;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_002;
 
-  PROCEDURE policy_data_check_003 IS
+  PROCEDURE PM_003 IS
   BEGIN
-    v_desc := 'policy_data_check_003 - strange effective date in mini policy coverage';
+    v_proc_name := 'PM_003';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Strange effective date in mini policy coverage';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -163,12 +173,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_003;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_003;
 
-  PROCEDURE policy_data_check_004 IS
+  PROCEDURE PM_004 IS
   BEGIN
-    v_desc := 'policy_data_check_004 - strange effective date in mini policy risk';
+    v_proc_name := 'PM_004';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - strange effective date in mini policy risk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -180,12 +192,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_004;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_004;
 
-  PROCEDURE policy_data_check_005 IS
+  PROCEDURE PM_005 IS
   BEGIN
-    v_desc := 'policy_data_check_005 - strange effective date in mini policy';
+    v_proc_name := 'PM_005';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Strange effective date in mini policy';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -197,12 +211,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_005;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_005;
 
-  PROCEDURE policy_data_check_006 IS
+  PROCEDURE PM_006 IS
   BEGIN
-    v_desc := 'policy_data_check_006 - Transactions that have timestamp info in ACCOUNTING_DATE';
+    v_proc_name := 'PM_006';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Transactions that have timestamp info in ACCOUNTING_DATE';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -217,12 +233,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_006;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_006;
 
-  PROCEDURE policy_data_check_007 IS
+  PROCEDURE PM_007 IS
   BEGIN
-    v_desc := 'policy_data_check_007 - Policies with more than one primary risk';
+    v_proc_name := 'PM_007';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Policies with more than one primary risk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -249,12 +267,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_007;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_007;
 
-  PROCEDURE policy_data_check_008 IS
+  PROCEDURE PM_008 IS
   BEGIN
-    v_desc := 'policy_data_check_008 - Policy terms that acct from date is greater than acct to date';
+    v_proc_name := 'PM_008';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Policy terms that acct from date is greater than acct to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -271,12 +291,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_008;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_008;
 
-  PROCEDURE policy_data_check_009 IS
+  PROCEDURE PM_009 IS
   BEGIN
-    v_desc := 'policy_data_check_009 - Records in Transaction_Applied_Term with policy_term_history_fk ' ||
+    v_proc_name := 'PM_009';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Records in Transaction_Applied_Term with policy_term_history_fk ' ||
               'does not match term_base_record_fk';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
@@ -298,12 +320,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_009;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_009;
 
-  PROCEDURE policy_data_check_010 IS
+  PROCEDURE PM_010 IS
   BEGIN
-    v_desc := 'policy_data_check_010 - Risk records that eff from date is greater than eff to date';
+    v_proc_name := 'PM_010';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Risk records that eff from date is greater than eff to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -319,12 +343,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_010;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_010;
 
-  PROCEDURE policy_data_check_011 IS
+  PROCEDURE PM_011 IS
   BEGIN
-    v_desc := 'policy_data_check_011 - Risk that acct from date is greater than acct to date';
+    v_proc_name := 'PM_011';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Risk that acct from date is greater than acct to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -340,12 +366,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_011;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_011;
 
-  PROCEDURE policy_data_check_012 IS
+  PROCEDURE PM_012 IS
   BEGIN
-    v_desc := 'policy_data_check_012 - Coverage with eff from date is greater than eff to date';
+    v_proc_name := 'PM_012';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Coverage with eff from date is greater than eff to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -364,12 +392,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_012;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_012;
 
-  PROCEDURE policy_data_check_013 IS
+  PROCEDURE PM_013 IS
   BEGIN
-    v_desc := 'policy_data_check_013 - Coverage with acct from date is greater than acct to date';
+    v_proc_name := 'PM_013';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Coverage with acct from date is greater than acct to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -388,12 +418,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_013;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_013;
 
-  PROCEDURE policy_data_check_014 IS
+  PROCEDURE PM_014 IS
   BEGIN
-    v_desc := 'policy_data_check_014 - Component with eff from date is greater than eff to date';
+    v_proc_name := 'PM_014';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Component with eff from date is greater than eff to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -415,12 +447,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_014;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_014;
 
-  PROCEDURE policy_data_check_015 IS
+  PROCEDURE PM_015 IS
   BEGIN
-    v_desc := 'policy_data_check_015 - Risk effective from or to date is less than transaction effective from date';
+    v_proc_name := 'PM_015';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Risk effective from or to date is less than transaction effective from date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -449,12 +483,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_015;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_015;
 
-  PROCEDURE policy_data_check_016 IS
+  PROCEDURE PM_016 IS
   BEGIN
-    v_desc := 'policy_data_check_016 - coverage effective from or to date is less than transaction effective from date';
+    v_proc_name := 'PM_016';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Coverage effective from or to date is less than transaction effective from date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -489,12 +525,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
     
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_016;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_016;
 
-  PROCEDURE policy_data_check_017 IS
+  PROCEDURE PM_017 IS
   BEGIN
-    v_desc := 'policy_data_check_017 - Component effective from or to date is less than transaction effective from date';
+    v_proc_name := 'PM_017';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Component effective from or to date is less than transaction effective from date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -531,12 +569,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_017;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_017;
 
-  PROCEDURE policy_data_check_018 IS
+  PROCEDURE PM_018 IS
   BEGIN
-    v_desc := 'policy_data_check_018 - Trans_Applied_Term records that link to TEMP status PTH record';
+    v_proc_name := 'PM_018';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Trans_Applied_Term records that link to TEMP status PTH record';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -569,12 +609,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_018;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_018;
 
-  PROCEDURE policy_data_check_019 IS
+  PROCEDURE PM_019 IS
   BEGIN
-    v_desc := 'policy_data_check_019 - Policy_Term_History records that have gap in accounting dates';
+    v_proc_name := 'PM_019';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Policy_Term_History records that have gap in accounting dates';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -597,12 +639,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_019;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_019;
 
-  PROCEDURE policy_data_check_020 IS
+  PROCEDURE PM_020 IS
   BEGIN
-    v_desc := 'policy_data_check_020 - Policy that have incorrect transaction accounting date';
+    v_proc_name := 'PM_020';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Policy that have incorrect transaction accounting date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -628,12 +672,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_020;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_020;
 
-  PROCEDURE policy_data_check_021 IS
+  PROCEDURE PM_021 IS
   BEGIN
-    v_desc := 'policy_data_check_021 - Agent without proper row in ENTITY_ROLE table';
+    v_proc_name := 'PM_021';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Agent without proper row in ENTITY_ROLE table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -650,12 +696,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_021;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_021;
 
-  PROCEDURE policy_data_check_022 IS
+  PROCEDURE PM_022 IS
   BEGIN
-    v_desc := 'policy_data_check_022 - Policy term that eff from date is greater than eff to date';
+    v_proc_name := 'PM_022';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Policy term that eff from date is greater than eff to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -671,12 +719,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_022;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_022;
 
-  PROCEDURE policy_data_check_023 IS
+  PROCEDURE PM_023 IS
   BEGIN
-    v_desc := 'policy_data_check_023 - Policy term that acct from date is greater than acct to date';
+    v_proc_name := 'PM_023';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Policy term that acct from date is greater than acct to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -692,12 +742,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_023;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_023;
 
-  PROCEDURE policy_data_check_024 IS
+  PROCEDURE PM_024 IS
   BEGIN
-    v_desc := 'policy_data_check_024 - Policy prem that rate from date is greater than rate to date';
+    v_proc_name := 'PM_024';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Policy prem that rate from date is greater than rate to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -716,12 +768,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_024;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_024;
 
-  PROCEDURE policy_data_check_025 IS
+  PROCEDURE PM_025 IS
   BEGIN
-    v_desc := 'policy_data_check_025 - Policy prem that acct from date is greater than acct to date';
+    v_proc_name := 'PM_025';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Policy prem that acct from date is greater than acct to date';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -740,12 +794,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_025;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_025;
 
-  PROCEDURE policy_data_check_026 IS
+  PROCEDURE PM_026 IS
   BEGIN
-    v_desc := 'policy_data_check_026 - Pm trans that Gross prem plus Comp do not equal to Net premium';
+    v_proc_name := 'PM_026';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - PM trans that Gross prem plus Comp do not equal to Net premium';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -784,12 +840,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_026;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_026;
 
-  PROCEDURE policy_data_check_027 IS
+  PROCEDURE PM_027 IS
   BEGIN
-    v_desc := 'policy_data_check_027 - Records with invalid transaction fk in COVERAGE table';
+    v_proc_name := 'PM_027';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Records with invalid transaction fk in COVERAGE table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -806,12 +864,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
            (SELECT transaction_log_pk FROM transaction_log)';
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_027;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_027;
 
-  PROCEDURE policy_data_check_028 IS
+  PROCEDURE PM_028 IS
   BEGIN
-    v_desc := 'policy_data_check_028 - Records with invalid transaction fk in RISK table';
+    v_proc_name := 'PM_028';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Records with invalid transaction fk in RISK table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -828,12 +888,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_028;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_028;
 
-  PROCEDURE policy_data_check_029 IS
+  PROCEDURE PM_029 IS
   BEGIN
-    v_desc := 'policy_data_check_029 - Records with invalid transaction fk in POLICY_TERM_HISTORY table';
+    v_proc_name := 'PM_029';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Records with invalid transaction fk in POLICY_TERM_HISTORY table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -848,12 +910,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
            (SELECT transaction_log_pk FROM transaction_log)';
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_029;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_029;
 
-  PROCEDURE policy_data_check_030 IS
+  PROCEDURE PM_030 IS
   BEGIN
-    v_desc := 'policy_data_check_030 - Records with invalid transaction fk in POLICY_COVERAGE_COMPONENT table';
+    v_proc_name := 'PM_030';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Records with invalid transaction fk in POLICY_COVERAGE_COMPONENT table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -874,12 +938,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_030;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_030;
 
-  PROCEDURE policy_data_check_031 IS
+  PROCEDURE PM_031 IS
   BEGIN
-    v_desc := 'policy_data_check_031 - Records with incorrect transaction fk in POLICY_COVERAGE_COMPONENT table';
+    v_proc_name := 'PM_031';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Records with incorrect transaction fk in POLICY_COVERAGE_COMPONENT table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -915,12 +981,14 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_031;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_031;
 
-  PROCEDURE policy_data_check_032 IS
+  PROCEDURE PM_032 IS
   BEGIN
-    v_desc := 'policy_data_check_032 - Records with incorrect transaction fk in COVERAGE table';
+    v_proc_name := 'PM_032';
+    v_run_code := v_proc_name;
+    v_desc := v_obj_name||'.'||v_proc_name||' - Records with incorrect transaction fk in COVERAGE table';
     v_level := 'WARNING';
     pl('Checking for ' || v_desc || ' : ' || v_level);
 
@@ -952,8 +1020,8 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     EXECUTE IMMEDIATE v_sql_stmt INTO v_count;
 
     oasis_health_check_main.verify_count(v_level, v_sub_system, v_category, 
-                        v_data_code, '>0', v_count, v_desc, 'rows', v_sql_stmt);
-  END policy_data_check_032;
+                        v_data_code, v_test_criteria_0, v_count, v_desc, 'rows', v_sql_stmt, v_run_code);
+  END PM_032;
 
   /**************************************************************************
   * Main
@@ -963,38 +1031,38 @@ CREATE OR REPLACE PACKAGE BODY oasis_health_check_policy IS
     BEGIN
       oasis_health_check_main.check_parms('INFO', v_sub_system, 'PM_SYS_PARM', pm_sys_parms);
       --Policy data checks
-      policy_data_check_001();
-      policy_data_check_002();
-      policy_data_check_003();
-      policy_data_check_004();
-      policy_data_check_005();
-      policy_data_check_006();
-      policy_data_check_007();
-      policy_data_check_008();
-      policy_data_check_009();
-      policy_data_check_010();
-      policy_data_check_011();
-      policy_data_check_012();
-      policy_data_check_013();
-      policy_data_check_014();
-      policy_data_check_015();
-      policy_data_check_016();
-      policy_data_check_017();
-      policy_data_check_018();
-      policy_data_check_019();
-      policy_data_check_020();
-      policy_data_check_021();
-      policy_data_check_022();
-      policy_data_check_023();
-      policy_data_check_024();
-      policy_data_check_025();
-      policy_data_check_026();
-      policy_data_check_027();
-      policy_data_check_028();
-      policy_data_check_029();
-      policy_data_check_030();
-      policy_data_check_031();
-      policy_data_check_032();
+      PM_001();
+      PM_002();
+      PM_003();
+      PM_004();
+      PM_005();
+      PM_006();
+      PM_007();
+      PM_008();
+      PM_009();
+      PM_010();
+      PM_011();
+      PM_012();
+      PM_013();
+      PM_014();
+      PM_015();
+      PM_016();
+      PM_017();
+      PM_018();
+      PM_019();
+      PM_020();
+      PM_021();
+      PM_022();
+      PM_023();
+      PM_024();
+      PM_025();
+      PM_026();
+      PM_027();
+      PM_028();
+      PM_029();
+      PM_030();
+      PM_031();
+      PM_032();
     END;
   END main;
 

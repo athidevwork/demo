@@ -39,6 +39,7 @@ DECLARE
                          '(OHC_PK number(15),'||chr(10)||
                          ' RUN_DATE varchar2(75),'||chr(10)||
 						 ' RUN_NO number(15),'||chr(10)||
+						 ' OHC_ENV varchar2(50),'||chr(10)||
                          ' OHC_LEVEL varchar2(50),'||chr(10)||
 						 ' SUB_SYSTEM varchar2(50),'||chr(10)||
                          ' OHC_CATEGORY varchar2(50),'||chr(10)||
@@ -47,11 +48,12 @@ DECLARE
                          ' PARM_NAME varchar2(50),'||chr(10)||
                          ' PARM_VALUE varchar(200),'||chr(10)||
                          ' PARM_DESC varchar2(2000),'||chr(10)||
-						 ' OHC_SQL CLOB'||chr(10)||
+						 ' OHC_SQL CLOB,'||chr(10)||
+						 ' OHC_CODE varchar2(50)'||chr(10)||
                          ' )';
 	env_table_sql := 'CREATE TABLE '||envtablename||chr(10)||
 					 '(ENV_NAME varchar2(25),'||chr(10)||
-					 ' ENV_CONN_STR varchar2(75)'||chr(10)||
+					 ' ENV_CONN_STR varchar2(175)'||chr(10)||
 					 ')';
   END init_sql;
   

@@ -15,10 +15,10 @@ SPOOL &1
 
 set termout off
 
-prompt "PK","DATE","LEVEL","SUB SYSTEM","CATEGORY","STATUS","STATUS MESSAGE","PARAMETER NAME","PARAMETER VALUE","STATUS","STATUS MESSAGE","PARAMETER DESCRIPTION"
-SELECT o.ohc_pk||','||o.run_date||','||o.ohc_level||','||o.sub_system||','||o.ohc_category||','||o.status||','||o.msg||','||o.parm_name||','||o.parm_value||','||o.parm_desc
+prompt "SUB_SYSTEM","DATE","RUN_NO","TEST ENV","TEST ID","LEVEL","SUB SYSTEM","CATEGORY","STATUS","STATUS MESSAGE","PARAMETER NAME","PARAMETER VALUE","STATUS","STATUS MESSAGE","PARAMETER DESCRIPTION"
+SELECT o.sub_system||','||o.run_date||','||o.run_no||','||o.ohc_env||','||o.ohc_code||','||o.ohc_level||','||o.sub_system||','||o.ohc_category||','||o.status||','||o.msg||','||o.parm_name||','||o.parm_value||','||o.parm_desc
 FROM oasis_health_check o
-order by o.ohc_pk;
+order by o.run_date desc, o.run_no desc;
 
 SPOOL OFF
 
