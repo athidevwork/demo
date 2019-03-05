@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../eCIS" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../eCMA" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../eCS" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../OasisTags" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../RAMS" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../WebConfigIntegrator" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../WebWB" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../eApp" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../eAppConfig" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../eClaim" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../eFM" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../ePolicy" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../oasis2Common" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../oasis2Core" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/../oasis2Portal" vcs="Perforce" />
+  </component>
+</project>

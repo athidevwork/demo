@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="FM.lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../eFM/APP-INF/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../eFM/APP-INF/lib" recursive="false" />
+  </library>
+</component>

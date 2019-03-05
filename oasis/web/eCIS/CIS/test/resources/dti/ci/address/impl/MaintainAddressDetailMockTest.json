@@ -1,0 +1,74 @@
+{
+  "testCheckCountyCode": {
+    "inputRecord": {
+      "usaAddressB": "Y",
+      "addressTypeCode": "HOME",
+      "countyCode": "SA",
+      "zipCode": "10001",
+      "city": "New York",
+      "stateCode": "NY"
+    }
+  },
+  "testLoadAddressDetailInfo": {
+    "inputParameters": {
+      "copyAddressId": "",
+      "bulkModifyAddressId": "",
+      "expiringAddressId": "8005374616",
+      "actionClassName": "dti.ci.addressmgr.struts.MaintainAddressDetailAction"
+    }
+  },
+  "testSaveAddressDetail": {
+    "inputRecord": {
+      "addressId": "",
+      "sourceTableName": "ENTITY",
+      "sourceRecordId": "8005373083",
+      "addressName": "",
+      "addressLine1": "address line 1 updated by test mock",
+      "addressLine2": "",
+      "addressLine3": "",
+      "city": "New York",
+      "countyCode": "5",
+      "stateCode": "NY",
+      "zipcode": "10001",
+      "zipPlusFour": "",
+      "zipCodeForeign": "",
+      "addressTypeCode": "CLMPRIM",
+      "province": "",
+      "countryCode": "USA",
+      "primaryAddressB": "Y",
+      "usaAddressB": "Y",
+      "postOfficeAddressB": "N",
+      "effectiveFromDate": "3/13/2018",
+      "effectiveToDate": "01/01/3000",
+      "phoneNumber": "",
+      "legacyDataId": "",
+      "expiredAddressId": "8005374616",
+      "copiedAddressId": "",
+      "reinsControlAddr": "",
+      "expiredBComputed": "",
+      "undeliverableB": "N",
+      "char1": "",
+      "char2": "",
+      "char3": "",
+      "char4": "",
+      "char5": "",
+      "num1": "",
+      "num2": "",
+      "num3": "",
+      "num4": "",
+      "num5": "",
+      "date1": "",
+      "date2": "",
+      "date3": "",
+      "date4": "",
+      "date5": "",
+      "vendorSiteCode": "",
+      "isFuturePrimaryAddressB": "N",
+      "copyAddressId": "",
+      "bulkModifyAddressId": "",
+      "expiringAddressId": "",
+      "effectiveFromDateOriginal": "",
+      "vendorAddressTypeCode": ""
+    }
+  }
+}

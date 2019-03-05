@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <bean id="ExitCancellationTailWorkflow" class="dti.oasis.workflowmgr.WorkflowState">
+        <property name="workflowStateId" value="exitWorkflow"/>
+        <property name="workflowStateMessageKey" value="pm.matainMultiCancel.cancelSuccessfully.msg"/>
+        <property name="workflowExitState" value="true"/>
+    </bean>
+
+    <bean id="ExitCancellationTailWorkflowWithError" class="dti.oasis.workflowmgr.WorkflowState">
+        <property name="workflowStateId" value="exitWorkflow"/>
+        <property name="workflowStateMessageKey" value="pm.workflowmgr.save.saveAsWip.info"/>
+        <property name="workflowExitState" value="true"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Save Official Workflow Process Bean                            -->
+    <!-- ************************************************************** -->
+    <bean id="ProcessCancellationTailWorkflow" class="dti.oasis.workflowmgr.WorkflowProcess" scope="prototype"
+          lazy-init="true">
+        <property name="workflowProcessId" value="ProcessCancellationTail"/>
+        <property name="workflowTransitions">
+            <map>
+                <entry key="invokeDefaultIbnrDetailNotify">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeDefaultIbnrDetailNotifyProcess"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeDefaultIbnrDetailNotifyProcess">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeViewAssociatedRisk"/>
+                                    </bean>
+                                </entry>
+                                <entry key="SINGLEASSO">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeViewIbnrInactiveRisk"/>
+                                    </bean>
+                                </entry>
+                                <entry key="INVALID">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeRateTransactionMsg"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.rate.transaction.invokeProcessRateTransactionMsg.info"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeViewAssociatedRisk">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeViewIbnrInactiveRisk"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeViewIbnrInactiveRisk">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeRateTransactionMsg"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeViewTail">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeViewTailProcess"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeViewTailProcess">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeRateTransactionMsg"/>
+                                        <property name="workflowStateMessageKey" value="pm.workflowmgr.rate.transaction.invokeProcessRateTransactionMsg.info"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <!--Begin  duplicated from rateTransactionWorkflowConfig.xml  -->
+                <entry key="invokeRateTransaction">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeRateTransactionMsg"/>
+                                        <property name="workflowStateMessageKey" value="pm.workflowmgr.rate.transaction.invokeProcessRateTransactionMsg.info"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeRateTransactionMsg">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeRating"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeRating">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="FAILED">
+                                    <ref bean="ExitCancellationTailWorkflowWithError"/>
+                                </entry>
+                                <entry key="MONITOR_LONG_RUNNING_TRANSACTION">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="monitorInvokeRatingLongTrans"/>
+                                        <property name="workflowStateMessageKey" value="pm.workflowmgr.rate.transaction.invokeProcessRateTransactionMsg.info"/>
+                                    </bean>
+                                </entry>
+                                <entry key="SUCCESS">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeViewRelPolicyProcess"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="monitorInvokeRatingLongTrans">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="FAILED">
+                                    <ref bean="ExitCancellationTailWorkflowWithError"/>
+                                </entry>
+                                <entry key="SUCCESS">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeViewRelPolicyProcess"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <!--End  duplicated from rateTransactionWorkflowConfig.xml  -->
+                <!--Begin  view related policy  -->
+                <entry key="invokeViewRelPolicyProcess">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <ref bean="ExitCancellationTailWorkflow"/>
+                                </entry>
+                                <entry key="NORELPOL">
+                                    <ref bean="ExitCancellationTailWorkflow"/>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <!--End  view related policy  -->
+            </map>
+        </property>
+    </bean>
+</beans>

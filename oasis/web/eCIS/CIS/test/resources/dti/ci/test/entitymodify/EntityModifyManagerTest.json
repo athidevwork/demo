@@ -1,0 +1,182 @@
+{
+  "testLoadEntityModify": {
+    "inputParameters4Per": {
+      "entityId": "42343492",
+      "entityType":"P"
+    },
+    "inputParameters4Org": {
+      "entityId": "8005373633",
+      "entityType":"O"
+    },
+    "expected": {
+      "fieldNames": [
+        "entity_entityId",
+        "entity_clientID",
+        "entity_gender",
+        "entity_entityType",
+        "entity_entityTypeDescComputed",
+        "entity_organizationName",
+        "entity_firstName",
+        "entity_middleName",
+        "entity_lastName",
+        "entity_prefixName",
+        "entity_suffixName",
+        "entity_title",
+        "entity_veryLongName",
+        "entity_socialSecurityNumber",
+        "entity_ssnVerifiedB",
+        "entity_federalTaxId",
+        "entity_federalTaxIdVerifiedB",
+        "entity_defaultTaxId",
+        "entity_taxInfoEffectiveDate",
+        "entity_maritalStatus",
+        "entity_veryImportantPersonB",
+        "entity_dateOfBirth",
+        "entity_dateOfDeath",
+        "entity_deceasedB",
+        "entity_minorB",
+        "entity_discardedB",
+        "entity_eMailAddress1",
+        "entity_eMailAddress2",
+        "entity_eMailAddress3",
+        "entity_legacyDataId",
+        "entity_char1",
+        "entity_char2",
+        "entity_char3",
+        "entity_char4",
+        "entity_char5",
+        "entity_num1",
+        "entity_num2",
+        "entity_num3",
+        "entity_date1",
+        "entity_date2",
+        "entity_date3",
+        "entity_sicCode",
+        "entity_lossFreeDate",
+        "entity_claimsFreeDate",
+        "entity_insuredSinceDate",
+        "entity_specialHandlingComputed",
+        "entity_minorBComputed",
+        "entity_entityNameComputed",
+        "entity_vendorIrs1099type",
+        "entity_webAddress1",
+        "entity_webAddress2",
+        "entity_webAddress3",
+        "entity_dbaName",
+        "entity_license",
+        "entity_licensestate",
+        "entity_vendorCode",
+        "entity_moreobStarteDate",
+        "entity_moreobOffDate",
+        "entity_maintenanceStart",
+        "entity_moreobGroupCode",
+        "entity_hicn",
+        "entity_legalName",
+        "entity_referenceNumber",
+        "entity_component",
+        "entity_profDesignation",
+        "entity_electronicDistrbB",
+        "entity_ciAddlinfo1",
+        "entity_ciAddlinfo2",
+        "entity_ciAddlinfo3",
+        "entity_legalNameEffectiveDate",
+        "entity_externalDataId",
+        "entity_cisB",
+        "entity_origin",
+        "entity_npiNo"
+      ],
+      "gridColumnNameHistory": [
+        "entityNameId",
+        "entityId",
+        "organizationName",
+        "lastName",
+        "firstName",
+        "middleName",
+        "prefixName",
+        "prefixNameDesc",
+        "suffixName",
+        "suffixNameDesc",
+        "profDesignation",
+        "profDesignationDesc",
+        "title",
+        "veryLongName",
+        "effectiveFromDate",
+        "effectiveToDate",
+        "legalNameEffectiveDate"
+      ],
+      "gridColumnTaxHistory": [
+        "entityTaxInfoHistoryId",
+        "entityId",
+        "federalTaxId",
+        "federalTaxIdVerifiedB",
+        "socialSecurityNumber",
+        "ssnVerifiedB",
+        "defaultTaxId",
+        "taxInfoEffectiveFromDate",
+        "taxInfoEffectiveToDate"
+      ],
+      "gridColumnLossHistory": [
+        "lossFreeDateHistoryId",
+        "entityId",
+        "lossHistoryFreeDate",
+        "lossHistoryEffectiveFrom",
+        "lossHistoryEffectiveTo"
+      ],
+      "gridColumnDbaHistory": [
+        "dbaNameId",
+        "entityId",
+        "dbaName",
+        "dbaEffectiveFromDate",
+        "dbaEffectiveToDate"
+      ],
+      "gridColumnEtdHistory": [
+        "elctrncDistrbHistId",
+        "entityId",
+        "electronicDistrbB",
+        "electronicEffectiveFromDate",
+        "electronicEffectiveToDate"
+      ]
+    }
+  }
+,
+  "testChangeEntityType": {
+    "changePersonToOrg": {
+      "entityId": "42343492",
+      "entityType":"O"
+    },
+    "changeOrgToPerson": {
+      "entityId": "42343492",
+      "entityType":"P"
+    }
+  }
+,
+  "testValidateReferenceNumber": {
+    "validReferrenceNumber": {
+      "entityId": "42343492",
+      "referenceNumber":"MP0335643"
+    },
+    "invalidReferrenceNumber": {
+      "entityId": "42343492",
+      "referenceNumber":"MP0335640"
+    }
+  }
+,
+  "testClientDiscardPolCheck": {
+    "nonPolicyholder": {
+      "entityId1": "42343492"
+    },
+    "Policyholder": {
+      "entityId": "631998"
+    }
+  }
+,
+  "testClientHasExperWitnessClass": {
+    "hasExpWitClass": {
+      "entityId": "42343492"
+    },
+    "hasNoExpWitness": {
+      "entityId": "631998"
+    }
+  }
+
+}

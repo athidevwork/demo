@@ -1,0 +1,14 @@
+{
+  "testHandleUserDefinedDBException": [
+    {
+      "sqlErrorMessage": "ORA-20000: My user defined exception.",
+      "convertedErrorMessage": "My user defined exception."
+    }
+  ],
+  "testHandleUnexpectedDBException": [
+    {
+      "sqlErrorMessage": "ORA-01234: An unexpected exception.",
+      "convertedErrorMessage": "An unexpected exception."
+    }
+  ]
+}

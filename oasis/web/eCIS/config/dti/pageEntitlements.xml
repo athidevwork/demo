@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pageEntitlement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="pageEntitlements.xsd">
+    <page pageURI="">
+        <tags>
+        </tags>
+    </page>
+
+    <page pageURI="/CIS/ciAgent.do">
+        <tags>
+            <tag id="CI_AGENT_PAY_DEL" indFieldName="isDeleteAvailable" indFieldLocation="Row"
+                 action="Enabled/Disabled" defaultActionForNoRows="Disabled" gridId="payListGrid"/>
+            <tag id="CI_AGENT_CONT_DEL" indFieldName="isDeleteAvailable" indFieldLocation="Row"
+                 action="Enabled/Disabled" defaultActionForNoRows="Disabled" gridId="contractListGrid"/>
+            <tag id="CI_AGENT_COMM_DEL" indFieldName="isDeleteAvailable" indFieldLocation="Row"
+                 action="Enabled/Disabled" defaultActionForNoRows="Disabled" gridId="commissionListGrid"/>
+            <tag id="CI_AGENT_STAFF_DEL" indFieldName="isDeleteAvailable" indFieldLocation="Row"
+                 action="Enabled/Disabled" defaultActionForNoRows="Disabled" gridId="agentStaffListGrid"/>
+            <tag id="agentStaffEntityName" indFieldName="isDeleteAvailable" indFieldLocation="Row"
+                 action="Enabled/Disabled" defaultActionForNoRows="Disabled" gridId="agentStaffListGrid"/>
+            <tag id="CI_AGENT_STAFF_OVRD_DEL" indFieldName="isDeleteAvailable" indFieldLocation="Row"
+                 action="Enabled/Disabled" defaultActionForNoRows="Disabled" gridId="agentStaffOverrideListGrid"/>
+            <tag id="CI_AGENT_SUB_PRODUCER" indFieldName="isSubProducerAvailable" indFieldLocation="Row"
+                 action="Enabled/Disabled" defaultActionForNoRows="Disabled" gridId="contractListGrid"/>
+            <tag id="CI_AGENT_OUTPUT" indFieldName="isOutputAvailable" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="CI_AGENT_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_AGENT_CONT_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_AGENT_PAY_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_AGENT_STAFF_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+
+    <page pageURI="/CIS/amalgamationmgr/maintainAmalgamation.do">
+        <tags>
+            <tag id="CI_AMALGAMATION_DELETE" indFieldName="isDeleteAvailable" indFieldLocation="Row"
+                 action="Enabled/Disabled" defaultActionForNoRows="Disabled" gridId="amalgamationListGrid" />
+        </tags>
+    </page>
+
+    <page pageURI="/disciplinedeclinemgr/maintainDisciplineDecline.do">
+        <tags>
+            <tag id="effectiveFromDate" indFieldName="isDeleteAvailable" indFieldLocation="Row" action="Enabled/Disabled"
+                 defaultActionForNoRows="Disabled"/>
+            <tag id="CS_DDL_DELETE" indFieldName="isDeleteAvailable" indFieldLocation="Row" action="Enabled/Disabled"
+                 defaultActionForNoRows="Disabled"/>
+            <tag id="CS_DDL_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CS_DDL_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CS_DDL_SAVE_PUP" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciEntityAdditional.do">
+        <tags>
+            <tag id="facilityName" indFieldName="medicalDirectorB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="prisonExposureTime" indFieldName="prisonExposureB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="positionAtFacility" indFieldName="medicalDirectorB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="otherCoveragePositionB" indFieldName="medicalDirectorB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="pctWcPractice" indFieldName="treatsWcB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="numberPathologyInterpret" indFieldName="dermatologistB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="emergencyTime" indFieldName="emergencyActivitiesB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="withdrawnDate" indFieldName="withdrawnB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="withdrawnReason" indFieldName="withdrawnB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="underwritingApprovedDate" indFieldName="underwritingApprovedB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="underwritingDeclinedDate" indFieldName="underwritingDeclinedB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="underwritingDeclineReason" indFieldName="underwritingDeclinedB" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="CI_ENT_ADDITIONAL_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciAddressList.do">
+        <tags>
+            <tag id="USAAddress_char1" indFieldName="USAAddress_char5" indFieldLocation="Page" action="Enabled/Disabled"/>
+            <tag id="ForeignAddress_char1" indFieldName="ForeignAddress_char5" indFieldLocation="Page" action="Enabled/Disabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciPhoneNumberList.do">
+        <tags>
+            <tag id="CI_PHNLST_ADDRW" indFieldName="addressExpiredB" indFieldLocation="Page" action="Disabled/Enabled"/>
+            <tag id="CI_PHNLST_DELET" indFieldName="addressExpiredB" indFieldLocation="Page" action="Disabled/Enabled"/>
+            <tag id="CI_PHNLST_SAVE" indFieldName="addressExpiredB" indFieldLocation="Page" action="Disabled/Enabled"/>
+            <tag id="CI_PHNLST_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_PHNLST_ADDRW" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_PHNLST_DELET" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/fileactivitynotesmgr/maintainFileNotes.do">
+        <tags>
+           <tag id="CS_NOTES_GRID_ADD" indFieldName="isAddAvailable" indFieldLocation="Page" action="Enabled/Disabled" />
+            <tag id="CS_NOTES_GRID_DEL" indFieldName="isDeleteAvailable" indFieldLocation="Row" action="Enabled/Disabled" defaultActionForNoRows="Disabled"/>
+            <tag id="CS_NOTES_GRID_SAVE" indFieldName="isSaveAvailable" indFieldLocation="Page" action="Enabled/Disabled" />
+            <tag id="isEditAvailable" indFieldName="isEditAvailable" indFieldLocation="Page" action="Show/Hide"/>
+        </tags>
+    </page>
+    <page pageURI="/fileactivitynotesmgr/maintainActivityLog.do">
+        <tags>
+            <tag id="CS_NOTES_GRID_ADD" indFieldName="isAddAvailable" indFieldLocation="Page" action="Enabled/Disabled" />
+            <tag id="CS_NOTES_GRID_DEL" indFieldName="isDeleteAvailable" indFieldLocation="Row" action="Enabled/Disabled" defaultActionForNoRows="Disabled" />
+            <tag id="CS_NOTES_GRID_SAVE" indFieldName="isSaveAvailable" indFieldLocation="Page" action="Enabled/Disabled" />
+            <tag id="isEditAvailable" indFieldName="isEditAvailable" indFieldLocation="Page" action="Show/Hide" />
+        </tags>
+    </page>
+
+    <page pageURI="/entityAddlEmail.do">
+        <tags>
+            <tag id="CI_ETD_EMAIL_LIST_DEL" indFieldName="isDeleteAvailable" indFieldLocation="Row" action="Enabled/Disabled"
+                 defaultActionForNoRows="Disabled"/>
+            <tag id="CI_ETD_EMAIL_LIST_DEL" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_ETD_EMAIL_LIST_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_ETD_EMAIL_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciEntityPersonModify.do">
+        <tags>
+            <tag id="CI_ENT_PER_MOD_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_ENT_PER_MOD_CTP" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_ENT_PER_MOD_DUP" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciEntityOrgModify.do">
+        <tags>
+            <tag id="CI_ENT_ORG_MOD_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_ENT_ORG_MOD_CTP" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_ENT_ORG_MOD_DUP" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/maintainSpecialHandling.do">
+        <tags>
+            <tag id="CI_SPH_GIRD_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_SPH_GRID_DEL" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_SPH_AIG_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciContact.do">
+        <tags>
+            <tag id="contactSave" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="contactAdd" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciEducation.do">
+        <tags>
+            <tag id="EDUC_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="EDUC_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciTraining.do">
+        <tags>
+            <tag id="trainingSave" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="trainingAdd" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciCertification.do">
+        <tags>
+            <tag id="certfdSave" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="certfdAdd" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciLicense.do">
+        <tags>
+            <tag id="LISEN_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="LISEN_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciEntityClassList.do">
+        <tags>
+            <tag id="CI_ENTITY_CLASS_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_CLSLST_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_CLSLST_DELET" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciRelationship.do">
+        <tags>
+             <tag id="relatAdd" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciEntityRole.do">
+        <tags>
+            <tag id="CI_ROLLST_GEN_COI" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciVendor.do">
+        <tags>
+            <tag id="CI_VNDRM_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciVendorAddress.do">
+        <tags>
+            <tag id="CI_VNDADM_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciProperty.do">
+        <tags>
+            <tag id="PROP_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="PROP_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="PROP_DEL" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="PROP_SEL_ADDR" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciVehicle.do">
+        <tags>
+            <tag id="Vehicle_Save" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="Vehicle_Add" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="Vehicle_Delete" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciDenominator.do">
+        <tags>
+            <tag id="DENO_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="DENO_DEL" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="DENO_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciDisability.do">
+        <tags>
+            <tag id="DISB_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="DISB_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="DISB_DEL" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/maintainSurvey.do">
+        <tags>
+            <tag id="CI_RM_SURVEY_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_RM_SURVEY_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciPriorCarrier.do">
+        <tags>
+            <tag id="PriCar_Save" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="PriCar_Add" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="PriCar_Delete" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciExpertWitness.do">
+    <tags>
+        <tag id="CIS_EXPWIT_CHGSTATUS" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+             action="Disabled/Enabled"/>
+        </tags>
+    </page>
+    <page pageURI="/ciMaintainClientId.do">
+        <tags>
+            <tag id="CI_CLIENTID_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_CLIENTID_GRID_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_CLIENTID_GRID_DEL" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+
+    </page>
+    <page pageURI="/ciPhoneLog.do">
+        <tags>
+            <tag id="CI_PHONE_LOG_FORM_SAVE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_PHONE_LOG_GRID_ADD" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_PHONE_LOG_GRID_DEL" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+
+    </page>
+    <page pageURI="/ciCredentialRequest.do">
+        <tags>
+            <tag id="CI_CREDREQ_SAVE_AI" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_CRDET_ADD_AI" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+            <tag id="CI_CRDET_DEL_AI" indFieldName="isDeleteAvailable" indFieldLocation="Row"
+                 action="Enabled/Disabled" defaultActionForNoRows="Disabled" gridId="detailListGrid"/>
+            <tag id="CI_CRACCT_ADJ" indFieldName="isDeleteAvailable" indFieldLocation="Row"
+                 action="Enabled/Disabled" defaultActionForNoRows="Disabled" gridId="accountListGrid"/>
+            <tag id="CI_CRACCT_CLR" indFieldName="isEntityReadOnlyYN" indFieldLocation="Row"
+                 action="Disabled/Enabled" defaultActionForNoRows="Disabled" gridId="accountListGrid"/>
+            <tag id="CI_CRACCT_CREATE" indFieldName="isEntityReadOnlyYN" indFieldLocation="Page"
+                 action="Disabled/Enabled"/>
+        </tags>
+
+    </page>
+
+    <page pageURI="/ciEntityClassList.do">
+        <tags>
+            <tag id="CI_CLSLST_EDIT" indFieldName="CUSERCANUPDATEB" indFieldLocation="Row" defaultActionForNoRows="Disabled" action="Enabled/Disabled"/>
+        </tags>
+    </page>
+</pageEntitlement>

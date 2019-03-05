@@ -1,0 +1,252 @@
+<project name="wsPolicy" default="build.and.deploy.exploded" basedir=".">
+
+    <!-- Import dependant project build files -->
+    <import file="${basedir}/../OasisTags/build-core.xml"/>
+    <import file="${basedir}/../eCS/CS/build-cs.xml"/>
+    <import file="${basedir}/../eCIS/CIS/build-cis.xml"/>
+
+    <!--************************************************************************-->
+    <!-- Build targets specific to this project                                 -->
+    <!--************************************************************************-->
+    <target name="init.project.properties" >
+        <!-- Project properties -->
+        <property name="project.app.name" value="ePolicy"/>
+        <property name="project.name" value="wsPolicy"/>
+        <!-- TODO: Remove when PolicyInquiryService is moved to wsPolicy/src -->
+        <property name="project.src.dir" value="${basedir}/wsPolicy/src"/>
+        <property name="project.webapp.gridheader.dir" value="skipgridheader"/>
+        <property name="ws.test.src.dir" value="${basedir}/wsPolicy/test/src"/>
+        <property name="ws.test.classes.dir" value="${basedir}/wsPolicy/test/classes"/>
+
+      <property name="wsdl.gen.dir" value="${basedir}/${project.name}/wsdlgen"/>
+        <property name="wsdl.gen.src.dir" value="${wsdl.gen.dir}/src"/>
+        <property name="wsdl.gen.lib.dir" value="${wsdl.gen.dir}/lib"/>
+    </target>
+
+    <target name="init"
+            description="Initialize properties for this project and all dependant projects,
+                            starting with the properties of this project so they take precedence"
+            depends="init.project.properties, init.core.properties.for.ear, init.cs.properties, init.cis.properties, echo.build.properties"/>
+
+    <target name="build.dependant.projects"
+            description="Define all dependant projects as 'depends' for building all dependant projects."
+            depends="build.CS.no.web, build.CIS.no.web"/>
+
+    <target name="copy.oasistags.webfiles" depends="init, copy.oasistags.webfiles.for.ear"/>
+
+    <target name="copy.web.and.config.files"
+            description="Copy all the web and config files to the exploded deployment directory.
+                            This target should be configured to Execute on After Compilation.
+                            This target can also be run separately to copy web files only to the exploded deployment directory."
+            depends="init, build.exploded.skip.compile"/>
+
+    <target  name="copy.additional.project.webfiles">
+        <copy todir="${build.webapp.dir}">
+            <!-- Copy web.xml, struts config files, tld files-->
+            <fileset dir="${oasistags.web.resources.dir}" includes="WEB-INF/**" excludes="**/web*.xml,**/*.jar,**/*.iml**/*.awf"/>
+        </copy>
+        <!-- Overwrite the web.xml file to avoid errors in the jwsc command that updates the web.xml, stating that "The service uri ... is already in use" -->
+        <delete file="${build.webapp.dir}/WEB-INF/web.xml" failonerror="false"/>
+        <copy todir="${build.webapp.dir}" file="${project.webapp.dir}/WEB-INF/web.xml" overwrite="true" />
+        <copy todir="${build.webapp.dir}/wsdls">
+            <fileset dir="${CS.project.dir}/ows/xsd"/>
+        </copy>
+
+    </target>
+
+    <!-- TODO: remove this logic since it's not needed -->
+    <target name="overwrite.meta-inf"
+            depends="init">
+        <!-- Copy the META-INF -->
+        <delete dir="${build.app.dir}/META-INF/"/>
+        <copy todir="${build.app.dir}" overwrite="true">
+            <fileset dir="${project.ear.name}" excludes="**/*.iml,**/*.ipr,**/*.iws,.idea/**"/>
+            <filterset description="Replace build property tokens with configured values.">
+                <filter token="CONTEXT_ROOT_PREFIX" value="${context.root.prefix}"/>
+            </filterset>
+        </copy>
+    </target>
+
+    <target name="post.build.project" depends="jwsc-all, overwrite.meta-inf"/>
+    <!--<target name="post.build.project" depends="jwsc-all"/>-->
+
+    <target name="jwsc-all" depends="jwsc-init, jwsc-Service"/>
+
+    <target name="jwsc-init" >
+        <mkdir dir="${build.app.classes.dir}"/>
+        <taskdef name="jwsc" classname="weblogic.wsee.tools.anttasks.JwscTask" classpathref="weblogic.jar.path"/>
+    </target>
+
+    <target name="jwsc-Service" depends="jwsc-init">
+        <jwsc
+            srcdir="${project.src.dir}"
+            destdir="${build.app.dir}"
+            verbose="on"
+            debug="on"
+            keepGenerated="yes"
+            >
+            <module contextPath="${project.app.name}/${project.name}" explode="true" name="${project.webapp.name}">
+
+                <!-- To build all java classes with JAX-WS annotations as services in a file set: -->
+                <jwsfileset srcdir="${project.src.dir}" type="JAXWS" includes="**/*.java"/>
+
+                <!-- To update the web.xml and weblogic.xml files (thought nothing has changed in the weblogic.xml) : -->
+                <descriptor file="${build.webapp.dir}/WEB-INF/web.xml"/>
+                <descriptor file="${build.webapp.dir}/WEB-INF/weblogic.xml"/>
+            </module>
+            <classpath >
+                <path location="${build.app.classes.dir}"/>
+                <path refid="weblogic.jar.path"/>
+            </classpath>
+        </jwsc>
+    </target>
+
+    <taskdef name="wsdlc"
+             classname="weblogic.wsee.tools.anttasks.WsdlcTask" classpathref="weblogic.jar.path" />
+
+    <target name="generate-policy-inquiry-from-wsdl"
+        description="Generate PolicyInquiryService JAXWS Service Java code."
+        depends="init">
+        <wsdlc  srcWsdl="${project.webapp.resources.dir}/wsdls/PolicyInquiryService.wsdl"
+                destJwsDir="${wsdl.gen.lib.dir}"
+                destImplDir="${wsdl.gen.src.dir}"
+                packageName="dti.pm.policymgr.service"
+        />
+    </target>
+    <target name="generate-policy-premium-inquiry-from-wsdl"
+            description="Generate PolicyPremiumInquiryService JAXWS Service Java code."
+            depends="init">
+        <wsdlc  srcWsdl="${project.webapp.resources.dir}/wsdls/PolicyPremiumInquiryService.wsdl"
+                destJwsDir="${wsdl.gen.lib.dir}"
+                destImplDir="${wsdl.gen.src.dir}"
+                packageName="dti.pm.policymgr.service"
+                />
+    </target>
+    <target name="generate-policy-change-from-wsdl"
+        description="Generate PolicyChangeService JAXWS Service Java code."
+        depends="init">
+        <wsdlc  srcWsdl="${project.webapp.resources.dir}/wsdls/PolicyChangeService.wsdl"
+                destJwsDir="${wsdl.gen.lib.dir}"
+                destImplDir="${wsdl.gen.src.dir}"
+                packageName="dti.pm.policymgr.service"
+        />
+    </target>
+
+    <target name="generate-quick-quote-from-wsdl"
+            description="Generate QuickQuote JAXWS Service Java code."
+            depends="init">
+        <wsdlc  srcWsdl="${project.webapp.resources.dir}/wsdls/QuickQuoteService.wsdl"
+                destJwsDir="${wsdl.gen.lib.dir}"
+                destImplDir="${wsdl.gen.src.dir}"
+                packageName="dti.pm.policymgr.service"
+        />
+    </target>
+
+    <target name="generate-quote-accept-from-wsdl"
+            description="Generate MedicalMalpracticeQuoteAcceptService JAXWS Service Java code."
+            depends="init">
+        <wsdlc  srcWsdl="${project.webapp.resources.dir}/wsdls/MedicalMalpracticeQuoteAcceptService.wsdl"
+                destJwsDir="${wsdl.gen.lib.dir}"
+                destImplDir="${wsdl.gen.src.dir}"
+                packageName="dti.pm.policymgr.service"
+                />
+    </target>
+
+    <target name="generate-quote-copy-from-wsdl"
+            description="Generate QuoteCopyService JAXWS Service Java code."
+            depends="init">
+        <wsdlc  srcWsdl="${project.webapp.resources.dir}/wsdls/QuoteCopyService.wsdl"
+                destJwsDir="${wsdl.gen.lib.dir}"
+                destImplDir="${wsdl.gen.src.dir}"
+                packageName="dti.pm.policymgr.service"
+        />
+    </target>
+
+    <target name="generate-initiate-electronicApplication-from-wsdl"
+            description="Generate InitiateElectronicApplicationService JAXWS Service Java code."
+            depends="init">
+        <wsdlc  srcWsdl="${project.webapp.resources.dir}/wsdls/InitiateElectronicApplicationService.wsdl"
+                destJwsDir="${wsdl.gen.lib.dir}"
+                destImplDir="${wsdl.gen.src.dir}"
+                packageName="dti.pm.policymgr.service"
+        />
+    </target>
+<!--
+    <taskdef name="wsgen" classname="com.sun.tools.ws.ant.WsGen" classpathref="weblogic.jar.path" />
+
+    <target name="generate-policy-inquiry-wsdl-from-java" depends="init">
+        <wsgen
+            sei="dti.pm.policymgr.service.PolicyInquiryService"
+            destdir="${basedir}/wsdlgenWsdl"
+            resourcedestdir="${basedir}/wsdlgenWsdl/resources"
+            sourcedestdir="${basedir}/wsdlgenWsdl/src"
+            keep="true"
+            verbose="true"
+            genwsdl="true"
+            servicename="{http://www.delphi-tech.com/PolicyInquiryService}PolicyInquiryService"
+            portname="{http://www.delphi-tech.com/PolicyInquiryService}PolicyInquiryServicePort">
+        <classpath >
+            <path location="${build.app.classes.dir}"/>
+            <path refid="weblogic.jar.path"/>
+        </classpath>
+    </wsgen>
+    </target>
+-->
+
+    <!--************************************************************************-->
+    <!-- Build the Client Java Classes for PolicyInquiryService                 -->
+    <!--************************************************************************-->
+    <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport2">
+        <classpath path="${tools.dir}/jaxws-ri/lib/jaxws-tools.jar"/>
+    </taskdef>
+
+    <target name="build.webservice.client.policyInquiry" depends="init">
+        <copy todir="${project.webapp.resources.dir}/wsdls">
+            <fileset dir="${CS.project.dir}/ows/xsd"/>
+        </copy>
+        <wsimport
+                destdir="${ws.test.classes.dir}"
+                sourcedestdir="${ws.test.src.dir}"
+                keep="true"
+                extension="true"
+                verbose="true"
+                wsdl="${project.webapp.resources.dir}/wsdls/PolicyInquiryService.wsdl"
+                wsdllocation="PolicyInquiryService.wsdl">
+            <binding dir="${project.webapp.resources.dir}/wsdls" includes="binding.xml"/>
+        </wsimport>
+        <copy todir="${ws.test.src.dir}/com/delphi_tech/ows/policyinquiryservice">
+            <fileset dir="${project.webapp.resources.dir}/wsdls/">
+                <include name="PolicyInquiryService.wsdl"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!--************************************************************************-->
+    <!-- Build the Test source                                                      -->
+    <!--************************************************************************-->
+    <target name="compile.project.test" depends="init">
+        <echo message="Compiling the ${ws.test.src.dir}"/>
+        <delete failonerror="false">
+            <fileset dir="${ws.test.classes.dir}" includes="**/*"/>
+        </delete>
+        <mkdir dir="${ws.test.classes.dir}" />
+        <javac destdir="${ws.test.classes.dir}"
+               optimize="${compile.optimize}"
+               debug="${compile.debug}" failonerror="true"
+               srcdir="${ws.test.src.dir}">
+            <classpath>
+                <pathelement location="${build.app.classes.dir}"/>
+                <fileset dir="${build.app.lib.dir}" includes="**/*.jar"/>
+                <fileset dir="${project.lib.dir}" includes="*.jar"/>
+                <path refid="weblogic.jar.path"/>
+            </classpath>
+            <include name="**"/>
+        </javac>
+        <copy todir="${ws.test.classes.dir}/com/delphi_tech/ows/policyinquiryservice">
+            <fileset dir="${project.webapp.resources.dir}/wsdls/">
+                <include name="PolicyInquiryService.wsdl"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="build.project.test" depends="init, compile.project.test" />
+</project>

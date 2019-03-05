@@ -1,0 +1,23 @@
+{
+  "testLoadBilling": {
+    "inputParameters": {
+      "pk": "4063379",
+      "entityType": "P",
+      "entityName": "Kemp, William"
+    },
+    "expected": {
+      "fieldNames": [
+        "accountlistid",
+        "accountNo",
+        "billingAccountId",
+        "accountBalance",
+        "accountType",
+        "billingFrequency",
+        "nextBillingDate",
+        "accountHolder",
+        "accountNotesExistB",
+        "accountFilesExistB"
+      ]
+    }
+  }
+}

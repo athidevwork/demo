@@ -1,0 +1,717 @@
+A.content:link {
+   font-weight: bold;
+   font-size: 10pt;
+   color: #E04000;
+   text-decoration: none;
+   FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.content:visited {
+    font-weight: bold;
+    font-size: 10pt;
+    color: #E04000;
+    text-decoration: none;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.content:active {
+    text-decoration: none;
+}
+A.content:hover {
+    text-decoration: underline;
+    color: #000000;
+}
+A.leftsubnav:link {
+   font-weight: bold;
+   font-size: 9pt;
+   color: #000000;
+   text-decoration: none;
+   FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.leftsubnav:visited {
+    font-weight: bold;
+    font-size: 9pt;
+    color: #000000;
+    text-decoration: none;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.leftsubnav:active {
+    text-decoration: none;
+}
+A.leftsubnav:hover {
+    text-decoration: none;
+}
+
+A.leftnav:link {
+   font-weight: bold;
+   font-size: 10pt;
+   color: #000000;
+   text-decoration: none;
+   FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.leftnav:visited {
+    font-weight: bold;
+    font-size: 10pt;
+    color: #000000;
+    text-decoration: none;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.leftnav:active {
+    text-decoration: none;
+}
+A.leftnav:hover {
+    text-decoration: none;
+}
+A.header:link {
+   font-weight: bold;
+   font-size: 10pt;
+   color: #FFFFFF;
+   text-decoration: none;
+   FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.header:visited {
+    font-weight: bold;
+    font-size: 10pt;
+    color: #FFFFFF;
+    text-decoration: none;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.header:active {
+    text-decoration: none;
+}
+A.header:hover {
+	color: #000000;
+    text-decoration: none;
+}
+A.button:link {
+   font-weight: bold;
+   font-size: 10pt;
+   color: #FFFFFF;
+   text-decoration: none;
+   FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.button:visited {
+    font-weight: bold;
+    font-size: 10pt;
+    color: #FFFFFF;
+    text-decoration: none;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.button:active {
+    text-decoration: none;
+}
+A.button:hover {
+    text-decoration: none;
+}
+.errortext {
+    font-size: 8pt;
+    font-weight:bold;
+    color:red;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+body {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+.oasis_formlabelreq {
+	font-size: 8pt;
+    font-weight:bold;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.oasis_formlabel {
+	font-size: 8pt;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+td {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+th {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+form {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	}
+
+input {
+	font-size: 8pt;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+textarea {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+select {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+ul {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	list-style-type: disc;
+	list-style-position: outside;
+}
+
+li {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+ol {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	list-style-type: upper-roman;
+	list-style-position: outside;
+}
+.small {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+}
+.big {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+.boldwhite {
+	font-weight: bold;
+	color:#FFFFFF;
+}
+.grey {
+	color:#999999;
+}
+.bodystyle {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+td.headerbox {
+	background-color: #999999;
+	color: #FFFFFF;
+	font-weight: bold;
+	padding: 2px;
+}
+.subhead {
+	font-size: 16px;
+	font-weight: bold;
+	margin-left:23pt;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+
+}
+.header {
+	font-family:Verdana, Geneva, Arial, Helvetica,sans-serif;
+	font-size: 22px;
+	color: #000000;
+	font-weight: 600;
+}
+td.spacer3 {
+	font-size:3px;
+}
+td.spacer6 {
+	font-size:6px;
+}
+td.top {
+   border-top: 1pt solid #000000;
+}
+td.left {
+	border-left: 1pt solid #000000;
+}
+td.right {
+	border-right: 1pt solid #000000;
+}
+td.bottom {
+	border-bottom: 1pt solid #000000;
+}
+td.columnlabel {
+	font-size: 9pt;
+	font-weight: normal;
+	color: #000000;
+	text-align:left;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+td.columnlabelrequired {
+	font-size: 9pt;
+	font-weight: bold;
+	color: #000000;
+	text-align:left;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+td.label {
+	font-size: 9pt;
+	font-weight: normal;
+	color: #000000;
+	text-align:right;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+td.labelrequired {
+	font-size: 9pt;
+	font-weight: bold;
+	color: #000000;
+	text-align:right;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+td.valueReadOnly {
+	font-size: 9pt;
+	font-weight: normal;
+	text-align:left;
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.basebackground {
+	background-color:#F0F8FF;
+}	
+td.content {
+	background-color:#F0F8FF; 
+}
+.copyright {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	font-weight: bold;
+	text-align:right;
+	color: #000000;
+}
+.staticText {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	font-weight: normal;
+	font-variant: normal;
+	text-align:left;
+	color: #000000;
+}
+.inputText {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	font-weight: normal;
+	font-variant: normal;
+}
+.buttonText {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+	background-color: #FFFFFF;
+	margin: 1px;
+	padding: 1px;
+	height: 23px;
+	width: 120px;
+	text-transform: none;
+	font-variant: small-caps;
+	background-position: center center;
+	text-align: center;
+}
+.buttons {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	background-color: #FFFFFF;
+	text-transform: none;
+	font-variant: small-caps;
+	background-position: center center;
+	text-align: center;
+}
+.textField {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #000000;
+	background-color: #FFFFFF;
+	letter-spacing: normal;
+	text-align: left;
+	vertical-align: baseline;
+	word-spacing: normal;
+	white-space: normal;
+	height: 8pt;
+	width: auto;
+	border: thin double #000000;
+	overflow: hidden;
+	position: absolute;
+	visibility: visible;
+	left: 168px;
+	top: -28px;
+}
+TABLE.clsGrid
+{
+    border-collapse: collapse;
+    BORDER-RIGHT: #93bee2 1px;
+    BORDER-TOP: #93bee2 1px;
+    BORDER-LEFT: #93bee2 1px;
+    BORDER-BOTTOM: #93bee2 1px
+}
+TABLE.clsGrid TD
+{
+    BORDER-RIGHT: #93bee2 1px solid;
+    BORDER-TOP: #93bee2 1px;
+    BORDER-LEFT: #93bee2 1px;
+    BORDER-BOTTOM: #93bee2 1px solid
+}
+TABLE.clsGrid TH
+{
+	position:relative;
+	top: expression(parentNode.parentNode.parentNode.parentNode.scrollTop-2); /* IE5+ only */
+	z-index: 20;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: white;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+    BACKGROUND-COLOR: #999999
+}
+TABLE.clsGrid TR
+{
+    BORDER-RIGHT: #93bee2 1px solid;
+    BORDER-TOP: #93bee2 1px solid;
+    BORDER-LEFT: #93bee2 1px solid;
+    BORDER-BOTTOM: #93bee2 1px solid
+}
+TABLE.clsGridRes
+{
+    border-collapse: collapse;
+    BORDER-RIGHT: #93bee2 1px;
+    BORDER-TOP: #93bee2 1px;
+    BORDER-LEFT: #93bee2 1px;
+    BORDER-BOTTOM: #93bee2 1px
+}
+TABLE.clsGridRes TD
+{
+    BORDER-RIGHT: #93bee2 1px solid;
+    BORDER-TOP: #93bee2 1px;
+    BORDER-LEFT: #93bee2 1px;
+    BORDER-BOTTOM: #93bee2 1px solid
+}
+TABLE.clsGridRes TH
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: white;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+    BACKGROUND-COLOR: teal
+}
+TABLE.clsGridRes TR
+{
+    BORDER-RIGHT: #93bee2 1px solid;
+    BORDER-TOP: #93bee2 1px solid;
+    BORDER-LEFT: #93bee2 1px solid;
+    BORDER-BOTTOM: #93bee2 1px solid
+}
+
+TABLE.clsGrid tr A {
+    text-decoration: none;
+    color: #000000;
+}
+
+A.gridcontent:link {
+   font-weight: bold;
+   font-size: 8pt;
+   color: #000000;
+   text-decoration: none;
+   FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.gridcontent:visited {
+    font-weight: bold;
+    font-size: 8pt;
+    color: #000000;
+    text-decoration: none;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.gridcontent:active {
+    text-decoration: none;
+}
+A.gridcontent:hover {
+    text-decoration: none;
+    color: #E04000;
+}
+
+A.gridheader:link {
+   font-weight: bold;
+   font-size: 9pt;
+   color: #FFFFFF;
+   text-decoration: none;
+   FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.gridheader:visited {
+    font-weight: bold;
+    font-size: 9pt;
+    color: #FFFFFF;
+    text-decoration: none;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;
+}
+A.gridheader:active {
+    text-decoration: none;
+}
+A.gridheader:hover {
+    text-decoration: none;
+    color: #E04000;
+}
+div.divGridHolder {
+      position: relative;
+      top: -3px;
+      padding-bottom: 0px;
+      border: 1px inset black;
+      width: 100%;
+      overflow: auto;
+      height: 320px;
+}
+legend {
+	font-weight: bold;
+	font-size: 9pt;
+	color: #000099;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;		
+}
+div.divGridHolderPlain {
+      position: relative;
+      top: -3px;
+      padding-bottom: 0px;
+      overflow: auto;
+}
+img { border-width:0;} 
+td.leftnav {
+	padding-bottom:1px;
+	border-bottom:thin dotted grey;
+}
+td.leftnavspacer {
+	width:1px;
+}
+td.firstleftnavspacer {
+	width:1px;
+	background-color:#999999;
+}
+div.leftnav {
+	background-color:#FFFFFF;
+	POSITION: relative;
+	top:-3px;
+	border-right: solid #999999;
+	border-top: solid #999999;
+	border-bottom: solid #999999;
+	OVERFLOW: auto; 
+	HEIGHT: 100%	
+}
+td.bodycontent {
+    background-image: url(../images/bodyback.jpg);
+	background-color:#F0F8FF; 
+}
+
+<!--
+	Changes, effective 9/10/2004
+-->	
+A.login:link {
+   font-size: 8pt;
+   color: #000000;
+   text-decoration: none;
+	FONT-FAMILY: arial,verdana,helvetica,sans-serif;
+}
+A.login:visited {
+    font-size: 8pt;
+    color: #000000;
+    text-decoration: none;
+	FONT-FAMILY: arial,verdana,helvetica,sans-serif;
+}
+A.login:active {
+    text-decoration: none;
+}
+A.login:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+.apptitle {
+	font-size: 11pt;
+	color: #000099;
+    font-weight: bold;
+    font-style: italic;
+    FONT-FAMILY: verdana,tahoma,sans-serif,helvetica,arial;	
+}
+.successtext {
+    font-size: 8pt;
+    font-weight:bold;
+    color:green;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.oasis_formfieldreq {
+   background-color: #FFFF00;
+}
+.hiliteRow {
+   background-color: #336699;
+}
+
+.alternate_colors_one {
+   background-color: #E3ECFA;
+}
+.alternate_colors_two {
+   background-color: #ffffff;
+}
+.hiliteSelectRow {
+   background-color: #98BBF5;
+}
+
+/* ################################# */
+/* #### DIV POPUP STYLES ########### */
+/* ################################# */
+
+DIV.popup {
+    border-top:Solid 1px #6699cc;
+    border-left:Solid 1px #6699cc;
+    border-bottom:Solid 2px #6699cc;
+    border-right:Solid 2px #6699cc;
+}
+
+TD.popupheader {
+    color:white;
+    font-weight:bold;
+    background: #6699cc url("../images/bg-menu-blue.gif");
+    border-bottom:Solid 1px #6699cc;
+    height:22px;
+}
+
+A.popupheader:link, A.popupheader:link, A.popupheader:visited {
+    text-align:right;
+    font-weight:bold;
+    font-size: 8pt;
+    color: White;
+    text-decoration: none;
+    FONT-FAMILY: arial,verdana,helvetica,sans-serif;
+}
+
+A.popupheader:hover {
+    color: Black;
+}
+
+TABLE.popupcontent {
+    background: #6699cc url("../images/lines2.gif");
+}
+
+DIV.popupcontent {
+    border:Solid 1px #6699cc;
+}
+
+/* ################################# */
+/* #### DIV POPUP STYLES ########### */
+/* ################################# */
+
+
+/* ############################################### */
+/* #### Field #################################### */
+/* ############################################### */
+
+/*
+
+There are are two <TD> for each field. One is for field label, the other is for field value. If the field is not in
+table, we use <SPAN> instead of <TD>.
+
+"hidden", "readonly", "editable" are class names on TD or SPAN.
+A suffix of "Label" is attached to the TD class that encloses field label.
+A suffix of "Field" is attached to the TD class that encloses the actual form field.
+
+If TD/SPAN has a class "hiddenLabel" or "hiddenField", the whole TD/SPAN is hidden
+If TD/SPAN has a class "editableLabel" or "readonlyLabel", the whole TD/SPAN is visible.
+
+These are three kinds of elements in the TD/SPAN for field value. Initially they are all displayed
+1.	Span for read-only value.                                     class ""
+2.	Input element for the field.                                  class "oasis_formfield"
+3.	Additional elements for user to edit. such as date picker     class "oasis_formfield_edit"
+
+If the TD has class "editableField", Item 1 is hidden. Item 2 and item 3 are displayed.
+If the TD has class "readonlyField", Item 2 and item 3 are hidden. Only item 1 is displayed.
+
+*/
+
+
+TD.hiddenLabel, TD.hiddenField, SPAN.hiddenLabel, SPAN.hiddenField {
+    display:none;
+}
+
+/*
+    Read only fields - first make all elements hidden by default, then show only span element.
+    Hyperlinked read-only span are enclosed withing <A> tag.
+    Hyperlinked notes icon is enclosed within <A> tag.
+    Note type fields are enclosed within <DIV> tag. The read-only behavior is controlled by a Java Script variable.
+*/
+
+TD.readonlyField {
+    white-space: nowrap;
+}
+
+TD.readonlyField span{
+    white-space:normal;
+}
+
+TD.readonlyField *,
+SPAN.readonlyField *,
+TD.readonlyHeaderDataLabelCellFirstColField *,
+TD.readonlyHeaderDataLabelCellSecondColField *,
+TD.readonlyHeaderDataLabelCellThirdColField *,
+TD.readonlyHeaderDataLabelCellDisplayAtBottomField *{
+   display:none;
+}
+
+TD.readonlyField span, TD.readonlyField A, TD.readonlyField A.notes, TD.readonlyField A.notes img,
+SPAN.readonlyField span, SPAN.readonlyField A, SPAN.readonlyField A.notes, SPAN.readonlyField A.notes img,
+TD.readonlyHeaderDataLabelCellFirstColField span, TD.readonlyHeaderDataLabelCellFirstColField A,
+TD.readonlyHeaderDataLabelCellFirstColField A.notes, TD.readonlyHeaderDataLabelCellFirstColField A.notes img,
+TD.readonlyHeaderDataLabelCellSecondColField span, TD.readonlyHeaderDataLabelCellSecondColField A,
+TD.readonlyHeaderDataLabelCellSecondColField A.notes, TD.readonlyHeaderDataLabelCellSecondColField A.notes img,
+TD.readonlyHeaderDataLabelCellThirdColField span, TD.readonlyHeaderDataLabelCellThirdColField A,
+TD.readonlyHeaderDataLabelCellThirdColField A.notes, TD.readonlyHeaderDataLabelCellThirdColField A.notes img,
+TD.readonlyHeaderDataLabelCellDisplayAtBottomField span, TD.readonlyHeaderDataLabelCellDisplayAtBottomField A {
+   display:inline;
+}
+
+TD.editableField {
+    white-space: nowrap;
+}
+
+TD.editableField textarea{
+	white-space: pre-wrap;
+}
+
+TD.editableField span{
+    white-space:normal;
+}
+
+TD.editableField table span ,
+SPAN.editableField table span {
+    display:none;
+}
+
+/*
+    Editable fields - hide all span elements
+    Hyperlinked read-only span are enclosed withing <A> tag.
+    Hyperlinked notes icon is enclosed within <A> tag.
+    Note type fields are enclosed within <DIV> tag. The read-only behavior is controlled by a Java Script variable.
+*/
+
+TD.editableField span, TD.editableField A,
+SPAN.editableField span, SPAN.editableField A,
+TD.editableHeaderDataLabelCellFirstColField span, TD.editableHeaderDataLabelCellFirstColField A,
+TD.editableHeaderDataLabelCellSecondColField span, TD.editableHeaderDataLabelCellSecondColField A,
+TD.editableHeaderDataLabelCellThirdColField span, TD.editableHeaderDataLabelCellThirdColField A {
+   display:none;
+}
+
+TD.editableField table span,
+TD.editableField A.oasis_formfield_edit, TD.editableField A.notes,
+TD.editableField div.oasis_formfield_edit *,
+TD.editableField A.oasis_formfield_req,
+TD.editableField div.oasis_formfield_req *,
+SPAN.editableField table span,
+SPAN.editableField A.oasis_formfield_edit, SPAN.editableField A.notes,
+SPAN.editableField div.oasis_formfield_edit *,
+SPAN.editableField A.oasis_formfield_req,
+SPAN.editableField div.oasis_formfield_req *,
+TD.editableHeaderDataLabelCellFirstColField A.oasis_formfield_edit,
+TD.editableHeaderDataLabelCellFirstColField div.oasis_formfield_edit *,
+TD.editableHeaderDataLabelCellSecondColField A.oasis_formfield_edit,
+TD.editableHeaderDataLabelCellSecondColField div.oasis_formfield_edit *,
+TD.editableHeaderDataLabelCellThirdColField A.oasis_formfield_edit,
+TD.editableHeaderDataLabelCellThirdColField div.oasis_formfield_edit * {
+    display:inline;
+}
+
+/* ############################################### */
+/* #### Field #################################### */
+/* ############################################### */
+
+.dti-hide {
+	display: none !important;
+}

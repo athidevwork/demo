@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <!-- ************************************************************** -->
+    <!-- Apply endorsement quote work flow                              -->
+    <!-- ************************************************************** -->
+    <bean id="ApplyEndorsementQuoteWorkflow" class="dti.oasis.workflowmgr.WorkflowProcess" scope="prototype"
+          lazy-init="true">
+        <property name="workflowProcessId" value="ApplyEndorsementQuote"/>
+        <property name="workflowTransitions">
+            <map>
+                <entry key="invokeLockPolicyAndApplyEndorsementQuote">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeLockPolicy"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+
+                <!-- ************************************* -->
+                <!-- Lock policy                           -->
+                <!-- ************************************* -->
+                <entry key="invokeLockPolicy">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeCoverageBilling"/>
+                                    </bean>
+                                </entry>
+                                <entry key="LOCK_ERROR">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.endQuote.lockPolicy.error"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+
+                <!-- ************************************* -->
+                <!-- Load coverage billing                 -->
+                <!-- ************************************* -->
+                <entry key="invokeCoverageBilling">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeApplyEndorsementQuoteMsg"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.endQuote.applyEndQuote.info"/>
+                                    </bean>
+                                </entry>
+
+                                <entry key="INVALID">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflowAndUnlockPolicy"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.coverageBilling.billingRelation.error"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+
+                <!-- ************************************* -->
+                <!-- Apply endorsement quote               -->
+                <!-- ************************************* -->
+                <entry key="invokeApplyEndorsementQuoteMsg">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeApplyEndorsementQuote"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeApplyEndorsementQuote">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.endQuote.applyEndQuote.success.info"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                                <entry key="invalidBillingRelationError">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.maintainTail.invalidBillingRelationError"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                                <entry key="processError">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.transactionmgr.applyEndQuoteTransaction.error.processError"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                                <entry key="BILLING_ERROR">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.endQuote.applyEndQuote.processBilling.info.BILLING_ERROR"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                                <entry key="OUTPUT_ERROR">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.endQuote.applyEndQuote.processOutput.info.OUTPUT_ERROR"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                                <entry key="UNLOCK_ERROR">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.endQuote.applyEndQuote.processUnlock.info.UNLOCK_ERROR"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                                <entry key="COMPLETE_ERROR">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.endQuote.applyEndQuote.processComplete.info.COMPLETE_ERROR"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+
+            </map>
+        </property>
+    </bean>
+</beans>

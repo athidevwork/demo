@@ -1,0 +1,80 @@
+<project name="ePolicy" default="build.and.deploy.exploded" basedir=".">
+
+    <!-- Import dependant project build files -->
+    <import file="${basedir}/../OasisTags/build-core.xml"/>
+    <import file="${basedir}/../eCS/CS/build-cs.xml"/>
+    <import file="${basedir}/../eCIS/CIS/build-cis.xml"/>
+
+    <!--************************************************************************-->
+    <!-- Build targets specific to this project                                 -->
+    <!--************************************************************************-->
+    <target name="init.project.properties" >
+        <!-- Project properties -->
+        <property name="project.app.name" value="ePolicy"/>
+        <property name="project.name" value="PM"/>
+    </target>
+
+    <target name="init"
+            depends="init.project.properties, init.core.properties.for.ear, init.cs.properties, init.cis.properties, echo.build.properties"/>
+
+    <target name="copy.additional.project.config.files"
+            depends="init">
+        <!-- Copy the META-INF -->
+        <copy todir="${build.app.dir}" overwrite="true">
+            <fileset dir="${project.ear.name}" excludes="**/*.iml,**/*.ipr,**/*.iws,.idea/**"/>
+            <filterset description="Replace build property tokens with configured values.">
+                <filter token="CONTEXT_ROOT_PREFIX" value="${context.root.prefix}"/>
+            </filterset>
+        </copy>
+        <!-- Copy CS templates files to APP-INF/classes template directory -->
+        <mkdir dir="${build.app.template.dir}" />
+        <copy todir="${build.app.template.dir}" failonerror="false"> <!-- since some projects have no template files -->
+            <fileset dir ="${CS.project.templates.dir}" includes="*.xsl,*.dtd"/>
+            <fileset dir="${CIS.project.templates.dir}" includes="*.xsl,*.dtd"/>
+        </copy>
+    </target>
+
+    <target name="copy.project.webfiles"
+            description="Copy all the web files to the exploded deployment directory.
+                            This target may be configure to Execute on After Complilation.
+                            This target can also be run separately to copy web files only to the exploded deployment directory."
+            depends="init, copy.oasistags.webfiles.for.ear, copy.weblogic.xml">
+        <copy todir="${build.webapp.dir}">
+            <!-- All Web Resource and Help Files -->
+            <fileset dir="${project.webapp.resources.dir}" includes="**/**" excludes="**/*.iml"/>
+
+            <!-- Copy web.xml, struts config files, tld files-->
+            <fileset dir="${project.webapp.dir}" includes="WEB-INF/**" excludes="**/weblogic.xml,**/*.jar,**/*.iml,**/*.ipr,**/*.iws,.idea/**,**/*.awf"/>
+
+        </copy>
+        
+        <antcall target="copy.template.files"/>
+        <copy todir="${build.app.dir}/wsPolicy.war">
+            <fileset dir="${project.dir}/wsPolicy/wsPolicy.war" excludes="resources/**"/>
+            <fileset dir="${project.dir}/wsPolicy/wsPolicy.war/resources"  />
+        </copy>
+    </target>
+    
+    <target name="copy.web.and.config.files"
+            description="Copy all the web and config files to the exploded deployment directory.
+                            This target should be configure to Execute on After Complilation.
+                            This target can also be run separately to copy web files only to the exploded deployment directory."
+            depends="init, build.exploded.skip.compile"/>
+
+    <target name="build.dependant.projects"
+            description="Define all dependant projects as 'depends' for building all dependant projects."
+            depends="build.CS.for.ear, build.CIS.for.ear"/>
+
+    <target name="build.wsPolicy" depends="build.wsPolicy.exploded, build.wsPolicy.package" />
+    <target name="build.wsPolicy.exploded" depends="init" unless="build.package">
+        <ant antfile="build-wsPolicy.xml" target="build.exploded" inheritall="false"/>
+    </target>
+    <target name="build.wsPolicy.package" depends="init" if="build.package">
+        <ant antfile="build-wsPolicy.xml" target="build.package" inheritall="false"/>
+    </target>
+
+   <target name="post.build.project" description="Override this target to define additional processing after building the project">
+      <echo message ="overridding target:post.build.project to include webservice feature"/>
+      <antcall target="build.wsPolicy"/>
+   </target>
+</project>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		                       http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+           version="2.5">
+
+    <filter>
+        <filter-name>WebServiceRequestLifecycleFilter</filter-name>
+        <filter-class>dti.oasis.request.service.WebServiceRequestLifecycleFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>RestServiceLifecycleFilter</filter-name>
+        <filter-class>dti.oasis.restful.request.RestServiceRequestLifecycleFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>WebServiceRequestLifecycleFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RestServiceLifecycleFilter</filter-name>
+        <url-pattern>/rest/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>jersey-servlet</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>dti.ci.credentialrequestmgr,dti.ci.entitymgr.service.rest.resource.jaxrs</param-value>
+        </init-param>
+        <!--
+        <init-param>
+            <param-name>com.sun.jersey.config.property.resourceConfigClass</param-name>
+            <param-value>com.sun.jersey.api.core.PackagesResourceConfig</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+            <param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+            <param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+        </init-param>
+        -->
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>org.glassfish.jersey.filter.LoggingFilter;org.glassfish.jersey.media.multipart.MultiPartFeature,com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider,com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/dispatcher-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>jersey-servlet</servlet-name>
+        <url-pattern>/rest/jaxrs/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>OK</web-resource-name>
+            <description>OK to Connect</description>
+            <url-pattern>PartyInquiryService</url-pattern>
+            <url-pattern>PartyChangeService</url-pattern>
+            <url-pattern>PartyEventWebService</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>OWSUSERROLE</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>allobjs</web-resource-name>
+            <description>All Action Classes, JSPs, HTML Files</description>
+            <url-pattern>*.do</url-pattern>
+            <url-pattern>*.jsp</url-pattern>
+            <url-pattern>*.html</url-pattern>
+            <url-pattern>*.bmp</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>EMPLOYEEROLE</role-name>
+            <role-name>OASISSYSADMINROLE</role-name>
+        </auth-constraint>
+        <!-- When using SSL, this chunk should be "uncommented"
+              <user-data-constraint>
+                  <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+              </user-data-constraint>
+        -->
+    </security-constraint>    
+
+    <security-role>
+        <description>Web Service User</description>
+        <role-name>OWSUSERROLE</role-name>
+    </security-role>
+
+    <security-role>
+        <description>EMPLOYEE</description>
+        <role-name>EMPLOYEEROLE</role-name>
+    </security-role>
+    <security-role>
+        <description>OASISSYSADMIN</description>
+        <role-name>OASISSYSADMINROLE</role-name>
+    </security-role>
+
+    <listener>
+        <listener-class>dti.oasis.session.impl.HttpUserSessionListener</listener-class>
+    </listener>
+</web-app>

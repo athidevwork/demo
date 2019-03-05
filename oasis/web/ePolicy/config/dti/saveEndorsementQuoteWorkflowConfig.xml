@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+
+    <!-- ************************************************************** -->
+    <!-- Common save exit as wip bean                                   -->
+    <!-- ************************************************************** -->
+    <bean id="ExitSaveEndorseQuoteWorkflowAsWip" class="dti.oasis.workflowmgr.WorkflowState">
+        <property name="workflowStateId" value="exitWorkflow"/>
+        <property name="workflowStateMessageKey" value="pm.workflowmgr.save.saveAsWip.info"/>
+        <property name="workflowExitState" value="true"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Common save as endorsement quote                               -->
+    <!-- ************************************************************** -->
+    <bean id="ExitSaveEndorseQuoteWorkflow" class="dti.oasis.workflowmgr.WorkflowState">
+        <property name="workflowStateId" value="exitWorkflow"/>
+        <property name="workflowExitState" value="true"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Exit processing official policy                                -->
+    <!-- ************************************************************** -->
+    <bean id="ExitProcessingOfficalPolicy" class="dti.oasis.workflowmgr.WorkflowState">
+        <property name="workflowStateId" value="exitWorkflow"/>
+        <property name="workflowStateMessageKey" value="pm.validateAndRateTransaction.rate.official.error"/>
+        <property name="workflowExitState" value="true"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Save EndQuote Workflow Process Bean. From beginning of this flow to invokeProductNotify are the same
+     with workflow saveOfficailWorkflow.                        -->
+
+    <!-- ************************************************************** -->
+    <bean id="SaveEndorsementQuoteWorkflow" class="dti.oasis.workflowmgr.WorkflowProcess" scope="prototype"
+          lazy-init="true">
+        <property name="workflowProcessId" value="SaveOfficial"/>
+        <property name="workflowTransitions">
+            <map>
+                <entry key="invokeSaveEndorsementQuote">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeValidationMsg"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.save.official.invokeValidationMsg.info"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <!--Begin  duplicated from ValidateAndRateTransactionWorkflow  -->
+                <entry key="invokeValidationMsg">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeValidation"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeValidation">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="VALID">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFeeProcess"/>
+                                    </bean>
+                                </entry>
+                                <entry key="VALID_FLAGY">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFeeProcess"/>
+                                    </bean>
+                                </entry>
+                                <entry key="MTCREATED">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeMiniTail"/>
+                                    </bean>
+                                </entry>
+                                <entry key="MTFMTCREATED">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeMiniTail"/>
+                                    </bean>
+                                </entry>
+                                <entry key="FMTCREATED">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFreeMiniTail"/>
+                                    </bean>
+                                </entry>
+                                <entry key="VALID_FLAGN">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="INVALID">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeViewValidationError"/>
+                                    </bean>
+                                </entry>
+                                <entry key="FAILED">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="MTFAILED">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="FMTFAILED">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="OFFICIAL">
+                                    <ref bean="ExitProcessingOfficalPolicy"/>
+                                </entry>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFeeProcess"/>
+                                    </bean>
+                                </entry>
+                                <entry key="MONITOR_LONG_RUNNING_TRANSACTION">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="monitorInvokeProcessValidation"/>
+                                        <property name="workflowStateMessageKey" value="pm.workflowmgr.rating.invokeValidationMsg.info"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="monitorInvokeProcessValidation">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="VALID">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFeeProcess"/>
+                                    </bean>
+                                </entry>
+                                <entry key="VALID_FLAG">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeValidationNotify"/>
+                                    </bean>
+                                </entry>
+								<entry key="VALID_FLAGY">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFeeProcess"/>
+                                    </bean>
+                                </entry>
+								<entry key="VALID_FLAGN">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="MTCREATED">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeMiniTail"/>
+                                    </bean>
+                                </entry>
+                                <entry key="MTFMTCREATED">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeMiniTail"/>
+                                    </bean>
+                                </entry>
+                                <entry key="FMTCREATED">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFreeMiniTail"/>
+                                    </bean>
+                                </entry>
+                                <entry key="INVALID">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeViewValidationError"/>
+                                    </bean>
+                                </entry>
+                                <entry key="FAILED">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="MTFAILED">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="FMTFAILED">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="OFFICIAL">
+                                    <ref bean="ExitProcessingOfficalPolicy"/>
+                                </entry>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFeeProcess"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeValidationNotify">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="VALID_FLAGY">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFeeProcess"/>
+                                    </bean>
+                                </entry>
+                                <entry key="VALID_FLAGN">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeMiniTail">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                               <entry key="FMTCREATED">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFreeMiniTail"/>
+                                    </bean>
+                                </entry>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFeeProcess"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeFreeMiniTail">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeFeeProcess"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeFeeProcess">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeTaxProcess"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeTaxProcess">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeProductNotifyPreRate"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeProductNotifyPreRate">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeRatingMsg"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.save.official.invokeRatingMsg.info"/>
+                                    </bean>
+                                </entry>
+                                <entry key="INVALID">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+
+                <!--Begin  duplicated from RateTransactionWorkflow  -->
+                <entry key="invokeRatingMsg">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeRating"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeRating">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="FAILED">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="MONITOR_LONG_RUNNING_TRANSACTION">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="monitorInvokeRatingLongTrans"/>
+                                        <property name="workflowStateMessageKey" value="pm.workflowmgr.rating.invokeRatingMsg.info"/>
+                                    </bean>
+                                </entry>
+                                <entry key="SUCCESS">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeProductNotifyPostRate"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="monitorInvokeRatingLongTrans">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="FAILED">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="SUCCESS">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeProductNotifyPostRate"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <!--End  duplicated from RateTransactionWorkflow  -->
+
+                <entry key="invokeProductNotifyPostRate">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokePremiumValidation"/>
+                                    </bean>
+                                </entry>
+                                <entry key="INVALID">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokePremiumValidation">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="VALID">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeProcessSaveEndorsementQuoteMsg"/>
+                                    </bean>
+                                </entry>
+                                <entry key="INVALID">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <!--End duplicated from ValidateAndRateTransactionWorkflow -->
+
+                <entry key="invokeProcessSaveEndorsementQuoteMsg">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeProcessSaveEndorsementQuote"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeProcessSaveEndorsementQuote">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeProductNotify"/>
+                                    </bean>
+                                </entry>
+                                <entry key="MONITOR_LONG_RUNNING_TRANSACTION">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="monitorInvokeSaveEndorsementQuote"/>
+                                    </bean>
+                                </entry>
+                                <entry key="SAVE_ERROR">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.save.endQuote.processSaveEndQuote.info.SAVE_ERROR"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="monitorInvokeSaveEndorsementQuote">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeProductNotify"/>
+                                    </bean>
+                                </entry>
+                                <entry key="SAVE_ERROR">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.save.endQuote.processSaveEndQuote.info.SAVE_ERROR"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeProductNotify">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                     <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitSaveEndorsementQuote"/>
+                                    </bean>
+                                </entry>
+                                <entry key="INVALID">
+                                     <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitSaveEndorsementQuote"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="exitSaveEndorsementQuote">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflow"/>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeViewValidationError">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="INVALID">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                                <entry key="DEFAULT">
+                                    <ref bean="ExitSaveEndorseQuoteWorkflowAsWip"/>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

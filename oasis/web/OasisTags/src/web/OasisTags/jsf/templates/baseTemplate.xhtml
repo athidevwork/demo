@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+    <h:head>
+        <title><ui:insert name="title">Delphi Technology 2011 -- June 15, 2012</ui:insert></title>
+        <!-- not in resource
+
+		<h:outputStylesheet library="css" name="dti.css"></h:outputStylesheet>
+		-->
+        <script type="text/javascript" src="#{request.contextPath}/core/js/jquery-ui-1.8.2.dialog.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/core/js/jsfCommon.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/core/js/scriptlib.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/core/js/asynchttp.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/core/js/gui.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/core/js/jquery.ba-dotimeout.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/core/js/jsfSessionTimeout.js"></script>
+
+        <link type="text/css" rel="stylesheet"
+              href="#{request.contextPath}/core/css/default-primefaces.css"/>
+        <link type="text/css" rel="stylesheet"
+              href="#{request.contextPath}/core/css/syntaxhighlighter.css"/>
+        <link type="text/css" rel="stylesheet"
+              href="#{request.contextPath}/core/css/primefaces/grayTheme.css"/>
+        <link type="text/css" rel="stylesheet"
+              href="#{request.contextPath}/core/css/primefaces/blueTheme.css"/>
+        <link href="#{request.contextPath}/core/customStyles.jsp" rel="stylesheet" type="text/css"/>
+
+        <script type="text/javascript">
+            function oneventMask(e) {
+                if (e.status == 'success' || e.status == 'complete') {
+                    $("input[id*='DateInput']").mask('99/99/9999');
+                }
+            }
+        </script>
+
+        <script type="text/javascript">
+            function isIEBrowser(){
+                var result = '#{global.browserIE}';
+                return result;
+            }
+
+            function getIEVersion(){
+                var result = '#{global.IEVersion}';
+                return result;
+            }
+
+            function xmlhttpNativeCheck() {
+                var success = true;
+
+                if(isIEBrowser()){
+                    if (!window.XMLHttpRequest) {//Fails ie8 test
+                        success = false;
+                    }
+                    if(success) {
+                        try {
+                            var testUrl = getAppPath()+"/core/sessionKeepAlive.jsp" + "?date=" + new Date();
+                            $.get(testUrl, function(responseText) {
+//                                alert('Response XXX: '+responseText);
+                            });
+                        } catch (e){
+                            success = false;
+                        }
+                    }
+                }
+
+                if(!success){
+                    var hiddenDiv = document.getElementById("ajaxDisabled");
+                    hiddenDiv.style.display = "block"
+                }
+            }
+
+            $(window).load(function() {
+                xmlhttpNativeCheck();
+            });
+        </script>
+
+        <style type="text/css">
+            .label {
+                width:20%;
+                padding:2px;
+            }
+
+            .value {
+                width:80%;
+                padding:2px;
+            }
+            .ui-corner-all {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+            .grid {
+                width:100%;
+            }
+            .calendarFilter
+            {
+                width:110px; !important;
+                margin: 5px; !important;
+            }
+                /*
+                    .generalButton
+                    {
+                         background: #6699cc url(../../core/images/bButton.gif) repeat; color:#fff;
+                    }
+                */
+            .generalButton
+            {
+                background: #99CCFF;  color:#000066;
+            }
+
+            .ui-column-filter
+            {
+                color: #2e6e9e;
+            }
+
+            .delphiTooltip{
+                width:250px;
+                background:#FFFF66;
+            }
+        </style>
+    </h:head>
+
+    <h:body class="body" onload="baseOnPageLoad();">
+
+        <ui:insert name="header">
+            <h:form id="headerForm">
+                <ui:include src="/core/jsf/templates/header.xhtml"/>
+                <ui:include src="/templates/menubar.xhtml"/>
+            </h:form>
+        </ui:insert>
+
+        <!-- START: Main Body Content -->
+        <div>
+            <div id="ajaxDisabled" style="display: none;">
+                <div style="padding-left:50px;">
+                               <span class="errortext" style="width:80%;font-size:12pt;" ><br/>
+                                This application requires that Internet Explorer native XMLHTTP be enabled. <br/>
+                               </span>
+                               <span class="errortext" style="width:80%;font-size:11pt;">
+                                        1. Open 'Tools' > 'Internet Options'.
+                                        <br/>
+                                        2. Select the 'Advanced' tab and ensure that the 'Enable native XMLHTTP support' box is checked under the 'Security' subsection.
+                                        <br/>
+                                        3. Refresh your browser page by pressing F5 key.
+                                        <br/>
+                                </span>
+                </div>
+            </div>
+
+            <table id="mainBodyTable" width="100%" border="0" cellpadding="0" cellspacing="0" style="padding:5px">
+                <tr>
+                    <td valign="top">
+                        <table id="mainTableForPage" width="100%" border="0" cellpadding="2" cellspacing="0"
+                               style="display:block;;">
+                            <tr>
+                                <td>
+                                    <ui:insert name="content"></ui:insert>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- END: Main Body Content -->
+
+        <ui:insert name="footer">
+            <ui:include src="/core/jsf/templates/footer.xhtml"/>
+        </ui:insert>
+    </h:body>
+</f:view>
+</html>

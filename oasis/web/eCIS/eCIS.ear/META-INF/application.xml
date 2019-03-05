@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" "http://java.sun.com/dtd/application_1_3.dtd">
+<application>
+    <display-name>eCIS Management System</display-name>
+    <module id="CS.war.iml">
+        <web>
+            <web-uri>CS.war</web-uri>
+            <context-root>@CONTEXT_ROOT_PREFIX@eCIS/CS</context-root>
+        </web>
+    </module>
+    <module id="CIS.war.iml">
+        <web>
+            <web-uri>CIS.war</web-uri>
+            <context-root>@CONTEXT_ROOT_PREFIX@eCIS/CIS</context-root>
+        </web>
+    </module>
+    <module id="wsCIS.war.iml">
+        <web>
+            <web-uri>wsCIS.war</web-uri>
+            <context-root>@CONTEXT_ROOT_PREFIX@eCIS/wsCIS</context-root>
+        </web>
+    </module>
+
+</application>

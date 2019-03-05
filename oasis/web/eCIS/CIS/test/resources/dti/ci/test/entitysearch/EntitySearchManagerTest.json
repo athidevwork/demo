@@ -1,0 +1,135 @@
+{
+  "testSearchEntity": {
+    "searchCriteria": {
+      "searchCriteria_lastOrOrgName": "UnitTest"
+    },
+    "expected": {
+      "fieldNames": [
+        "entityId",
+        "selectind",
+        "entitylistIsprimaryrisk",
+        "clientName",
+        "firstName",
+        "middleName",
+        "lastName",
+        "orgName",
+        "entityType",
+        "entityTypeDesc",
+        "emailAddress1",
+        "emailAddress2",
+        "emailAddress3",
+        "clientId",
+        "taxIdFormatted",
+        "entitylistAddlfield",
+        "cityStateZipFormatted",
+        "dateOfBirth",
+        "licenseNo",
+        "legacyDataId",
+        "computedPhoneNumber",
+        "phoneNumberTypeDesc",
+        "longName",
+        "entityClassCode",
+        "entityClassCodeDesc",
+        "entitySubClassCode",
+        "entitySubClassCodeDesc",
+        "entitySubTypeCode",
+        "entitySubTypeCodeDesc",
+        "entitylistCmlobcode",
+        "entitylistSurveyvisitdate",
+        "sourcetablename",
+        "sourceno",
+        "ddlStatus",
+        "effectivefromdate",
+        "effectivetodate",
+        "entityReferencenumber",
+        "entityDbaname",
+        "char1",
+        "char2",
+        "char3",
+        "char4",
+        "char5",
+        "city",
+        "stateCode",
+        "province",
+        "zipcode",
+        "countryCode",
+        "externaldataid",
+        "npiNo",
+        "gender",
+        "prefixName",
+        "suffixName",
+        "veryImportantPersonB",
+        "title",
+        "maritalStatus",
+        "deceasedB",
+        "minorB",
+        "dateOfDeath",
+        "dateOfMaturity",
+        "num1",
+        "num2",
+        "num3",
+        "date1",
+        "date2",
+        "date3",
+        "sicCode",
+        "lossFreeDate",
+        "claimsFreeDate",
+        "insuredSinceDate",
+        "dynamicClaimEntrySource",
+        "industryDesc",
+        "fakeAdaNumber",
+        "component",
+        "entityStatusCode",
+        "adaNumber",
+        "webAddress1",
+        "webUserB",
+        "webUserId",
+        "hicn",
+        "legalName",
+        "profDesignation",
+        "electronicDistrbB",
+        "legalNameEffectiveDate",
+        "addlInfo1",
+        "addlInfo2",
+        "addlInfo3",
+        "cisB",
+        "origin",
+        "SELECT_IND"
+      ]
+    }
+  },
+
+  "testSearchEntity_tooManyRecord": {
+    "searchCriteria": {
+      "searchCriteria_lastOrOrgName": ""
+    },
+    "infoMessageKeys": [
+      "ci.entity.search.info.detail",
+      "ci.entity.search.result.tooManyData"
+    ]
+  },
+
+  "testSearchEntity_isPolicyNoIncludedWithinSearch": {
+    "searchCriteria": {
+      "searchCriteria_roleExternalId": "EN0173980"
+    }
+  },
+
+  "testSearchEntity_getEntityClaims": {
+    "searchCriteria": {
+      "entityId": "4484994"
+    },
+    "expected": {
+      "fieldNames": [
+        "claimId",
+        "claimNo"
+      ]
+    }
+  },
+
+  "testSearchEntity_filterResultAsPerClaimSecurity": {
+    "searchCriteria": {
+      "searchCriteria_firstName": "test"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4" relativePaths="true" type="J2EE_WEB_MODULE" j2ee-integration="WebLogic Server">
+  <component name="AppServerSpecificValidatorsManager" />
+  <component name="ModuleRootManager" />
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <exploded url="file://$MODULE_DIR$/src/web/OasisTags" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/java" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/src/java" />
+    </content>
+    <orderEntry type="jdk" jdkName="JDK 1.5.0" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="oasistags.lib" level="project" />
+    <orderEntry type="library" name="webLogic.lib" level="project" />
+    <orderEntryProperties />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ACTIVE_VCS_NAME" value="Perforce" />
+    <option name="USE_PROJECT_VCS" value="false" />
+  </component>
+  <component name="WebModuleBuildComponent">
+    <setting name="EXPLODED_URL" value="file://$MODULE_DIR$/src/web/OasisTags" />
+    <setting name="EXPLODED_ENABLED" value="false" />
+    <setting name="JAR_URL" value="file://" />
+    <setting name="JAR_ENABLED" value="false" />
+    <setting name="SYNC_EXPLODED_DIR" value="false" />
+    <setting name="BUILD_MODULE_ON_FRAME_DEACTIVATION" value="false" />
+    <setting name="BUILD_EXTERNAL_DEPENDENCIES" value="false" />
+    <setting name="RUN_JASPER_VALIDATION" value="false" />
+  </component>
+  <component name="WebModuleProperties">
+    <containerElement type="library" name="oasistags.lib" level="project">
+      <attribute name="method" value="0" />
+      <attribute name="URI" value="&lt;N/A&gt;" />
+    </containerElement>
+    <containerElement type="library" name="webLogic.lib" level="project">
+      <attribute name="method" value="0" />
+      <attribute name="URI" value="&lt;N/A&gt;" />
+    </containerElement>
+    <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/web/OasisTags/WEB-INF/web.xml" optional="true" version="2.3" />
+    <deploymentDescriptor name="weblogic.xml" url="file://$MODULE_DIR$/WEB-INF/weblogic.xml" optional="true" version="7.x" />
+    <webroots>
+      <root url="file://$MODULE_DIR$/src/web/OasisTags" relative="/" />
+    </webroots>
+  </component>
+  <component name="WeblogicWebModuleProperties" />
+</module>
+

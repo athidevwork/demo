@@ -1,0 +1,30 @@
+<component name="libraryTable">
+  <library name="OasisTags.lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../OasisTags/src/web/OasisTags/WEB-INF/lib" />
+      <root url="file://$PROJECT_DIR$/../OasisTags/test/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../../../tools/OXB/Java/lib/jersey/2.25.1" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.2.7/src/struts-1.2.7-src.zip!/struts-1.2.7-src/src/share" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.beans-sources-3.0.2.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.context-sources-3.0.2.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.aop-sources-3.0.2.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.asm-sources-3.0.2.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/com.springsource.org.aopalliance-sources-1.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/com.springsource.org.apache.commons.logging-sources-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.web-sources-3.0.2.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.web.servlet-sources-3.0.2.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.jdbc-sources-3.0.2.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.transaction-sources-3.0.2.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.core-sources-3.0.2.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.expression-sources-3.0.2.RELEASE.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../../../../tools/OXB/Java/lib/jersey/2.25.1" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../OasisTags/src/web/OasisTags/WEB-INF/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../OasisTags/test/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../../../tools/OXB/Java/lib/jersey/2.25.1" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../../../tools/OXB/Java/lib/jersey/2.25.1" recursive="false" type="SOURCES" />
+  </library>
+</component>

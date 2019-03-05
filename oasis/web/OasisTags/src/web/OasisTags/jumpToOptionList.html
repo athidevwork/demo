@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=8">
+        <title>JumpTo Option List</title>
+        <link id="cssLink" rel="stylesheet" type="text/css"/>
+        <link id="cssButtonLink" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" id="guiJS"></script>
+        <script type="text/javascript" id="editsJS"></script>
+        <script type="text/javascript">
+            function getParentWindow() {
+                var parentWindow = null;
+
+                if (window.frameElement) {
+                    if (window.frameElement.document && window.frameElement.document.parentWindow) {
+                        // IE8
+                        parentWindow = window.frameElement.document.parentWindow;
+                    } else if (window.frameElement && window != window.parent) {
+                        // HTML5
+                        parentWindow = window.parent;
+                    }
+                }else if ((window.opener && !window.opener.closed)) {
+                    parentWindow = window.opener;
+                }
+
+                if (parentWindow != null) {
+                    try {
+                        parentWindow.document;
+                    } catch (e) {
+                        // Cross domain
+                        parentWindow = null;
+                    }
+                }
+
+                return parentWindow;
+            }
+
+            function setOptionList() {
+                var corePath = ".";
+                var parentWindow = getParentWindow();
+
+                if (parentWindow) {
+                    corePath = parentWindow.getCorePath();
+                    if(parentWindow.jumpToOptionList!=null) {
+                        var jumpToOptions = parentWindow.jumpToOptionList;
+                        var jumpToOptionListTd = document.getElementById('jumpToOptionList');
+                        while (jumpToOptions.indexOf("^") > 0) {
+                            var value = jumpToOptions.substring(0, jumpToOptions.indexOf("^"));
+                            jumpToOptions = jumpToOptions.substring(jumpToOptions.indexOf("^") + 1);
+                            var text = jumpToOptions.substring(0, jumpToOptions.indexOf("^"));
+                            jumpToOptions = jumpToOptions.substring(jumpToOptions.indexOf("^") + 1);
+
+                            var opt = document.createElement("input");
+                            // var opt = document.createElement("<input name=optionList type='radio' />");
+                            opt.setAttribute("name", "optionList");
+                            opt.setAttribute("type", "radio");
+                            opt.setAttribute("id", "optionListFor"+value);
+                            opt.setAttribute("value", value);
+
+                            var lbl = document.createElement("label");
+                            lbl.appendChild(opt);
+                            lbl.appendChild(document.createTextNode(text));
+                            lbl.appendChild(document.createElement("br"));
+                            jumpToOptionListTd.appendChild(lbl);
+                        }
+                    }
+                }
+
+
+                document.getElementById('cssLink').href= corePath + "/css/dti.css";
+                document.getElementById('cssButtonLink').href= corePath + "/css/button.css";
+                /*document.getElementById('cssLink').href= corePath + "/css/oasisnew1.css";*/
+                document.getElementById('guiJS').src= corePath + "/js/gui.js";
+                document.getElementById('editsJS').src= corePath + "/js/edits.js";
+            }
+
+            function getAppPath() {
+                return getParentWindow().getAppPath();
+            }
+
+            function closeMe(id, isDirectCall) {
+                var parentWindow = getParentWindow();
+
+                if (parentWindow) {
+                    if (window.frameElement) {
+                        if(parentWindow.closeDiv) {
+                            if(parentWindow.getDivPopupFromDivPopupControl) {
+                                var divPopup = parentWindow.getDivPopupFromDivPopupControl(this.frameElement);
+                                if(divPopup) {
+                                    parentWindow.closeDiv(divPopup);
+                                }
+                            }
+                        } else {
+                            // Focus the parent window and close current window.
+                            parentWindow.focus();
+                            window.close();
+                        }
+                    }
+
+                }
+            }
+
+            function performJump() {
+                var selectedDestinationValue =  "";
+                if(getObject('optionList').length > 0) {
+                    for (var i=0; i<getObject('optionList').length; i++) {
+                        if (getObject('optionList')[i].checked) {
+                            selectedDestinationValue =  getObject('optionList')[i].value;
+                            break;
+                        }
+                    }
+                } else {
+                    selectedDestinationValue = getObject('optionList').value;
+                }
+                if(selectedDestinationValue.length==0) {
+                    alert("You must select atleast one option from the list to proceed.")
+                    return;
+                }
+
+                var parentWindow = getParentWindow();
+                if (parentWindow) {
+                    if(parentWindow.currentSelectedNoteContent!=null) {
+                        parentWindow.jumpTo(selectedDestinationValue);
+                        closeMe(document.all['optionList'], false);
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body class="panel" topmargin=0 leftmargin=0 onload="return setOptionList();">
+        <form name="jumpToOptionForm"  method="post">
+            <table cellpadding=0 cellspacing=0 width=100% height=100%>
+                <tr height="95%">
+                    <td width=100% valign=top>
+                        <div style="height:450px;width:390px;overflow:auto;">
+                            <table cellpadding=0 cellspacing=0 width=100% height=100%>
+                                <tr>
+                                    <td width=100% id=jumpToOptionList valign=top>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr height="5px"><td></td></tr>
+                <tr>
+                    <td align=center id="OkCancelButtons">
+                        <input type=submit class="buttons" onmouseover="return handleMouseover();" onmouseout="return handleMouseout();" value="Ok" id=btnOk name=btnOk onclick="performJump()" />
+                        &nbsp;&nbsp;&nbsp;
+                        <input type=submit class="buttons" onmouseover="return handleMouseover();" onmouseout="return handleMouseout();" value="Cancel" id=btnCancel name=btnCancel onclick="closeMe(this, true);" />
+                    </td>
+                </tr>
+                <tr height="5px"><td></td></tr>
+            </table>
+        </form>
+    </body>
+</html>

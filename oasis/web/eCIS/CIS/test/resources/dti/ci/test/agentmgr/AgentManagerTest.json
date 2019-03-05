@@ -1,0 +1,171 @@
+{
+  "testLoadAllAgent": {
+    "inputParameters": {
+      "entityId": "8005000377",
+      "entityType":"O",
+      "entityName":"Bryan18"
+    },
+    "expected": {
+      "fieldNames": [
+        "agentId",
+        "entityId",
+        "situationCode",
+        "effectiveStartDate",
+        "effectiveEndDate",
+        "sysCreatedBy",
+        "sysUpdatedBy",
+        "sysCreateTime",
+        "sysUpdateTime",
+        "effectiveEndDateDisplay",
+        "status"
+      ]
+    }
+  },
+  "testLoadAllAgentPayCommission": {
+    "inputParameters": {
+      "agentId": "8005000672"
+    },
+    "expected": {
+      "fieldNames": [
+        "agentPayCommissionId",
+        "agentId",
+        "commissionPayCode",
+        "effectiveStartDate1",
+        "effectiveEndDate1",
+        "sysCreatedBy",
+        "sysUpdatedBy",
+        "sysCreateTime",
+        "sysUpdateTime",
+        "effectiveEndDateDisplay",
+        "isDeleteAvailable"
+      ]
+    }
+  },
+  "testLoadAllAgentContract": {
+    "inputParameters": {
+      "agentId": "8005000672"
+    },
+    "expected": {
+      "fieldNames": [
+        "agentLicenseId",
+        "agentId",
+        "producerAgentLicenseId",
+        "licenseClassCode",
+        "licenseTypeCode",
+        "licenseNumber",
+        "stateCode",
+        "residentB",
+        "appointmentStartDate",
+        "appointmentEndDate",
+        "effectiveStartDate2",
+        "effectiveEndDate2",
+        "sysCreatedBy",
+        "sysUpdatedBy",
+        "sysCreateTime",
+        "sysUpdateTime",
+        "producerLicenseNumber",
+        "effectiveEndDateDisplay",
+        "rateChangeB",
+        "appointmentNumber",
+        "addlLicenseNumber",
+        "addlLicenseStartDate",
+        "addlLicenseEndDate",
+        "letterAgreementB",
+        "nipnNumber",
+        "nipnStartDate",
+        "nipnEndDate",
+        "oneOffB",
+        "issueCompanyEntityFkList",
+        "isDeleteAvailable",
+        "isSubProducerAvailable"
+      ]
+    }
+  },
+  "testLoadAllAgentContractCommission": {
+    "inputParameters": {
+      "agentId": "8005000672"
+    },
+    "expected": {
+      "fieldNames": [
+        "agentLicenseCommissionId",
+        "agentLicenseId",
+        "policyTypeCode",
+        "newbusCommPayCode",
+        "newbusCommBasis",
+        "newbusRate",
+        "newbusFlatAmt",
+        "newbusCommRateSchedId",
+        "newbusCommLimit",
+        "renewalCommPayCode",
+        "renewalCommBasis",
+        "renewalRate",
+        "renewalFlatAmt",
+        "renewalCommRateSchedId",
+        "renewalCommLimit",
+        "ereCommPayCode",
+        "ereCommBasis",
+        "ereRate",
+        "ereFlatAmt",
+        "ereCommRateSchedId",
+        "ereCommLimit",
+        "effectiveStartDate3",
+        "effectiveEndDate3",
+        "sysCreatedBy",
+        "sysUpdatedBy",
+        "sysCreateTime",
+        "sysUpdateTime",
+        "agentId",
+        "stateCode",
+        "effectiveEndDateDisplay",
+        "primaryRiskTypeCode",
+        "authorizationCode",
+        "isDeleteAvailable"
+      ]
+    }
+  },
+  "testLoadAllAgentStaff": {
+    "inputParameters": {
+      "agentId": "8005000672"
+    },
+    "expected": {
+      "fieldNames": [
+        "agentStaffId",
+        "agentId",
+        "agentStaffEntityId",
+        "agentStaffEntityName",
+        "branchOfficeAddressId",
+        "staffEffStartDate",
+        "staffEffEndDate",
+        "sysCreatedBy",
+        "sysUpdatedBy",
+        "sysCreateTime",
+        "sysUpdateTime",
+        "isDeleteAvailable"
+      ]
+    }
+  },
+  "testLoadAllAgentStaffOverride": {
+    "inputParameters": {
+      "agentId": "8005000672"
+    },
+    "expected": {
+      "fieldNames": [
+        "agentStaffOverrideId",
+        "agentStaffId",
+        "overridePolicyTypeCode",
+        "overrideStateCode"
+        "issueCompanyEntityId",
+        "overrideNewbusRate",
+        "overrideRenewalRate",
+        "overrideEreRate",
+        "overrideEffStartDate",
+        "overrideEffEndDate",
+        "sysCreatedBy",
+        "sysUpdatedBy",
+        "sysCreateTime",
+        "sysUpdateTime",
+        "isDeleteAvailable"
+      ]
+    }
+  }
+}

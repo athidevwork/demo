@@ -1,0 +1,155 @@
+<project name="CIS-common" basedir=".">
+
+    <target name="init.cis.properties">
+        <!-- Calling Project's project.dir-->
+        <property name="calling.project.dir" value="${basedir}"/>
+
+        <!-- CIS Project properties -->
+        <property name="CIS.project.name" value="CIS"/>
+        <property name="CIS.project.app.name" value="${CIS.project.name}"/>
+        <property name="CIS.project.dir" value="${calling.project.dir}/../eCIS/CIS"/>
+        <property name="CIS.src.dir" value="${CIS.project.dir}/src"/>
+        <property name="CIS.config.dir" value="${CIS.project.dir}/config"/>
+        <property name="CIS.webapp.name" value="${CIS.project.app.name}.war"/>
+        <property name="CIS.webapp.dir" value="${CIS.project.dir}/CIS.war"/>
+        <property name="CIS.webapp.resources.dir" value="${CIS.webapp.dir}/resources"/>
+        <property name="CIS.lib.dir" value="${CIS.webapp.dir}/WEB-INF/lib"/>
+        <property name="CIS.project.templates.dir" value="${CIS.project.dir}/template"/>
+        <!--<property name="CIS.p4.view" value="${p4.web.base}/${CIS.project.name}/..."/>-->
+
+	    <property name="java.home" value="${jdk.root.dir}"/>
+		<property name="javac.fork" value="true"/>
+        <property name="java.compiler.javac" value="${jdk.root.dir}/bin/javac" />
+    </target>
+
+    <target name="init.cis" depends="init.cis.properties">
+    </target>
+
+
+    <!--************************************************************************-->
+    <!-- Build CIS Java source, CIS.jar and CIS.war                             -->
+    <!--************************************************************************-->
+    <!--Copy library dependancies for CIS to the build lib dir.-->
+    <target name="copy.CIS.libs" depends="init, copy.oasistags.libs">
+        <copy todir="${build.app.lib.dir}">
+            <fileset dir="${CIS.lib.dir}" includes="*.jar" excludes="oasistags.jar,oasiscs.jar,cis.jar"/>
+        </copy>
+    </target>
+
+    <!--Compile all CIS java source code-->
+    <target name="compile.CIS" depends="init, copy.CIS.libs, compile.oasistags, compile.CS" unless="skip.compile">
+        <mkdir dir="${build.app.classes.dir}" />
+        <javac destdir="${build.app.classes.dir}"
+               optimize="${compile.optimize}"
+               debug="${compile.debug}" failonerror="true"
+               nowarn="${compile.nowarn}"
+               srcdir="${CIS.src.dir}"
+			   executable="${java.compiler.javac}"
+               fork="${javac.fork}"
+               excludes="**/*.smap, **/test/*">
+            <classpath>
+                <fileset dir="${build.app.lib.dir}" includes="**/*.jar"/>
+                <path refid="weblogic.jar.path"/>
+                <!-- <fileset dir="${j2ee.server.lib}" includes="weblogic.jar, ojdbc14.jar"/> -->
+            </classpath>
+            <include name="**"/>
+        </javac>
+    </target>
+
+    <target name="copy.CIS.config.files" depends="init">
+        <!-- Copy the config files required by other projects into the classes dir -->
+        <copy todir="${build.app.classes.dir}">
+            <fileset dir="${CIS.config.dir}" includes="**/*cis*" excludes="**/custom*"/>
+        </copy>
+    </target>
+
+    <target name="copy.CIS.webfiles" depends="init">
+        <antcall target="copy.oasistags.webfiles">
+            <param name="build.webapp.dir" value="${build.app.dir}/${CIS.webapp.name}/core"/>
+        </antcall>
+
+        <copy todir="${build.webapp.dir}">
+            <!-- All Web Resource Files except the weblogic.xml file -->
+            <fileset dir="${CIS.webapp.resources.dir}"
+                     excludes="**/weblogic.xml,**/*.iml,**/*.ipr,**/*.iws,.idea/**,build*.xml,**/*.awf,
+                        src/**,test/**,javadocs/**,config/**,**/lib/**,package/**,exploded/**,**/classes/**,
+                        RTF2PDF/**,RtfEditor20101/**,*.xml"/> <!--exclude the grid header files-->
+
+            <fileset dir="${CIS.webapp.dir}" includes="WEB-INF/**" excludes="**/weblogic.xml,**/*.jar,**/*.iml,**/*.ipr,**/*.iws,.idea/**,**/*.awf"/>
+
+            <!-- All Help Files -->
+            <fileset dir="${CIS.webapp.resources.dir}" includes="help/**" excludes="**/*.iml"/>
+        </copy>
+
+        <!-- Copy weblogic.xml, replacing tokens with build target properties -->
+        <antcall target="copy.weblogic.xml">
+            <param name="project.webapp.dir" value="${CIS.webapp.dir}"/>
+        </antcall>
+
+        <!-- Grid Header XML Files to the classpath -->
+        <copy todir="${build.webapp.classes.dir}">
+            <fileset dir="${CIS.webapp.resources.dir}" includes="*.xml" excludes="build*.xml"/>
+        </copy>
+    </target>
+
+    <target name="copy.CIS.shared.webfiles" depends="init">
+        <copy todir="${build.webapp.dir}">
+            <!-- Shared CIS Web Resource Files -->
+            <fileset dir="${CIS.webapp.resources.dir}" >
+                <!-- JSP Files -->
+                <include name="CI_addressSearchAdd.jsp"/>
+                <include name="CI_entityAddChoicePop.jsp"/>
+                <include name="CI_entityMiniPopup.jsp"/>
+                <include name="CI_entityMiniPopupTest.jsp"/>
+                <include name="CI_common.jsp"/>
+                <include name="entitysearch/listrole/CIEntityListRole.jsp"/>
+                <include name="clientmgr/CI_entityAddContent.jsp"/>
+                <include name="clientmgr/CI_entityAddPop.jsp"/>
+                <include name="contactmgr/addSelectContactPopup.jsp"/>
+                <include name="riskmgr/windowperiodhistorymgr/windowPeriodHistory.jsp"/>
+                <include name="mergehistory/*.jsp"/>
+                <!-- JS Files -->
+                <include name="js/CIAddressSearchAdd.js"/>
+                <include name="js/CICommon.js"/>
+                <include name="js/CIEntityAddChoicePop.js"/>
+                <include name="js/CIEntityMiniPopup.js"/>
+                <include name="entitysearch/listrole/js/CIEntityListRole.js"/>
+                <include name="contactmgr/js/addSelectContact.js"/>
+                <include name="contactmgr/js/addSelectContactCommon.js"/>
+                <include name="riskmgr/windowperiodhistorymgr/js/windowPeriodHistory.js"/>
+                <include name="mergehistory/js/*.js"/>
+            </fileset>
+
+            <fileset dir="${CIS.webapp.dir}" >
+                <!-- Struts Config Files-->
+                <include name="WEB-INF/struts-config-cisCommon.xml"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name='copy.CIS.template.files'>
+        <!-- move all template files to template directory -->
+        <mkdir dir="${build.webapp.template.dir}" />
+        <copy todir="${build.webapp.template.dir}" failonerror="false"> <!-- since some projects have no template files -->
+            <fileset dir="${CIS.project.templates.dir}" includes="*.xsl"/>
+        </copy>
+    </target>
+
+    <target name="copy.CIS.webfiles.for.ear" depends="init">
+        <antcall target="copy.CIS.webfiles">
+            <param name="build.webapp.dir" value="${build.app.dir}/${CIS.webapp.name}"/>
+            <param name="build.webapp.classes.dir" value="${build.app.dir}/${CIS.webapp.name}/WEB-INF/classes"/>
+        </antcall>
+
+        <antcall target="appc">
+            <param name="build.webapp.dir" value="${build.app.dir}/${CIS.webapp.name}"/>
+            <param name="build.webapp.classes.dir" value="${build.app.dir}/${CIS.webapp.name}/WEB-INF/classes"/>
+        </antcall>
+    </target>
+
+    <target name="build.CIS.for.CIS" depends="init, compile.CIS, copy.CIS.config.files, copy.CIS.template.files, copy.CIS.webfiles"/>
+    <target name="build.CIS.shared" depends="init, compile.CIS, copy.CIS.config.files, copy.CIS.shared.webfiles"/>
+    <target name="build.CIS.no.web" depends="init, compile.CIS, copy.CIS.config.files"/>
+    <target name="build.CIS.for.ear" depends="init, compile.CIS, copy.CIS.config.files, copy.CIS.webfiles.for.ear"/>
+
+</project>

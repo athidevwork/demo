@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+    <h:head>
+        <title><ui:insert name="title">Delphi Technology 2011 -- August 17, 2012</ui:insert></title>
+        <script type="text/javascript" src="#{request.contextPath}/core/js/jsfCommon.js"></script>
+        <link type="text/css" rel="stylesheet"
+              href="#{request.contextPath}/core/css/default-primefaces.css"/>
+        <link type="text/css" rel="stylesheet"
+              href="#{request.contextPath}/core/css/syntaxhighlighter.css"/>
+        <link type="text/css" rel="stylesheet"
+              href="#{request.contextPath}/core/css/primefaces/grayTheme.css"/>
+        <link type="text/css" rel="stylesheet"
+              href="#{request.contextPath}/core/css/primefaces/blueTheme.css"/>
+        <link href="#{request.contextPath}/core/customStyles.jsp" rel="stylesheet" type="text/css"/>
+
+        <style type="text/css">
+            .label {
+                width:20%;
+                padding:2px;
+            }
+
+            .value {
+                width:80%;
+                padding:2px;
+            }
+            .ui-corner-all {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+            .grid {
+                width:100%;
+            }
+            .calendarFilter .ui-inputfield
+            {
+                width:110px; !important;
+                margin: 5px; !important;
+            }
+                /*
+                    .generalButton
+                    {
+                         background: #6699cc url(../../core/images/bButton.gif) repeat; color:#fff;
+                    }
+                */
+            .generalButton
+            {
+                background: #fff; color:#6699cc;
+            }
+
+            .ui-column-filter
+            {
+                color: #2e6e9e;
+            }
+
+            .delphiTooltip{
+                width:250px;
+                background:#FFFF66;
+            }
+
+        </style>
+    </h:head>
+
+    <h:body class="body">
+
+        <!-- BEGIN: header -->
+        <div class="header">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td><img alt="" src="#{request.contextPath}/img/space.gif" width="990" height="1"/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="txtWhite" style="text-align:right; margin-right: 10px;">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- END: header -->
+
+        <!-- START: Main Body Content -->
+        <div style="color: #333333; font-size: 12px; font-style: normal; font-weight: normal;">
+
+
+            <table id="mainBodyTable" width="100%" border="0" cellpadding="0" cellspacing="0" style="padding:5px">
+                <tr>
+                    <td valign="top">
+                        <table id="mainTableForPage" width="100%" border="0" cellpadding="2" cellspacing="0"
+                               style="display:block;;">
+                            <tr>
+                                <td>
+                                    <ui:insert name="content"></ui:insert>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- END: Main Body Content -->
+
+
+        <ui:insert name="footer">
+            <ui:include src="/core/jsf/templates/footer.xhtml"/>
+        </ui:insert>
+
+
+    </h:body>
+</f:view>
+</html>

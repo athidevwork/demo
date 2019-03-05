@@ -1,0 +1,35 @@
+{
+  "testWithParameters": {
+    "messageFromDao": "Foo from DAO",
+    "intValue": 100,
+    "intObject": 200,
+    "longValue": 300000000000,
+    "doubleValue": 1234567890.1234,
+    "floatValue": 123456.00,
+    "booleanValue": true,
+    "dateValue": "06/01/2018",
+    "record": {
+      "UPDATE_IND": "Y",
+      "firstName": "Michael",
+      "lastName": "Jordan"
+    },
+    "recordSet": [{
+      "rowId": "100",
+      "firstName": "Michael",
+      "lastName": "Jordan"
+    }, {
+      "rowId": "200",
+      "firstName": "Kobe",
+      "lastName": "Bryant"
+    }]
+  },
+  "testWithParameters_record": {
+    "inputRecord": {
+      "message": "Foo from DAO"
+    }
+  },
+  "testFooBar": {
+    "foo": "foo",
+    "bar": "bar"
+  }
+}

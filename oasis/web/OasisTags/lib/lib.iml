@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4" relativePaths="true" type="JAVA_MODULE">
+  <component name="BuildJarSettings">
+    <containerInfo>
+      <containerElement type="module" name="lib">
+        <attribute name="method" value="1" />
+        <attribute name="URI" value="/" />
+      </containerElement>
+    </containerInfo>
+    <setting name="jarUrl" value="file://$MODULE_DIR$/../../../../../OASIS-2006.1.9/OASIS/web/OasisTags/lib/oasistags.jar" />
+    <setting name="buildJar" value="true" />
+    <setting name="mainClass" value="" />
+  </component>
+  <component name="ModuleRootManager" />
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$/../src/java">
+      <sourceFolder url="file://$MODULE_DIR$/../src/java" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="oasistags.lib" level="project" />
+    <orderEntry type="library" name="webLogic.lib" level="project" />
+    <orderEntryProperties />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ACTIVE_VCS_NAME" value="Perforce" />
+    <option name="USE_PROJECT_VCS" value="false" />
+  </component>
+</module>
+

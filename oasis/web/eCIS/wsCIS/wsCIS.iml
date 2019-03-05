@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/wsCIS.war/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/web" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../exploded/eCIS/APP-INF/classes" />
+    <output-test url="file://$MODULE_DIR$/../out/test/wsCIS" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/..">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../exploded" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="CIS.lib" level="project" />
+    <orderEntry type="library" name="CS.lib" level="project" />
+    <orderEntry type="library" name="OasisTags.lib" level="project" />
+    <orderEntry type="library" name="weblogic.lib" level="project" />
+    <orderEntry type="module" module-name="cis" exported="" />
+    <orderEntry type="module" module-name="CommonServices" exported="" />
+    <orderEntry type="module" module-name="OasisTags" exported="" />
+  </component>
+</module>
+

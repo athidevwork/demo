@@ -1,0 +1,82 @@
+{
+  "testLoadFirstClaim": {
+  "inputParameters": {
+    "entityId": "12467105",
+    "entityType": "O",
+    "entityName": "Vendor2"
+  },
+  "expected": {
+    "fieldNames": [
+      "claimId",
+      "claimNo"
+    ]
+  }
+},
+  "testLoadClaimInfo": {
+    "inputParameters": {
+      "claimId":"9295947",
+      "entityId": "12467105"
+    },
+    "expected": {
+      "fieldNames": [
+        "claimId",
+        "claimNo",
+        "lossDate",
+        "reportDate",
+        "caseNo",
+        "patientName",
+        "examinerName",
+        "claimStatusCode",
+        "claimStatusCodeLD",
+        "claimTypeCode",
+        "claimTypeCodeSD",
+        "branchOffice",
+        "paidLoss",
+        "paidExpense",
+        "defenseAttorney",
+        "plaintiffAttorney",
+        "defenseLawFirm",
+        "plaintiffLawFirm",
+        "reserveLoss",
+        "reserveExpense",
+        "caseId"
+      ]
+    }
+  },
+  "testLoadClaimParticipants": {
+    "inputParameters": {
+      "claimId":"9295947",
+      "entityId": "12467105"
+    },
+    "expected": {
+      "fieldNames": [
+        "rowNumber",
+        "entityRoleId",
+        "sourceRecordId",
+        "entityId",
+        "roleTypeCode",
+        "participantClientName",
+        "participantLongDesc",
+        "policyNo",
+        "claimAccessibleFlag"
+      ]
+    }
+  },
+  "testLoadCompanion": {
+    "inputParameters": {
+      "claimId":"9295947",
+      "entityId": "12467105"
+    },
+    "expected": {
+      "fieldNames": [
+        "claimId",
+        "companionClaimId",
+        "companionClaimNo",
+        "companionLossDate",
+        "companionInsuredName",
+        "companionReportDate",
+        "caseNo"
+      ]
+    }
+  }
+}

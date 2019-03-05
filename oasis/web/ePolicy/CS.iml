@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module relativePaths="true" type="JAVA_MODULE" version="4">
+  <component name="DBNavigator.Module.ConnectionManager">
+    <connections />
+  </component>
+  <component name="FacetManager">
+    <facet type="web" name="CS">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/../eCS/CS/CS.war/WEB-INF/web.xml" />
+          <deploymentDescriptor name="weblogic.xml" url="file://$MODULE_DIR$/../eCS/CS/CS.war/WEB-INF/weblogic.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/../eCS/CS/CS.war/resources" relative="/" />
+          <root url="file://$MODULE_DIR$/../eCS/CS/CS.war/WEB-INF" relative="/WEB-INF" />
+        </webroots>
+        <sourceRoots />
+      </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/exploded/ePolicy/APP-INF/classes" />
+    <output-test url="file://$MODULE_DIR$/package/test/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../eCS/CS">
+      <sourceFolder url="file://$MODULE_DIR$/../eCS/CS/ows/jaxbsrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../eCS/CS/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../eCS/CS/config" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../eCS/CS/test/java" isTestSource="true" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="weblogic.lib" level="project" />
+    <orderEntry type="library" name="OasisTags.lib" level="project" />
+    <orderEntry type="library" name="BOE" level="project" />
+    <orderEntry type="module" module-name="OasisTags" />
+    <orderEntry type="library" name="CS.lib" level="project" />
+    <orderEntry type="library" name="unit-test.lib" level="project" />
+    <orderEntry type="module" module-name="CIS" />
+  </component>
+</module>

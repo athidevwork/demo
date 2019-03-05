@@ -1,0 +1,91 @@
+{
+  "testSearchEntity_mockTooManyRecords": [
+    {
+      "maxRow": 500,
+      "entityDetailMsgKey": "ci.entity.search.info.detail",
+      "tooManyDataMsgKey": "ci.entity.search.result.tooManyData"
+    },
+    {
+      "maxRow": 100,
+      "entityDetailMsgKey": "ci.entity.search.info.detail",
+      "tooManyDataMsgKey": "ci.entity.search.result.tooManyData"
+    }
+  ],
+  "testSkipSearchAsPerClaimSecurity": {
+    "sourceTableName": "CLAIM",
+    "searchCriteria": {
+      "searchCriteria_roleExternalId": "12306"
+    },
+    "expected": {
+      "resultCount": 0
+    }
+  },
+  "testFilterAllResultAsPerClaimSecurity": {
+    "claimRecord": {
+      "claimNo": "12306"
+    },
+    "entityRecord": {
+      "entityId": 123
+    },
+    "searchCriteria": {
+      "searchCriteria_roleTypeCode": "AGENT"
+    },
+    "expected": {
+      "resultCount": 0
+    }
+  },
+  "testPolicyNoIsIncludedWithinSearch": {
+    "searchCriteria": {
+      "searchCriteria_roleExternalId": 123
+    }
+  },
+  "testSearchEntity": {
+    "searchCriteria": {
+      "includedAddlData": "ent.char1"
+    },
+    "ciEntlistFldSqlSysParm": "CI_ENTLIST_FLD_SQL",
+    "ciEntlistFldSqlSysParmDefaultVal": "null",
+    "ciEntlistFldSqlSysParmVal": "entity.char1"
+  },
+  "testGlobalSearch": {
+    "searchCriteria": {
+      "process": "globalSearch"
+    }
+  },
+  "testThrowExceptionInGetEntitySearchMaxNum": {
+    "maxNumSysParm": "MAX_ENTITY_SEARCH",
+    "maxNumSysParmDefaultVal": 50
+  },
+  "testSearchEntity_message": {
+    "expected": {
+      "entityDetailMsgKey": "ci.entity.search.info.detail",
+      "tooManyDataMsgKey": "ci.entity.search.result.tooManyData",
+      "noDataMsgKey": "ci.entity.search.result.noData"
+    }
+  },
+
+  "testEntitySelectSearch_mockTooManyRecords": [
+    {
+      "maxRow": 500,
+      "entityNoSelectMsgKey": "ci.entity.search.error.NoSelect",
+      "tooManyDataMsgKey": "ci.entity.search.result.tooManyData"
+    },
+    {
+      "maxRow": 100,
+      "entityNoSelectMsgKey": "ci.entity.search.error.NoSelect",
+      "tooManyDataMsgKey": "ci.entity.search.result.tooManyData"
+    }
+  ] ,
+  "testEntitySelectSearch_mockNoRecord": {
+    "entityNoRecordMsgKey": "ci.entity.search.result.noData"
+  },
+
+  "testEntitySelectSearch": {
+    "inputRecord": {
+      "searchCriteria_lastOrOrgName" : "test",
+      "searchCriteria_clientId" : "0000014067",
+      "process" : "peekAtSearchResult"
+    },
+    "entityNoSelectMsgKey": "ci.entity.search.error.NoSelect",
+  }
+}

@@ -1,0 +1,1699 @@
+/* ###################################### */
+/* #### DEFAULT STYLES ################## */
+/* ###################################### */
+body, form, div, table, tr, th, td, span, font, p, pre, ul, ol, li, input, button, select, textarea, a, a:active, a:focus, a:visited, sub, sup {
+	font-family: Arial, Verdana, "Trebuchet MS";
+	font-style: normal;
+	font-weight: normal;
+	text-decoration: none;
+	color: #333333;
+	font-size: 12px;
+}
+
+fieldset {
+  border:1px solid #003E7E;
+  padding:5px;
+  color:#666;
+  font-weight:bold;
+}
+
+fieldset legend {
+  color:#666;
+}
+
+fieldset a *, .formFields a * {
+  text-decoration: underline;
+}
+
+.wcQuickLinks a:link, .wcQuickLinks a:active, .wcQuickLinks a:visited {
+  text-align:right;
+  font-weight:bold;
+  font-size: 9pt;
+  color: #666;
+  line-height:18px;
+}
+
+.wcQuickLinks a:hover {
+  text-decoration: underline;
+  color:#c30;
+}
+
+body, form {
+  margin:0;
+  padding:0;
+}
+
+body {
+	border: 0;
+	background-color: #FFF;
+}
+
+.tabTitle {
+    padding-top:5px;
+    padding-bottom:0px;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+
+/* ###################################### */
+/* #### DEFAULT STYLES ################## */
+/* ###################################### */
+
+
+/* ####################################### */
+/* #### HEADER & FOOTER STYLES ########### */
+/* ####################################### */
+.mainTable {
+    width: 100%;
+    border: 0px;
+}
+
+
+.header {
+    background-image: url(../images/oasislogo.gif);
+    background-repeat: no-repeat;
+    background-color: white;
+    background-position-y:-5px;
+    text-align: right;
+    padding: 2px 0px 10px 0px;
+    height: 43px;
+    color: #AFAFAF;
+}
+
+.headerLogoTips {
+    z-index:0;
+    position:absolute;
+    top:1px;
+    left:10px;
+    width:200px;
+    height:50px;
+}
+
+.headerEnvInfo {
+    z-index:0;
+    position:absolute;
+    color: #cc0033;
+    font-weight: 900;
+    top:0px;
+    left:0px;
+    text-align: center;
+    width: 90%;
+    font-size: 14px;
+    padding-top:5px;
+}
+
+.headerline1 {
+    height: 21px;
+    margin-bottom: 2px;
+    /*border: 1px solid red;*/
+}
+
+.headerline1 .headerline1Info, .headerline1 .headerline1links {
+    display: inline-block;
+}
+
+.headerline1 .headerline1Info {
+}
+
+.headerline1 .headerline1links {
+    margin-right:5px;
+}
+
+.headerline2 {
+    height: 22px;
+    /*border: 1px solid blue;*/
+}
+
+.headerline1 .txtWhite {
+    text-align:right;
+    margin-right: 10px;
+    display:inline-block;
+    padding-top:4px;
+}
+
+.btHdr {
+    background-image: none;
+    background-color: white;
+    color: #AFAFAF;
+    /*color: #003E7E;*/
+    font-size: 16px;
+    font-weight: normal;
+    font-family: Calibri;
+    line-height: 16px;
+    margin: 10px;
+    margin-top:0px;
+    width: 43px;
+    min-width:55px;
+    border: 0px;
+    cursor: pointer;
+    height: 19px;
+    padding: 0px;
+}
+
+.footer, .footerPopup {
+	margin: 10px;
+	padding-right: 34px;
+	background-image: url(../images/logo-ftr.gif);
+	background-position: right top;
+	background-repeat: no-repeat;
+	height: 50px;
+	line-height: 30px;
+	text-align: right;
+	color: #999;
+	font-size: 11px;
+}
+.footerPopup {
+	height: 30px !important;
+}
+.footerLogin {
+	margin: 10px;
+	padding-right: 34px;
+	margin-top: 100px;
+	background-image: url(../images/logo-ftrlogin.gif);
+	background-position: right top;
+	background-repeat: no-repeat;
+	width: 500px;
+	height: 50px;
+	line-height: 30px;
+	text-align: right;
+	color: #FFF;
+	font-size: 11px;
+}
+
+
+/* ##################################### */
+/* #### COMMON STYLES ################## */
+/* ##################################### */
+.centerWrapper {
+  text-align:center;
+}
+
+.error {
+	border-top: 3px solid rgb(109,176,63);
+	border-right: 3px solid rgb(109,176,63);
+	border-bottom: 3px solid rgb(109,176,63);
+	border-left: 22px solid rgb(109,176,63);
+	margin-bottom: 14px;
+	padding: 6px;
+}
+
+.errormessage {
+    color:white;
+    padding-left:22px;
+    font-size: 8pt;
+    background-image: url("../images/error.png");
+    background-repeat: no-repeat;
+    background-color:#F53914;
+    height: 22px;
+    padding-right: 5px;
+}
+
+.warningmessage {
+    padding-left:20px;
+    font-size: 8pt;
+    background: url("../images/warning.gif") no-repeat;
+}
+
+.infomessage {
+    padding:5px;
+    padding-left:25px;
+    font-size: 8pt;
+    font-weight: bold;
+    border: 1px solid #DDEBF3;
+    color: #76ABC6;
+    background: url("../images/blue_info_icon.gif") no-repeat;
+    background-color: #DBEFF7;
+    background-position-x: 5px;
+    background-position-y:4px;
+
+}
+
+
+
+/* ##################################### */
+/* #### COMMON STYLES ################## */
+/* ##################################### */
+
+
+/* ###################################### */
+/* #### LOG IN ########################## */
+/* ###################################### */
+.loginBody {
+    background-color: white;
+    background-image: url(../images/login_curves.jpg);
+    background-repeat: no-repeat;
+}
+
+.mainLogin {
+    margin: auto;
+	background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    text-align:left;
+    margin-left: 100px;
+}
+
+.envLogin {
+    margin-right: auto;
+	background-repeat: no-repeat;
+    width:100%;
+    margin-left: 40px;
+}
+
+.loginEnvInfo {
+    padding-bottom: 9px;
+    color: #DC143C;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+    padding-left:60px;
+}
+
+.loginLeft {
+    display: none;
+}
+
+.loginRight {
+    float: left;
+    padding-left: 0px;
+    padding-top: 40px;
+    height: 120px;
+}
+
+.loginTxt {
+    clear: both;
+    width: 530px;
+    padding-top: 40px;
+}
+
+.loginTop {
+  width: 560px;
+  margin:auto;
+  margin-top: 90px;
+  padding:0;
+  text-align:left;
+  margin-top:50px;
+  margin-left:40px;
+
+}
+
+.loginFooter {
+	margin: 5px;
+	padding-right: 34px;
+	margin-top: 20px;
+	background-image: url(../images/logo-ftr.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+	width: 500px;
+	height: 30px;
+	line-height: 30px;
+	text-align: right;
+	color: #003E7E;
+	font-size: 11px;
+}
+
+ul.login {
+  margin:0;
+  padding:0;
+  margin-left: 20px;
+}
+
+ul.login li {
+  list-style-image:url(../images/ico-arrow-link-white.gif);
+  vertical-align:middle;
+  padding:0;
+  margin:0;
+}
+
+ul.login li *{
+  position: relative;
+  top: -2px;
+}
+
+.loginError {
+    border-top: 3px solid rgb(109,176,63);
+    border-right: 3px solid rgb(109,176,63);
+    border-bottom: 3px solid rgb(109,176,63);
+    border-left: 22px solid rgb(109,176,63);
+    margin-left:60px;
+    margin-bottom:10px;
+    padding: 6px;
+    margin:0;
+    width:500px;
+}
+
+
+div.loginTxt {
+    padding:0px;
+    padding-top:30px;
+}
+
+div.loginTxt > span.txtBlueBold11px {
+    background-color: white;
+    color:#003E7E;
+}
+
+div.loginTxt .txtBlueBold {
+    color:#003E7E;
+}
+
+div.loginTxt ul li {
+    color:#003E7E;
+}
+
+ul.login li {
+    list-style-image:url(../images/ico-arrow-link-blue.gif);
+    margin-left:20px;
+}
+
+ul.login li a {
+    margin-left: -5px;
+}
+
+ul.login li a.lkWhite:link, ul.login li a.lkWhite:visited, ul.login li a.lkWhite:hover {
+    color:#003E7E;
+}
+
+.loginTxt ul li a:link, .loginTxt ul li a:visited, .loginTxt ul li:hover {
+    color:#003E7E;
+}
+
+/* ###################################### */
+/* #### LOG IN ########################## */
+/* ###################################### */
+
+/* ############################################### */
+/* #### PAGE HEADER STYLES ####################### */
+/* ############################################### */
+.pageHeader {
+    background:none;
+    /*
+        border-bottom: 3px solid  #1E90FF;
+    */
+    min-height: 14px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    width: 99.6%;
+    vertical-align:middle;
+}
+
+.pageTitle {
+	float: left;
+	color: #003E7E;
+	font-size: 17px;
+	font-weight: bold;
+	width: 250px;
+}
+
+.pageHeaderText {
+	float: left;
+	font-size: 14px;
+}
+
+.globalActionItems, .globalDropdownActionItems {
+  float:left;
+  width:200px;
+  padding-left:5px;
+  padding-right:5px;
+}
+
+.globalDropdownActionItems {
+  padding-left:10px;
+  background-image:url('../images/ico-folder.gif');
+  background-repeat:no-repeat;
+  background-position:left;
+}
+
+.globalActionItemList {
+  color: black;
+  font-weight: bold;
+  width:75%;
+}
+
+.pageNextPrevLinks {
+  float:left;
+  color: #003E7E;
+  width:170px;
+  padding-top:3px;
+}
+
+.pagePreviousLink {
+  background-image:url('../images/ico-arrow-pg-lft.gif');
+  background-repeat:no-repeat;
+  width:16px;
+  padding-left:16px;
+}
+
+.pageNextLink {
+  background-image:url('../images/ico-arrow-pg-rgt.gif');
+  background-repeat:no-repeat;
+  width:16px;
+  padding-left:16px;
+}
+
+.pageBackLink {
+  float:left;
+  width:120px;
+  padding-left:5px;
+  border:1px solid #fff;
+}
+
+a.pageBackLink:link, a.pageBackLink:visited {
+  color: #369;
+  font-size: 10px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a.pageBackLink:hover {
+  color: #036;
+  text-decoration: underline;
+}
+
+a.txtSmallBlue:link, a.txtSmallBlue:visited {
+  color: #369;
+  font-size: 10px;
+  font-weight: bold;
+  text-decoration: none;
+}
+a.txtSmallBlue:hover {
+  color: #036;
+  text-decoration: underline;
+}
+
+.pagePrintHelpLinks {
+    float: right;
+    padding-left:5px;
+    padding-right: 5px;
+}
+
+.pagePrintHelpLinks a:link, .pagePrintHelpLinks a:visited, .pagePrintHelpLinks a:hover {
+    color:#003E7E;
+}
+
+/* ############################################### */
+/* #### PAGE HEADER STYLES ####################### */
+/* ############################################### */
+
+/* ############################################### */
+/* #### COLORED TEXT ############################# */
+/* ############################################### */
+.txtGreyNormal {
+	color: #666;
+	font-weight: bold;
+}
+.txtGreyRight {
+	color: #666;
+	padding-right: 4px;
+}
+.txtGreyBold, .infomessage {
+	color: #666;
+	font-weight: bold;
+}
+.txtBlueBold, .oasis_formlabelreq, .warningmessage {
+	color: #036;
+	font-weight: bold;
+}
+.txtBlueBold11px {
+	font-size: 11px;
+	color: #036;
+}
+.txtWhite {
+	color: #FFF;
+}
+.txtWhiteBold {
+    color: #FFF;
+	text-decoration: none;
+	font-weight: bold;
+}
+.txt1stLine {
+	color: #666;
+	font-size: 16px;
+	font-weight: bold;
+}
+.txt2ndLine {
+	color: #333;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.txtOrange, .errortext, .errormessage, .locktext {
+	color: #C30;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.oasis_formlabel {
+  color: #036;
+}
+
+.overriddenFieldLabel {
+    color: green;
+    font-style: italic;
+}
+
+.errormessage {
+    padding-left:20px;
+    font-size: 8pt;
+    background: url("../images/error.gif") no-repeat;
+}
+
+.warningmessage {
+    padding-left:20px;
+    font-size: 8pt;
+    background: url("../images/warning.gif") no-repeat;
+}
+
+.infomessage {
+    padding-left:20px;
+    font-size: 8pt;
+    background: url("../images/info.gif") no-repeat;
+}
+
+.locktext {
+    padding-left:17px;
+    background: url("../images/lock.gif") no-repeat;
+    border-left:3px solid #fff;
+    vertical-align:middle;
+}
+
+.txtNegativeNumber, .txtBoldNegativeNumber {
+    color: #C30;
+}
+
+.txtBoldNegativeNumber {
+    font-weight:bold;
+}
+
+/* ############################################### */
+/* #### COLORED TEXT ############################# */
+/* ############################################### */
+.redText {
+    color: red;
+}
+
+.blueText {
+    color: blue;
+}
+
+/* ####################################### */
+/* #### TEXT ############################# */
+/* ####################################### */
+.txtBoldRight {
+	font-weight: bold;
+	padding-right: 4px;
+}
+
+.txtBold {
+	font-weight: bold;
+}
+
+.txtLeft {
+	text-align: left;
+}
+.txtRight {
+	text-align: right;
+}
+/* ####################################### */
+/* #### TEXT ############################# */
+/* ####################################### */
+
+
+/* ######################################### */
+/* #### DATA ENTRY ######################### */
+/* ######################################### */
+
+.noEntryFinder {
+    border: 1px solid #999;
+    background-color: #F5F5F5;
+    color: #696969;
+    min-height: 12px;
+    height: 16px;
+}
+
+.noEntryFinderReq {
+    border: 1px solid #999;
+    background-color: #d9e2ea;
+    color: #999;
+    min-height: 12px;
+    height: 16px;
+    font-weight:bold;
+}
+
+.noEntryReq {
+   background-color: #d9e2ea;
+   height:16px;
+   border: 1px solid #999;
+   text-align: right;
+}
+
+.noEntryMultipleSelectPopupReq {
+    background-color: #deeefd;
+    color: #6A6A6A;
+    min-height: 12px;
+    height: 16px;
+    font-weight: bold;
+    border: 1px solid #999;
+}
+
+.readonlyMode {
+    background-color: #d9e2ea;
+    border: 1px solid #999;
+    text-align: left;
+}
+
+input.disabled {
+    background-color: #F5F5F5;
+    height:20px;
+    border: 1px solid #999;
+    text-align: right;
+}
+
+A.noEntryFinder:link, A.noEntryFinder:visited, A.noEntryFinder:hover, A.noEntryFinder:active,
+A.noEntryFinderReq:link, A.noEntryFinderReq:visited, A.noEntryFinderReq:hover, A.noEntryFinderReq:active,
+A.noEntryReq:link, A.noEntryReq:visited, A.noEntryReq:hover, A.noEntryReq:active{
+  border:none;
+  background-color:#fff;
+  height:18px;
+}
+
+/* ######################################### */
+/* #### DATA ENTRY ######################### */
+/* ######################################### */
+
+/* #################################### */
+/* #### FORMS ######################### */
+/* #################################### */
+
+.mainForm, .blueForm, .yellowForm, input.oasis_formfieldreq, span.oasis_formfieldreq {
+	color: #003E7E;
+	font-weight: bold;
+	min-height: 16px;
+	_height: 19px;
+}
+
+#globalSearchContainer {
+    display:inline-block;
+    width:225px;
+    vertical-align: middle;
+    height:20px;
+}
+
+.globalSearchButtonHolderContainer {
+    margin: 0;
+    padding: 0;
+    position:relative;
+    float:left;
+    height:20px;
+    vertical-align: middle;
+}
+
+input.globalSearchButton {
+    font-family: Calibri, Arial, Verdana, "Trebuchet MS";
+    color:White;
+    height: 23px;
+}
+
+#globalSearch{
+    padding: 0px;
+    width: 150px;
+    vertical-align: bottom;
+    min-height: 18px;
+    color:#999;
+}
+
+#globalJumpNavDiv {
+    float:right;
+    margin-top:0px;
+    margin-right:10px;
+    display:none;
+}
+
+#gblJumpNav {
+    /*
+        color:#003E7E;
+    */
+}
+
+
+.blueForm {
+	background-color: #deeefd;
+	border: 1px solid #999;
+}
+
+.yellowForm {
+	background-color: #ffcc33;
+	border: 1px solid #999;
+	color: #666 !important;
+}
+
+input.oasis_formfieldreq {
+  color:black;
+  background-color: #deeefd;
+  height:16px;
+  border: 1px solid #999;
+}
+
+input.oasis_formfieldreqright {
+  color:black;
+  background-color: #deeefd;
+  height:16px;
+  border: 1px solid #999;
+  text-align: right;
+}
+
+input.oasis_fieldunderline {
+  text-decoration: underline;
+}
+
+span.oasis_formfieldreq {
+  font-weight: normal;
+  color:black;
+  background-color: #fff;
+  height:16px;
+}
+
+select.oasis_formfieldreq {
+    color:black;
+	font-weight: bold;
+	background-color: #deeefd;
+}
+
+textarea.oasis_formfieldreq {
+    color:black;
+	font-weight: bold;
+	background-color: #deeefd;
+}
+
+/* #################################### */
+/* #### FORMS ######################### */
+/* #################################### */
+
+
+/* ###################################### */
+/* #### LINKS ########################### */
+/* ###################################### */
+
+a.topNavCurrentApp:link, a.topNavCurrentApp:visited, a.topNavCurrentApp:hover {
+    text-decoration: none;
+    border-bottom: 2px solid #7DBB54;
+    color:#636363;
+    cursor: default;
+    /*border-bottom: 1px solid white;*/
+}
+
+.txtWhite, a.lkHdr:visited, a.lkHdr:link, a.lkHdr:hover, a.topNavCurrentApp:link {
+    color: #636363;
+    /*color: #003E7E;*/
+    font-size: 16px;
+    font-weight: normal;
+    font-family: Calibri, Arial Narrow;
+    background-image: none;
+    padding-left: 2px;
+    display: inline;
+    text-decoration: none;
+}
+
+a.lkHdr:visited, a.lkHdr:hover {
+    text-decoration: none;
+    border-bottom: 2px solid #7DBB54;
+}
+
+a.lkDark:link, a.lkDark:visited {
+	color: #333;
+	font-weight: bold;
+	text-decoration: none;
+}
+a.lkDark:hover {
+	text-decoration: underline;
+}
+
+a.lkWhite:link, a.lkWhite:visited {
+  color: #003E7E;
+  font-size:11px;
+  font-weight: normal;
+  text-decoration: none;
+}
+a.lkWhite:hover {
+  text-decoration: underline;
+}
+/* ###################################### */
+/* #### LINKS ########################### */
+/* ###################################### */
+
+
+/* ###################################### */
+/* #### GRID RELATED STYLES ############# */
+/* ###################################### */
+
+div.divGridHolder {
+  border:none;
+  overflow: auto;
+  height: 310px;
+  margin-top:5px;
+}
+
+div.divGrid {
+  POSITION: relative;
+  top:-3px;
+  PADDING-BOTTOM: 10px;
+  OVERFLOW: auto;
+  border: 1px solid #bababa;
+
+}
+
+TABLE.clsGrid
+{
+    border:none;
+    POSITION: relative;
+}
+
+div.scrollTableHeaderDiv {
+    overflow: hidden;
+}
+
+table.scrollTableHeader {
+    position: relative;
+    table-layout: fixed;
+    background: #6699cc;
+}
+table.scrollTableHeader th{
+    padding: 0px;
+}
+/*.tableFloatingHeaderOriginal{position:static !important;}*/
+
+TABLE.clsGrid TH
+{
+    position:relative;
+    top : 0px;
+    background-color: #003E7E;
+    color: #FFF;
+    font-size: 14px;
+    border:none;
+    border-right: 1px solid #9cafc0;
+    line-height: 22px;
+    vertical-align: middle;
+    font-family: Calibri, "Lucida Grande", Gadget, Helvetica, Arial, Verdana, "Trebuchet MS";
+    padding:2px;
+}
+
+table.clsGrid th font, table.clsGrid th font .bodystyle {
+    font-family: Calibri, "Lucida Grande", Gadget, Helvetica, Arial, Verdana, "Trebuchet MS";
+    font-size: 14px;
+    color:white;
+    font-weight: bold;
+}
+
+
+TABLE.clsGrid a * {
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+TABLE.clsGrid a textarea {
+    white-space: pre-wrap;
+}
+
+A.gridheader:link {
+    font-weight: bold;
+    color: #FFF;
+    font-size: 9px;
+    text-decoration: none;
+}
+A.gridheader:visited {
+    font-weight: bold;
+    color: #FFF;
+    font-size: 9px;
+    text-decoration: none;
+}
+A.gridheader:active {
+    text-decoration: none;
+}
+A.gridheader:hover {
+    text-decoration: none;
+    color: Black;
+}
+
+TABLE.clsGrid TR
+{
+    BORDER-RIGHT: #93bee2 0px solid;
+    BORDER-TOP: #93bee2 0px solid;
+    BORDER-LEFT: #93bee2 0px solid;
+    BORDER-BOTTOM: #93bee2 0px solid;
+    height:22px;
+}
+
+TABLE.clsGrid TD
+{
+  line-height: 22px;
+  padding-left: 10px;
+  font-size: 10px;
+  border:none;
+}
+
+.hiliteRow {
+    padding-left: 10px;
+    background-color: #c2dcf5;
+    color:white;
+   color: #79b7e7  ;
+}
+
+.alternate_colors_one {
+    padding-left: 10px;
+    background-color: #F2F2F2;
+}
+.alternate_colors_two {
+    padding-left: 10px;
+    background-color: #FFF;
+}
+
+.hiliteSelectRow {
+    padding-left: 10px;
+    background-color: #c2dcf5;
+    color:white;
+}
+
+A.gridcontent:link, A.gridcontent, A.gridcontent span {
+    font-weight: bold;
+    font-size: 11px;
+    text-decoration: none;
+}
+A.gridcontent:visited {
+    font-weight: bold;
+    font-size: 10px;
+    text-decoration: none;
+}
+A.gridcontent:active {
+    text-decoration: none;
+}
+A.gridcontent:hover, A.gridcontent:hover span {
+    text-decoration: none;
+    color: #0099ff;
+}
+
+.gridExport {
+    float:right;
+    display:inline;
+    margin:0;
+    padding:0;
+}
+
+.gridNavSection {
+    float:right;
+    display:inline;
+    margin:0;
+    padding:0;
+    padding-right:50px;
+}
+
+.navFirst, .navPrevious, .navNext, .navLast {
+    border:0;
+    padding:0;
+    margin:0;
+    height:16px;
+    background-color:#fff;
+    cursor:pointer;
+    padding-right:3px;
+}
+
+.navFirst {
+    background-image: url(../images/ico-arrow-allpg-lft.gif);
+    background-repeat: no-repeat;
+    width:18px;
+}
+
+.navPrevious{
+    background-image: url(../images/ico-arrow-pg-lft.gif);
+    background-repeat: no-repeat;
+    width:16px;
+}
+
+.navNext {
+    background-image: url(../images/ico-arrow-pg-rgt.gif);
+    background-repeat: no-repeat;
+    width:16px;
+}
+
+.navLast {
+    background-image: url(../images/ico-arrow-allpg-rgt.gif);
+    background-repeat: no-repeat;
+    width:18px;
+}
+
+#gridNavButtonsTable {
+    padding:0;
+}
+
+.gridExportButtonTable {
+    padding-left:2px;
+    padding-right:5px;
+}
+
+.gridExportButtonTable .excelExport, .gridExportButtonTable .excelExportAll, .gridExportButtonTable .htmlExport,
+.gridExportButtonTable .excelExportMO,.gridExportButtonTable .excelExportAllMO, .gridExportButtonTable .htmlExportMO {
+    font-weight: bold;
+    font-size: 12px;
+    padding-left:2px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border:none;
+    vertical-align:middle;
+    width: 115px;
+    height: 18px;
+}
+
+.gridExportButtonTable .excelExportAll,.gridExportButtonTable .excelExportAllMO {
+    width: 95px;
+}
+
+.gridExportButtonTable .excelExport, .gridExportButtonTable .excelExportMO,
+.gridExportButtonTable .excelExportAll, .gridExportButtonTable .excelExportAllMO {
+    background: #FFF url(../images/excel_download.gif) no-repeat;
+}
+
+.gridExportButtonTable .htmlExport, .gridExportButtonTable .htmlExportMO {
+    background: #FFF url(../images/html_download.gif) no-repeat;
+}
+
+.gridExportButtonTable .excelExportMO, .gridExportButtonTable .htmlExportMO {
+    color: #0099ff;
+    border:none;
+}
+
+
+.gridNoteDisplay {
+    white-space:nowrap;
+    width:150px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+
+table.clsGrid th a:link, table.clsGrid th a:active  {
+    font-family: Calibri, "Lucida Grande", Gadget, Helvetica, Arial, Verdana, "Trebuchet MS";
+    font-size: 14px;
+}
+
+table.clsGrid th a:hover  {
+    font-family: Calibri, "Lucida Grande", Gadget, Helvetica, Arial, Verdana, "Trebuchet MS";
+    font-size: 14px;
+    color: #778899;
+}
+
+table.clsGrid tr {
+    height:22px;
+}
+
+table.clsGrid tr.alternate_colors_one {
+    background-color: white   ;
+}
+table.clsGrid tr.alternate_colors_two {
+    background-color: #ededed;
+}
+
+.hiliteSelectRow *, .hiliteRow *, .hiliteRow * SPAN{
+    background-color: #c7c7c7;
+    color:white;
+}
+
+.hiliteSelectRow * {
+    color:#003E7E;
+}
+
+table.clsGrid TD {
+
+}
+
+A.gridcontent:hover, A.gridcontent:hover span {
+    color:#003E7E;
+}
+
+/* ####################################################### */
+/* #### RESERVE TAB - CURRENT RESERVE STYLES ############ */
+/* ####################################################### */
+
+table.clsGridRes {
+  font-family: Arial, Verdana, "Trebuchet MS";
+  font-size: 12px;
+  color: #666;
+}
+table.clsGridRes TH {
+    font-weight: bold;
+    background-color:#c2dcf5;
+}
+
+table.clsGridRes TD span.gridcontent {
+  color: black;
+  font-weight: bold;
+}
+
+/* ####################################################### */
+/* #### RESERVE TAB - CURRENT RESERVE STYLES ############ */
+/* ####################################################### */
+
+/* ###################################### */
+/* #### GRID RELATED STYLES ############# */
+/* ###################################### */
+
+
+/* ###################################### */
+/* #### PANEL RELATED STYLES ############ */
+/* ###################################### */
+.panel {
+    margin:0px;
+    padding:5px;
+    padding-top:0px;
+    border:1px solid #bababa;
+    background-image: none;
+    background-color: white;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    text-align:left;
+}
+.panel #panelTitleWithBorder {
+    margin-left:4px;
+    border-bottom: 1px solid #bababa;
+}
+.panel a.panelDownTitle:link, a.panelDownTitle:visited, .panel a.panelUpTitle:link, a.panelUpTitle:visited{
+    background-image : url('../images/ico-arrow-up-hide.gif');
+    background-repeat : no-repeat;
+    padding-left:20px;
+    margin:0px;
+    text-decoration:none;
+}
+.panel a.panelDownTitle:link, a.panelDownTitle:visited {
+    background-image : url('../images/ico-arrow-down-hide.gif');
+    background-repeat : no-repeat;
+}
+.panel a.panelUpTitle:link, a.panelUpTitle:visited{
+    background-image : url('../images/ico-arrow-up-hide.gif');
+    background-repeat : no-repeat;
+}
+.panel span.panelTitle {
+    color: #003E7E;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration:none;
+    font-family: Calibri, "Lucida Grande", Gadget, Helvetica, Arial, Verdana, "Trebuchet MS";
+}
+.panel #panelDownContent {
+    margin:0;
+}
+
+div.navigateTerms .navigationTitle {
+    color:#003E7E;
+}
+/* ###################################### */
+/* #### PANEL RELATED STYLES ############ */
+/* ###################################### */
+
+/* ################################### */
+/* #### HEADER DATA STYLES ########### */
+/* ################################### */
+
+.headerDataFieldsBorder, .headerDataFieldsNoBorder,
+    .headerDataFieldsFirstColBorder,
+    .headerDataFieldsSecondColBorder,
+    .headerDataFieldsThirdColNoBorder,
+    .headerDataFieldsDisplayAtBottom
+{
+	width: 300px;
+/*	_height: 120px;
+	min-height: 120px; 	*/
+	padding: 10px;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	float: left;
+    vertical-align: top;
+}
+.headerDataFieldsBorder,
+    .headerDataFieldsFirstColBorder,
+    .headerDataFieldsSecondColBorder  {
+	border-right: 1px solid #c1d5ed;
+    height: 100%;
+}
+
+.headerDataFieldsFirstColBorder,
+    .headerDataFieldsSecondColBorder,
+    .headerDataFieldsThirdColNoBorder,
+    .readonlyHeaderDataLabelCellFirstColLabel {
+    border:none;
+    padding:0px;
+    margin:0px;
+}
+
+.headerDataLabelCell,
+    .headerDataLabelCellFirstColLabel,
+    .headerDataLabelCellSecondColLabel,
+    .headerDataLabelCellThirdColLabel,
+    .readonlyHeaderDataLabelCellFirstColLabel,
+    .readonlyHeaderDataLabelCellSecondColLabel,
+    .readonlyHeaderDataLabelCellThirdColLabel,
+    .editableHeaderDataLabelCellFirstColLabel,
+    .editableHeaderDataLabelCellSecondColLabel,
+    .editableHeaderDataLabelCellThirdColLabel {
+	text-align: right;
+    width: 40%;
+    white-space: nowrap;
+}
+
+.headerDataLabelSpan {
+    color: #036;
+    padding-right: 4px;
+}
+
+.headerDataLabelCellDisplayAtBottom {
+    text-align: left;
+}
+
+#formFieldsTableForHeaderFieldsAll {
+    height:100%;
+    width:100%;
+}
+
+#formFieldsTableForHeaderFieldsAll, #formFieldsTableForHeaderFieldsFirst, #formFieldsTableForHeaderFieldsSecond, #formFieldsTableForHeaderFieldsThird {
+    border:0;
+    padding:0;
+    cellspacing:0;
+}
+
+
+.readonlyHeaderDataLabelCellFirstColLabel, .editableHeaderDataLabelCellFirstColLabel,
+.readonlyHeaderDataLabelCellSecondColLabel, .editableHeaderDataLabelCellSecondColLabel,
+.readonlyHeaderDataLabelCellThirdColLabel, .editableHeaderDataLabelCellThirdColLabel {
+    min-height: 18px;
+}
+
+#formFieldsTableForHeaderFieldsAll > tbody > tr > td {
+    padding-right:0px;
+}
+#formFieldsTableForHeaderFieldsAll > tbody > tr > td {
+    vertical-align: top;
+}
+
+/* ################################### */
+/* #### HEADER DATA STYLES ########### */
+/* ################################### */
+
+
+/* ################################# */
+/* #### DIV POPUP STYLES ########### */
+/* ################################# */
+
+DIV.popup {
+    border-top:Solid 1px #003E7E;
+    border-left:Solid 1px #003E7E;
+    border-bottom:Solid 2px #003E7E;
+    border-right:Solid 2px #003E7E;
+}
+
+TD.popupheader {
+    color:white;
+    font-weight:bold;
+    background: none;
+    background-color: #003E7E;
+    border-bottom:Solid 1px #003E7E;
+    height:22px;
+}
+
+A.popupheader:link, A.popupheader:visited {
+    text-align:right;
+    font-weight:bold;
+    font-size: 8pt;
+    color: White;
+    text-decoration: none;
+    FONT-FAMILY: arial,verdana,helvetica,sans-serif;
+}
+
+A.popupheader:hover {
+    color: #003E7E;
+}
+
+TABLE.popupcontent {
+    background: #003E7E url("../images/lines2.gif");
+}
+
+DIV.popupcontent {
+    border:Solid 1px #bababa;
+}
+
+table.popupcontent .alternate_colors_one {
+    background-color: #ededed;
+}
+
+table.popupcontent .alternate_colors_two {
+    background-color: white;
+}
+
+
+
+.popupDialog .ui-dialog-titlebar,
+.savingIndicator .ui-dialog-titlebar,
+.processingIndicator .ui-dialog-titlebar {
+    color:white;
+    font-weight:bold;
+    background: none;
+    background-color: #003E7E;
+    border-bottom:Solid 1px #003E7E;
+}
+/* ################################# */
+/* #### DIV POPUP STYLES ########### */
+/* ################################# */
+
+
+/* #################################################### */
+/* ################# WORKK CENTER ##################### */
+/* #################################################### */
+#WorkCenter {
+    background: url(../images/workcenter.gif) no-repeat;
+    background-position:left;
+    height:20px;
+    padding-top:10px;
+    padding-bottom:10px;
+    width: auto;
+}
+
+.Welcome {
+    float:right;
+}
+
+.Welcome #username  {
+  font-size:13px;
+}
+
+.txtWelcome {
+    font-size:13px;
+}
+
+#wcTips {
+  text-align:right;
+}
+
+.activityHistoryHdr {
+	width: auto;
+	background-color: #375e87;
+	border-top: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+	border-left: 1px solid #CCC;
+	padding-left: 10px;
+	line-height: 24px;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.activityHistoryList {
+	width: 100%;
+  height: 380px;
+  border-bottom: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+	border-left: 1px solid #CCC;
+	margin-bottom: 10px;
+  padding-top:3px;
+}
+
+.expiredOption {
+    color:tan;   
+}
+
+select[name="wcFindSource"] {
+    background-color: white;
+    color:black;
+    font-weight: bold;
+}
+
+/* #################################################### */
+/* ################# WORKK CENTER ##################### */
+/* #################################################### */
+
+
+/* ############################################### */
+/* #### Field #################################### */
+/* ############################################### */
+
+/*
+
+There are are two <TD> for each field. One is for field label, the other is for field value. If the field is not in
+table, we use <SPAN> instead of <TD>.
+
+"hidden", "readonly", "editable" are class names on TD or SPAN.
+A suffix of "Label" is attached to the TD class that encloses field label.
+A suffix of "Field" is attached to the TD class that encloses the actual form field.
+
+If TD/SPAN has a class "hiddenLabel" or "hiddenField", the whole TD/SPAN is hidden
+If TD/SPAN has a class "editableLabel" or "readonlyLabel", the whole TD/SPAN is visible.
+
+These are three kinds of elements in the TD/SPAN for field value. Initially they are all displayed
+1.	Span for read-only value.                                     class ""
+2.	Input element for the field.                                  class "oasis_formfield"
+3.	Additional elements for user to edit. such as date picker     class "oasis_formfield_edit"
+
+If the TD has class "editableField", Item 1 is hidden. Item 2 and item 3 are displayed.
+If the TD has class "readonlyField", Item 2 and item 3 are hidden. Only item 1 is displayed.
+
+*/
+
+
+TD.hiddenLabel, TD.hiddenField, SPAN.hiddenLabel, SPAN.hiddenField {
+    display:none;
+}
+DIV.collapsePanel, DIV.actionItemGroupHidden {
+    display:none;
+}
+.gridFormFieldsHidden {
+    display: none !important;
+}
+.cachedGridFormFieldsHidden {
+    display: none !important;
+}
+
+/*
+    Read only fields - first make all elements hidden by default, then show only span element.
+    Hyperlinked read-only span are enclosed withing <A> tag.
+    Hyperlinked notes icon is enclosed within <A> tag.
+    Note type fields are enclosed within <DIV> tag. The read-only behavior is controlled by a Java Script variable.
+*/
+
+TD.readonlyField{
+    white-space:nowrap;
+}
+
+TD.readonlyField span{
+    white-space:normal;
+}
+
+TD.readonlyField *,
+SPAN.readonlyField *,
+TD.readonlyHeaderDataLabelCellFirstColField *,
+TD.readonlyHeaderDataLabelCellSecondColField *,
+TD.readonlyHeaderDataLabelCellThirdColField *,
+TD.readonlyHeaderDataLabelCellDisplayAtBottomField *{
+   display:none;
+}
+
+TD.readonlyField span, TD.readonlyField span textarea.disabledTextArea,
+TD.readonlyField A, TD.readonlyField A.notes, TD.readonlyField A.notes img,
+TD.readonlyField A.oasis_formfield_edit img.emailImg,
+SPAN.readonlyField span, SPAN.readonlyField A, SPAN.readonlyField A.notes, SPAN.readonlyField A.notes img,
+TD.readonlyHeaderDataLabelCellFirstColField span, TD.readonlyHeaderDataLabelCellFirstColField A,
+TD.readonlyHeaderDataLabelCellFirstColField span textarea.disabledTextArea,
+TD.readonlyHeaderDataLabelCellFirstColField A.notes, TD.readonlyHeaderDataLabelCellFirstColField A.notes img,
+TD.readonlyHeaderDataLabelCellSecondColField span, TD.readonlyHeaderDataLabelCellSecondColField A,
+TD.readonlyHeaderDataLabelCellSecondColField span textarea.disabledTextArea,
+TD.readonlyHeaderDataLabelCellSecondColField A.notes, TD.readonlyHeaderDataLabelCellSecondColField A.notes img,
+TD.readonlyHeaderDataLabelCellThirdColField span, TD.readonlyHeaderDataLabelCellThirdColField A,
+TD.readonlyHeaderDataLabelCellThirdColField span textarea.disabledTextArea,
+TD.readonlyHeaderDataLabelCellThirdColField A.notes, TD.readonlyHeaderDataLabelCellThirdColField A.notes img,
+TD.readonlyHeaderDataLabelCellDisplayAtBottomField span, TD.readonlyHeaderDataLabelCellDisplayAtBottomField A,
+TD.readonlyHeaderDataLabelCellDisplayAtBottomField span textarea.disabledTextArea {
+   display:inline;
+}
+
+TD.editableField{
+    white-space:nowrap;
+}
+
+TD.editableField textarea{
+    white-space: pre-wrap;
+}
+
+TD.editableField span{
+    white-space:normal;
+}
+
+TD.editableField table span ,
+SPAN.editableField table span {
+    display:none;
+}
+
+/*
+    Editable fields - hide all span elements
+    Hyperlinked read-only span are enclosed withing <A> tag.
+    Hyperlinked notes icon is enclosed within <A> tag.
+    Note type fields are enclosed within <DIV> tag. The read-only behavior is controlled by a Java Script variable.
+*/
+
+TD.editableField span, TD.editableField A,
+SPAN.editableField span, SPAN.editableField A,
+TD.editableHeaderDataLabelCellFirstColField span, TD.editableHeaderDataLabelCellFirstColField A,
+TD.editableHeaderDataLabelCellSecondColField span, TD.editableHeaderDataLabelCellSecondColField A,
+TD.editableHeaderDataLabelCellThirdColField span, TD.editableHeaderDataLabelCellThirdColField A {
+   display:none;
+}
+
+TD.editableField table span,
+TD.editableField A.oasis_formfield_edit, TD.editableField A.notes,
+TD.editableField div.oasis_formfield_edit *,
+TD.editableField A.oasis_formfield_req,
+TD.editableField A.pagePreviousLink,
+TD.editableField A.pageNextLink,
+TD.editableField div.oasis_formfield_req *,
+SPAN.editableField table span,
+SPAN.editableField A.oasis_formfield_edit, SPAN.editableField A.notes,
+SPAN.editableField div.oasis_formfield_edit *,
+SPAN.editableField A.oasis_formfield_req,
+SPAN.editableField div.oasis_formfield_req *,
+TD.editableHeaderDataLabelCellFirstColField A.oasis_formfield_edit,
+TD.editableHeaderDataLabelCellFirstColField div.oasis_formfield_edit *,
+TD.editableHeaderDataLabelCellSecondColField A.oasis_formfield_edit,
+TD.editableHeaderDataLabelCellSecondColField div.oasis_formfield_edit *,
+TD.editableHeaderDataLabelCellThirdColField A.oasis_formfield_edit,
+TD.editableHeaderDataLabelCellThirdColField div.oasis_formfield_edit * {
+    display:inline;
+}
+
+/* ############################################### */
+/* #### Field #################################### */
+/* ############################################### */
+
+/* ############################################### */
+/* #### Guided Rule ############################## */
+/* ############################################### */
+.guidedRuleWhen, .guidedRuleThen, .guidedRuleOption{
+    font-weight:bold;
+}
+
+.guidedRuleTR .guidedRuleTD {
+    padding-left: 20px;
+}
+
+.guidedRuleTR .guidedRuleButtonTD {
+    width: 10%;
+}
+
+.guidedRuleDeleteButton {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.guidedRuleDeleteButton  img {
+    border: 0px;
+}
+
+span.guidedRuleText {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+input.guidedRuleInput, select.guidedRuleInput {
+    vertical-align: middle;
+}
+
+a.guidedRuleLink img {
+    vertical-align: middle;
+    border: 0;
+    width: 16px;
+    height: 16px;
+}
+
+pre.guidedRuleInformation {
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-break: break-all;
+}
+
+span.guidedRuleFirstSpan, span.guidedRuleOtherSpan {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    vertical-align:top;
+    display: inline-block;
+}
+
+span.guidedRuleOtherSpan {
+    padding-left: 5px;
+}
+
+/* ############################################### */
+/* #### Guided Rule ############################## */
+/* ############################################### */
+
+.imgImageRight {
+    background-image: url("../images/ImageRight.gif");
+    background-repeat: no-repeat;
+    display:inline;
+    cursor: pointer;
+    vertical-align: top;
+}
+
+.imgImageRight span {
+    background-image: url("../images/ImageRight.gif");
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+}
+
+.disabledTextArea {
+    border:1px solid #cccccc;
+    color: #999999;
+}
+
+.enabledTextArea {
+    border:1px solid #6699cc;
+    color:black;
+    background-color: #ffffff;
+}
+
+.rtfUnavailableMsg {
+    padding-left: 5px;
+}
+
+.tempEntityLink, .tempEntityLink:visited, .tempEntityLink:focus, .tempEntityLink:active, .tempEntityLink:hover {
+    color: red;
+    text-decoration: underline
+}
+
+.dti-hide {
+    display: none !important;
+}
+
+.btnFinderIcon {
+    cursor: pointer;
+}
+
+@media print {
+    div.divGridHolder {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    div.divGrid {
+        overflow-x: visible;
+        height: 99% !important;
+        width: 99% !important;
+    }
+    table.clsGrid th{
+        top: 0px !important;
+    }
+    TABLE.clsGrid a * {
+        white-space: normal;
+    }
+    TABLE.clsGrid a textarea {
+        white-space: normal;
+    }
+}

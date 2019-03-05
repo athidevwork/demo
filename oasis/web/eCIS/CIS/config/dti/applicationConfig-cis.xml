@@ -1,0 +1,1145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+  <!--
+    Commented for issue 149588
+    <task:scheduled-tasks scheduler="cisScheduler">
+        <task:scheduled ref="scheduledSynchronizationTask" method="synchronizationEntityData" cron="0 0 0 * * ?"/>
+    </task:scheduled-tasks>
+    <task:scheduler id="cisScheduler" pool-size="1"/>
+
+    <bean id="scheduledSynchronizationTask" class="dti.ci.synchronizationmgr.ScheduledSynchronizationTask">
+        <property name="userSessionManagerAdmin" ref="UserSessionManager"/>
+        <property name="cisHubDataManager" ref="CisHubDataManager"/>
+        <property name="cisHubFeatures" ref="CisHubFeatures"/>
+    </bean>-->
+
+    <!-- ************************************************************** -->
+    <!-- Database Transaction Configuration                             -->
+    <!-- ************************************************************** -->
+    <bean id="CI.Common.TxAttributes"
+          class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+        <property name="nameMap">
+            <map>
+                <entry key="add*" value="PROPAGATION_REQUIRED"/>
+                <entry key="save*" value="PROPAGATION_REQUIRED"/>
+                <entry key="modify*" value="PROPAGATION_REQUIRED"/>
+                <entry key="update*" value="PROPAGATION_REQUIRED"/>
+                <entry key="delete*" value="PROPAGATION_REQUIRED"/>
+                <entry key="perform*" value="PROPAGATION_REQUIRED"/>
+                <entry key="expire*" value="PROPAGATION_REQUIRED"/>
+                <entry key="loadParty" value="PROPAGATION_REQUIRED"/>
+                <entry key="unMergeProcess" value="PROPAGATION_REQUIRED"/>
+                <entry key="validateAddrAndSaveEntity" value="PROPAGATION_REQUIRED"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="CI.Common.TxInterceptor" class="dti.oasis.data.DBTransactionInterceptor">
+        <property name="transactionManager" ref="TxManager"/>
+        <property name="transactionAttributeSource" ref="CI.Common.TxAttributes"/>
+        <property name="errorHandlerController" ref="ErrorHandlerController"/>
+    </bean>
+
+    <bean id="CI.Common.OBR.SaveEventInterceptor" class="dti.oasis.obr.SaveEventInterceptor">
+        <property name="transactionAttributeSource" ref="CI.Common.TxAttributes"/>
+        <property name="excludeMethodNames">
+            <list>
+                <!--<value>lockClaim</value>-->
+            </list>
+        </property>
+        <property name="excludeBeanNames">
+            <list>
+                <!--<idref bean="LockManager"/>-->
+            </list>
+        </property>
+    </bean>
+
+    <bean id="CI.Common.CSRFInterceptor" class="dti.oasis.security.CSRFInterceptor">
+        <property name="transactionAttributeSource" ref="CI.Common.TxAttributes"/>
+        <property name="excludeMethodNames">
+            <list>
+            </list>
+        </property>
+        <property name="excludeBeanNames">
+            <list>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="CI.Common.TxAutoProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="interceptorNames">
+            <list>
+                <idref bean="CI.Common.TxInterceptor"/>
+                <idref bean="CI.Common.OBR.SaveEventInterceptor"/>
+                <idref bean="CI.Common.CSRFInterceptor"/>
+            </list>
+        </property>
+        <property name="beanNames">
+            <list>
+                <idref bean="EntityListRoleManager"/>
+                <idref bean="emailAddressManager"/>
+                <idref bean="PriorCarrierManager"/>
+                <idref bean="entityManager"/>
+                <idref bean="PartyInquiryServiceManager"/>
+                <idref bean="PartyChangeServiceManager"/>
+                <idref bean="partyAdditionalInfoManger"/>
+                <idref bean="addressManager"/>
+                <idref bean="vehicleFindManager"/>
+                <idref bean="CSAgentManager" />
+                <idref bean="addressListManager"/>
+                <idref bean="AmalgamationManager"/>
+                <idref bean="entityAdditionalManager"/>
+                <idref bean="entityHistoricalDataManager"/>
+                <idref bean="phoneListManager"/>
+                <idref bean="vendorManager"/>
+                <idref bean="propertyManager"/>
+                <idref bean="relationshipManager"/>
+                <idref bean="contactManager"/>
+                <idref bean="EducationManager"/>
+                <idref bean="TrainingManager"/>
+                <idref bean="RoleManager"/>
+                <idref bean="licenseManager"/>
+                <idref bean="certificationManager"/>
+                <idref bean="EntityAddlEmailManager"/>
+                <idref bean="entitySecurityManager"/>
+                <idref bean="policySummaryManager"/>
+                <idref bean="ciRiskManager"/>
+                <idref bean="DataImportManager"/>
+                <idref bean="EntityMergeHistoryManager"/>
+                <idref bean="credentialRequestManager"/>
+                <idref bean="credentialFeeAdjustManager"/>
+                <idref bean="entityQuickAddOrgManager"/>
+                <idref bean="entityQuickAddPersonManager"/>
+                <idref bean="entitySearchManager"/>
+                <idref bean="entityClassManager"/>
+                <idref bean="ClaimsManager"/>
+                <idref bean="entityMiniPopupManager"/>
+                <idref bean="entityAddManager"/>
+                <idref bean="entityModifyManager"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Core Framework Configuration                                   -->
+    <!-- ************************************************************** -->
+    <bean id="CIBaseAction" abstract="true">
+        <property name="readOnlyDataSource" ref="ReadOnlyDataSource"/>
+        <property name="gridHeaderDefinesDisplayableColumnOrder" value="true"/>
+        <property name="entityManager" ref="entityManager"/>
+        <property name="noteManager" ref="noteManager"/>
+    </bean>
+
+    <bean id="MaintainCIBaseAction" abstract="true" parent="CIBaseAction"/>
+    <bean id="MaintainEntityFolderBaseAction" abstract="true" parent="MaintainCIBaseAction"/>
+
+    <bean id="dti.ci.entitysearch.listrole.struts.action.CIEntityListRole"
+          class="dti.ci.entitysearch.listrole.struts.action.CIEntityListRole"
+          parent="CIBaseAction">
+        <property name="anchorColumnName" value="entityRoleId"/>
+        <property name="entityListRoleManager" ref="EntityListRoleManager"/>
+        <property name="claimSecurityManager" ref="ClaimSecurityManager"/>
+    </bean>
+
+    <bean id="dti.ci.rolemgr.struts.MaintainRoleAction"
+          class="dti.ci.rolemgr.struts.MaintainRoleAction"
+          parent="CIBaseAction">
+        <property name="anchorColumnName" value="entityRoleId"/>
+        <property name="roleManager" ref="RoleManager"/>
+    </bean>
+
+    <bean id="dti.ci.entitymodify.struts.MaintainEntityAction" class="dti.ci.entitymodify.struts.MaintainEntityAction" parent="CIBaseAction">
+        <property name="entityModifyManager" ref="entityModifyManager"/>
+    </bean>
+
+    <bean id="dti.ci.summarymgr.struts.MaintainSummaryAction"
+          class="dti.ci.summarymgr.struts.MaintainSummaryAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="termBaseRecordId"/>
+        <property name="polQteAnchorColumnName" value="termBaseRecordId"/>
+        <property name="combinedPolQteAnchorColumnName" value="combinedPolicyId"/>
+        <property name="combinedRiskAnchorColumnName" value="coverageId"/>
+        <property name="accountAnchorColumnName" value="policyId"/>
+        <property name="billingAnchorColumnName" value="uniqueId"/>
+        <property name="claimsAnchorColumnName" value="claimId"/>
+        <property name="summaryManager" ref="SummaryManager"/>
+        <property name="accessControlFilterManager" ref="AccessControlFilterManager"/>
+        <property name="velocityPolicyManager" ref="VelocityPolicyManager"/>
+    </bean>
+
+    <bean id="dti.ci.agentmgr.struts.MaintainAgentAction" class="dti.ci.agentmgr.struts.MaintainAgentAction"
+          parent="CIBaseAction">
+        <property name="agentManager" ref="CSAgentManager"/>
+        <property name="anchorColumnName" value="AgentPayCommissionId"/>
+        <property name="contractAnchorColumnName" value="AgentLicenseId"/>
+        <property name="contractCommissionAnchorColumnName" value="AgentLicenseCommissionId"/>
+        <property name="agentStaffAnchorColumnName" value="AgentStaffId"/>
+        <property name="agentStaffOverrideAnchorColumnName" value="AgentStaffOverrideId"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="dti.ci.agentmgr.struts.SelectAgentContractAction" class="dti.ci.agentmgr.struts.SelectAgentContractAction"
+          parent="CIBaseAction">
+        <property name="agentManager" ref="CSAgentManager"/>
+        <property name="anchorColumnName" value="AgentLicenseId"/>
+    </bean>
+
+    <bean id="dti.ci.agentmgr.struts.MaintainSubProducerAction"
+          class="dti.ci.agentmgr.struts.MaintainSubProducerAction"
+          parent="CIBaseAction">
+        <property name="agentManager" ref="CSAgentManager"/>
+        <property name="anchorColumnName" value="agentLicenseId"/>
+    </bean>
+
+    <bean id="dti.ci.commissionmgr.struts.LookupCommissionAction"
+          class="dti.ci.commissionmgr.struts.LookupCommissionAction" parent="CIBaseAction">
+        <property name="commissionManager" ref="CommissionManager"/>
+        <property name="anchorColumnName" value="commissionScheduleBracketId"/>
+    </bean>
+
+    <bean id="dti.ci.policymgr.struts.DisplayLockedPolicyAction"
+          class="dti.ci.policymgr.struts.DisplayLockedPolicyAction" parent="CIBaseAction">
+        <property name="policyManager" ref="CIPolicyManager"/>
+        <property name="anchorColumnName" value="policyId"/>
+    </bean>
+
+    <bean id="dti.ci.amalgamationmgr.struts.MaintainAmalgamationAction"
+          class="dti.ci.amalgamationmgr.struts.MaintainAmalgamationAction" parent="CIBaseAction">
+        <property name="amalgamationManager" ref="AmalgamationManager"/>
+        <property name="anchorColumnName" value="policyAmalgamationId"/>
+    </bean>
+
+    <bean id="dti.ci.entityminipopupmgr.struts.MaintainEntityMiniPopupAction"
+          class="dti.ci.entityminipopupmgr.struts.MaintainEntityMiniPopupAction" parent="MaintainCIBaseAction">
+        <property name="entityMiniPopupManager" ref="entityMiniPopupManager"/>
+        <property name="anchorColumnName" value="addressId"/>
+        <property name="entityAddressListAnchorColumnName" value="addressId"/>
+        <property name="entityContactListAnchorColumnName" value="contact_contactId"/>
+        <property name="addressPhoneListAnchorColumnName" value="phoneNumberId"/>
+        <property name="entityPhoneListAnchorColumnName" value="phoneNumberId"/>
+    </bean>
+
+    <bean id="dti.ci.claimcodehistory.struts.ClaimCodeHistoryAction"
+          class="dti.ci.claimcodehistory.struts.ClaimCodeHistoryAction" parent="CIBaseAction">
+        <property name="claimCodeHistoryManager" ref="ClaimCodeHistoryManager"/>
+        <property name="anchorColumnName" value="cmCodeHistoryId"/>
+        <property name="claimCodeHistoryGridAnchorColumnName" value="cmCodeHistoryId"/>
+    </bean>
+
+    <bean id="dti.ci.orggroupmgr.struts.OrgGroupViewAction"
+             class="dti.ci.orggroupmgr.struts.OrgGroupViewAction" parent="CIBaseAction">
+           <property name="orgGroupManager" ref="OrgGroupManager"/>
+           <property name="anchorColumnName" value="entityRelationPk"/>
+           <property name="membersGridAnchorColumnName" value="entityRelationPk"/>
+           <property name="summaryGridAnchorColumnName" value="groupSummaryPk"/>
+           <property name="addressGridAnchorColumnName" value="orgGroupAddressPk"/>
+           <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="dti.ci.billingmgr.struts.CIBillingAction"
+          class="dti.ci.billingmgr.struts.CIBillingAction" parent="MaintainCIBaseAction">
+        <property name="anchorColumnName" value="accountListId"/>
+        <property name="ciBillingManager" ref="CIBillingManager"/>
+    </bean>
+
+    <bean id="dti.ci.reportmgr.struts.MaintainCIReportAction" class="dti.ci.reportmgr.struts.MaintainCIReportAction"
+          parent="CIBaseAction">
+        <property name="CIReportManager" ref="CIReportManager"/>
+    </bean>
+
+    <bean id="dti.ci.emailaddressmgr.struts.MaintainEmailAddressAction"
+          class="dti.ci.emailaddressmgr.struts.MaintainEmailAddressAction"
+          parent="CIBaseAction"/>
+
+    <bean id="dti.ci.priorcarriermgr.struts.maintainPriorCarrierHistory"
+          class="dti.ci.priorcarriermgr.struts.maintainPriorCarrierHistory" parent="CIBaseAction">
+        <property name="priorCarrierManager" ref="PriorCarrierManager"/>
+        <property name="anchorColumnName" value="claimsRptHistoryId"/>
+    </bean>
+
+    <bean id="dti.ci.addressmgr.struts.MaintainAddressSearchAddAction"
+          class="dti.ci.addressmgr.struts.MaintainAddressSearchAddAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="addressId"/>
+        <property name="addressManager" ref="addressManager"/>
+    </bean>
+
+    <bean id="dti.ci.vehiclemgr.vehiclefindmgr.struts.MaintainVehicleFindPopupAction"
+          class="dti.ci.vehiclemgr.vehiclefindmgr.struts.MaintainVehicleFindPopupAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="vehicleId"/>
+        <property name="vehicleFindManager" ref="vehicleFindManager"/>
+    </bean>
+
+    <bean id="dti.ci.agentmgr.struts.MaintainPolicyAgentOutputOptionsAction"
+            class="dti.ci.agentmgr.struts.MaintainPolicyAgentOutputOptionsAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="agentOutputOptionId"/>
+        <property name="agentManager" ref="CSAgentManager"/>
+    </bean>
+
+    <bean id="dti.ci.agentmgr.struts.AgentOutputOptionsAction"
+            class="dti.ci.agentmgr.struts.AgentOutputOptionsAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="agentOutputOptionId"/>
+        <property name="agentManager" ref="CSAgentManager"/>
+    </bean>
+
+    <bean id="dti.ci.addressmgr.addresslistmgr.struts.MaintainAddressListAction"
+          class="dti.ci.addressmgr.addresslistmgr.struts.MaintainAddressListAction" parent="MaintainCIBaseAction">
+        <property name="anchorColumnName" value="addressId"/>
+        <property name="addressListManager" ref="addressListManager"/>
+    </bean>
+
+    <bean id="dti.ci.addressmgr.struts.MaintainAddressRoleChangeAction" class="dti.ci.addressmgr.struts.MaintainAddressRoleChangeAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="entityRoleId"/>
+        <property name="addressManager" ref="addressManager"/>
+    </bean>
+
+    <bean id="dti.ci.addressmgr.struts.MaintainAddressPickListAction" class="dti.ci.addressmgr.struts.MaintainAddressPickListAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="addressId"/>
+        <property name="addressManager" ref="addressManager"/>
+    </bean>
+
+    <bean id="dti.ci.phonemgr.struts.MaintainPhoneListAction"
+          class="dti.ci.phonemgr.struts.MaintainPhoneListAction" parent="CIBaseAction">
+        <property name="phoneListManager" ref="phoneListManager"/>
+        <property name="anchorColumnName" value="phoneNumberId"/>
+    </bean>
+
+    <bean id="dti.ci.propertymgr.struts.MaintainPropertyAction"
+          class="dti.ci.propertymgr.struts.MaintainPropertyAction"
+          parent="CIBaseAction">
+        <property name="anchorColumnName" value="clientPropertyId"/>
+        <property name="propertyManager" ref="propertyManager"/>
+    </bean>
+
+    <bean id="dti.ci.contactmgr.struts.AddSelectContactAction"
+          class="dti.ci.contactmgr.struts.AddSelectContactAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="contactId"/>
+        <property name="contactManager" ref="contactManager"/>
+    </bean>
+
+    <bean id="dti.ci.entityaddlemailmgr.struts.EntityAddlEmailAction"
+          class="dti.ci.entityaddlemailmgr.struts.EntityAddlEmailAction" parent="CIBaseAction">
+        <property name="entityAddlEmailManager" ref="EntityAddlEmailManager"/>
+        <property name="anchorColumnName" value="entityModuleEmailId"/>
+    </bean>
+
+    <bean id="dti.ci.riskmgr.windowperiedhistorymgr.struts.MaintainWindowPeriodHistoryAction"
+          class="dti.ci.riskmgr.windowperiedhistorymgr.struts.MaintainWindowPeriodHistoryAction"
+          parent="CIBaseAction">
+        <property name="riskManager" ref="ciRiskManager"/>
+        <property name="anchorColumnName" value="rmEducationMandateId"/>
+    </bean>
+
+    <bean id="dti.ci.importmgr.struts.MaintainDataImportAction"
+          class="dti.ci.importmgr.struts.MaintainDataImportAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="entityId"/>
+        <property name="entityAnchorColumnName" value="entityId"/>
+        <property name="addressAnchorColumnName" value="addressId"/>
+        <property name="phoneAnchorColumnName" value="phoneNumberId"/>
+        <property name="licenseAnchorColumnName" value="licenseProfileId"/>
+        <property name="dataImportManager" ref="DataImportManager"/>
+    </bean>
+
+    <bean id="dti.ci.mergehistory.struts.CIEntityMergeHistoryAction"
+          class="dti.ci.mergehistory.struts.CIEntityMergeHistoryAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="entityMergeHistoryId"/>
+        <property name="entityMergeHistoryManager" ref="EntityMergeHistoryManager"/>
+        <property name="accessControlFilterManager" ref="AccessControlFilterManager"/>
+    </bean>
+
+    <bean id="dti.ci.claimsmgr.struts.MaintainClaimsAction"
+          class="dti.ci.claimsmgr.struts.MaintainClaimsAction" parent="CIBaseAction">
+        <property name="anchorColumnName" value="claimId"/>
+        <property name="participantsGridAnchorColumnName" value="rowNumber"/>
+        <property name="companionGridAnchorColumnName" value="companionClaimId"/>
+        <property name="claimsManager" ref="ClaimsManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Business Component Configuration                               -->
+    <!-- ************************************************************** -->
+    <bean id="entityAddManager" class="dti.ci.clientmgr.impl.EntityAddManagerImpl">
+        <property name="entityDAO" ref="entityDAO"/>
+        <property name="addressDAO" ref="addressDAO"/>
+        <property name="messageManager" ref="MessageManager"/>
+        <property name="sysParmProvider" ref="sysParmProvider"/>
+        <property name="activityHistoryManager" ref="ActivityHistoryManager"/>
+    </bean>
+
+    <bean id="DataImportManager" class="dti.ci.importmgr.impl.DataImportManagerImpl">
+        <property name="appDataSource" ref="AppDataSource"/>
+        <property name="addressManager" ref="addressManager"/>
+        <property name="phoneListManager" ref="phoneListManager"/>
+        <property name="addressListDAO" ref="addressListDAO"/>
+        <property name="licenseManager" ref="licenseManager"/>
+        <property name="entityAddManager" ref="entityAddManager"/>
+    </bean>
+
+    <bean id="EntityMergeHistoryManager" class="dti.ci.mergehistory.impl.EntityMergeHistoryImpl">
+        <property name="entityMergeHistoryDAO">
+            <bean id="EntityMergeHistoryDAO" class="dti.ci.mergehistory.dao.EntityMergeHistoryJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="EntityListRoleManager"
+          class="dti.ci.entitysearch.listrole.bo.EntityListRoleManagerImpl">
+        <property name="entityListRoleDAO">
+            <bean id="EntityListRoleDAO" class="dti.ci.entitysearch.listrole.data.EntityListRoleJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+        <property name="velocityPolicyManager" ref="VelocityPolicyManager"/>
+        <property name="velocityEntityManager" ref="VelocityEntityManager"/>
+        <property name="listRoleFieldElementMaps" ref="ListRoleFieldElementMaps"/>
+        <property name="listRoleTypeFieldElementMaps" ref="ListRoleTypeFieldElementMaps"/>
+        <property name="listRolePolicyFieldElementMaps" ref="ListRolePolicyFieldElementMaps"/>
+    </bean>
+
+    <bean id="SummaryManager" class="dti.ci.summarymgr.impl.SummaryManagerImpl">
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="claimSecurityManager" ref="ClaimSecurityManager"/>
+        <property name="summaryDAO">
+            <bean id="summaryDAO" class="dti.ci.summarymgr.dao.SummaryJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="emailAddressManager" class="dti.ci.emailaddressmgr.impl.EmailAddressManagerImpl">
+        <property name="emailAddressDAO">
+            <bean id="emailAddressDAO" class="dti.ci.emailaddressmgr.dao.EmailAddressJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="PriorCarrierManager" class="dti.ci.priorcarriermgr.impl.PriorCarrierManagerImpl">
+         <property name="priorCarrierHistoryDAO" ref="priorCarrierHistoryDAO"/>
+         <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="ciRiskManager" class="dti.ci.riskmgr.impl.RiskManagerImpl">
+        <property name="riskDao">
+            <bean id="ciRiskDao" class="dti.ci.riskmgr.dao.RiskJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Agent and Commission Configuration                             -->
+    <!-- ************************************************************** -->
+    <bean id="CommissionManager" class="dti.ci.commissionmgr.impl.CommissionManagerImpl">
+        <property name="commissionDAO">
+            <bean id="CommissionDAO" class="dti.ci.commissionmgr.dao.CommissionJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="CSAgentManager" class="dti.ci.agentmgr.impl.AgentManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="agentDAO">
+            <bean id="AgentDAO" class="dti.ci.agentmgr.dao.AgentJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="CIPolicyManager" class="dti.ci.policymgr.impl.CIPolicyManagerImpl">
+        <property name="policyDAO">
+            <bean id="CIPolicyDAO" class="dti.ci.policymgr.dao.CIPolicyJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="addressManager" class="dti.ci.addressmgr.impl.AddressManagerImpl">
+        <property name="addressDAO" ref="addressDAO"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="addressListManager" class="dti.ci.addressmgr.addresslistmgr.impl.AddressListManagerImpl">
+        <property name="addressListDAO" ref="addressListDAO"/>
+        <property name="addressDAO" ref="addressDAO"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="phoneListManager" class="dti.ci.phonemgr.impl.PhoneListManagerImpl">
+         <property name="phoneListDAO" ref="phoneListDAO"/>
+    </bean>
+
+    <bean id="dti.ci.addressmgr.struts.MaintainAddressDetailAction"
+          class="dti.ci.addressmgr.struts.MaintainAddressDetailAction" parent="CIBaseAction">
+        <property name="addressListManager" ref="addressListManager"/>
+        <property name="addressManager" ref="addressManager"/>
+    </bean>
+
+    <bean id="dti.ci.addressmgr.struts.MaintainAddressExpireAction"
+          class="dti.ci.addressmgr.struts.MaintainAddressExpireAction" parent="CIBaseAction">
+        <property name="addressManager" ref="addressManager"/>
+    </bean>
+
+    <bean id="vehicleFindManager" class="dti.ci.vehiclemgr.vehiclefindmgr.impl.VehicleFindManagerImpl">
+        <property name="vehicleFindDAO" ref="vehicleFindDAO"/>
+    </bean>
+    <!-- ************************************************************** -->
+    <!-- WorkbenchConfiguration Configuration                                   -->
+    <!-- ************************************************************** -->
+    <bean id="WorkbenchConfiguration" class="dti.oasis.busobjs.WorkbenchConfiguration">
+        <property name="readOnlyDataSource" ref="ReadOnlyDataSource"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- DB Utility Manager Configuration                               -->
+    <!-- ************************************************************** -->
+    <bean id="DBUtilityManager" class="dti.cs.data.dbutility.impl.DBUtilityManagerImpl">
+        <property name="dbUtilityDAO">
+            <bean class="dti.cs.data.dbutility.dao.DBUtilityJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- AmalgamationManager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="AmalgamationManager" class="dti.ci.amalgamationmgr.impl.AmalgamationManagerImpl">
+        <property name="amalgamationDAO">
+            <bean id="AmalgamationDAO" class="dti.ci.amalgamationmgr.dao.AmalgamationJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+    <bean id="ClaimCodeHistoryManager" class="dti.ci.claimcodehistory.impl.ClaimCodeHistoryManagerImpl">
+        <property name="claimCodeHistoryDao">
+            <bean id="ClaimCodeHistoryDao" class="dti.ci.claimcodehistory.dao.ClaimCodeHistoryJdbcDAO" parent="BaseDAO"/>
+        </property>
+   </bean>
+    <bean id="OrgGroupManager" class="dti.ci.orggroupmgr.impl.OrgGroupManagerImpl">
+        <property name="orgGroupDAO">
+            <bean id="OrgGroupDao" class="dti.ci.orggroupmgr.dao.OrgGroupJdbcDAO" parent="BaseDAO"/>
+        </property>
+   </bean>
+   <bean id="CIBillingManager" class="dti.ci.billingmgr.impl.CIBillingManagerImpl">
+        <property name="ciBillingDAO">
+            <bean id="CIBillingDAO" class="dti.ci.billingmgr.dao.CIBillingJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="entityMiniPopupManager" class="dti.ci.entityminipopupmgr.impl.EntityMiniPopupManagerImpl">
+        <property name="entityMiniPopupDAO" ref="entityMiniPopupDAO"/>
+        <property name="entityDAO" ref="entityDAO"/>
+        <property name="contactDAO" ref="contactDAO"/>
+    </bean>
+
+
+    <bean id="entityManager" class="dti.ci.entitymgr.impl.EntityManagerImpl">
+        <property name="entityDAO" ref="entityDAO"/>
+    </bean>
+
+    <bean id="propertyManager"
+          class="dti.ci.propertymgr.impl.PropertyManagerImpl">
+        <property name="propertyDAO" ref="propertyDAO"/>
+    </bean>
+
+    <bean id="relationshipManager"
+          class="dti.ci.relationshipmgr.impl.RelationshipManagerImpl">
+        <property name="relationshipDAO" ref="relationshipDAO"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="entitySecurityManager"
+          class="dti.ci.entitysecuritymgr.impl.EntitySecurityManagerImpl">
+        <property name="entitySecurityDAO" ref="entitySecurityDAO"/>
+    </bean>
+
+
+    <bean id="contactManager"
+          class="dti.ci.contactmgr.impl.ContactManagerImpl">
+        <property name="contactDAO" ref="contactDAO"/>
+    </bean>
+
+    <bean id="EducationManager"
+          class="dti.ci.educationmgr.impl.EducationManagerImpl">
+        <property name="EducationDAO" ref="EducationDAO"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="TrainingManager"
+          class="dti.ci.trainingmgr.impl.TrainingManagerImpl">
+        <property name="TrainingDAO" ref="TrainingDAO"/>
+        <property name="EducationDAO" ref="EducationDAO"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="RoleManager"
+          class="dti.ci.rolemgr.impl.RoleManagerImpl">
+        <property name="RoleDAO" ref="RoleDAO"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="licenseManager" class="dti.ci.licensemgr.impl.LicenseManagerImpl">
+         <property name="licenseDAO" ref="licenseDAO"/>
+         <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="certificationManager" class="dti.ci.certificationmgr.impl.CertificationManagerImpl">
+         <property name="certificationDAO" ref="certificationDAO"/>
+    </bean>
+
+    <bean id="EntityAddlEmailManager" class="dti.ci.entityaddlemailmgr.impl.EntityAddlEmailManagerImpl">
+        <property name="entityAddlEmailDAO" ref="EntityAddlEmailDAO"/>
+    </bean>
+
+    <bean id="policySummaryManager" class="dti.ci.policysummarymgr.impl.PolicySummaryManagerImpl">
+        <property name="policySummaryDAO" ref="policySummaryDAO"/>
+    </bean>
+
+    <bean id="entitySearchManager" class="dti.ci.entitysearch.impl.EntitySearchManagerImpl">
+        <property name="entitySearchDAO" ref="EntitySearchDAO"/>
+        <property name="claimSecurityManager" ref="ClaimSecurityManager"/>
+        <property name="messageManager" ref="MessageManager"/>
+        <property name="sysParmProvider" ref="sysParmProvider"/>
+    </bean>
+  <!-- ************************************************************** -->
+  <!-- Party Web Services -->
+  <!-- ************************************************************** -->
+    <bean id="PartyInquiryServiceManager" class="dti.ci.entitymgr.service.impl.PartyInquiryServiceManagerImpl">
+        <property name="entityManager" ref="entityManager"/>
+        <property name="addressListManager" ref="addressListManager"/>
+        <property name="phoneListManager" ref="phoneListManager"/>
+        <property name="propertyManager" ref="propertyManager"/>
+        <property name="contactManager" ref="contactManager"/>
+        <property name="partyInquiryServiceDAO">
+            <bean id="PartyInquiryServiceDAO" class="dti.ci.entitymgr.service.dao.PartyInquiryServiceJdbcDAO">
+                <property name="appDataSource" ref="AppDataSource"/>
+            </bean>
+        </property>
+    </bean>
+
+  <bean id="PartyChangeServiceManager" class="dti.ci.entitymgr.service.impl.PartyChangeServiceManagerImpl">
+      <property name="propertyChangeProcessor" ref="propertyChangeProcessor"/>
+      <property name="partyMergeProcessor" ref="partyMergeProcessor"/>
+      <property name="partyChangeServiceDAO">
+          <bean id="PartyChangeServiceDAO" class="dti.ci.entitymgr.service.dao.PartyChangeServiceJdbcDAO"/>
+      </property>
+  </bean>
+
+    <bean id="partyAdditionalInfoManger" class="dti.ci.entitymgr.service.partyadditionalinfomgr.impl.PartyAdditionalInfoMangerImpl">
+        <property name="partyAdditionalInfoDAO" ref="partyAdditionalInfoDAO"/>
+    </bean>
+
+    <bean id="partyAdditionalInfoDAO" class="dti.ci.entitymgr.service.partyadditionalinfomgr.dao.PartyAdditionalInfoJdbcDAO" parent="BaseDAO"/>
+
+    <bean id="partyChangeProcessorFactory" class="dti.ci.entitymgr.service.partychangeprocessor.impl.PartyChangeProcessorFactoryImpl">
+        <property name="partyChangeProcessorMap">
+            <map>
+                <entry key="person" value-ref="personChangeProcessor"/>
+                <entry key="organization" value-ref="organizationChangeProcessor"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="personChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.PersonChangeProcessor">
+        <property name="entityManager" ref="entityManager"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="fieldElementMaps" ref="PersonFieldElementMaps"/>
+    </bean>
+
+    <bean id="organizationChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.OrganizationChangeProcessor">
+        <property name="entityManager" ref="entityManager"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="fieldElementMaps" ref="OrganizationFieldElementMaps"/>
+
+    </bean>
+
+    <bean id="propertyChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.PropertyChangeProcessor">
+        <property name="propertyManager" ref="propertyManager"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="fieldElementMaps" ref="PropertyFieldElementMaps"/>
+    </bean>
+
+    <bean id="addressChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.AddressChangeProcessor">
+        <property name="addressManager" ref="addressManager"/>
+        <property name="addressListManager" ref="addressListManager"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="partyAdditionalInfoManger" ref="partyAdditionalInfoManger"/>
+        <property name="basicAddressFieldElementMaps" ref="BasicAddressFieldElementMaps"/>
+        <property name="addressFieldElementMaps" ref="AddressFieldElementMaps"/>
+        <property name="usaAddressFieldElementMaps" ref="UsaAddressFieldElementMaps"/>
+        <property name="nonUsaAddressFieldElementMaps" ref="NonUsaAddressFieldElementMaps"/>
+        <property name="addressAdditionalInfoFieldElementMaps" ref="addressAdditionalInfoFieldElementMaps"/>
+    </bean>
+
+    <bean id="phoneNumberChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.PhoneNumberChangeProcessor">
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="phoneListManager" ref="phoneListManager"/>
+        <property name="fieldElementMaps" ref="PhoneNumberFieldElementMaps"/>
+    </bean>
+
+    <bean id="educationChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.EducationChangeProcessor">
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="educationManager" ref="EducationManager"/>
+        <property name="fieldElementMaps" ref="EducationFieldElementMaps"/>
+    </bean>
+
+    <bean id="professionalLicenseChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.ProfessionalLicenseChangeProcessor">
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="licenseManager" ref="licenseManager"/>
+        <property name="fieldElementMaps" ref="ProfessionalLicenseFieldElementMaps"/>
+    </bean>
+
+    <bean id="organizationLicenseChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.OrganizationLicenseChangeProcessor">
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="licenseManager" ref="licenseManager"/>
+        <property name="fieldElementMaps" ref="OrganizationLicenseFieldElementMaps"/>
+    </bean>
+
+    <bean id="certificationChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.CertificationChangeProcessor">
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="certificationManager" ref="certificationManager"/>
+        <property name="fieldElementMaps" ref="CertificationFieldElementMaps"/>
+    </bean>
+
+    <bean id="contactChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.ContactChangeProcessor">
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="contactManager" ref="contactManager"/>
+        <property name="fieldElementMaps" ref="ContactFieldElementMaps"/>
+    </bean>
+
+    <bean id="partyNoteChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.PartyNoteChangeProcessor">
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="entityManager" ref="entityManager"/>
+        <property name="fieldElementMaps" ref="PartyNoteFieldElementMaps"/>
+    </bean>
+
+    <bean id="relationshipChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.RelationshipChangeProcessor">
+        <property name="relationshipManager" ref="relationshipManager"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="fieldElementMaps" ref="RelationshipFieldElementMaps"/>
+    </bean>
+
+    <bean id="partyClassificationChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.PartyClassificationChangeProcessor">
+        <property name="entityClassManager" ref="entityClassManager"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="fieldElementMaps" ref="PartyClassificationFieldElementMaps"/>
+    </bean>
+
+    <bean id="partyMergeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.PartyMergeProcessor">
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="entityMntDuplicateManager" ref="EntityMntDuplicateManager" />
+    </bean>
+
+    <bean id="personAdditionalInfoChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.PersonAdditionalInfoChangeProcessor">
+        <property name="partyAdditionalInfoManger" ref="partyAdditionalInfoManger"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="fieldElementMaps" ref="personAdditionalInfoFieldElementMaps"/>
+    </bean>
+
+    <bean id="organizationAdditionalInfoChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.OrganizationAdditionalInfoChangeProcessor">
+        <property name="partyAdditionalInfoManger" ref="partyAdditionalInfoManger"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="fieldElementMaps" ref="organizationAdditionalInfoFieldElementMaps"/>
+    </bean>
+
+    <bean id="entityAdditionalXmlChangeProcessor" class="dti.ci.entitymgr.service.partychangeprocessor.impl.EntityAdditionalXmlChangeProcessor">
+        <property name="partyAdditionalInfoManger" ref="partyAdditionalInfoManger"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="EntityMntDuplicateManager"
+          class="dti.ci.demographic.clientmgr.mntduplicate.bo.EntityMntDuplicateManagerImpl">
+        <property name="entityMntDuplicateDAO">
+            <bean id="EntityMntDuplicateDAO" class="dti.ci.demographic.clientmgr.mntduplicate.data.EntityMntDuplicateJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="partyChangeElementProcessorFactory" class="dti.ci.entitymgr.service.partychangeprocessor.impl.PartyChangeElementProcessorFactoryImpl">
+        <property name="processorMap">
+            <map>
+                <entry key="com.delphi_tech.ows.party.RelationshipType" value-ref="relationshipChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.PartyClassificationType" value-ref="partyClassificationChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.BasicAddressType" value-ref="addressChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.BasicPhoneNumberType" value-ref="phoneNumberChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.EducationInformationType" value-ref="educationChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.ProfessionalLicenseType" value-ref="professionalLicenseChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.CertificationType" value-ref="certificationChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.ContactType" value-ref="contactChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.PartyNoteType" value-ref="partyNoteChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.OrganizationLicenseType" value-ref="organizationLicenseChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.PersonAdditionalInfoType" value-ref="personAdditionalInfoChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.OrganizationAdditionalInfoType" value-ref="organizationAdditionalInfoChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.EntityAdditionalXmlDataType" value-ref="entityAdditionalXmlChangeProcessor"/>
+            </map>
+        </property>
+    </bean>
+
+    <!--<bean id="webservices.partyinquiry.impl.PartyInquiryMgrImpl"-->
+          <!--class="webservices.partyinquiry.impl.PartyInquiryMgrImpl">-->
+        <!--<property name="entitySearchMgr" ref="EntitySearchManager"/>-->
+        <!--<property name="readOnlyDataSource" ref="ReadOnlyDataSource"/>-->
+    <!--</bean>-->
+    <bean id="dti.ci.entityadditionalmgr.struts.MaintainEntityAdditionalAction"
+          class="dti.ci.entityadditionalmgr.struts.MaintainEntityAdditionalAction"
+          parent="CIBaseAction">
+        <property name="anchorColumnName" value="entityAdditionalId"/>
+        <property name="entityAdditionalManager" ref="entityAdditionalManager"/>
+        </bean>
+
+    <bean id="entityAdditionalManager"
+          class="dti.ci.entityadditionalmgr.impl.EntityAdditionalManagerImpl">
+        <property name="entityAdditionalDAO">
+            <bean id="EntityAdditionalDAO"
+                  class="dti.ci.entityadditionalmgr.dao.EntityAdditionalJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+    
+    <bean id="dti.ci.entityhistoricaldatamgr.struts.MaintainEntityHistoricalDataAction"
+          class="dti.ci.entityhistoricaldatamgr.struts.MaintainEntityHistoricalDataAction"
+          parent="CIBaseAction">
+        <property name="anchorColumnName" value="entityHistoricalDataId"/>
+        <property name="entityHistoricalDataManager" ref="entityHistoricalDataManager"/>
+    </bean>
+
+    <bean id="entityHistoricalDataManager"
+          class="dti.ci.entityhistoricaldatamgr.impl.EntityHistoricalDataManagerImpl">
+        <property name="entityHistoricalDataDAO">
+            <bean id="EntityHistoricalDataDAO"
+                  class="dti.ci.entityhistoricaldatamgr.dao.EntityHistoricalDataJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+    <bean id="dti.ci.entityglancemgr.struts.MaintainEntityGlanceAction"
+          class="dti.ci.entityglancemgr.struts.MaintainEntityGlanceAction"
+          parent="CIBaseAction">
+        <property name="anchorColumnName" value="AgentPayCommissionId"/>
+        <property name="relationshipAnchorColumnName" value="entityRelationId"/>
+
+        <property name="claimAnchorColumnName" value="claimId"/>
+        <property name="participantAnchorColumnName" value="entityRoleId"/>
+
+        <property name="policyAnchorColumnName" value="policyTermHistoryId"/>
+        <property name="transactionAnchorColumnName" value="transLogId"/>
+        <property name="transactionFormAnchorColumnName" value="FormInstanceId"/>
+
+        <property name="financialAnchorColumnName" value="billingAccountId"/>
+        <property name="financialFormAnchorColumnName" value="fmformInstanceId"/>
+        
+        <property name="entityGlanceManager" ref="entityGlanceManager"/>
+        <property name="accessControlFilterManager" ref="AccessControlFilterManager"/>
+        </bean>
+
+    <bean id="entityGlanceManager"
+          class="dti.ci.entityglancemgr.impl.EntityGlanceManagerImpl">
+        <property name="entityGlanceDAO">
+            <bean id="EntityGlanceDAO"
+                  class="dti.ci.entityglancemgr.dao.EntityGlanceJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="entityClassManager"
+          class="dti.ci.entityclassmgr.impl.EntityClassManagerImpl">
+        <property name="entityClassDAO" ref="entityClassDAO"/>
+        <property name="sysParmProvider" ref="sysParmProvider"/>
+        <property name="messageManager" ref="MessageManager"/>
+    </bean>
+
+    <bean id="vendorManager" class="dti.ci.vendormgr.impl.VendorManagerImpl">
+        <property name="vendorDAO">
+            <bean id="vendorDAO" class="dti.ci.vendormgr.dao.VendorJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="phoneLogManager" class="dti.ci.vendormgr.impl.PhoneLogManagerImpl">
+        <property name="phoneLogDAO">
+            <bean id="phoneLogDAO" class="dti.ci.vendormgr.dao.PhoneLogJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="ClaimsManager" class="dti.ci.claimsmgr.impl.ClaimsManagerImpl">
+        <property name="accessControlFilterManager" ref="AccessControlFilterManager"/>
+        <property name="ClaimsDAO">
+            <bean id="ClaimsDAO" class="dti.ci.claimsmgr.dao.ClaimsJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="entityModifyManager" class="dti.ci.entitymodify.impl.EntityModifyManagerImpl">
+        <property name="entityDAO" ref="entityDAO"/>
+        <property name="noteManager" ref="noteManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- CIReportManager Configuration                                  -->
+    <!-- ************************************************************** -->
+    <bean id="CIReportManager" class="dti.ci.reportmgr.impl.CIReportManagerImpl" />
+
+    <!-- ************************************************************** -->
+    <!-- MaintainCredentialRequestAction Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="dti.ci.credentialrequestmgr.struts.MaintainCredentialRequestAction" class="dti.ci.credentialrequestmgr.struts.MaintainCredentialRequestAction"
+          parent="CIBaseAction">
+        <property name="credentialRequestManager" ref="credentialRequestManager"/>
+        <property name="anchorColumnName" value="ciCredDtlId"/>
+        <property name="detailAnchorColumnName" value="ciCredDtlId"/>
+        <property name="accountAnchorColumnName" value="accountListId"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+    <!-- ************************************************************** -->
+    <!-- MaintainCredentialFeeAdjustManagerAction Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="dti.ci.credentialrequestmgr.struts.MaintainCredentialFeeAdjustAction" class="dti.ci.credentialrequestmgr.struts.MaintainCredentialFeeAdjustAction"
+          parent="CIBaseAction">
+        <property name="credentialFeeAdjustManager" ref="credentialFeeAdjustManager"/>
+        <property name="anchorColumnName" value="feeListId"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="maintainEntitySearchBaseAction" abstract="true" parent="CIBaseAction">
+        <property name="entitySearchManager" ref="entitySearchManager"/>
+    </bean>
+
+    <bean id="dti.ci.entitysearch.struts.MaintainEntitySelectSearchAction"
+          class="dti.ci.entitysearch.struts.MaintainEntitySelectSearchAction"
+          parent="maintainEntitySearchBaseAction">
+        <property name="anchorColumnName" value="entityId"/>
+        <property name="outputRecordFieldMap">
+            <map>
+                <entry key="entityFullNameFieldName" value="clientName"/>
+                <entry key="entityLastNameFieldName" value="lastName"/>
+                <entry key="entityFirstNameFieldName" value="firstName"/>
+                <entry key="entityMiddleNameFieldName" value="middleName"/>
+                <entry key="entityOrgNameFieldName" value="orgName"/>
+                <entry key="entityPKFieldName" value="entityId"/>
+                <entry key="entityClientIdFieldName" value="clientId"/>
+                <entry key="entAddrCountryFldName" value="countryCode"/>
+                <entry key="entAddrStateFldName" value="stateCode"/>
+                <entry key="entAddrCityFldName" value="city"/>
+            </map>
+        </property>
+
+        <property name="requestAttributeKeyList">
+            <list>
+                <value>fromFM</value>
+                <value>entityPKFieldName</value>
+                <value>entityFullNameFieldName</value>
+                <value>entityLastNameFieldName</value>
+                <value>entityFirstNameFieldName</value>
+                <value>entityMiddleNameFieldName</value>
+                <value>entityOrgNameFieldName</value>
+                <value>eventName</value>
+                <value>entityClientIdFieldName</value>
+                <value>defaultEntityType</value>
+                <value>entityAccountNoFieldName</value>
+                <value>idForAddlSql</value>
+                <value>entRelEntPK</value>
+                <value>fromDocProcess</value>
+                <value>entityRoleTypeCodeFldName</value>
+                <value>externalNumberFldName</value>
+                <value>defaultRoleTypeCode</value>
+                <value>entityClassCodeArgReadOnly</value>
+                <value>idForPolicyNo</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="entityAddBaseAction" class="dti.ci.clientmgr.struts.EntityAddBaseAction" parent="CIBaseAction">
+        <property name="entityAddManager" ref="entityAddManager"/>
+    </bean>
+
+    <bean id="dti.ci.clientmgr.struts.EntityPersonAddPopAction"
+          class="dti.ci.clientmgr.struts.EntityPersonAddPopAction"
+          parent="entityAddBaseAction">
+    </bean>
+
+    <bean id="dti.ci.clientmgr.struts.EntityOrgAddPopAction"
+          class="dti.ci.clientmgr.struts.EntityOrgAddPopAction"
+          parent="entityAddBaseAction">
+    </bean>
+
+    <bean id="dti.ci.clientmgr.struts.EntityAddChoicePopAction"
+          class="dti.ci.clientmgr.struts.EntityAddChoicePopAction"
+          parent="CIBaseAction">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- CredentialRequestManager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="credentialRequestManager" class="dti.ci.credentialrequestmgr.impl.CredentialRequestImpl">
+        <property name="credentialRequestDAO" ref="credentialRequestDAO"/>
+        <property name="eloquenceUniversalTokenServiceManager" ref="EloquenceUniversalTokenServiceManager"/>
+    </bean>
+    <bean id="credentialFeeAdjustManager" class="dti.ci.credentialrequestmgr.impl.CredentialFeeAdjustImpl">
+        <property name="credentialFeeAdjustDAO" ref="credentialFeeAdjustDAO"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- EntityQuickAdd Action Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="EntityQuickAddBaseAction" class="dti.ci.entityquickaddmgr.struts.EntityQuickAddBaseAction"
+          parent="MaintainCIBaseAction">
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="dti.ci.entityquickaddmgr.struts.EntityQuickAddOrgAction" class="dti.ci.entityquickaddmgr.struts.EntityQuickAddOrgAction"
+          parent="EntityQuickAddBaseAction">
+        <property name="entityQuickAddManager" ref="entityQuickAddOrgManager"/>
+    </bean>
+
+    <bean id="dti.ci.entityquickaddmgr.struts.EntityQuickAddPersonAction" class="dti.ci.entityquickaddmgr.struts.EntityQuickAddPersonAction"
+          parent="EntityQuickAddBaseAction">
+        <property name="entityQuickAddManager" ref="entityQuickAddPersonManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- EntityQuickAddManager Configuration                            -->
+    <!-- ************************************************************** -->
+    <bean id="entityQuickAddManager" class="dti.ci.entityquickaddmgr.impl.EntityQuickAddManagerImpl" abstract="true">
+        <property name="licenseManager" ref="licenseManager"/>
+        <property name="priorCarrierManager" ref="PriorCarrierManager"/>
+        <property name="entityQuickAddDAO" ref="entityQuickAddDAO"/>
+        <property name="entityAddManager" ref="entityAddManager"/>
+    </bean>
+
+    <bean id="entityQuickAddOrgManager" class="dti.ci.entityquickaddmgr.impl.EntityQuickAddOrgManagerImpl" parent="entityQuickAddManager"/>
+
+    <bean id="entityQuickAddPersonManager" class="dti.ci.entityquickaddmgr.impl.EntityQuickAddPersonManagerImpl" parent="entityQuickAddManager">
+        <property name="educationManager" ref="EducationManager"/>
+    </bean>
+    <!-- ************************************************************** -->
+    <!-- DAO Component Configuration                               -->
+    <!-- ************************************************************** -->
+    <bean id="entityDAO" class="dti.ci.entitymgr.dao.EntityJdbcDAO" parent="BaseDAO" />
+    <bean id="priorCarrierHistoryDAO" class="dti.ci.priorcarriermgr.dao.PriorCarrierHistoryJdbcDAO" parent="BaseDAO"/>
+    <bean id="addressDAO" class="dti.ci.addressmgr.dao.AddressJdbcDAO" parent="BaseDAO"/>
+    <bean id="vehicleFindDAO" class="dti.ci.vehiclemgr.vehiclefindmgr.dao.VehicleFindJdbcDAO"/>
+    <bean id="addressListDAO" class="dti.ci.addressmgr.addresslistmgr.dao.AddressListJdbcDAO" parent="BaseDAO"/>
+    <bean id="phoneListDAO" class="dti.ci.phonemgr.dao.PhoneListJdbcDAO" parent="BaseDAO"/>
+    <bean id="propertyDAO" class="dti.ci.propertymgr.dao.PropertyJdbcDAO" parent="BaseDAO"/>
+    <bean id="relationshipDAO" class="dti.ci.relationshipmgr.dao.RelationshipJdbcDAO" parent="BaseDAO"/>
+    <bean id="contactDAO" class="dti.ci.contactmgr.dao.ContactJdbcDAO" parent="BaseDAO"/>
+    <bean id="EducationDAO" class="dti.ci.educationmgr.dao.EducationJdbcDAO" parent="BaseDAO"/>
+    <bean id="TrainingDAO" class="dti.ci.trainingmgr.dao.TrainingJdbcDAO" parent="BaseDAO"/>
+    <bean id="RoleDAO" class="dti.ci.rolemgr.dao.RoleJdbcDAO" parent="BaseDAO"/>
+    <bean id="licenseDAO" class="dti.ci.licensemgr.dao.LicenseJdbcDAO" parent="BaseDAO"/>
+    <bean id="certificationDAO" class="dti.ci.certificationmgr.dao.CertificationJdbcDAO" parent="BaseDAO"/>
+    <bean id="partyInquiryServiceDAO" class="dti.ci.entitymgr.service.dao.PartyInquiryServiceJdbcDAO"/>
+    <bean id="EntityAddlEmailDAO" class="dti.ci.entityaddlemailmgr.dao.EntityAddlEmailJdbcDAO" parent="BaseDAO"/>
+    <bean id="entitySecurityDAO" class="dti.ci.entitysecuritymgr.dao.EntitySecurityJdbcDAO" parent="BaseDAO"/>
+    <bean id="policySummaryDAO" class="dti.ci.policysummarymgr.dao.PolicySummaryJdbcDAO" parent="BaseDAO"/>
+    <bean id="entityClassDAO" class="dti.ci.entityclassmgr.dao.EntityClassJdbcDAO" parent="BaseDAO"/>
+    <bean id="EntitySearchDAO" class="dti.ci.entitysearch.dao.EntitySearchJdbcDAO" parent="BaseDAO"/>
+    <bean id="entityMiniPopupDAO" class="dti.ci.entityminipopupmgr.dao.EntityMiniPopupJdbcDAO" parent="BaseDAO"/>
+
+    <bean id="HubPartyClassificationChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubPartyClassificationChangeProcessor">
+        <property name="hubPartyManager" ref="HubEntityClassManager"/>
+        <property name="fieldElementMaps" ref="PartyClassificationFieldElementMaps" />
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubPropertyChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubPropertyChangeProcessor">
+        <property name="hubPartyManager" ref="HubPropertyManager"/>
+        <property name="fieldElementMaps" ref="PropertyFieldElementMaps" />
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubEducationChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubEducationChangeProcessor">
+        <property name="hubPartyManager" ref="HubEducationManager"/>
+        <property name="fieldElementMaps" ref="EducationFieldElementMaps" />
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubContactChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubContactChangeProcessor">
+        <property name="hubPartyManager" ref="HubContactManager"/>
+        <property name="fieldElementMaps" ref="ContactFieldElementMaps" />
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubRelationshipChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubRelationshipChangeProcessor">
+        <property name="hubPartyManager" ref="HubRelationshipManager"/>
+        <property name="fieldElementMaps" ref="RelationshipFieldElementMaps" />
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubPhoneNumberChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubPhoneNumberChangeProcessor">
+        <property name="hubPartyManager" ref="HubPhoneNumberManager"/>
+        <property name="fieldElementMaps" ref="PhoneNumberFieldElementMaps" />
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubOrganizationLicenseChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubOrganizationLicenseChangeProcessor">
+        <property name="hubPartyManager" ref="HubPartyLicenseManager"/>
+        <property name="fieldElementMaps" ref="OrganizationLicenseFieldElementMaps" />
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubProfessionalLicenseChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubProfessionalLicenseChangeProcessor">
+        <property name="hubPartyManager" ref="HubPartyLicenseManager"/>
+        <property name="fieldElementMaps" ref="ProfessionalLicenseFieldElementMaps" />
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubCertificationChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubCertificationChangeProcessor">
+        <property name="hubPartyManager" ref="HubCertificationManager"/>
+        <property name="fieldElementMaps" ref="CertificationFieldElementMaps" />
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubAddressChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubAddressChangeProcessor">
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="hubPartyManager" ref="HubAddressManager"/>
+        <property name="addressFieldElementMaps" ref="AddressFieldElementMaps"/>
+        <property name="basicAddressFieldElementMaps" ref="BasicAddressFieldElementMaps"/>
+        <property name="usaAddressFieldElementMaps" ref="UsaAddressFieldElementMaps"/>
+        <property name="nonUsaAddressFieldElementMaps" ref="NonUsaAddressFieldElementMaps"/>
+    </bean>
+
+    <bean id="HubPartyMergeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubPartyMergeProcessor">
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="hubPartyMergeManager" ref="HubPartyMergeManager" />
+    </bean>
+
+    <bean id="HubPartyChangeElementProcessorFactory" class="dti.ci.entitymgr.service.hubpartychange.processor.HubPartyChangeElementProcessorFactoryImpl">
+        <property name="processorMap">
+            <map>
+                <entry key="com.delphi_tech.ows.party.PartyClassificationType" value-ref="HubPartyClassificationChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.RelationshipType" value-ref="HubRelationshipChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.BasicPhoneNumberType" value-ref="HubPhoneNumberChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.OrganizationLicenseType" value-ref="HubOrganizationLicenseChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.ProfessionalLicenseType" value-ref="HubProfessionalLicenseChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.CertificationType" value-ref="HubCertificationChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.BasicAddressType" value-ref="HubAddressChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.ContactType" value-ref="HubContactChangeProcessor"/>
+                <entry key="com.delphi_tech.ows.party.EducationInformationType" value-ref="HubEducationChangeProcessor"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="HubOrganizationChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubOrganizationChangeProcessor">
+        <property name="fieldElementMaps" ref="OrganizationFieldElementMaps"/>
+        <property name="hubPartyManager" ref="HubEntityManager"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubPersonChangeProcessor" class="dti.ci.entitymgr.service.hubpartychange.processor.HubPersonChangeProcessor">
+        <property name="fieldElementMaps" ref="PersonFieldElementMaps"/>
+        <property name="hubPartyManager" ref="HubEntityManager"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+    </bean>
+
+    <bean id="HubPartyChangeServiceManager" class="dti.ci.entitymgr.service.hubpartychange.impl.HubPartyChangeServiceManagerImpl">
+        <property name="hubPropertyChangeProcessor" ref="HubPropertyChangeProcessor"/>
+        <property name="hubPartyMergeProcessor" ref="HubPartyMergeProcessor"/>
+    </bean>
+
+    <bean id="HubPartyChangeProcessorFactory" class="dti.ci.entitymgr.service.hubpartychange.processor.HubPartyChangeProcessorFactoryImpl">
+        <property name="hubPartyChangeProcessorMap">
+            <map>
+                <entry key="organization" value-ref="HubOrganizationChangeProcessor"/>
+                <entry key="person" value-ref="HubPersonChangeProcessor"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="credentialRequestDAO" class="dti.ci.credentialrequestmgr.dao.CredentialRequestJdbcDAO"/>
+    <bean id="credentialFeeAdjustDAO" class="dti.ci.credentialrequestmgr.dao.CredentialFeeAdjustJdbcDAO"/>
+    <bean id="entityQuickAddDAO" class="dti.ci.entityquickaddmgr.dao.EntityQuickAddJdbcDAO"/>
+</beans>

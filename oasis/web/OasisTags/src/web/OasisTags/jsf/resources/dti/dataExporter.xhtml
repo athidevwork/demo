@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <!--
+    Description:
+
+    Author: mgitelman
+    Date: 8/16/13
+
+
+    Revision Date    Revised By  Description
+    *****************************************************************************
+    *****************************************************************************
+    (C) 2012 Delphi Technology, inc. (dti)
+    -->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+    <composite:attribute name="doValidation" default="false"/>
+    <composite:attribute name="label"/>
+    <composite:attribute name="image" required="true"/>
+    <composite:attribute name="type" required="true"/>
+    <composite:attribute name="targetDataTable" required="true"/>
+    <composite:attribute name="preProcessor" method-signature="void preProcessXLS()"/>
+    <composite:attribute name="postProcessor" method-signature="void postProcessor(java.lang.Object)"/>
+    <composite:attribute name="exportFileName"/>
+    <composite:attribute name="tooltipText" />
+    <composite:attribute name="tooltipStyleClass" />
+</composite:interface>
+
+<composite:implementation>
+    <h:commandLink id="commandLinkId" immediate="#{not cc.attrs.doValidation}">
+        <p:graphicImage alt="#{cc.attrs.label}" value="#{cc.attrs.image}" width="16" height="16"/>
+        <h:outputText value="#{cc.attrs.label}"/>
+        <p:dataExporter type="#{cc.attrs.type}" target="#{cc.attrs.targetDataTable}" postProcessor="#{cc.attrs.postProcessor}"
+                        fileName="#{cc.attrs.exportFileName}"/>
+    </h:commandLink>
+    <p:tooltip for="commandLinkId" value="#{cc.attrs.tooltipText}"
+               showEffect="slide" hideEffect="slide"
+               styleClass="#{cc.attrs.tooltipStyleClass}"
+               rendered="#{not empty cc.attrs.tooltipText}" >
+    </p:tooltip>
+</composite:implementation>
+</html>
+

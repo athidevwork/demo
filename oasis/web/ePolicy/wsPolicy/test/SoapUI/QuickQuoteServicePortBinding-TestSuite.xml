@@ -1,0 +1,2366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="9e5d4bea-5d1a-42cc-8fbd-22fc8ef77cc1" name="QuickQuoteServicePortBinding TestSuite" xmlns:con="http://eviware.com/soapui/config">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase id="3a502452-72ad-4ed2-b6ab-ab3a4672da2d" failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="quickQuoteRequest TestCase" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+      <con:settings/>
+      <con:testStep type="request" id="790052c7-f858-4364-a932-17e3772e79b1" name="quickQuoteRequest" disabled="true">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings/>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <!--Optional:-->\r
+         <quic:MessageId>?</quic:MessageId>\r
+         <!--Optional:-->\r
+         <quic:CorrelationId>?</quic:CorrelationId>\r
+         <quic:UserId>?</quic:UserId>\r
+         <!--Optional:-->\r
+         <quic:ContractPeriod>\r
+            <!--Optional:-->\r
+            <pol:StartDate>?</pol:StartDate>\r
+            <!--Optional:-->\r
+            <pol:EndDate>?</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+         <!--Optional:-->\r
+         <quic:PolicyTypeCode>?</quic:PolicyTypeCode>\r
+         <!--Zero or more repetitions:-->\r
+         <quic:Insured key="?">\r
+            <quic:PostalCode>?</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>?</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>?</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>?</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>?</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+         <!--Zero or more repetitions:-->\r
+         <quic:MedicalMalpracticeCoverage key="?">\r
+            <quic:ReferredInsured insuredReference="?">?</quic:ReferredInsured>\r
+            <quic:PolicyFormCode>?</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>?</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>?</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>?</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <!--Zero or more repetitions:-->\r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="?">?</quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>?</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>?</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:credentials>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="698df3ba-974b-4fc2-baa1-11d89307b0ce" name="quickQuoteRequest_invalid1">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_invalid1" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <!--Optional:-->\r
+         <quic:MessageId>?</quic:MessageId>\r
+         <!--Optional:-->\r
+         <quic:CorrelationId>?</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r
+         <!--Optional:-->\r
+         <quic:ContractPeriod>\r
+            <!--Optional:-->\r
+            <pol:StartDate>?</pol:StartDate>\r
+            <!--Optional:-->\r
+            <pol:EndDate>?</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+         <!--Optional:-->\r
+         <quic:PolicyTypeCode>?</quic:PolicyTypeCode>\r
+         <!--Zero or more repetitions:-->\r
+         <quic:Insured key="?">\r
+            <quic:PostalCode>?</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>?</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>?</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>?</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>?</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+         <!--Zero or more repetitions:-->\r
+         <quic:MedicalMalpracticeCoverage key="?">\r
+            <quic:ReferredInsured insuredReference="?">?</quic:ReferredInsured>\r
+            <quic:PolicyFormCode>?</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>?</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>?</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>?</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <!--Zero or more repetitions:-->\r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="?">?</quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>?</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>?</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="19fc41d4-2991-42e4-8ebf-d52dc97b9d23" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="19fc41d4-2991-42e4-8ebf-d52dc97b9d23" name="? in request">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>? found in input data. Valid input required.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="416b06ab-0627-4fd8-9277-be7ae830ba9e" name="quickQuoteRequest_singlerisk_valid1">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_valid1" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://10.199.5.93:8082/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">\r
+            <quic:PostalCode>12220</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>DD10K</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="1c7698f2-8e0c-4471-bfa8-566c43b622d8" name="quickQuoteRequest_singlerisk_valid2_no_id">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_valid2_no_id" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+          \r
+         <quic:MedicalMalpracticeCoverage key="">\r
+            <quic:ReferredInsured insuredReference=""></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference=""></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="28c798f6-2aa3-4e21-8c46-63f704a92571" name="quickQuoteRequest_singlerisk_optional_defaults">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_optional_defaults" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate></pol:StartDate>\r            \r
+            <pol:EndDate></pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode></quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode/>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode/>
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="443c801d-f8fb-4029-b48d-8c357b3e1c81" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="a20206f0-11ab-4de5-8f19-7e878e496c6f" name="quickQuoteRequest_singlerisk_optional_postal_code">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_optional_postal_code" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate></pol:StartDate>\r            \r
+            <pol:EndDate></pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode></quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">
+            <quic:PostalCode/>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>v
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>DD10K</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="443c801d-f8fb-4029-b48d-8c357b3e1c81" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="edd2a1d9-9c17-4ef8-950f-c53a9281f8a2" name="quickQuoteRequest_singlerisk_optional_state_code">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_optional_state_code" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="">\r
+            <quic:PostalCode>08810</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode/>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>25</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>25004</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+          \r
+         <quic:MedicalMalpracticeCoverage key="">\r
+            <quic:ReferredInsured insuredReference=""></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference=""></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains-&lt;PracticeStateOrProvinceCode>NJ&lt;/PracticeStateOrProvinceCode> ">
+              <con:configuration>
+                <token>&lt;PracticeStateOrProvinceCode>NJ&lt;/PracticeStateOrProvinceCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="&lt;ns1:ExtendedStatusDescription>Invalid Risk Type PHYSICIAN and Insured Class 25004 combination provided.&lt;/ns1:ExtendedStatusDescription>">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid Risk Type PHYSICIAN and Insured Class 25004 combination provided.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="a4de2018-f35e-4fa3-8079-e1d87aad2573" name="quickQuoteRequest_singlerisk_noretrodate">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_noretrodate" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate/>
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>DD10K</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="ee56df90-e9d1-4bef-bd29-31a7c0f4567c" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="d0487fed-caf0-40f1-bc13-f70fe68905d8" name="quickQuoteRequest_singlerisk_invaliddata">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_invaliddata" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">\r
+            <quic:PostalCode>08810</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>IPHYSICIAN</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>25</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>25004</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>INYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="1be5abb5-f9c4-4218-a589-e76d451e48b3" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="6e40e686-f118-475f-9b65-eeffd72ed003" name="quickQuoteRequest_singlerisk_invalid_covg_comp">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_invalid_covg_comp" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">\r
+            <quic:PostalCode>08810</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>25</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>25004</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NJMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>TEST</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>INVALIDPARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="invalid postal code, state combo">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid postal code 08810, State Code NY combination provided.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="invalid state county combo">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>State NY and County 25 combination is not valid.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="invalid risk type insured class combo">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid Risk Type PHYSICIAN and Insured Class 25004 combination provided.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="invalid coverage limit combo">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid coverage NJMPHCP limit TEST code combination provided.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="invalid coverage component combo">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid component INVALIDPARTIME provided for coverage NJMPHCP&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="86a352cc-40d8-46d3-9120-998eb30cfb33" name="quickQuoteRequest_singlerisk_invalid_postal_state_class">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_invalid_postal_state_class" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">\r
+            <quic:PostalCode>08816</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>25</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>1234</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains-&lt;ns1:ExtendedStatusDescription>State NJ and County 123 combination is invalid.&lt;/ns1:ExtendedStatusDescription> ">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>State NY and County 25 combination is not valid.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="risk type, risk class">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid Risk Type PHYSICIAN and Insured Class 1234 combination provided.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="postal code, state invalid combo">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid postal code 08816, State Code NY combination provided.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="37f25e5d-943c-428b-8d63-a1d6c40d636f" name="quickQuoteRequest_singlerisk_invalid_state_county">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_invalid_state_county" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>123</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains-&lt;ns1:ExtendedStatusDescription>State NJ and County 123 combination is invalid.&lt;/ns1:ExtendedStatusDescription> ">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>State NY and County 123 combination is not valid.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="f7d2d3c8-3b18-4ea6-820c-76783c962d63" name="quickQuoteRequest_singlerisk_invalid_zip">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_invalid_zip" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">\r
+            <quic:PostalCode>088</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>25</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>25004</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate/>
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="ee56df90-e9d1-4bef-bd29-31a7c0f4567c" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="27d1a3c5-82c7-4da3-9acc-892c95b866c3" name="Contains 1">
+              <con:configuration>
+                <token>is not valid.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="27d1a3c5-82c7-4da3-9acc-892c95b866c3" name="invalid zip code">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid postal code 088 provided.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="27d1a3c5-82c7-4da3-9acc-892c95b866c3" name="bad combo">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid postal code 088, State Code NY combination provided.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="4ff1e5f9-632d-4a9c-b11b-0fa831c16ef9" name="quickQuoteRequest_multirisk_valid2">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_multirisk_valid2" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+         <quic:Insured key="I2">
+            <quic:PostalCode>12222</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8902</quic:InsuredClassCode>
+         </quic:Insured>
+\r   
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <quic:MedicalMalpracticeCoverage key="C2">
+            <quic:ReferredInsured insuredReference="I2"></quic:ReferredInsured>
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>NYHOCPCF</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+         \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>DD10K</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C2"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>50</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="28ef68f5-acc1-446f-b7ea-11742f25e40e" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="f0091dfb-84aa-4fb6-92e8-701966759b93" name="quickQuoteRequest_multirisk_valid3">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_multirisk_valid3" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+         <quic:Insured key="I2">
+            <quic:PostalCode>12222</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8902</quic:InsuredClassCode>
+         </quic:Insured>
+\r   
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <quic:MedicalMalpracticeCoverage key="C3">
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>NYHOCPCF</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>05/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+         <quic:MedicalMalpracticeCoverage key="C2">
+            <quic:ReferredInsured insuredReference="I2"></quic:ReferredInsured>
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>NYHOCPCF</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+         \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>DDRCREDIT</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>20</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C2"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>50</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C2"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>RMDISC</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>60</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C2"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>NEWDOCTOR</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>70</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="28ef68f5-acc1-446f-b7ea-11742f25e40e" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="71176279-1bf1-4378-a1ba-34832c341f04" name="quickQuoteRequest_multirisk_inconsistentdata">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_multirisk_inconsistentdata" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">\r
+            <quic:PostalCode>08810</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>25</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>25004</quic:InsuredClassCode>\r
+         </quic:Insured>
+         <quic:Insured key="I2">
+            <quic:PostalCode>08816</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NJ</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>HOSPITAL</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>30</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>25000</quic:InsuredClassCode>
+         </quic:Insured>
+\r   
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <quic:MedicalMalpracticeCoverage key="C2">
+            <quic:ReferredInsured insuredReference="I2"></quic:ReferredInsured>
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>MPHOSPE</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+         \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C2"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>50</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="28ef68f5-acc1-446f-b7ea-11742f25e40e" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed864669-7012-4f63-b4e9-60fc5eec9d45" name="Contains 1">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Only individual coverage is supported</token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="5277d20e-864a-43ba-a513-69db4812c88a" name="quickQuoteRequest_multirisk_optional_defaults">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_multirisk_optional_defaults" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate/>
+            <pol:EndDate/>
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode/>
+          \r
+         <quic:Insured key="I1">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode/>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+         <quic:Insured key="I2">
+            <quic:PostalCode>12222</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode/>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8902</quic:InsuredClassCode>
+         </quic:Insured>
+\r   
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode/>
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <quic:MedicalMalpracticeCoverage key="C2">
+            <quic:ReferredInsured insuredReference="I2"></quic:ReferredInsured>
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode/>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+         \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C2"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>50</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="28ef68f5-acc1-446f-b7ea-11742f25e40e" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="3d976739-dc4e-41bd-a4e4-667cf1a56fbf" name="quickQuoteRequest_multirisk_optional_postalcode">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_multirisk_optional_postalcode" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">
+            <quic:PostalCode/>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode/>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+         <quic:Insured key="I2">
+            <quic:PostalCode/>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode/>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8902</quic:InsuredClassCode>
+         </quic:Insured>
+\r   
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <quic:MedicalMalpracticeCoverage key="C2">
+            <quic:ReferredInsured insuredReference="I2"></quic:ReferredInsured>
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>NYHOCPCF</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+         \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C2"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>50</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="28ef68f5-acc1-446f-b7ea-11742f25e40e" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="16d52c97-c9ef-47a9-a5b0-8d51e43c6965" name="quickQuoteRequest_multirisk_noretro_date">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_multirisk_noretro_date" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+         <quic:Insured key="I2">
+            <quic:PostalCode>12222</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8902</quic:InsuredClassCode>
+         </quic:Insured>
+\r   
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate/>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <quic:MedicalMalpracticeCoverage key="C2">
+            <quic:ReferredInsured insuredReference="I2"></quic:ReferredInsured>
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>NYHOCPCF</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate/>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+         \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C2"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>50</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C2"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>NEWDOCTOR</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>70</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="28ef68f5-acc1-446f-b7ea-11742f25e40e" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="cf558760-ccd4-4202-9aed-87a26c1bc7b8" name="quickQuoteRequest_multirisk_invaliddata">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_multirisk_invaliddata" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">\r
+            <quic:PostalCode>08810</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>I1PHYSICIAN</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>25</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>25004</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+         <quic:Insured key="I2">
+            <quic:PostalCode>08810</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>I2PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>25</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>25004</quic:InsuredClassCode>
+         </quic:Insured>
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>INYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <quic:MedicalMalpracticeCoverage key="C2">
+            <quic:ReferredInsured insuredReference="I2"></quic:ReferredInsured>
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>I2NYMPHCP</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="1be5abb5-f9c4-4218-a589-e76d451e48b3" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="1be5abb5-f9c4-4218-a589-e76d451e48b3" name="individual coverage">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Only individual coverage is supported by quick quote. INYMPHCP is not a set as individual coverage.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="1be5abb5-f9c4-4218-a589-e76d451e48b3" name="invalid limit">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid coverage I2NYMPHCP limit 1M/3M code combination provided.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="1be5abb5-f9c4-4218-a589-e76d451e48b3" name="invalid policy, risk, covg combo">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid coverage I2NYMPHCP provided for the policy type MP and risk type I2PHYSICIAN combination.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="1be5abb5-f9c4-4218-a589-e76d451e48b3" name="coverage not available">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Coverage Code I2NYMPHCP is not available for policy type MP and risk type I2PHYSICIAN&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="1be5abb5-f9c4-4218-a589-e76d451e48b3" name="invalid risk type, risk class combo">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid Risk Type I2PHYSICIAN and Insured Class 25004 combination provided.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="298fc305-bee7-4813-87a2-557a5356d0be" name="quickQuoteRequest_multirisk_invalidkeys">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_multirisk_invalidkeys" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="">\r
+            <quic:PostalCode>08810</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>I1PHYSICIAN</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>25</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>25004</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+         <quic:Insured key="I2">
+            <quic:PostalCode>08810</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>I2PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>25</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>25004</quic:InsuredClassCode>
+         </quic:Insured>
+          \r
+         <quic:MedicalMalpracticeCoverage key="">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>INYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <quic:MedicalMalpracticeCoverage key="C2">
+            <quic:ReferredInsured insuredReference="I2"></quic:ReferredInsured>
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>I2NYMPHCP</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="1be5abb5-f9c4-4218-a589-e76d451e48b3" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="1be5abb5-f9c4-4218-a589-e76d451e48b3" name="risk key required">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Insured Key is required since there is more than one risk in the input.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="1be5abb5-f9c4-4218-a589-e76d451e48b3" name="covg key required">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Coverage Key is required since there is more than one risk in the input.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="61878a9a-e91d-40df-80c3-0a1cd6e1883a" name="quickQuoteRequest_singlerisk_invalid1">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_invalid1" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">\r
+            <quic:PostalCode>12220</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>\r
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>\r
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>TEST</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>HUH</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>HOORAY</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>TESTCOMP</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Rejected&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Individual Coverage">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Only individual coverage is supported by quick quote. HUH is not a set as individual coverage.&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Individual Component">
+              <con:configuration>
+                <token>&lt;ns1:ExtendedStatusDescription>Invalid component TESTCOMP provided for coverage HUH&lt;/ns1:ExtendedStatusDescription></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="ba654d73-f1f3-4816-bca8-5e26beba808f" name="quickQuoteRequest_singlerisk_joe">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_joe" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://10.199.5.93:8082/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <quic:quickQuoteRequest>
+         <!--Optional:-->
+         <quic:MessageId>M1</quic:MessageId>
+         <!--Optional:-->
+         <quic:CorrelationId>C1</quic:CorrelationId>
+         <quic:UserId>odev20191</quic:UserId>
+         <!--Optional:-->
+         <quic:ContractPeriod>
+            <!--Optional:-->
+            <pol:StartDate>10/01/2018</pol:StartDate>
+            <!--Optional:-->
+            <pol:EndDate>10/01/2019</pol:EndDate>
+         </quic:ContractPeriod>
+         <!--Optional:-->
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>
+         <!--Zero or more repetitions:-->
+         <quic:Insured key="I1">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+         <!--Zero or more repetitions:-->
+         <quic:MedicalMalpracticeCoverage key="C1">
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>04/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+         <!--Zero or more repetitions:-->
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>DD10K</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>10</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+      </quic:quickQuoteRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="6c9acc34-8266-48af-a53f-f2ef577fb428" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="da849954-abbd-4a2f-959a-2a623b717264" name="quickQuoteRequest_singlerisk_optional_refIns">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_singlerisk_optional_refIns" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://10.199.5.93:8082/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <quic:quickQuoteRequest>
+         <!--Optional:-->
+         <quic:MessageId>M1</quic:MessageId>
+         <!--Optional:-->
+         <quic:CorrelationId>C1</quic:CorrelationId>
+         <quic:UserId>odev20191</quic:UserId>
+         <!--Optional:-->
+         <quic:ContractPeriod>
+            <!--Optional:-->
+            <pol:StartDate>10/01/2018</pol:StartDate>
+            <!--Optional:-->
+            <pol:EndDate>10/01/2019</pol:EndDate>
+         </quic:ContractPeriod>
+         <!--Optional:-->
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>
+         <!--Zero or more repetitions:-->
+         <quic:Insured key="I1">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+         <!--Zero or more repetitions:-->
+         <quic:MedicalMalpracticeCoverage key="C1">
+            <!--<quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>-->
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>04/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+         <!--Zero or more repetitions:-->
+         <quic:CreditSurchargeDeductible>
+            <!--<quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>-->
+            <quic:CreditSurchargeDeductibleCode>DD10K</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>10</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+      </quic:quickQuoteRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="165e4b4d-8a16-43d2-b249-f7bfbc8ab8a0" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="fe478999-28a4-45e2-afc9-4d2b25772a8b" name="quickQuoteRequest_onlyzip">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_onlyzip" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">\r
+            <quic:PostalCode>12220</quic:PostalCode>\r
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>\r
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>\r
+            <!--<quic:PracticeCountyCode>1</quic:PracticeCountyCode>\r-->
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>\r
+         </quic:Insured>\r
+          \r
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+          \r
+         <quic:CreditSurchargeDeductible>\r
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r
+            <quic:CreditSurchargeDeductibleCode>DD10K</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="Simple Contains" id="ed3fa0d8-fc59-4a5a-9745-b8a79bf203c7" name="Contains">
+              <con:configuration>
+                <token>&lt;ns1:MessageStatusCode>Success&lt;/ns1:MessageStatusCode></token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" id="1f34cc0a-426e-48d0-8cf2-fe20615eedc1" name="quickQuoteRequest_multirisk_optional_refIns">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>QuickQuoteServicePortBinding</con:interface>
+          <con:operation>quickQuoteRequest</con:operation>
+          <con:request name="quickQuoteRequest_multirisk_optional_refIns" id="04bd1b5e-2013-4a9c-a373-f6f5359023ae">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:7201/odev20191/ePolicy/wsPolicy/QuickQuoteService</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:quic="http://www.delphi-tech.com/ows/QuickQuoteService" xmlns:pol="http://www.delphi-tech.com/ows/Policy">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <quic:quickQuoteRequest>\r
+         <quic:MessageId>M1</quic:MessageId>\r    \r
+         <quic:CorrelationId>C1</quic:CorrelationId>\r
+         <quic:UserId>odev20191</quic:UserId>\r      \r
+         <quic:ContractPeriod>\r         \r
+            <pol:StartDate>10/01/2018</pol:StartDate>\r            \r
+            <pol:EndDate>10/01/2019</pol:EndDate>\r
+         </quic:ContractPeriod>\r
+          \r
+         <quic:PolicyTypeCode>MP</quic:PolicyTypeCode>\r
+          \r
+         <quic:Insured key="I1">
+            <quic:PostalCode>12220</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8901</quic:InsuredClassCode>
+         </quic:Insured>
+         <quic:Insured key="I2">
+            <quic:PostalCode>12222</quic:PostalCode>
+            <quic:PracticeStateOrProvinceCode>NY</quic:PracticeStateOrProvinceCode>
+            <quic:InsuredTypeCode>PHYSICIAN</quic:InsuredTypeCode>
+            <quic:PracticeCountyCode>1</quic:PracticeCountyCode>
+            <quic:InsuredClassCode>8902</quic:InsuredClassCode>
+         </quic:Insured>
+\r   
+         <quic:MedicalMalpracticeCoverage key="C1">\r
+            <quic:ReferredInsured insuredReference="I1"></quic:ReferredInsured>\r
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>\r
+            <quic:MedicalMalpracticeCoverageCode>NYMPHCP</quic:MedicalMalpracticeCoverageCode>\r
+            <quic:Limit>\r
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>\r
+            </quic:Limit>\r
+            <quic:ClaimMadeLiabilityPolicyInformation>\r
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>\r
+            </quic:ClaimMadeLiabilityPolicyInformation>\r
+         </quic:MedicalMalpracticeCoverage>\r
+         <quic:MedicalMalpracticeCoverage key="C2">
+            <!--<quic:ReferredInsured insuredReference="I2"></quic:ReferredInsured>-->
+            <quic:PolicyFormCode>CM</quic:PolicyFormCode>
+            <quic:MedicalMalpracticeCoverageCode>NYHOCPCF</quic:MedicalMalpracticeCoverageCode>
+            <quic:Limit>
+               <quic:LimitTypeCode>1M/3M</quic:LimitTypeCode>
+            </quic:Limit>
+            <quic:ClaimMadeLiabilityPolicyInformation>
+               <quic:CurrentRetroactiveDate>01/01/2018</quic:CurrentRetroactiveDate>
+            </quic:ClaimMadeLiabilityPolicyInformation>
+         </quic:MedicalMalpracticeCoverage>
+         \r
+         <quic:CreditSurchargeDeductible>\r
+            <!--<quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C1"></quic:ReferredMedicalMalpracticeCoverage>\r-->
+            <quic:CreditSurchargeDeductibleCode>DD10K</quic:CreditSurchargeDeductibleCode>\r
+            <quic:NumericValue>10</quic:NumericValue>\r
+         </quic:CreditSurchargeDeductible>\r
+         <quic:CreditSurchargeDeductible>
+            <quic:ReferredMedicalMalpracticeCoverage medicalMalpracticeCoverageReference="C2"></quic:ReferredMedicalMalpracticeCoverage>
+            <quic:CreditSurchargeDeductibleCode>PARTIME</quic:CreditSurchargeDeductibleCode>
+            <quic:NumericValue>50</quic:NumericValue>
+         </quic:CreditSurchargeDeductible>
+
+      </quic:quickQuoteRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request>
+            
+            <con:assertion type="Simple Contains" id="b569a0b3-667c-45de-9434-c861b6caca5d" name="&lt;ns1:ExtendedStatusDescription>Reffered Insured is required for coverage key C2&lt;/ns1:ExtendedStatusDescription>"><con:configuration><token>&lt;ns1:ExtendedStatusDescription>Reffered Insured is required for coverage key C2&lt;/ns1:ExtendedStatusDescription></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="443c5dfc-ba5e-437a-91ec-ffe81a8197e1" name="&lt;ns1:ExtendedStatusDescription>Referred Coverage reference is required for key DD10K&lt;/ns1:ExtendedStatusDescription>"><con:configuration><token>&lt;ns1:ExtendedStatusDescription>Referred Coverage reference is required for key DD10K&lt;/ns1:ExtendedStatusDescription></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials>
+              <con:username>odev20191</con:username>
+              <con:password>p@ssword</con:password>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:preemptive>true</con:preemptive>
+              <con:authType>Preemptive</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="quickQuoteRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+    </con:testCase>
+    <con:properties/>
+  </con:testSuite>

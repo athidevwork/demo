@@ -1,0 +1,103 @@
+<project name="OasisTags" default="main" basedir=".">
+
+   <target name="init">
+      <echo message="user.home = ${user.home}"/>
+      <echo message="java.home = ${java.home}"/>
+      <echo message="java.class.path = ${java.class.path}"/>
+      <echo message=""/>
+
+      <available property="jdk1.3+" classname="java.lang.StrictMath" />
+   </target>
+
+    <property name="p4.view" value="//dti/dev/oasis-2006.1.13/oasis/web/OasisTags/..."/>
+
+    <property name="project.base" value="${basedir}"/>
+    <property name="project.classes.dir" value="${project.base}/bin"/>
+    <property name="project.src.dir" value="${project.base}/src/java"/>
+    <property name="project.config.dir" value="${project.base}/config"/>
+    <property name="project.lib.dir" value="${project.base}/src/web/OasisTags/WEB-INF/lib"/>
+    <property name="project.web-inf.dir" value="${project.base}/src/web/OasisTags/WEB-INF" />
+
+    <property name="lib.dir" value="${project.base}/lib"/>
+    <property name="weblogic.lib" value="${project.base}/../lib-weblogic"/>
+
+    <target name="getP4View">
+<concat destfile="getp4where.vbs"><![CDATA[
+Dim WshShell, oExec
+Dim MyString, MyArray, Msg
+Set WshShell = CreateObject("WScript.Shell")
+Set oExec = WshShell.Exec("p4 where")
+MyString = oExec.StdOut.ReadAll()
+MyArray = Split(MyString, " ")
+Msg = MyArray(0)
+WScript.Echo Msg
+]]></concat>
+   <exec executable="cscript" os="${os.name}"  outputproperty="p4.view">
+       <arg line="getp4where.vbs //Nologo"/>
+   </exec>
+   <echo message="p4.view=${p4.view}" />
+</target>
+<target name="getP4ViewPerl">
+<concat destfile="getp4where.pl"><![CDATA[
+my $vWhere = `p4 where ` or die "false";
+my @vTemp  =  split / /  , $vWhere;
+chomp(@vTemp);
+my $vDepotPath = $vTemp[0];
+print $vDepotPath;
+]]></concat>
+       <exec executable="C:\Perl\bin\perl.exe"  outputproperty="p4.view">
+         <arg line="getp4where.pl"/>
+       </exec>
+       <echo message="p4.view=${p4.view}" />
+</target>
+   <target name="Sync" description="Get latest version from PERFORCE" depends="getP4View">
+        <p4sync   view="${p4.view}"  />
+   </target>
+
+   <!--<target name="compileit" depends="Sync, clean">-->
+    <target name="compileit" depends="clean">
+        <mkdir dir="${project.classes.dir}"/>
+        <javac destdir="${project.classes.dir}"
+               source="1.4"
+               target="1.4"
+               optimize="on"
+               debug="off" failonerror="true"
+               srcdir="${project.src.dir}"
+               excludes="**/*.smap, **/testaction/*">
+            <classpath>
+                <pathelement location="${project.classes.dir}"/>
+                <fileset dir="${project.lib.dir}">
+                    <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${weblogic.lib}">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="jarit" depends="compileit">
+        <echo message="Jarring it up from ${project.classes.dir} to ${lib.dir}."/>
+        <copy todir="${lib.dir}">
+            <fileset dir="${project.classes.dir}" includes="**/*.class"
+                     excludes="testaction/** **/TryFactory.class **/TryFields.class"/>
+            <fileset dir="${project.config.dir}" includes="**/*core*"/>
+        </copy>
+        <mkdir dir="${lib.dir}/META-INF/tlds"/>
+        <copy todir="${lib.dir}/META-INF/tlds" file="${project.web-inf.dir}/oasis-web.tld"/>
+        <jar update="no" basedir="${lib.dir}" destfile="${lib.dir}/oasistags.jar"
+             excludes="**/*.scc oasistags.jar **/*.iml"/>
+    </target>
+    <!-- =================================================================== -->
+    <!-- Creates the client binary                                           -->
+    <!-- =================================================================== -->
+    <target name="main" depends="jarit">
+    </target>
+
+    <target name="clean">
+        <delete failonerror="false">
+            <fileset dir="${project.classes.dir}" includes="**/*"/>
+        </delete>
+    </target>
+
+</project>

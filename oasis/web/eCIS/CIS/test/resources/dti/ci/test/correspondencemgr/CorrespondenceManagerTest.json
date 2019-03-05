@@ -1,0 +1,28 @@
+{
+  "CorrespondenceManagerTest": {
+    "testLoadCorrespondence": {
+      "validInputRecord": {
+        "entityId": 41547552
+      },
+      "invalidInputRecord": {
+        "entityId": -1
+      },
+      "expected": {
+        "fieldNames": [
+          "noteId",
+          "selectInd",
+          "sysCreateTime",
+          "timeComputed",
+          "sysCreatedBy",
+          "noteCategoryCode",
+          "shortDescription",
+          "longDescription",
+          "incomingOrOutgoing",
+          "incomingOrOutgoingDisplay",
+          "addressee",
+          "note"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/spellexSpellerStyle.css"/>
+    <script type="text/javascript" src="js/spellexEditUserDict.js"></script>
+    <title>Edit the user dictionary</title>
+</head>
+<body class="controlWindowBody" onLoad="retrieveUserDictionary();">
+<form name="editUserDict">
+    <table cellpadding="0" cellspacing="0" border="0" align="center">
+        <tr>
+            <td>
+                <h4 class="spellexCenter">Edit the user dictionary</h4>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="normal">Use the form below to remove words from and add words to your user dictionary.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" cellpadding="2" cellspacing="1" border="1">
+                    <tr>
+                        <td rowspan="2" width="50%" class="normalText">
+                                    User dictionary contents:<BR>
+                                    <SELECT NAME="userDict" SIZE="12">
+                                        <OPTION>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    </SELECT>
+                        </td>
+                        <td width="50%" class="normalText">
+                                Word:<BR>
+                                <input type="text" name="word" size="40" maxlength="256">
+                                <input class="buttonDefault" type="button" name="addBtn" fckLang="SpellexBtnAddWord" value="Add Word"
+                       onClick="onAddWordBtn();">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="normalText">
+                            <input class="buttonDefault" type="button" name="removeBtn" fckLang="SpellexBtnRemoveWord"
+                                   value="Remove Word"
+                       onClick="onRemoveWordBtn();">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center">
+                <input class="buttonDefault" type="button" name="okBtn" fckLang="SpellexBtnOK" value="OK"
+                       onClick="onOkBtn();">
+                &nbsp;&nbsp;
+                <input class="buttonDefault" type="button" name="cancelBtn" fckLang="SpellexBtnClose" value="Close"
+                       onClick="onCloseBtn();">
+                &nbsp;&nbsp;
+                <input class="buttonDefault" type="button" name="helpBtn" fckLang="SpellexBtnHelp" value="Help"
+                       onClick="openHelpWindow('spellexEditUserDictHelp.html');">
+
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

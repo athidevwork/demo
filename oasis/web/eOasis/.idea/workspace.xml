@@ -1,0 +1,3163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list id="75a51343-ab67-4d6b-973c-445d153532ca" name="issue - Credentialing Request web service implementation." comment="issue - Credentialing Request web service implementation." />
+    <list default="true" id="d442ce7f-77f1-47f1-b010-e00fa9a74de7" name="issue 197346 - Refactoring code for a fourth version to handle RESTful web services" comment="issue 197346 - Refactoring code for a fourth version to handle RESTful web services" />
+    <list readonly="true" id="285901b6-637c-4b42-8cbc-ece1e8a5621d" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../eApp/installer/java/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../eApp/installer/java/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../eApp/installer/java/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ant.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ant.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CS.iml" afterDir="false" />
+    </list>
+    <list id="a546b31c-dcff-4905-95e4-a7d5a1c8e5d8" name="Fix for &quot;Invalid Http Sessions&quot; java stack trace errors in weblogic logs" comment="Fix for &quot;Invalid Http Sessions&quot; java stack trace errors in weblogic logs" />
+    <list id="5148ef17-04d0-4b13-a5f4-f4393b5abbd7" name="issue 194448 - Fix the package for references to log_ws table, Add validations for zip, state and county" comment="issue 194448 - Fix the package for references to log_ws table, Add validations for zip, state and county" />
+    <list id="ec6bc328-17d1-43ba-8c00-b29da583b4f5" name="issue 194448 - logging webservice calls to log_ws table" comment="issue 194448 - logging webservice calls to log_ws table" />
+    <list id="d31a4e9b-d146-48be-9fd7-44818c39420f" name="Temp issue" comment="Temp issue">
+      <change beforePath="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/util/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/util/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/weblogic_lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/weblogic_lib.xml" afterDir="false" />
+    </list>
+    <list id="a5a9a0dc-ba81-4f22-8d98-d05563f09179" name="issue 176689 - Fix for the repeated error during create policy action." comment="issue 176689 - Fix for the repeated error during create policy action." />
+    <ignored path="$PROJECT_DIR$/../eClaim/exploded/" />
+    <ignored path="$PROJECT_DIR$/../eClaim/package/" />
+    <ignored path="$PROJECT_DIR$/package/eOasis/APP-INF/classes/" />
+    <ignored path="$PROJECT_DIR$/../eFM/exploded/" />
+    <ignored path="$PROJECT_DIR$/../eFM/package/" />
+    <ignored path="$PROJECT_DIR$/../OasisTags/lib/" />
+    <ignored path="$PROJECT_DIR$/../OasisTags/classes/" />
+    <ignored path="$PROJECT_DIR$/../OasisTags/test/classes/" />
+    <ignored path="$PROJECT_DIR$/../RAMS/doc/" />
+    <ignored path="$PROJECT_DIR$/../RAMS/exploded/" />
+    <ignored path="$PROJECT_DIR$/../RAMS/package/" />
+    <ignored path="$PROJECT_DIR$/../RAMS/WEB-INF/classes/" />
+    <ignored path="$PROJECT_DIR$/../eRM/exploded/" />
+    <ignored path="$PROJECT_DIR$/../eRM/package/" />
+    <ignored path="$PROJECT_DIR$/../eRM/test/classes/" />
+    <ignored path="$PROJECT_DIR$/../WebConfigIntegrator/classes/" />
+    <ignored path="$PROJECT_DIR$/../WebConfigIntegrator/test/classes/" />
+    <ignored path="$PROJECT_DIR$/../ePolicy/exploded/" />
+    <ignored path="$PROJECT_DIR$/../ePolicy/package/" />
+    <ignored path="$PROJECT_DIR$/../WebWB/exploded/" />
+    <ignored path="$PROJECT_DIR$/../WebWB/package/" />
+    <ignored path="$PROJECT_DIR$/../WebWB/test/classes/" />
+    <ignored path="$PROJECT_DIR$/../eApp/classes/" />
+    <ignored path="$PROJECT_DIR$/../eApp/package/" />
+    <ignored path="$PROJECT_DIR$/../eCIS/exploded/" />
+    <ignored path="$PROJECT_DIR$/../eCIS/package/" />
+    <ignored path="$PROJECT_DIR$/../eCMA/exploded/" />
+    <ignored path="$PROJECT_DIR$/../eCMA/package/" />
+    <ignored path="$PROJECT_DIR$/../eCS/exploded/" />
+    <ignored path="$PROJECT_DIR$/../eCS/package/" />
+    <ignored path="$PROJECT_DIR$/../oasis2Portal/owsPortal/WEB-INF/classes/" />
+    <ignored path="$PROJECT_DIR$/../oasis2Portal/test/classes/" />
+    <ignored path="$PROJECT_DIR$/../eAdmin/exploded/" />
+    <ignored path="$PROJECT_DIR$/../eAdmin/package/" />
+    <ignored path="$PROJECT_DIR$/../eAdmin/target/" />
+    <ignored path="$PROJECT_DIR$/../oasis2Portal/owsPortal/WEB-INF/exist-data/" />
+    <ignored path="$PROJECT_DIR$/../oasis2Portal/owsPortal/WEB-INF/lib/" />
+    <ignored path="$PROJECT_DIR$/../oasis2Portal/package/" />
+    <ignored path="$PROJECT_DIR$/../oasis2Core/owsCore/WEB-INF/exist-data/" />
+    <ignored path="$PROJECT_DIR$/../oasis2Core/owsCore/WEB-INF/lib/" />
+    <ignored path="$PROJECT_DIR$/../oasis2Core/package/" />
+    <ignored path="$PROJECT_DIR$/../oasis2Core/owsCore/WEB-INF/classes/" />
+    <ignored path="$PROJECT_DIR$/../oasis2Core/test/classes/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="eOasis" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="CredentialLetterResource.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/CredentialLetterResource.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="93" column="115" selection-start-line="93" selection-start-column="115" selection-end-line="93" selection-end-column="115" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RiskJdbcDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/riskmgr/dao/RiskJdbcDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="697">
+              <caret line="52" selection-start-line="52" selection-end-line="55" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialRequestManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/CredentialRequestManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1394">
+              <caret line="87" column="97" selection-start-line="87" selection-start-column="97" selection-end-line="87" selection-end-column="97" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialRequestManagerImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/CredentialRequestManagerImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="34" column="38" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialRequestJdbcDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/dao/CredentialRequestJdbcDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1496">
+              <caret line="97" column="32" selection-start-line="97" selection-start-column="32" selection-end-line="97" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialRequestDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/dao/CredentialRequestDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="21" column="37" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialRequestManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/CredentialRequestManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1258">
+              <caret line="78" column="52" selection-start-line="78" selection-start-column="52" selection-end-line="78" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NotFoundException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/NotFoundException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="26" column="57" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RuntimeException.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/DTIapps/JDK/jdk1.8.0_101/src.zip!/java/lang/RuntimeException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="595">
+              <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
+              <folding>
+                <element signature="e#1598#1599#0" expanded="true" />
+                <element signature="e#1628#1629#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Exception.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/DTIapps/JDK/jdk1.8.0_101/src.zip!/java/lang/Exception.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="663">
+              <caret line="65" column="9" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
+              <folding>
+                <element signature="e#1663#1664#0" expanded="true" />
+                <element signature="e#1693#1694#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ErrorHandlerController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/ErrorHandlerController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="24" column="2" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExpectedException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/ExpectedException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnprocessableValidationException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/UnprocessableValidationException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExceptionResponse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/ExceptionResponse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="42" column="58" selection-start-line="42" selection-start-column="58" selection-end-line="42" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialLetterStatus.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/rest/pojo/CredentialLetterStatus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="799">
+              <caret line="69" column="44" selection-start-line="69" selection-start-column="44" selection-end-line="69" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DelphiResponseEntityExceptionHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/DelphiResponseEntityExceptionHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="35" column="49" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HttpStatus.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.web-sources-3.0.2.RELEASE.jar!/org/springframework/http/HttpStatus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2635">
+              <caret line="169" column="4" selection-start-line="169" selection-start-column="4" selection-end-line="169" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="applicationConfig-core.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../OasisTags/config/dti/applicationConfig-core.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="16592">
+              <caret line="976" column="78" selection-start-line="976" selection-start-column="78" selection-end-line="976" selection-end-column="78" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="applicationConfig-core.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../OasisTags/config/dti/applicationConfig-core.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1173">
+              <caret line="69" column="10" selection-start-line="69" selection-start-column="10" selection-end-line="69" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialLetterRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/rest/pojo/CredentialLetterRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1037">
+              <caret line="84" column="18" selection-start-line="84" selection-start-column="18" selection-end-line="84" selection-end-column="18" />
+              <folding>
+                <element signature="e#1303#1304#0" expanded="true" />
+                <element signature="e#1361#1362#0" expanded="true" />
+                <element signature="e#1400#1401#0" expanded="true" />
+                <element signature="e#1432#1433#0" expanded="true" />
+                <element signature="e#1485#1486#0" expanded="true" />
+                <element signature="e#1527#1528#0" expanded="true" />
+                <element signature="e#1565#1566#0" expanded="true" />
+                <element signature="e#1599#1600#0" expanded="true" />
+                <element signature="e#1653#1654#0" expanded="true" />
+                <element signature="e#1699#1700#0" expanded="true" />
+                <element signature="e#1752#1753#0" expanded="true" />
+                <element signature="e#1788#1789#0" expanded="true" />
+                <element signature="e#1859#1860#0" expanded="true" />
+                <element signature="e#1909#1910#0" expanded="true" />
+                <element signature="e#1950#1951#0" expanded="true" />
+                <element signature="e#1980#1981#0" expanded="true" />
+                <element signature="e#2033#2034#0" expanded="true" />
+                <element signature="e#2071#2072#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialRequestImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/impl/CredentialRequestImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="527">
+              <caret line="52" column="50" selection-start-line="52" selection-start-column="50" selection-end-line="52" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialRequestDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/dao/CredentialRequestDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1241">
+              <caret line="74" column="49" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialRequestJdbcDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/dao/CredentialRequestJdbcDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="applicationConfig.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/config/dti/applicationConfig.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="9452">
+              <caret line="556" column="37" selection-start-line="556" selection-start-column="37" selection-end-line="556" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="applicationConfig-cis.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/CIS/config/dti/applicationConfig-cis.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19414">
+              <caret line="1142" selection-start-line="1141" selection-end-line="1142" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WebServiceHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/request/service/WebServiceHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1598">
+              <caret line="114" selection-start-line="114" selection-end-line="117" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CredentialLetterJaxrsResource.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/jaxrs/CredentialLetterJaxrsResource.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="322" column="55" selection-start-line="322" selection-start-column="55" selection-end-line="322" selection-end-column="109" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dispatcher-config.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/wsCIS.war/WEB-INF/dispatcher-config.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="web.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/wsCIS.war/WEB-INF/web.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="54" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>addOwsLogRequest</find>
+      <find>MessageManager.getInstance</find>
+      <find>addResultMessage</find>
+      <find>CredentialLetterController</find>
+      <find>saveCredentialSubmitRequest</find>
+      <find>clRequest</find>
+      <find>processRequestorStatus</find>
+      <find>dti.ci.entitymgr.</find>
+      <find>addMessage</find>
+      <find>handleNotFoundExceptions</find>
+      <find>NotFound</find>
+      <find>spring</find>
+      <find>handler</find>
+      <find>e.getMessage()</find>
+      <find>updateOwsLogRequest</find>
+      <find>MessageManager.getInstance()</find>
+      <find>setDefaultValuesForOrigSystem</find>
+      <find>credentialRequestD</find>
+      <find>credentia</find>
+      <find>UncaughtJersey</find>
+      <find>Mess</find>
+      <find>processCredentialLetterRequest</find>
+      <find>AppException</find>
+      <find>validateInputCredentialRequest</find>
+      <find>validate</find>
+      <find>UnprocessableValidationException</find>
+      <find>/*</find>
+      <find>/\*</find>
+      <find>getAuthHeader</find>
+      <find>checkForAuthorizedUser</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>quickQuoteRequest</replace>
+      <replace>result</replace>
+      <replace>CredentialLetterController</replace>
+      <replace>CredentialRequestImpl</replace>
+      <replace>getCredentialRequestImpl</replace>
+      <replace>getCredentialRequestManager</replace>
+      <replace>CredentialLetterResource</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\p4\DTI\Dev\OASIS-2019.1.0\oasis\web\OasisTags\src\java\dti\oasis\messagemgr</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/entitymgr/service/rest/controller/CredentialLetterController.java___jb_tmp___" />
+        <option value="$PROJECT_DIR$/../eCIS/dispatcher-config.xml" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/entitymgr/service/rest/common/CredentialLetterUtil.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/entitymgr/service/rest/controller/WadlController.java" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/rest/service/impl/CredentialLetterServiceManagerImpl.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/spring/RequestLoggingFilterConfig.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/config/dti/customApplicationConfig.properties" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/util/RestUtils.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/util/RestUtil.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/accesstrailmgr/OwsAccessTrailManager.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/accesstrailmgr/impl/OwsAccessTrailManagerImpl.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/accesstrailmgr/OwsLogRequest.java" />
+        <option value="$PROJECT_DIR$/../ePolicy/wsPolicy/src/dti/pm/policymgr/service/QuickQuoteServiceImpl.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/entitymgr/service/rest/controller/CredentialLetterController.java" />
+        <option value="$PROJECT_DIR$/../ePolicy/PM/src/dti/pm/policymgr/service/impl/QuickQuoteServiceManagerImpl.java" />
+        <option value="$PROJECT_DIR$/../ePolicy/PM/src/dti/pm/policymgr/service/dao/QuickQuoteServiceJdbcDAO.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/entitymgr/service/rest/resource/CredentialLetterResource.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/entitymgr/service/rest/resource/jaxrs/CredentialLetterResource.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/entitymgr/service/rest/resource/jaxrs/CredentialLetterJaxrsResource.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/entitymgr/service/rest/resource/spring/CredentialLetterResource.java" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/rest/pojo/CredentialLetterRequest.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/ExceptionResponse.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/messagemgr/ResultMessage.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/NotFoundException.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/UnprocessableValidationException.java" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/service/CredentialRequestManager.java" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/service/CredentialRequestManagerImpl.java" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/service/dao/CredentialRequestJdbcDAO.java" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/service/dao/CredentialRequestDAO.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/DelphiResponseEntityExceptionHandler.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/wsCIS.war/WEB-INF/dispatcher-config.xml" />
+        <option value="$PROJECT_DIR$/../OasisTags/config/dti/applicationConfig-core.properties" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/DelphiResponseEntityExceptionHandler.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/ExceptionResponse.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/UncaughtJerseyException.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/config/dti/applicationConfig-core.xml" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/impl/CredentialRequestImpl.java" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/CredentialRequestManager.java" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/dao/CredentialRequestJdbcDAO.java" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/dao/CredentialRequestDAO.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/dao/CredentialRequestDAO.java" />
+        <option value="$PROJECT_DIR$/../eCIS/config/dti/applicationConfig.xml" />
+        <option value="$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/rest/pojo/CredentialLetterStatus.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/NotFoundException.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/wsCIS.war/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/CredentialRequestManager.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/CredentialRequestManagerImpl.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/dao/CredentialRequestJdbcDAO.java" />
+        <option value="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/request/service/WebServiceHelper.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/jaxrs/CredentialLetterJaxrsResource.java" />
+        <option value="$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/CredentialLetterResource.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="LastSuccessfulUpdateTracker">
+    <option name="changeLists">
+      <list>
+        <PersistentChangeList>
+          <option name="name" value="Temp issue" />
+          <option name="files">
+            <list>
+              <ChangedFile beforePath="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/util/DateUtils.java" afterPath="$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/util/DateUtils.java" />
+              <ChangedFile beforePath="$PROJECT_DIR$/.idea/libraries/weblogic_lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/weblogic_lib.xml" />
+            </list>
+          </option>
+        </PersistentChangeList>
+        <PersistentChangeList>
+          <option name="name" value="Default" />
+          <option name="files">
+            <list>
+              <ChangedFile beforePath="$PROJECT_DIR$/CS.iml" afterPath="$PROJECT_DIR$/CS.iml" />
+              <ChangedFile beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+              <ChangedFile beforePath="$PROJECT_DIR$/.idea/ant.xml" afterPath="$PROJECT_DIR$/.idea/ant.xml" />
+              <ChangedFile beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/../eApp/installer/java/.idea/dbnavigator.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/../eApp/installer/java/.idea/codeStyles/Project.xml" />
+              <ChangedFile afterPath="$PROJECT_DIR$/../eApp/installer/java/.idea/workspace.xml" />
+            </list>
+          </option>
+        </PersistentChangeList>
+        <PersistentChangeList>
+          <option name="name" value="issue 194448 - logging webservice calls to log_ws table" />
+        </PersistentChangeList>
+        <PersistentChangeList>
+          <option name="name" value="issue 197346 - Refactoring code for a fourth version to handle RESTful web services" />
+        </PersistentChangeList>
+        <PersistentChangeList>
+          <option name="name" value="issue - Credentialing Request web service implementation." />
+        </PersistentChangeList>
+        <PersistentChangeList>
+          <option name="name" value="issue 176689 - Fix for the repeated error during create policy action." />
+        </PersistentChangeList>
+        <PersistentChangeList>
+          <option name="name" value="Fix for &quot;Invalid Http Sessions&quot; java stack trace errors in weblogic logs" />
+        </PersistentChangeList>
+        <PersistentChangeList>
+          <option name="name" value="issue 194448 - Fix the package for references to log_ws table, Add validations for zip, state and county" />
+        </PersistentChangeList>
+      </list>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="PerforceNumberNameSynchronizer">
+    <option name="listMappings">
+      <map>
+        <entry>
+          <key>
+            <ConnectionKeyBean>
+              <option name="server" value="" />
+              <option name="client" value="" />
+              <option name="user" value="" />
+            </ConnectionKeyBean>
+          </key>
+          <value>
+            <PerforceNumberNameMap>
+              <option name="mapping">
+                <entry key="263701" value="Fix for &quot;Invalid Http Sessions&quot; java stack trace errors in weblogic logs" />
+                <entry key="282277" value="issue 176689 - Fix for the repeated error during create policy action." />
+                <entry key="327650" value="issue 194448 - logging webservice calls to log_ws table" />
+                <entry key="331527" value="Temp issue" />
+              </option>
+            </PerforceNumberNameMap>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1386" />
+    <option name="height" value="788" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <autoscrollFromSource ProjectPane="true" />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="CIS" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="CIS" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="CIS" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="dti" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="CIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="CIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="CIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+              <item name="credentialrequestmgr" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="CIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+              <item name="credentialrequestmgr" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="CIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+              <item name="credentialrequestmgr" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="CIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+              <item name="credentialrequestmgr" type="462c0819:PsiDirectoryNode" />
+              <item name="pojo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="dti" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="jaxrs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ci" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS.war" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS" type="462c0819:PsiDirectoryNode" />
+              <item name="wsCIS.war" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="dti" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+              <item name="error" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+              <item name="error" type="462c0819:PsiDirectoryNode" />
+              <item name="rest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+              <item name="messagemgr" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+              <item name="obr" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+              <item name="request" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+              <item name="request" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+              <item name="restful" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+              <item name="restful" type="462c0819:PsiDirectoryNode" />
+              <item name="request" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="oasis" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="OasisTags" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lang" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="com.oracle.weblogic.security.subject.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="com.oracle.weblogic.security.subject.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="com.oracle.weblogic.security.subject.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+              <item name="acl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="com.oracle.weblogic.security.subject.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+              <item name="acl" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="com.oracle.weblogic.servlet.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="com.oracle.weblogic.servlet.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="weblogic" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="com.oracle.weblogic.servlet.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="weblogic" type="462c0819:PsiDirectoryNode" />
+              <item name="servlet" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="com.oracle.weblogic.servlet.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="weblogic" type="462c0819:PsiDirectoryNode" />
+              <item name="servlet" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="com.oracle.weblogic.servlet.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="weblogic" type="462c0819:PsiDirectoryNode" />
+              <item name="servlet" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.containers.jersey-container-servlet-core.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.containers.jersey-container-servlet-core.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="servlet" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.core.jersey-common.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.core.jersey-common.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="jersey" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.core.jersey-common.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="jersey" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.core.jersey-common.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="jersey" type="462c0819:PsiDirectoryNode" />
+              <item name="process" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.core.jersey-common.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="jersey" type="462c0819:PsiDirectoryNode" />
+              <item name="process" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.core.jersey-server.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.core.jersey-server.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.core.jersey-server.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="eOasis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="weblogic.lib" type="70bed36:NamedLibraryElementNode" />
+              <item name="org.glassfish.jersey.core.jersey-server.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../tools/OXB/Java/lib/jersey/2.25.1" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="dti.pm.policymgr.service.cache" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="dti.oasis.error.rest" />
+      <recent name="dti.ci.credentialrequestmgr.resource.jaxrs" />
+      <recent name="dti.ci.credentialrequestmgr.resource" />
+      <recent name="dti.ci.entitymgr.service.rest.resource.spring" />
+      <recent name="dti.ci.entitymgr.service.rest.resource.jaxrs" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="dti.ci.entitymgr.service.rest.resource.jaxrs" />
+      <recent name="dti.ci.credentialrequestmgr.rest.model" />
+      <recent name="dti.oasis.messagemgr" />
+      <recent name="dti.pm.policymgr.service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\p4\DTI\Dev\OASIS-2019.1.0\oasis\web\eCIS\wsCIS\src\dti\ci\entitymgr\service\rest" />
+      <recent name="C:\p4\DTI\Dev\OASIS-2019.1.0\oasis\web\CommonServices\ows\xsd" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="localhost-8453" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="8453" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="8453" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <properties />
+      <listeners />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task id="Default" summary="Default task">
+      <changelist id="285901b6-637c-4b42-8cbc-ece1e8a5621d" name="Default" comment="" />
+      <created>1538418962631</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1539201351755</updated>
+      <workItem from="1538418970911" duration="12858000" />
+      <workItem from="1538485069354" duration="19293000" />
+      <workItem from="1538572764854" duration="16415000" />
+      <workItem from="1538657133049" duration="16003000" />
+      <workItem from="1538776295436" duration="4355000" />
+      <workItem from="1539098845018" duration="1964000" />
+      <workItem from="1539178868313" duration="3540000" />
+    </task>
+    <task id="LOCAL-00001" summary="issue 194448 - implement default values">
+      <created>1539201351428</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1548254225439</updated>
+      <workItem from="1539201353057" duration="4405000" />
+      <workItem from="1539263782985" duration="16338000" />
+      <workItem from="1539347459811" duration="5789000" />
+      <workItem from="1539568194045" duration="2577000" />
+      <workItem from="1539613939430" duration="9825000" />
+      <workItem from="1539697817578" duration="7685000" />
+      <workItem from="1539781317156" duration="16344000" />
+      <workItem from="1539864003171" duration="4793000" />
+      <workItem from="1539954660511" duration="1127000" />
+      <workItem from="1540216481710" duration="5303000" />
+      <workItem from="1540302628161" duration="9291000" />
+      <workItem from="1540389559677" duration="9187000" />
+      <workItem from="1540470565645" duration="8376000" />
+      <workItem from="1540559861910" duration="3458000" />
+      <workItem from="1540921808046" duration="10405000" />
+      <workItem from="1540940646487" duration="7313000" />
+      <workItem from="1540994904121" duration="7998000" />
+      <workItem from="1541017229623" duration="6647000" />
+      <workItem from="1541080012494" duration="5744000" />
+      <workItem from="1541458821326" duration="604000" />
+      <workItem from="1541514168945" duration="2829000" />
+      <workItem from="1541601563906" duration="3562000" />
+      <workItem from="1541690476160" duration="4336000" />
+      <workItem from="1541702358097" duration="6593000" />
+      <workItem from="1541779728889" duration="1796000" />
+      <workItem from="1542032648412" duration="11732000" />
+      <workItem from="1542120727267" duration="7718000" />
+      <workItem from="1542137467696" duration="4399000" />
+      <workItem from="1542204771774" duration="1574000" />
+      <workItem from="1542292836905" duration="4622000" />
+      <workItem from="1542656657955" duration="367000" />
+      <workItem from="1542726541077" duration="597000" />
+      <workItem from="1542734644268" duration="2369000" />
+      <workItem from="1542808286808" duration="5869000" />
+      <workItem from="1543242611108" duration="13866000" />
+      <workItem from="1543322676518" duration="23705000" />
+      <workItem from="1543417464960" duration="8644000" />
+      <workItem from="1543498312330" duration="12363000" />
+      <workItem from="1543586772057" duration="5926000" />
+      <workItem from="1543594977152" duration="12896000" />
+      <workItem from="1543802716151" duration="5932000" />
+      <workItem from="1543849196125" duration="15397000" />
+      <workItem from="1543932182352" duration="25642000" />
+      <workItem from="1544017480185" duration="23084000" />
+      <workItem from="1544106988450" duration="1871000" />
+      <workItem from="1544110388284" duration="15979000" />
+      <workItem from="1544194373431" duration="16306000" />
+      <workItem from="1544453607663" duration="15520000" />
+      <workItem from="1544498011204" duration="2393000" />
+      <workItem from="1544539557338" duration="9856000" />
+      <workItem from="1544624758143" duration="5834000" />
+      <workItem from="1544712217296" duration="8924000" />
+      <workItem from="1544731722465" duration="1172000" />
+      <workItem from="1544796071400" duration="7437000" />
+      <workItem from="1544819311548" duration="1817000" />
+      <workItem from="1545015477905" duration="185000" />
+      <workItem from="1545016189188" duration="3010000" />
+      <workItem from="1545058451046" duration="12949000" />
+      <workItem from="1545099502868" duration="7324000" />
+      <workItem from="1545133420349" duration="7783000" />
+      <workItem from="1545146614137" duration="22758000" />
+      <workItem from="1545221531563" duration="4197000" />
+      <workItem from="1545236937611" duration="1828000" />
+      <workItem from="1545249891097" duration="6272000" />
+      <workItem from="1546439914149" duration="10256000" />
+      <workItem from="1546521553046" duration="12693000" />
+      <workItem from="1546612804292" duration="20878000" />
+      <workItem from="1546870915103" duration="12344000" />
+      <workItem from="1546959827590" duration="6301000" />
+      <workItem from="1546974943870" duration="11833000" />
+      <workItem from="1547045388354" duration="19400000" />
+      <workItem from="1547074129318" duration="6330000" />
+      <workItem from="1547131033587" duration="1637000" />
+      <workItem from="1547133805335" duration="1371000" />
+      <workItem from="1547137332755" duration="3503000" />
+      <workItem from="1547143432806" duration="1533000" />
+      <workItem from="1547148578035" duration="1036000" />
+      <workItem from="1547216835431" duration="2240000" />
+      <workItem from="1547220869659" duration="15565000" />
+      <workItem from="1547480926627" duration="7802000" />
+      <workItem from="1547562383867" duration="23853000" />
+      <workItem from="1547649371921" duration="14992000" />
+      <workItem from="1547676862511" duration="2933000" />
+      <workItem from="1547734381900" duration="2428000" />
+      <workItem from="1547739917101" duration="4229000" />
+      <workItem from="1547745982530" duration="10874000" />
+      <workItem from="1547822709544" duration="5060000" />
+      <workItem from="1547845234105" duration="3229000" />
+      <workItem from="1548162974540" duration="8834000" />
+      <workItem from="1548253668638" duration="469000" />
+    </task>
+    <task id="LOCAL-00002" summary="issu 19448 - Fix typo in result of webservice.">
+      <created>1548254224465</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1548433685437</updated>
+      <workItem from="1548254229933" duration="11772000" />
+      <workItem from="1548340618418" duration="4171000" />
+      <workItem from="1548425528407" duration="2722000" />
+    </task>
+    <task id="LOCAL-00003" summary="issue 194448 - Fix bug for set optional referredInsured data in coverage">
+      <created>1548433684841</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1548693029456</updated>
+      <workItem from="1548433686730" duration="6302000" />
+      <workItem from="1548679358659" duration="1458000" />
+    </task>
+    <task id="LOCAL-00004" summary="issue 194448 - Fix issues with optional and mandatory input">
+      <created>1548693029082</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1548876875642</updated>
+      <workItem from="1548693032570" duration="4316000" />
+      <workItem from="1548773488732" duration="4752000" />
+      <workItem from="1548859825142" duration="1835000" />
+    </task>
+    <task id="LOCAL-00005" summary="issue 197346 - Fix the code as per Bill's third review comments">
+      <created>1548876875241</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1549302038467</updated>
+      <workItem from="1548876876822" duration="4386000" />
+      <workItem from="1548902060034" duration="4169000" />
+      <workItem from="1548942129442" duration="16697000" />
+      <workItem from="1549036064869" duration="748000" />
+      <workItem from="1549054280852" duration="667000" />
+      <workItem from="1549285704570" duration="2379000" />
+    </task>
+    <task active="true" id="LOCAL-00006" summary="issue 197346 - Refactoring code for a fourth version to handle RESTful web services">
+      <changelist id="d442ce7f-77f1-47f1-b010-e00fa9a74de7" name="issue 197346 - Refactoring code for a fourth version to handle RESTful web services" comment="" />
+      <created>1549302037509</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1549302039794</updated>
+      <workItem from="1549302039880" duration="601000" />
+      <workItem from="1549376075284" duration="18962000" />
+      <workItem from="1549461424444" duration="4767000" />
+      <workItem from="1549488302364" duration="3217000" />
+      <workItem from="1549546962062" duration="11594000" />
+      <workItem from="1549634456165" duration="12275000" />
+      <workItem from="1549887430891" duration="9368000" />
+      <workItem from="1549984185532" duration="9419000" />
+      <workItem from="1550068325783" duration="650000" />
+      <workItem from="1550080055327" duration="2624000" />
+      <workItem from="1550156389083" duration="10331000" />
+      <workItem from="1550253734948" duration="1443000" />
+      <workItem from="1550584762207" duration="4918000" />
+      <workItem from="1550686139862" duration="3427000" />
+      <workItem from="1550757476026" duration="2014000" />
+      <workItem from="1551290423744" duration="709000" />
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <option name="trackContextForNewChangelist" value="true" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="951186000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="right" id="Palette" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5060514" side_tool="true" weight="0.375" />
+      <window_info anchor="right" id="Maven Projects" order="3" weight="0.32980332" />
+      <window_info anchor="bottom" id="Database Changes" order="4" show_stripe_button="false" />
+      <window_info anchor="right" id="CDI" order="1" />
+      <window_info id="Capture Tool" order="0" />
+      <window_info id="Struts Assistant" order="2" sideWeight="0.49666667" weight="0.32980332" />
+      <window_info id="Designer" order="3" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32980332" />
+      <window_info id="Structure" order="10" sideWeight="0.50333333" side_tool="true" weight="0.32980332" />
+      <window_info anchor="right" id="JSF" order="10" weight="0.32980332" />
+      <window_info anchor="right" id="Ant Build" order="0" sideWeight="0.49866667" visible="true" weight="0.19742814" />
+      <window_info id="UI Designer" order="4" />
+      <window_info anchor="bottom" id="Debug" order="11" sideWeight="0.49394855" weight="0.375" />
+      <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info id="Image Layers" order="5" />
+      <window_info anchor="bottom" id="Java Enterprise" order="3" sideWeight="0.49924356" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="bottom" id="Run" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="5" sideWeight="0.49167928" weight="0.32833335" />
+      <window_info anchor="bottom" id="Spring" order="0" />
+      <window_info anchor="bottom" id="Terminal" order="1" />
+      <window_info active="true" content_ui="combo" x="50" y="106" width="1063" height="600" id="Project" order="1" sideWeight="0.488" visible="true" weight="0.26096824" />
+      <window_info anchor="right" id="Bean Validation" order="9" weight="0.32980332" />
+      <window_info id="Web" order="6" side_tool="true" />
+      <window_info id="Learn" order="7" />
+      <window_info id="JavaEE:App" order="8" sideWeight="0.51166666" side_tool="true" weight="0.20801815" />
+      <window_info anchor="right" id="Theme Preview" order="7" />
+      <window_info id="Favorites" order="9" sideWeight="0.512" side_tool="true" weight="0.25567323" />
+      <window_info anchor="bottom" id="Inspection" order="13" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="12" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="11" sideWeight="0.50133336" side_tool="true" weight="0.22012103" />
+      <window_info anchor="bottom" id="Messages" order="2" sideWeight="0.4977307" weight="0.32166666" />
+      <window_info anchor="bottom" id="Find" order="7" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="8" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="6" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/CredentialLetterResource.java</url>
+          <line>106</line>
+          <properties />
+          <option name="timeStamp" value="297" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/impl/CredentialRequestImpl.java</url>
+          <line>385</line>
+          <properties />
+          <option name="timeStamp" value="298" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/DelphiResponseEntityExceptionHandler.java</url>
+          <line>68</line>
+          <properties />
+          <option name="timeStamp" value="301" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/DelphiResponseEntityExceptionHandler.java</url>
+          <line>43</line>
+          <properties />
+          <option name="timeStamp" value="302" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/DelphiResponseEntityExceptionHandler.java</url>
+          <line>57</line>
+          <properties />
+          <option name="timeStamp" value="303" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/DelphiResponseEntityExceptionHandler.java</url>
+          <line>62</line>
+          <properties />
+          <option name="timeStamp" value="304" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/CredentialLetterResource.java</url>
+          <line>170</line>
+          <properties />
+          <option name="timeStamp" value="306" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/CredentialLetterResource.java</url>
+          <line>248</line>
+          <properties />
+          <option name="timeStamp" value="316" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/CredentialLetterResource.java</url>
+          <line>39</line>
+          <properties />
+          <option name="timeStamp" value="317" />
+        </line-breakpoint>
+      </breakpoints>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="318" />
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="true" />
+    <buildFile url="file://$PROJECT_DIR$/../eAdmin/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="build.CustWebWB" isVisible="false" />
+        <filter targetName="build.CustWebWB.exploded" isVisible="false" />
+        <filter targetName="build.CustWebWB.package" isVisible="false" />
+        <filter targetName="build.ConfigProp" isVisible="false" />
+        <filter targetName="build.ConfigProp.exploded" isVisible="false" />
+        <filter targetName="build.ConfigProp.package" isVisible="false" />
+        <filter targetName="build.Portal" isVisible="false" />
+        <filter targetName="build.Portal.exploded" isVisible="false" />
+        <filter targetName="build.Portal.package" isVisible="false" />
+        <filter targetName="build.SysInfo" isVisible="false" />
+        <filter targetName="build.SysInfo.exploded" isVisible="false" />
+        <filter targetName="build.SysInfo.package" isVisible="false" />
+        <filter targetName="build.Security" isVisible="false" />
+        <filter targetName="build.Security.exploded" isVisible="false" />
+        <filter targetName="build.Security.package" isVisible="false" />
+        <filter targetName="build.ProdDefWB" isVisible="false" />
+        <filter targetName="build.ProdDefWB.exploded" isVisible="false" />
+        <filter targetName="build.ProdDefWB.package" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../CommonServices/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="jaxb-init" isVisible="false" />
+        <filter targetName="gen-jaxb" isVisible="true" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+        <filter targetName="init.cs.properties" isVisible="false" />
+        <filter targetName="init.cs" isVisible="false" />
+        <filter targetName="copy.CS.libs" isVisible="false" />
+        <filter targetName="compile.CS" isVisible="false" />
+        <filter targetName="copy.CS.config.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.template.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CS.for.CS" isVisible="false" />
+        <filter targetName="build.CS.shared" isVisible="false" />
+        <filter targetName="build.CS.no.web" isVisible="false" />
+        <filter targetName="build.CS.for.ear" isVisible="false" />
+        <filter targetName="init.cis.properties" isVisible="false" />
+        <filter targetName="init.cis" isVisible="false" />
+        <filter targetName="copy.CIS.libs" isVisible="false" />
+        <filter targetName="compile.CIS" isVisible="false" />
+        <filter targetName="copy.CIS.config.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CIS.for.CIS" isVisible="false" />
+        <filter targetName="build.CIS.shared" isVisible="false" />
+        <filter targetName="build.CIS.no.web" isVisible="false" />
+        <filter targetName="build.CIS.for.ear" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../eCS/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="build.wsCS" isVisible="false" />
+        <filter targetName="build.wsCS.exploded" isVisible="false" />
+        <filter targetName="build.wsCS.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.wsCS.package" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="copy.meta-inf.config" isVisible="false" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+        <filter targetName="init.cs.properties" isVisible="false" />
+        <filter targetName="init.cs" isVisible="false" />
+        <filter targetName="copy.CS.libs" isVisible="false" />
+        <filter targetName="compile.CS" isVisible="false" />
+        <filter targetName="copy.CS.config.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.template.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CS.for.CS" isVisible="false" />
+        <filter targetName="build.CS.shared" isVisible="false" />
+        <filter targetName="build.CS.no.web" isVisible="false" />
+        <filter targetName="build.CS.for.ear" isVisible="false" />
+        <filter targetName="jaxb-init" isVisible="false" />
+        <filter targetName="gen-jaxb" isVisible="true" />
+        <filter targetName="init.cis.properties" isVisible="false" />
+        <filter targetName="init.cis" isVisible="false" />
+        <filter targetName="copy.CIS.libs" isVisible="false" />
+        <filter targetName="compile.CIS" isVisible="false" />
+        <filter targetName="copy.CIS.config.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.template.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CIS.for.CIS" isVisible="false" />
+        <filter targetName="build.CIS.shared" isVisible="false" />
+        <filter targetName="build.CIS.no.web" isVisible="false" />
+        <filter targetName="build.CIS.for.ear" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../eCMA/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="true" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+        <filter targetName="init.cs.properties" isVisible="false" />
+        <filter targetName="init.cs" isVisible="false" />
+        <filter targetName="copy.CS.libs" isVisible="false" />
+        <filter targetName="compile.CS" isVisible="false" />
+        <filter targetName="copy.CS.config.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.template.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CS.for.CS" isVisible="false" />
+        <filter targetName="build.CS.shared" isVisible="false" />
+        <filter targetName="build.CS.no.web" isVisible="false" />
+        <filter targetName="build.CS.for.ear" isVisible="false" />
+        <filter targetName="jaxb-init" isVisible="false" />
+        <filter targetName="gen-jaxb" isVisible="true" />
+        <filter targetName="init.cis.properties" isVisible="false" />
+        <filter targetName="init.cis" isVisible="false" />
+        <filter targetName="copy.CIS.libs" isVisible="false" />
+        <filter targetName="compile.CIS" isVisible="false" />
+        <filter targetName="copy.CIS.config.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.template.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CIS.for.CIS" isVisible="false" />
+        <filter targetName="build.CIS.shared" isVisible="false" />
+        <filter targetName="build.CIS.no.web" isVisible="false" />
+        <filter targetName="build.CIS.for.ear" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../ePolicy/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="build.wsPolicy" isVisible="false" />
+        <filter targetName="build.wsPolicy.exploded" isVisible="false" />
+        <filter targetName="build.wsPolicy.package" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+        <filter targetName="init.cs.properties" isVisible="false" />
+        <filter targetName="init.cs" isVisible="false" />
+        <filter targetName="copy.CS.libs" isVisible="false" />
+        <filter targetName="compile.CS" isVisible="false" />
+        <filter targetName="copy.CS.config.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.template.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CS.for.CS" isVisible="false" />
+        <filter targetName="build.CS.shared" isVisible="false" />
+        <filter targetName="build.CS.no.web" isVisible="false" />
+        <filter targetName="build.CS.for.ear" isVisible="false" />
+        <filter targetName="jaxb-init" isVisible="false" />
+        <filter targetName="gen-jaxb" isVisible="true" />
+        <filter targetName="init.cis.properties" isVisible="false" />
+        <filter targetName="init.cis" isVisible="false" />
+        <filter targetName="copy.CIS.libs" isVisible="false" />
+        <filter targetName="compile.CIS" isVisible="false" />
+        <filter targetName="copy.CIS.config.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.template.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CIS.for.CIS" isVisible="false" />
+        <filter targetName="build.CIS.shared" isVisible="false" />
+        <filter targetName="build.CIS.no.web" isVisible="false" />
+        <filter targetName="build.CIS.for.ear" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../eFM/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="build.wsFM" isVisible="false" />
+        <filter targetName="build.wsFM.exploded" isVisible="false" />
+        <filter targetName="build.wsFM.package" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test.project" isVisible="false" />
+        <filter targetName="publish.test.results" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+        <filter targetName="init.cs.properties" isVisible="false" />
+        <filter targetName="init.cs" isVisible="false" />
+        <filter targetName="copy.CS.libs" isVisible="false" />
+        <filter targetName="compile.CS" isVisible="false" />
+        <filter targetName="copy.CS.config.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.template.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CS.for.CS" isVisible="false" />
+        <filter targetName="build.CS.shared" isVisible="false" />
+        <filter targetName="build.CS.no.web" isVisible="false" />
+        <filter targetName="build.CS.for.ear" isVisible="false" />
+        <filter targetName="jaxb-init" isVisible="false" />
+        <filter targetName="gen-jaxb" isVisible="true" />
+        <filter targetName="init.cis.properties" isVisible="false" />
+        <filter targetName="init.cis" isVisible="false" />
+        <filter targetName="copy.CIS.libs" isVisible="false" />
+        <filter targetName="compile.CIS" isVisible="false" />
+        <filter targetName="copy.CIS.config.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.template.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CIS.for.CIS" isVisible="false" />
+        <filter targetName="build.CIS.shared" isVisible="false" />
+        <filter targetName="build.CIS.no.web" isVisible="false" />
+        <filter targetName="build.CIS.for.ear" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../WebWB/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../eClaim/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="build.wsCM" isVisible="false" />
+        <filter targetName="build.wsCM.exploded" isVisible="false" />
+        <filter targetName="build.wsCM.package" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+        <filter targetName="init.cs.properties" isVisible="false" />
+        <filter targetName="init.cs" isVisible="false" />
+        <filter targetName="copy.CS.libs" isVisible="false" />
+        <filter targetName="compile.CS" isVisible="false" />
+        <filter targetName="copy.CS.config.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.template.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CS.for.CS" isVisible="false" />
+        <filter targetName="build.CS.shared" isVisible="false" />
+        <filter targetName="build.CS.no.web" isVisible="false" />
+        <filter targetName="build.CS.for.ear" isVisible="false" />
+        <filter targetName="jaxb-init" isVisible="false" />
+        <filter targetName="gen-jaxb" isVisible="true" />
+        <filter targetName="init.cis.properties" isVisible="false" />
+        <filter targetName="init.cis" isVisible="false" />
+        <filter targetName="copy.CIS.libs" isVisible="false" />
+        <filter targetName="compile.CIS" isVisible="false" />
+        <filter targetName="copy.CIS.config.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.template.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CIS.for.CIS" isVisible="false" />
+        <filter targetName="build.CIS.shared" isVisible="false" />
+        <filter targetName="build.CIS.no.web" isVisible="false" />
+        <filter targetName="build.CIS.for.ear" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../eCIS/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="build.wsCIS" isVisible="false" />
+        <filter targetName="build.wsCIS.exploded" isVisible="false" />
+        <filter targetName="build.wsCIS.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.wsCIS.package" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="copy.meta-inf.config" isVisible="false" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+        <filter targetName="init.cs.properties" isVisible="false" />
+        <filter targetName="init.cs" isVisible="false" />
+        <filter targetName="copy.CS.libs" isVisible="false" />
+        <filter targetName="compile.CS" isVisible="false" />
+        <filter targetName="copy.CS.config.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.template.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CS.for.CS" isVisible="false" />
+        <filter targetName="build.CS.shared" isVisible="false" />
+        <filter targetName="build.CS.no.web" isVisible="false" />
+        <filter targetName="build.CS.for.ear" isVisible="false" />
+        <filter targetName="jaxb-init" isVisible="false" />
+        <filter targetName="gen-jaxb" isVisible="true" />
+        <filter targetName="init.cis.properties" isVisible="false" />
+        <filter targetName="init.cis" isVisible="false" />
+        <filter targetName="copy.CIS.libs" isVisible="false" />
+        <filter targetName="compile.CIS" isVisible="false" />
+        <filter targetName="copy.CIS.config.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.template.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CIS.for.CIS" isVisible="false" />
+        <filter targetName="build.CIS.shared" isVisible="false" />
+        <filter targetName="build.CIS.no.web" isVisible="false" />
+        <filter targetName="build.CIS.for.ear" isVisible="false" />
+      </targetFilters>
+      <expanded value="true" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../eRM/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="true" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+        <filter targetName="init.cs.properties" isVisible="false" />
+        <filter targetName="init.cs" isVisible="false" />
+        <filter targetName="copy.CS.libs" isVisible="false" />
+        <filter targetName="compile.CS" isVisible="false" />
+        <filter targetName="copy.CS.config.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.template.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CS.for.CS" isVisible="false" />
+        <filter targetName="build.CS.shared" isVisible="false" />
+        <filter targetName="build.CS.no.web" isVisible="false" />
+        <filter targetName="build.CS.for.ear" isVisible="false" />
+        <filter targetName="jaxb-init" isVisible="false" />
+        <filter targetName="gen-jaxb" isVisible="true" />
+        <filter targetName="init.cis.properties" isVisible="false" />
+        <filter targetName="init.cis" isVisible="false" />
+        <filter targetName="copy.CIS.libs" isVisible="false" />
+        <filter targetName="compile.CIS" isVisible="false" />
+        <filter targetName="copy.CIS.config.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.template.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CIS.for.CIS" isVisible="false" />
+        <filter targetName="build.CIS.shared" isVisible="false" />
+        <filter targetName="build.CIS.no.web" isVisible="false" />
+        <filter targetName="build.CIS.for.ear" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../eCIS/build-wsCIS.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="true" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="jwsc-all" isVisible="false" />
+        <filter targetName="jwsc-init" isVisible="false" />
+        <filter targetName="jwsc-Service" isVisible="false" />
+        <filter targetName="generate-party-inquiry-from-wsdl" isVisible="true" />
+        <filter targetName="generate-party-change-from-wsdl" isVisible="true" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+        <filter targetName="init.cs.properties" isVisible="false" />
+        <filter targetName="init.cs" isVisible="false" />
+        <filter targetName="copy.CS.libs" isVisible="false" />
+        <filter targetName="compile.CS" isVisible="false" />
+        <filter targetName="copy.CS.config.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.template.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CS.for.CS" isVisible="false" />
+        <filter targetName="build.CS.shared" isVisible="false" />
+        <filter targetName="build.CS.no.web" isVisible="false" />
+        <filter targetName="build.CS.for.ear" isVisible="false" />
+        <filter targetName="jaxb-init" isVisible="false" />
+        <filter targetName="gen-jaxb" isVisible="true" />
+        <filter targetName="init.cis.properties" isVisible="false" />
+        <filter targetName="init.cis" isVisible="false" />
+        <filter targetName="copy.CIS.libs" isVisible="false" />
+        <filter targetName="compile.CIS" isVisible="false" />
+        <filter targetName="copy.CIS.config.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.template.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CIS.for.CIS" isVisible="false" />
+        <filter targetName="build.CIS.shared" isVisible="false" />
+        <filter targetName="build.CIS.no.web" isVisible="false" />
+        <filter targetName="build.CIS.for.ear" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../ePolicy/build-wsPolicy.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="true" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="overwrite.meta-inf" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="jwsc-all" isVisible="false" />
+        <filter targetName="jwsc-init" isVisible="false" />
+        <filter targetName="jwsc-Service" isVisible="false" />
+        <filter targetName="generate-policy-inquiry-from-wsdl" isVisible="true" />
+        <filter targetName="generate-policy-premium-inquiry-from-wsdl" isVisible="true" />
+        <filter targetName="generate-policy-change-from-wsdl" isVisible="true" />
+        <filter targetName="generate-quote-accept-from-wsdl" isVisible="true" />
+        <filter targetName="generate-quote-copy-from-wsdl" isVisible="true" />
+        <filter targetName="generate-initiate-electronicApplication-from-wsdl" isVisible="true" />
+        <filter targetName="build.webservice.client.policyInquiry" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+        <filter targetName="init.cs.properties" isVisible="false" />
+        <filter targetName="init.cs" isVisible="false" />
+        <filter targetName="copy.CS.libs" isVisible="false" />
+        <filter targetName="compile.CS" isVisible="false" />
+        <filter targetName="copy.CS.config.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CS.template.files" isVisible="false" />
+        <filter targetName="copy.CS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CS.for.CS" isVisible="false" />
+        <filter targetName="build.CS.shared" isVisible="false" />
+        <filter targetName="build.CS.no.web" isVisible="false" />
+        <filter targetName="build.CS.for.ear" isVisible="false" />
+        <filter targetName="jaxb-init" isVisible="false" />
+        <filter targetName="gen-jaxb" isVisible="true" />
+        <filter targetName="init.cis.properties" isVisible="false" />
+        <filter targetName="init.cis" isVisible="false" />
+        <filter targetName="copy.CIS.libs" isVisible="false" />
+        <filter targetName="compile.CIS" isVisible="false" />
+        <filter targetName="copy.CIS.config.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.shared.webfiles" isVisible="false" />
+        <filter targetName="copy.CIS.template.files" isVisible="false" />
+        <filter targetName="copy.CIS.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.CIS.for.CIS" isVisible="false" />
+        <filter targetName="build.CIS.shared" isVisible="false" />
+        <filter targetName="build.CIS.no.web" isVisible="false" />
+        <filter targetName="build.CIS.for.ear" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../eApp/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="build.jar" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="build.webservice.client.policyInquiry" isVisible="false" />
+        <filter targetName="build.webservice.client.policyChange" isVisible="false" />
+        <filter targetName="build.webservice.client.fileUpload" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/../RAMS/build.xml">
+      <targetFilters>
+        <filter targetName="init.project.properties" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="copy.project.config.files" isVisible="false" />
+        <filter targetName="copy.additional.project.webfiles" isVisible="false" />
+        <filter targetName="copy.web.and.config.files" isVisible="true" />
+        <filter targetName="init.core.properties.for.ear" isVisible="false" />
+        <filter targetName="init.ear.override.properties" isVisible="false" />
+        <filter targetName="init.core.properties" isVisible="false" />
+        <filter targetName="init.build.info.properties" isVisible="false" />
+        <filter targetName="init.build.exploded.properties" isVisible="false" />
+        <filter targetName="init.build.package.properties" isVisible="false" />
+        <filter targetName="init.core" isVisible="false" />
+        <filter targetName="init.test" isVisible="false" />
+        <filter targetName="echo.build.properties" isVisible="false" />
+        <filter targetName="copy.oasistags.libs" isVisible="false" />
+        <filter targetName="compile.oasistags" isVisible="false" />
+        <filter targetName="copy.oasistags.config.files" isVisible="false" />
+        <filter targetName="copy.spellcheck.config.files" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.shared" isVisible="false" />
+        <filter targetName="copy.oasistags.webfiles.for.ear" isVisible="false" />
+        <filter targetName="build.oasistags" isVisible="false" />
+        <filter targetName="compile.oasistagstest" isVisible="false" />
+        <filter targetName="build.oasistagstest" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="clean.and.build.package" isVisible="false" />
+        <filter targetName="clean.package.build" isVisible="false" />
+        <filter targetName="clean.exploded.build" isVisible="false" />
+        <filter targetName="init.build.dirs" isVisible="false" />
+        <filter targetName="copy.project.libs" isVisible="false" />
+        <filter targetName="compile.project" isVisible="false" />
+        <filter targetName="copy.additional.project.config.files" isVisible="false" />
+        <filter targetName="copy.weblogic.xml" isVisible="false" />
+        <filter targetName="copy.project.webfiles" isVisible="false" />
+        <filter targetName="copy.template.files" isVisible="false" />
+        <filter targetName="appc" isVisible="false" />
+        <filter targetName="appc.fails.to.create.class.files" isVisible="false" />
+        <filter targetName="build.dependant.projects" isVisible="false" />
+        <filter targetName="build.project" isVisible="false" />
+        <filter targetName="post.build.project" isVisible="false" />
+        <filter targetName="override.build.properties.for.exploded" isVisible="false" />
+        <filter targetName="build.exploded" isVisible="true" />
+        <filter targetName="rebuild.exploded" isVisible="false" />
+        <filter targetName="build.exploded.skip.compile" isVisible="false" />
+        <filter targetName="build.and.deploy.exploded" isVisible="true" />
+        <filter targetName="override.build.properties.for.package" isVisible="false" />
+        <filter targetName="build.package" isVisible="false" />
+        <filter targetName="build.package.zip" isVisible="false" />
+        <filter targetName="DEPLOY" isVisible="true" />
+        <filter targetName="UNDEPLOY" isVisible="true" />
+        <filter targetName="build.package.and.customize.configuration" isVisible="false" />
+        <filter targetName="guvnor.model.clean" isVisible="false" />
+        <filter targetName="guvnor.model.compile" isVisible="false" />
+        <filter targetName="guvnor.model.jar" isVisible="false" />
+        <filter targetName="jqx.custom.minify" isVisible="false" />
+        <filter targetName="compile.project.test" isVisible="false" />
+        <filter targetName="build.project.test" isVisible="false" />
+        <filter targetName="test" isVisible="false" />
+      </targetFilters>
+      <expanded value="false" />
+    </buildFile>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>e.getMessage()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>e.getMessage</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>request.getHeader(&quot;host&quot;)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>request.getHeader(&quot;ServerName&quot;)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>request.getRemoteUser()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>request.getContextPath()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>request.getUserPrincipal()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>request</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>MessageManager.getInstance().hasErrorMessages()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/data/DBTransactionInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.transaction-sources-3.0.2.RELEASE.jar!/org/springframework/transaction/interceptor/TransactionAspectSupport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="288" selection-start-line="288" selection-end-line="288" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.aop-sources-3.0.2.RELEASE.jar!/org/springframework/aop/framework/JdkDynamicAopProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="237" selection-start-line="237" selection-end-line="237" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.web-sources-3.0.2.RELEASE.jar!/org/springframework/http/HttpStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2635">
+          <caret line="169" column="4" selection-start-line="169" selection-start-column="4" selection-end-line="169" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.web.servlet-sources-3.0.2.RELEASE.jar!/org/springframework/web/servlet/FrameworkServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="753" selection-start-line="753" selection-end-line="753" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.web.servlet-sources-3.0.2.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="906" selection-start-line="906" selection-end-line="906" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../OasisTags/src/web/OasisTags/WEB-INF/lib/spring-webmvc-4.3.1.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="527" selection-start-line="527" selection-end-line="527" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/DTIapps/JDK/jdk1.8.0_101/src.zip!/java/lang/RuntimeException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
+          <folding>
+            <element signature="e#1598#1599#0" expanded="true" />
+            <element signature="e#1628#1629#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/DTIapps/JDK/jdk1.8.0_101/src.zip!/java/lang/Exception.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="65" column="9" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
+          <folding>
+            <element signature="e#1663#1664#0" expanded="true" />
+            <element signature="e#1693#1694#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../OasisTags/config/dti/applicationConfig-core.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16592">
+          <caret line="976" column="78" selection-start-line="976" selection-start-column="78" selection-end-line="976" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../OasisTags/src/web/OasisTags/WEB-INF/lib/spring-web-4.3.1.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="137" selection-start-line="137" selection-end-line="137" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src/org.springframework.aop-sources-3.0.2.RELEASE.jar!/org/springframework/aop/support/AopUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="325" selection-start-line="325" selection-end-line="325" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/wlserver/modules/com.oracle.weblogic.security.subject.jar!/weblogic/security/acl/internal/AuthenticatedSubject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="192" selection-start-line="192" selection-end-line="192" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/wlserver/modules/com.oracle.weblogic.servlet.jar!/weblogic/servlet/internal/WebAppServletContext.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="3727" selection-start-line="3727" selection-end-line="3727" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/request/service/WebServiceRequestLifecycleFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/restful/request/RestServiceRequestLifecycleFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/wlserver/modules/com.oracle.weblogic.servlet.jar!/weblogic/servlet/internal/TailFilter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/wlserver/modules/com.oracle.weblogic.servlet.jar!/weblogic/servlet/internal/ServletStubImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="352" selection-start-line="352" selection-end-line="352" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/wlserver/modules/com.oracle.weblogic.servlet.jar!/weblogic/servlet/internal/StubSecurityHelper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="131" selection-start-line="131" selection-end-line="131" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/oracle_common/modules/org.glassfish.jersey.containers.jersey-container-servlet-core.jar!/org/glassfish/jersey/servlet/WebComponent.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="191" selection-start-line="191" selection-end-line="191" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/oracle_common/modules/org.glassfish.jersey.core.jersey-common.jar!/org/glassfish/jersey/process/internal/RequestScope.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="127" selection-start-line="127" selection-end-line="127" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/oracle_common/modules/org.glassfish.jersey.core.jersey-common.jar!/org/glassfish/jersey/internal/Errors.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="146" selection-start-line="146" selection-end-line="146" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/oracle_common/modules/org.glassfish.jersey.core.jersey-server.jar!/org/glassfish/jersey/server/ServerRuntime.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="337" selection-start-line="337" selection-end-line="337" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/oracle_common/modules/org.glassfish.jersey.core.jersey-server.jar!/org/glassfish/jersey/server/model/ResourceMethodInvoker.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="245" selection-start-line="245" selection-end-line="245" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../tools/weblogic/12.2.1.1/oracle_common/modules/org.glassfish.jersey.core.jersey-server.jar!/org/glassfish/jersey/server/model/internal/AbstractJavaResourceMethodDispatcher.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../OasisTags/config/dti/applicationConfig-core.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="69" column="10" selection-start-line="69" selection-start-column="10" selection-end-line="69" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/impl/CredentialRequestImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="52" column="50" selection-start-line="52" selection-start-column="50" selection-end-line="52" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/dao/CredentialRequestDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1241">
+          <caret line="74" column="49" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/CIS/config/dti/applicationConfig-cis.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/CIS/config/dti/applicationConfig-cis.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19414">
+          <caret line="1142" selection-start-line="1141" selection-end-line="1142" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/config/dti/applicationConfig.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9452">
+          <caret line="556" column="37" selection-start-line="556" selection-start-column="37" selection-end-line="556" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/messagemgr/ResultMessage.java" />
+    <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/rest/pojo/CredentialLetterStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="69" column="44" selection-start-line="69" selection-start-column="44" selection-end-line="69" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/UncaughtJerseyException.java" />
+    <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/UnprocessableValidationException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/NotFoundException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="26" column="57" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/ExceptionResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="42" column="58" selection-start-line="42" selection-start-column="58" selection-end-line="42" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/error/rest/DelphiResponseEntityExceptionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="35" column="49" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/wsCIS.war/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="54" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/CredentialRequestManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1394">
+          <caret line="87" column="97" selection-start-line="87" selection-start-column="97" selection-end-line="87" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/riskmgr/dao/RiskJdbcDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="52" selection-start-line="52" selection-end-line="55" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/wsCIS.war/WEB-INF/dispatcher-config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/CredentialRequestManagerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="34" column="38" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/dao/CredentialRequestJdbcDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/DTIapps/JDK/jdk1.8.0_101/src.zip!/java/lang/Throwable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="263" column="11" selection-start-line="263" selection-start-column="11" selection-end-line="263" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/CIS/src/dti/ci/credentialrequestmgr/CredentialRequestManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="78" column="52" selection-start-line="78" selection-start-column="52" selection-end-line="78" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../OasisTags/src/java/dti/oasis/request/service/WebServiceHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1598">
+          <caret line="114" selection-start-line="114" selection-end-line="117" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/dao/CredentialRequestDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="21" column="37" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/service/dao/CredentialRequestJdbcDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1496">
+          <caret line="97" column="32" selection-start-line="97" selection-start-column="32" selection-end-line="97" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/jaxrs/CredentialLetterJaxrsResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="322" column="55" selection-start-line="322" selection-start-column="55" selection-end-line="322" selection-end-column="109" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../eCIS/wsCIS/src/dti/ci/credentialrequestmgr/resource/CredentialLetterResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="93" column="115" selection-start-line="93" selection-start-column="115" selection-end-line="93" selection-end-column="115" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>JavaEE Application</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>scala-sdk-2.12.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>eCIS</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>OasisTags.lib</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

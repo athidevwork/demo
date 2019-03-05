@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="ePolicy.lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../ePolicy/APP-INF/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../ePolicy/APP-INF/lib" recursive="false" />
+  </library>
+</component>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <!-- ************************************************************** -->
+    <!-- Common Exit Bean                                   -->
+    <!-- ************************************************************** -->
+    <bean id="ExitReRateWorkflow" class="dti.oasis.workflowmgr.WorkflowState">
+        <property name="workflowStateId" value="exitWorkflow"/>
+        <property name="workflowStateMessageKey" value="pm.workflowmgr.reRate.reRateMsg.info"/>
+        <property name="workflowExitState" value="true"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Rerate Process Bean                                            -->
+    <!-- ************************************************************** -->
+    <bean id="ReRatePolicyWorkflow" class="dti.oasis.workflowmgr.WorkflowProcess" scope="prototype" lazy-init="true">
+        <property name="workflowProcessId" value="ReRate"/>
+        <property name="workflowTransitions">
+            <map>
+                <entry key="reRatePolicies">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeReRateMsg"/>
+                                        <property name="workflowStateMessageKey" value="pm.workflowmgr.reRate.invokeProcessReRateMsg.info"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeReRateMsg">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeReRate"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeReRate">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeReRateReportMsg"/>
+                                        <property name="workflowStateMessageKey" value="pm.workflowmgr.reRate.invokeReRateReportMsg.info"/>
+                                    </bean>
+                                </entry>
+                                <entry key="RERATE_ERROR">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.reRate.processReRate.info.RERATE_ERROR"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeReRateReportMsg">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="invokeReRateReport"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="invokeReRateReport">
+                    <bean class="dti.oasis.workflowmgr.WorkflowTransition">
+                        <property name="transitionState">
+                            <map>
+                                <entry key="DEFAULT">
+                                    <bean class="dti.oasis.workflowmgr.WorkflowState">
+                                        <property name="workflowStateId" value="exitWorkflow"/>
+                                        <property name="workflowStateMessageKey"
+                                                  value="pm.workflowmgr.save.official.saveAsOfficial.info"/>
+                                        <property name="workflowExitState" value="true"/>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

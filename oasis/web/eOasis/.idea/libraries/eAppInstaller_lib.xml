@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="eAppInstaller.lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../eApp/installer/java/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../eApp/installer/java/lib" recursive="false" />
+  </library>
+</component>

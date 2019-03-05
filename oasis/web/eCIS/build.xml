@@ -1,0 +1,91 @@
+<project name="eCIS" default="build.and.deploy.exploded" basedir=".">
+
+    <!-- Import dependant project build files -->
+    <import file="${basedir}/../OasisTags/build-core.xml"/>
+    <import file="${basedir}/../eCS/CS/build-cs.xml"/>
+    <import file="${basedir}/../eCIS/CIS/build-cis.xml"/>
+
+    <!--************************************************************************-->
+    <!-- Build targets specific to this project                                 -->
+    <!--************************************************************************-->
+    <target name="init.project.properties" >
+        <!-- Project properties -->
+        <property name="project.app.name" value="eCIS"/>
+        <property name="project.name" value="CIS"/>
+    </target>
+
+    <target name="init"
+            depends="init.project.properties, init.core.properties.for.ear, init.cs.properties, init.cis.properties, echo.build.properties"/>
+
+    <target name="copy.project.libs"
+            depends="init, init.build.dirs, copy.oasistags.libs"  unless="skip.compile">
+        <copy todir="${build.app.lib.dir}" failonerror="false">
+            <fileset dir="${project.lib.dir}" includes="**/*.jar"/>
+            <fileset dir="${project.webapp.dir}/WEB-INF/lib" includes="**/*.jar"/>
+        </copy>
+    </target>
+
+    <target name="copy.additional.project.config.files"
+            depends="init">
+        <!-- Copy the META-INF -->
+        <copy todir="${build.app.dir}" overwrite="true">
+            <fileset dir="${project.ear.name}" excludes="**/*.iml,**/*.ipr,**/*.iws,.idea/**"/>
+            <filterset description="Replace build property tokens with configured values.">
+                <filter token="CONTEXT_ROOT_PREFIX" value="${context.root.prefix}"/>
+            </filterset>
+        </copy>
+        <!-- Copy CS templates files to APP-INF/classes template directory -->
+        <mkdir dir="${build.app.template.dir}" />
+        <copy todir="${build.app.template.dir}" failonerror="false"> <!-- since some projects have no template files -->
+            <fileset dir ="${CS.project.templates.dir}" includes="*.xsl,*.dtd"/>
+        </copy>
+    </target>
+
+    <target name="copy.project.webfiles"
+            depends="init, copy.oasistags.webfiles.for.ear, copy.CIS.template.files, copy.weblogic.xml">
+        <copy todir="${build.webapp.dir}">
+            <!-- All Web Resource and Help Files -->
+            <fileset dir="${project.webapp.resources.dir}" includes="**/**" excludes="**/*.iml"/>
+
+            <!-- Copy web.xml, struts config files, tld files-->
+            <fileset dir="${project.webapp.dir}" includes="WEB-INF/**" excludes="**/weblogic.xml,**/*.jar,**/*.iml,**/*.ipr,**/*.iws,.idea/**,**/*.awf"/>
+
+        </copy>
+    </target>
+
+    <target name="copy.web.and.config.files"
+            description="Copy all the web and config files to the exploded deployment directory.
+                            This target should be configured to Execute on After Compilation.
+                            This target can also be run separately to copy web files only to the exploded deployment directory."
+            depends="init, build.exploded.skip.compile"/>
+
+    <target name="build.dependant.projects"
+            description="Define all dependant projects as 'depends' for building all dependant projects."
+            depends="build.CS.for.ear"/>
+
+    <target name="build.wsCIS" depends="build.wsCIS.exploded, build.wsCIS.exploded.skip.compile, build.wsCIS.package"/>
+    <target name="build.wsCIS.exploded" depends="init" if="build.exploded" unless="skip.compile">
+        <ant antfile="build-wsCIS.xml" target="build.exploded" inheritall="false"/>
+    </target>
+    <target name="build.wsCIS.exploded.skip.compile" depends="init" if="skip.compile">
+        <ant antfile="build-wsCIS.xml" target="build.exploded.skip.compile" inheritall="false"/>
+    </target>
+    <target name="build.wsCIS.package" depends="init" if="build.package">
+        <ant antfile="build-wsCIS.xml" target="build.package" inheritall="false"/>
+    </target>
+
+    <target name="post.build.project" depends="build.wsCIS, copy.meta-inf.config"/>
+
+    <target name="copy.meta-inf.config"
+            depends="init">
+        <!-- Copy the META-INF -->
+        <!--<delete dir="${build.app.dir}/META-INF/**"/>-->
+        <copy todir="${build.app.dir}" overwrite="true">
+            <fileset dir="${project.ear.name}" excludes="**/*.iml,**/*.ipr,**/*.iws,.idea/**"/>
+            <filterset description="Replace build property tokens with configured values.">
+                <filter token="CONTEXT_ROOT_PREFIX" value="${context.root.prefix}"/>
+            </filterset>
+        </copy>
+    </target>
+
+</project>

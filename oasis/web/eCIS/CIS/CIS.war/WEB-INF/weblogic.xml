@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE weblogic-web-app PUBLIC "-//BEA Systems, Inc.//DTD Web Application 8.1//EN"    "http://www.bea.com/servers/wls810/dtd/weblogic810-web-jar.dtd">
+<weblogic-web-app>
+   <security-role-assignment>
+        <role-name>adminROLE</role-name>
+        <principal-name>admin</principal-name>
+    </security-role-assignment>
+    <run-as-role-assignment>
+        <role-name>adminROLE</role-name>
+        <run-as-principal-name>admin</run-as-principal-name>
+    </run-as-role-assignment>
+    <security-role-assignment>
+        <role-name>CISUSERROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+
+    <security-role-assignment>
+        <role-name>PMUSERROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+
+    <security-role-assignment>
+        <role-name>CMUSERROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+
+    <security-role-assignment>
+        <role-name>FMUSERROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+
+    <security-role-assignment>
+        <role-name>RMUSERROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+
+    <security-role-assignment>
+        <role-name>OASISUSERROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+    <security-role-assignment>
+        <role-name>EMPLOYEEROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+    <security-role-assignment>
+        <role-name>OASISSYSADMINROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+    <security-role-assignment>
+        <role-name>OASISCMAADMINROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+    <security-role-assignment>
+        <role-name>OASISSYSINFOADMINROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+    <security-role-assignment>
+        <role-name>OASISCUSTWEBWBADMINROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+
+    <jsp-descriptor>
+        <jsp-param>
+            <param-name>precompile</param-name>
+            <param-value>@JSP_PRECOMPILE@</param-value>
+        </jsp-param>
+        <jsp-param>
+            <param-name>precompileContinue</param-name>
+            <param-value>true</param-value>
+        </jsp-param>
+        <jsp-param>
+            <param-name>pageCheckSeconds</param-name>
+            <param-value>@JSP_PAGECHECKSECONDS@</param-value>
+        </jsp-param>
+        <jsp-param>
+            <param-name>keepgenerated</param-name>
+            <param-value>@JSP_KEEPGENERATED@</param-value>
+        </jsp-param>
+        <jsp-param>
+            <param-name>noTryBlocks</param-name>
+            <param-value>true</param-value>
+        </jsp-param>
+        <jsp-param>
+            <param-name>verbose</param-name>
+            <param-value>@JSP_VERBOSE@</param-value>
+        </jsp-param>
+        <jsp-param>
+            <param-name>debug</param-name>
+            <param-value>@JSP_DEBUG@</param-value>
+        </jsp-param>
+    </jsp-descriptor>
+
+    <context-root>@CONTEXT_ROOT_PREFIX@CIS</context-root>
+</weblogic-web-app>

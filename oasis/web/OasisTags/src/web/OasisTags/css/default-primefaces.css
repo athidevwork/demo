@@ -1,0 +1,662 @@
+body {
+    margin: 0px;
+    padding: 0;
+    color: #616161;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 1.6em;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 1.6em;
+}
+
+h3 {
+    font-size: 1em;
+    margin-top:20px;
+}
+
+ul {
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a img {
+    border: none;
+}
+
+img.left {
+    float: left;
+    margin: 0 20px 0 0;
+}
+
+img.right {
+    float: right;
+    margin: 0 0 0 20px;
+}
+
+/* Header */
+#header {
+    padding: 4px 0px;
+    height: 75px;
+    position: relative;
+}
+
+#logo {
+    text-align: left;
+}
+
+/* Menu */
+#menu {
+    position: absolute;
+    top:25px;
+    right:15px;
+    padding: 0;
+    height: 59px;
+    overflow: hidden;
+}
+
+#menu ul {
+    margin: 0;
+    list-style: none;
+}
+
+#menu li {
+    display: inline;
+}
+
+#menu li a {
+    display: block;
+    float: left;
+    height: 42px;
+    margin: 0;
+    padding: 18px 40px 0 40px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+#menu li a:hover {
+    text-decoration: underline;
+}
+
+#globalthemeswitcher {
+    position:absolute;
+    top:5px;
+    right:50px;
+}
+
+/* Page */
+#page {
+    padding: 10px 0px;
+    background: #FFFFFF;
+}
+
+/* Content */
+#content {
+    width: 70%;
+    float:left;
+}
+
+.post {
+    padding-bottom: 15px;
+}
+
+.post h1 {
+    font-weight: normal;
+}
+
+.title {
+    height: 30px;
+    margin-left: 10px;
+    padding: 8px 0 0 20px;
+}
+
+.title a {
+    border-bottom: none;
+    color: #FFFFFF;
+}
+
+.title a:hover {
+    border-bottom: 1px dotted #000000;
+}
+
+.submenu-title {
+    padding: 4px 10px;
+}
+
+.submenu-content {
+    text-align:center;
+}
+
+.byline {
+    margin: -60px 20px 20px 20px;
+}
+
+.byline a {
+    color: #DC8700;
+}
+
+.tag {
+    padding: 0 15px;
+}
+
+.entry {
+    padding: 0 20px;
+}
+
+.entry p {
+    line-height: 200%;
+}
+
+.links {
+    padding: 4px 0px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.links a {
+    border: none;
+}
+
+.links a:hover {
+}
+
+#sidebar {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+    margin-left: -1px;
+    overflow: hidden;
+}
+
+#sidebar a.ui-state-hover,
+#sidebar a.ui-state-highlight {
+    border:0 none;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+#sidebar table {
+    width: 100%;
+}
+
+#sidebar table td {
+    vertical-align: top;
+}
+
+#sidebar ul {
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar ul li {
+    list-style-type: none;
+    padding: 1px;
+}
+
+/* Footer */
+#footer {
+    height: 70px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-size: 14px;
+}
+
+#footer p {
+    margin: 0;
+    padding: 25px 0 0 0;
+    text-align: center;
+}
+
+#footer a {
+}
+
+#footer .link {
+    float: right;
+}
+
+#footer .copyright {
+    float: left;
+}
+
+.homeText {
+    line-height: 175%;
+}
+
+.homeMenu {
+    width:200px;
+    float:left;
+    margin-right:10px
+}
+
+.themeMenu {
+    overflow: auto;
+    height:300px;
+    width:200px;
+}
+
+.dp-xml {
+    width:1000px;
+}
+
+.ui-themeswitcher a.ui-selectonemenu-label-container {
+    text-decoration: none !important;
+}
+
+.ui-widget {
+    font-size: 12px !important;
+}
+
+/* ###################################### */
+/* #### DEFAULT STYLES ################## */
+/* ###################################### */
+
+body, form, div, table, tr, th, td, span, font, p, pre, ul, ol, li, input, button, select, textarea, a, a:active, a:focus, a:visited, sub, sup {
+    font-family: Arial, Verdana, "Trebuchet MS";
+}
+
+.ui-corner-all {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+/* ####################################### */
+/* #### HEADER & FOOTER STYLES ########### */
+/* ####################################### */
+.header {
+    background-image: url(../images/oasislogo.gif);
+    background-repeat: no-repeat;
+    background-color: white;
+    background-position-y:-5px;
+    text-align: right;
+    padding: 2px 10px 10px 0px;
+    height: 43px;
+    color: #AFAFAF;
+}
+
+.headerLogoTips {
+    z-index:0;
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:200px;
+    height:50px;
+}
+
+.headerEnvInfo {
+    z-index:0;
+    position:absolute;
+    color: #cc0033;
+    font-weight: 900;
+    top:0px;
+    left:0px;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    padding-top:5px;
+}
+
+.headerline1 {
+    height: 21px;
+    margin-bottom: 2px;
+    /*border: 1px solid red;*/
+}
+
+.headerline1 .headerline1Info, .headerline1 .headerline1links {
+    display: inline-block;
+}
+
+.headerline1 .headerline1Info {
+}
+
+.headerline1 .headerline1links {
+    margin-right:5px;
+}
+
+.headerline2 {
+    height: 22px;
+    /*border: 1px solid blue;*/
+}
+
+.headerline1 .txtWhite {
+    text-align:right;
+    margin-right: 10px;
+    display:inline-block;
+    padding-top:4px;
+}
+
+.btHdr {
+    background-image: none;
+    background-color: white;
+    color: #AFAFAF;
+    /*color: #003E7E;*/
+    font-size: 16px;
+    font-weight: normal;
+    font-family: Calibri;
+    line-height: 16px;
+    margin: 10px;
+    margin-top:0px;
+    width: 43px;
+    min-width:55px;
+    border: 0px;
+    cursor: hand;
+    height: 19px;
+    padding: 0px;
+}
+
+.footer, .footerPopup {
+    margin: 10px;
+    padding-right: 34px;
+    background-image: url(../images/logo-ftr.gif);
+    background-position: right top;
+    background-repeat: no-repeat;
+    height: 50px;
+    line-height: 30px;
+    text-align: right;
+    color: #999;
+    font-size: 11px;
+}
+.footerPopup {
+    height: 30px !important;
+}
+.footerLogin {
+    margin: 10px;
+    padding-right: 34px;
+    margin-top: 100px;
+    background-image: url(../images/logo-ftrlogin.gif);
+    background-position: right top;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 50px;
+    line-height: 30px;
+    text-align: right;
+    color: #FFF;
+    font-size: 11px;
+}
+
+/* ###################################### */
+/* #### LOG IN ########################## */
+/* ###################################### */
+
+/* ############################################### */
+/* #### PAGE HEADER STYLES ####################### */
+/* ############################################### */
+
+.pageTitle {
+    float: left;
+    color: #003E7E;
+    font-size: 17px;
+    font-weight: bold;
+    width: 250px;
+}
+
+a.txtSmallBlue:link, a.txtSmallBlue:visited {
+    color: #369;
+    font-size: 10px;
+    font-weight: bold;
+    text-decoration: none;
+}
+a.txtSmallBlue:hover {
+    color: #036;
+    text-decoration: underline;
+}
+
+.pagePrintHelpLinks {
+    float: right;
+    padding-left:5px;
+    padding-right: 5px;
+}
+
+.pagePrintHelpLinks a:link, pagePrintHelpLinks a:visited, .pagePrintHelpLinks a:hover {
+    color:#003E7E;
+}
+
+/* ############################################### */
+/* #### PAGE HEADER STYLES ####################### */
+/* ############################################### */
+
+/* ############################################### */
+/* #### COLORED TEXT ############################# */
+/* ############################################### */
+
+.txtWhite {
+    color: #FFF;
+}
+
+.txtOrange, .errortext, .errormessage, .locktext {
+    color: #C30;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ###################################### */
+/* #### LINKS ########################### */
+/* ###################################### */
+a.topNavCurrentApp:link, a.topNavCurrentApp:visited, a.topNavCurrentApp:hover {
+    text-decoration: none;
+    border-bottom: 2px solid #7DBB54;
+    color:#636363;
+    cursor: default;
+    /*border-bottom: 1px solid white;*/
+}
+
+.txtWhite, a.lkHdr:visited, a.lkHdr:link, a.lkHdr:hover, a.topNavCurrentApp:link {
+    color: #636363;
+    /*color: #003E7E;*/
+    font-size: 16px;
+    font-weight: normal;
+    font-family: Calibri, Arial Narrow;
+    background-image: none;
+    padding-left: 2px;
+    display: inline;
+    text-decoration: none;
+}
+
+a.lkHdr:visited, a.lkHdr:hover {
+    text-decoration: none;
+    border-bottom: 2px solid #7DBB54;
+}
+
+/* ###################################### */
+/* #### PANEL RELATED STYLES ############ */
+/* ###################################### */
+.panel {
+    margin:0px;
+    padding:5px;
+    padding-top:0px;
+    border:1px solid #bababa;
+    background-image: none;
+    background-color: white;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    text-align:left;
+}
+
+.panel {
+    margin:0px;
+    padding:5px;
+    padding-top:0px;
+    border:1px solid #bababa;
+    background-image: none;
+    background-color: white;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    text-align:left;
+}
+.panel #panelTitleWithBorder {
+    margin-left:4px;
+    border-bottom: 1px solid #bababa;
+}
+.panel a.panelDownTitle:link, a.panelDownTitle:visited, .panel a.panelUpTitle:link, a.panelUpTitle:visited{
+    background-image : url('../images/ico-arrow-up-hide.gif');
+    background-repeat : no-repeat;
+    padding-left:20px;
+    margin:0px;
+    text-decoration:none;
+}
+.panel a.panelDownTitle:link, a.panelDownTitle:visited {
+    background-image : url('../images/ico-arrow-down-hide.gif');
+    background-repeat : no-repeat;
+}
+.panel a.panelUpTitle:link, a.panelUpTitle:visited{
+    background-image : url('../images/ico-arrow-up-hide.gif');
+    background-repeat : no-repeat;
+}
+.panel span.panelTitle {
+    color: #003E7E;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration:none;
+    font-family: Calibri, "Lucida Grande", Gadget, Helvetica, Arial, Verdana, "Trebuchet MS";
+}
+.panel #panelDownContent {
+    margin:0;
+}
+
+.menu {
+    position: relative;
+    width:100%;
+    height: 30px;
+    background-image: url('../images/bg-menu-blue.gif');
+    background-repeat: repeat;
+    font-family: Arial, Verdana, "Trebuchet MS";
+    font-style: normal;
+    font-weight: normal;
+    font-size:12px;
+    z-index:1000;
+}
+
+.ui-widget-header {
+    background: none;
+}
+
+.ui-panel-titlebar {
+    background: none;
+    border: 1px solid #a6c9e2;
+}
+
+.ui-panel-title{
+    color: #2e6e9e;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.ui-panelgrid td, .ui-panelgrid tr
+{
+    border-style: none !important
+}
+
+div.dti-dataTable table{
+    width: 100%;
+    /*table-layout: fixed;*/
+    border: 1px solid #a6c9e2;
+}
+
+div.dti-dataTable .ui-widget-header {
+    background: none;
+    border: 0px;
+    color: #2e6e9e;
+}
+
+div.dti-dataTable .ui-widget-header a {
+    color: #2e6e9e;
+}
+
+div.dti-dataTable th.ui-state-default {
+    background: #5c9ccc;
+}
+
+div.dti-dataTable th.ui-state-default label {
+    color: white;
+}
+
+div.dti-dataTable th.ui-state-default label:hover {
+    color: #778899;
+}
+
+div.dti-dataTable .ui-datatable-data .ui-state-highlight {
+    border-color: inherit;
+    background: rgb(194, 220, 245);
+}
+
+div.dti-dataTable .ui-sortable-column-icon{
+    background-image: url("../images/ui-icons_ffffff_256x240.png") !important;
+}
+
+/* NEW UI */
+.ui-dialog-titlebar {
+    background-color: #003E7E;
+    background-image: none;
+}
+
+.ui-panel-title {
+    color: #003e7e;
+}
+
+#globalMenu {
+    background-image: none !important;
+}
+
+.ui-menuitem-text {
+    font-family: Calibri, Arial, Verdana, "Trebuchet MS"
+    font-size: 14px;
+}
+
+.ui-panel-title {
+    font-family: Calibri, Arial, Verdana, "Trebuchet MS";
+    font-size: 16px;
+}
+
+
+.menu, .jMenuDiv, .jMenu, .jMenu li, .jMenu li ul li {
+    background-color: #003E7E;
+    background-image: none;
+}
+
+.jMenuDiv li a SPAN {
+    font-family: Calibri;
+    font-size:14px;
+    color:white;
+}
+
+.jMenu li a:visited, .jMenu li a:link, .jMenu li a:hover,
+.jMenu li ul li a:visited, .jMenu li ul li a:link, .jMenu li ul li a:hover {
+    text-decoration: none;
+    background-image: none;
+    border:none;
+}
+
+.jMenu li a.selectedMenu {
+    background-image: none;
+    background-color: #7DBB54;
+}
+
+.jMenu li a.selectedMenu SPAN {
+    color : white;
+}
+
+.jMenu li a:hover, .jMenu li ul li a:hover {
+    background-color: #7DBB54;
+    border:none;
+}
+
+.jMenu li:hover>a {
+    background-image: none;
+    background-color: #7DBB54;
+}
+

@@ -1,0 +1,19 @@
+{
+  "testLoadAllEntityDenominator": {
+    "inputRecord": {
+      "entityId": "19081362"
+    },
+    "fieldNames": [
+      "SELECT_IND",
+      "entityDenominatorId",
+      "entityId",
+      "denominatorCode",
+      "denominatorType",
+      "denominatorAmt",
+      "denominatorUnit",
+      "effectiveFromDate",
+      "effectiveToDate",
+      "coments"
+    ]
+  }
+}

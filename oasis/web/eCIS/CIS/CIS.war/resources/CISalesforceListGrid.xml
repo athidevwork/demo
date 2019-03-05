@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<headers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XMLHeader.xsd">
+    <header visible="N" type="anchor">
+        <name>PK</name>
+    </header>
+    <header visible="Y" type="checkbox">
+        <name>Select</name>
+    </header>
+    <header visible="Y" align="left">
+        <name>First Name</name>
+    </header>
+    <header visible="Y" align="left">
+        <name>Last Name</name>
+    </header>
+    <header visible="Y">
+        <name>Birthday</name>
+    </header>
+    <header visible="Y" align="left">
+        <name>Email</name>
+    </header>
+    <header visible="Y" align="left">
+        <name>City</name>
+    </header>
+    <header visible="Y" align="left">
+        <name>Phone</name>
+    </header>
+</headers>

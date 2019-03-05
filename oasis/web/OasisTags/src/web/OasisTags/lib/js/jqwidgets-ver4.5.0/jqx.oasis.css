@@ -1,0 +1,101 @@
+/*grid header */
+.jqx-grid-column-header {
+    background-color: #003E7E;
+    border-right: 1px solid #9CAFC0;
+}
+
+/* grid header title */
+.jqx-grid-column-header span {
+    font-weight: bold;
+    color: #FFF;
+    font-size: 14px;
+    text-decoration: none;
+    font-family: Calibri, "Lucida Grande", Gadget, Helvetica, Arial, Verdana, "Trebuchet MS";
+}
+
+/* grid header title hovered */
+.jqx-grid-column-header span:hover {
+    text-decoration: none;
+    color: #778899;
+}
+
+/* Grid header asc icon */
+.jqx-widget-header .sortasc {
+    background-color: #003E7E;
+}
+
+.jqx-icon-arrow-up, .jqx-icon-arrow-up-hover, .jqx-icon-arrow-up-selected {
+    background-image: url('../../../images/asc.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Grid header desc icon */
+.jqx-widget-header .sortdesc {
+    background-color: #003E7E;
+}
+
+.jqx-icon-arrow-down, .jqx-icon-arrow-down-hover, .jqx-icon-arrow-down-selected {
+    background-image: url('../../../images/desc.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* grid cell */
+.jqx-grid-cell {
+    border-style: none;
+}
+
+/* grid cell: add margin top to make the cells in center. */
+.jqx-grid-cell-left-align, .jqx-grid-cell-middle-align, .jqx-grid-cell-right-align {
+    margin-top: 6px;
+}
+
+/* alternate row color */
+.jqx-grid-cell-alt {
+    background: #EDEDED;
+}
+
+/* hovered row color */
+.jqx-grid-cell-hover {
+    background: #C7C7C7;
+}
+
+/* selected row color*/
+.jqx-grid-cell-selected {
+    background: #C7C7C7;
+}
+
+/* selected cell content color */
+.jqx-grid-cell-selected * {
+    color: #003E7E;
+}
+
+.jqx-grid-cell-selected div * {
+    color: #003E7E;
+}
+
+/* hovered cell content color */
+.jqx-grid-cell-hover * {
+    color: #FFF;
+}
+
+.jqx-grid-cell-hover div * {
+    color: #FFF;
+}
+
+.jqx-grid-cell-selected > input {
+    color: black;
+}
+
+.jqx-grid-cell-hover > input {
+    color: black;
+}
+
+.dti-jqx-grid-aggregate-div {
+    color: #036;
+    margin: 4px;
+    overflow: hidden;
+    position: relative;
+    font-weight: bold;
+}

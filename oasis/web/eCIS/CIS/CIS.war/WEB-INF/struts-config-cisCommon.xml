@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+  <action-mappings>
+    <action path ="/ciEntitySelectSearch"      type="dti.ci.entitysearch.struts.MaintainEntitySelectSearchAction" parameter="process">
+      <forward name="loadEmptyPage"          path="/entitysearch/entitySelectSearch.jsp" redirect="false" />
+      <forward name="loadSearchResult"          path="/entitysearch/entitySelectSearch.jsp" redirect="false" />
+    </action>
+    <action path ="/ciEntityMiniPopup"      type="dti.ci.entityminipopupmgr.struts.MaintainEntityMiniPopupAction" parameter="process">
+      <forward name="success"               path="/entityminipopupmgr/entityMiniPopup.jsp" redirect="false" />
+    </action>
+
+    <action path ="/ciAddressSearchAdd" type="dti.ci.addressmgr.struts.MaintainAddressSearchAddAction" parameter="process" scope="request">
+      <forward name="loadResult" path="/addressmgr/maintainAddressSearchAdd.jsp" redirect="false"/>
+      <forward name="saveResult" path="/ciAddressSearchAdd.do?process=loadAddressSearchAdd" redirect="false"/>
+    </action>
+
+    <action path ="/ciEntityAddChoicePop"    type="dti.ci.clientmgr.struts.EntityAddChoicePopAction" parameter="process">
+      <forward name="success"       path="/clientmgr/entityAddChoicePop.jsp" redirect="false" />
+    </action>
+    <action path="/session/pageViewState/cleanUp" type="dti.oasis.session.pageviewstate.struts.PageViewStateAction" parameter="process"/>
+    <action path="/codelookupmgr/loadListOfValues" type="dti.oasis.codelookupmgr.struts.CodeLookupAction" parameter="process"/>
+    <action path="/ciEntityListRole" type="dti.ci.entitysearch.listrole.struts.action.CIEntityListRole"
+            parameter="process" scope="request">
+      <forward name="loadEntityListRole" path="/entitysearch/listrole/CIEntityListRole.jsp" redirect="false"/>
+    </action>
+    <action path ="/ciEntityPersonAddPop"   type="dti.ci.clientmgr.struts.EntityPersonAddPopAction" parameter="process">
+      <forward name="initPage" path="/ciEntityPersonAddPop.do?process=initPage" redirect="false"/>
+      <forward name="success"       path="/clientmgr/entityAddPop.jsp"  redirect="false" />
+      <forward name="saveEntitySuccess"       path="/ciEntityPersonAddPop.do?process=loadPageAfterSave"  redirect="false" />
+    </action>
+    <action path ="/ciEntityOrgAddPop"   type="dti.ci.clientmgr.struts.EntityOrgAddPopAction" parameter="process">
+      <forward name="initPage" path="/ciEntityOrgAddPop.do?process=initPage" redirect="false"/>
+      <forward name="success"       path="/clientmgr/entityAddPop.jsp"  redirect="false" />
+      <forward name="saveEntitySuccess"       path="/ciEntityOrgAddPop.do?process=loadPageAfterSave"  redirect="false" />
+    </action>
+     <action path="/idgeneratormgr/loadNextId" type="dti.oasis.idgeneratormgr.struts.IdGeneratorAction" parameter="process"/>
+    <action path="/maintainEmailAddressAction" type="dti.ci.emailaddressmgr.struts.MaintainEmailAddressAction" parameter="process"/>
+
+      <action path="/ciVehicleSearchPop" type="dti.ci.vehiclemgr.vehiclefindmgr.struts.MaintainVehicleFindPopupAction"
+              parameter="process"
+              scope="request">
+          <forward name="loadResult" path="/vehiclemgr/vehiclefindmgr/selectVehiclePopup.jsp" redirect="false"/>
+          <forward name="loadSearchResult" path="/ciVehicleSearchPop.do?process=loadEntityVehicleList"
+                   redirect="false"/>
+      </action>
+
+      <action path="/addSelectContact" type="dti.ci.contactmgr.struts.AddSelectContactAction"
+              parameter="process" scope="request">
+          <forward name="loadAllContactResultPopup" path="/contactmgr/addSelectContact.jsp" redirect="false"/>
+          <forward name="saveAllContactResult" path="/addSelectContact.do?process=loadAllContactPopup"/>
+      </action>
+
+      <action path="/windowPeriodHistory" type="dti.ci.riskmgr.windowperiedhistorymgr.struts.MaintainWindowPeriodHistoryAction"
+              parameter="process" scope="request">
+          <forward name="loadAllWindowPeriodHistoryResult" path="/riskmgr/windowperiodhistorymgr/windowPeriodHistory.jsp" redirect="false"/>
+      </action>
+  </action-mappings>
+
+    <controller processorClass="dti.oasis.struts.DefaultRequestProcessor" />
+</struts-config>

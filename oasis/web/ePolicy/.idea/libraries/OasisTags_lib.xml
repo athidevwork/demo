@@ -1,0 +1,35 @@
+<component name="libraryTable">
+  <library name="OasisTags.lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../OasisTags/test/lib" />
+      <root url="file://$PROJECT_DIR$/../OasisTags/src/web/OasisTags/WEB-INF/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-4.0.3.RELEASE/src" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/apps/cookbook/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/apps/el-example/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/apps/examples/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/apps/faces-example1/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/apps/faces-example2/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/apps/mailreader/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/apps/scripting-mailreader/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/core/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/core/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/el/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/extras/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/faces/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/faces/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/integration/apps-it/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/mailreader-dao/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/mailreader-dao/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/scripting/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/taglib/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/taglib/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/tiles/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.3.10/struts-1.3.10-src.zip!/struts-1.3.10/src/tiles/src/test/java" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../OasisTags/src/web/OasisTags/WEB-INF/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../OasisTags/test/lib" recursive="false" />
+  </library>
+</component>

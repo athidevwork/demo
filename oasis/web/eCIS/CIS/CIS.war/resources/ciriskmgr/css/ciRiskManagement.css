@@ -1,0 +1,15 @@
+.fulfilledMandateWindowPeriod {
+    color: #000000;
+}
+
+.unfulfilledMandateWindowPeriod {
+    color: #FF0000;
+}
+
+.satisfiedManadateWindowPeriod {
+    color: #000000;
+}
+
+.unSatisfiedManadateWindowPeriod {
+    color: #FF0000;
+}

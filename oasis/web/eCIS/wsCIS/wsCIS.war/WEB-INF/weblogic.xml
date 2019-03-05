@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app
+                                      http://xmlns.oracle.com/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd">
+
+    <security-role-assignment>
+        <role-name>OWSUSERROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+    <security-role-assignment>
+        <role-name>EMPLOYEEROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+    <security-role-assignment>
+        <role-name>OASISSYSADMINROLE</role-name>
+        <externally-defined/>
+    </security-role-assignment>
+
+    <jsp-descriptor>
+        <keepgenerated>@JSP_KEEPGENERATED@</keepgenerated>
+        <page-check-seconds>@JSP_PAGECHECKSECONDS@</page-check-seconds>
+        <precompile>@JSP_PRECOMPILE@</precompile>
+        <precompile-continue>true</precompile-continue>
+        <verbose>@JSP_VERBOSE@</verbose>
+        <debug>@JSP_DEBUG@</debug>
+    </jsp-descriptor>
+
+</weblogic-web-app>

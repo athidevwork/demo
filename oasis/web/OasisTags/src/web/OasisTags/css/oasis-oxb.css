@@ -1,0 +1,117 @@
+table.mainTable > tbody > tr> td {
+    padding: 1px;
+}
+
+input[type='button']:disabled {
+    color: #999999 !important;
+    text-shadow: 1px 1px #ffffff !important;
+}
+
+/* Override dti.css */
+#globalSearchContainer {
+    float: right;
+    display: inline-block;
+    line-height: 31px;
+    padding-right: 2px;
+    height: auto;
+}
+
+#globalSearch{
+    padding: 2px 0;
+    vertical-align: middle;
+    height: 16px;
+    min-height: 0;
+}
+
+#globalJumpNavDiv {
+   display:inline;
+}
+
+/* override jqx css*/
+.jqx-grid {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.dti-jqx-gird-cell {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    padding-bottom: 2px;
+    text-align: left;
+    margin-right: 2px;
+    margin-left: 4px;
+    margin-top: 4px;
+}
+
+.dti-jqx-grid-cell-editable {
+    width: 95%;
+    height: 68%;
+    margin: 1px !important;
+    padding-top: 6px;
+    padding-bottom: 0px;
+    background-color: transparent;
+    border: 1px solid #0A0A0A
+}
+
+.dti-jqx-gird-href-cell a {
+    font-weight: bold;
+}
+
+.ui-front {
+    z-index: 20000;
+}
+
+.ui-selectable-helper {
+    z-index: 20000;
+}
+
+.dti-jqx-grid-exportDiv {
+    padding: 0;
+    margin-top: 0;
+    margin-right: 10px;
+    /*width: 165px;*/
+    float: right;
+}
+
+.dti-jqx-grid-exportSpan {
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+.dti-jqx-grid-excelExportButton {
+    font-weight: bold;
+    font-size: 12px;
+    padding-left:12px;
+    border:none;
+    width: 115px;
+    height: 18px;
+    background: url(../images/excel_download.gif) no-repeat;
+    cursor: pointer;
+}
+
+.dti-jqx-grid-excelExportAllButton {
+    font-weight: bold;
+    font-size: 12px;
+    padding-left:12px;
+    border:none;
+    width: 115px;
+    height: 18px;
+    background: url(../images/excel_download.gif) no-repeat;
+    cursor: pointer;
+}
+
+.dti-jqx-grid-htmlExportButton {
+    font-weight: bold;
+    font-size: 12px;
+    padding-left:12px;
+    border:none;
+    width: 115px;
+    height: 18px;
+    background: url(../images/html_download.gif) no-repeat;
+    cursor: pointer;
+}
+
+div.divGridHolder {
+    overflow: hidden;
+    padding: 2px 2px 2px 2px;
+}

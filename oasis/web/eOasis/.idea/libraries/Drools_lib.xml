@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="Drools.lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/drools/drools-5.2.0/lib/antlr-2.7.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/drools/drools-5.2.0/lib/drools-compiler-5.2.0.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/drools/drools-5.2.0/lib/drools-core-5.2.0.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/drools/drools-5.2.0/lib/ecj-3.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/drools/drools-5.2.0/lib/knowledge-api-5.2.0.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/drools/drools-5.2.0/lib/mvel2-2.1.0.drools2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/drools/drools-5.2.0/lib/xstream-1.3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/drools/drools-5.2.0/src/drools-compiler-5.2.0.Final-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/drools/drools-5.2.0/src/drools-core-5.2.0.Final-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/drools/drools-5.2.0/src/knowledge-api-5.2.0.Final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

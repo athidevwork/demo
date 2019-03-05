@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:include src="/core/jsf/templates/headerCommon.xhtml"/>
+    <!-- BEGIN: header -->
+    <div id="globalHeader" class="header" style="background-image:url('#{request.contextPath}/#{fn:substring(viewScope[&quot;productLogo&quot;],1,-1)}');z-index:-1;">
+            <!--      Option 2: "productLogo2" property.
+    <div id="globalHeader" class="header" style="background-image:url('#{request.contextPath}/#{fn:substring(global.getApplicationProperty(&quot;productLogo2&quot;),1,-1)}');z-index:-1;">
+    -->
+        <div id="headerLogoTips" class="headerLogoTips"
+             title="#{viewScope['logoTipInfo']}">
+
+        </div>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td>
+                    <div class="headerline1">
+                        <div class="headerline1Info">
+                            <p:outputPanel rendered="#{global.environmentName ne ''}" layout="inline">
+                                <span id="test" class="headerEnvInfo">
+                                    <h:outputText value="#{viewScope['applicationTitle']}"/>
+                                </span>
+                            </p:outputPanel>
+                        </div>
+                        <div class="headerline1links">
+                            <input name="logoff" type="button" class="btHdr" value="#{MessageManager.formatMessage('label.header.page.logOff')}" title="#{MessageManager.formatMessage('label.header.page.logOff.title')}"
+                                   onclick="javascript:commonOnLogOut('#{request.contextPath}/core')" style="position: relative; z-index: 1000;"/>
+                        </div>
+                    </div>
+                    <div class="headerline2">
+                        <div class="txtWhite">
+                            <p:outputPanel rendered="#{!global.disallowPasswordChange}" layout="inline">
+                                <a href="#{global.passwordChangeUrl}" class="lkHdr" target="_blank"
+                                   title="#{MessageManager.formatMessage('label.header.page.changePassword.title')}">#{MessageManager.formatMessage('label.header.page.changePassword')}</a> &#160; |
+                            </p:outputPanel>
+                            <ui:repeat var="menuItem" value="#{viewScope['topNavMenu']}" varStatus="loop">
+                                <p:outputPanel rendered="#{fn:contains(menuItem.id, 'CS') or request.isUserInRole('OASISSYSADMINROLE') or
+                                                                                                      request.isUserInRole('OASISSYSADMIN') or
+                                                                                                      request.isUserInRole('EMPLOYEEROLE') or
+                                                                                                      request.isUserInRole('EMPLOYEE') or
+                                                           (fn:contains(menuItem.id, 'CustWebWB') and (request.isUserInRole('OASISCUSTWEBWBADMINROLE') or
+                                                                                                     request.isUserInRole('OASISCUSTWEBWBADMIN'))) or
+                                                           (fn:contains(menuItem.id, 'SysInfo') and (request.isUserInRole('OASISSYSINFOADMINROLE') or
+                                                                                                     request.isUserInRole('OASISSYSINFOADMIN'))) or
+                                                           (fn:contains(menuItem.id, 'ConfigProp') and (request.isUserInRole('OASISCONFIGPROPADMINROLE') or
+                                                                                                     request.isUserInRole('OASISCONFIGPROPADMIN'))) or
+                                                           (fn:contains(menuItem.id, 'Portal') and (request.isUserInRole('OASISPORTALADMINROLE') or
+                                                                                                     request.isUserInRole('OASISPORTALADMIN'))) or
+                                                           (fn:contains(menuItem.id, 'ProdDefWB') and (request.isUserInRole('OASISPRODDEFWBADMINROLE') or
+                                                                                                     request.isUserInRole('OASISPRODDEFWBADMIN'))) or
+                                                           (fn:contains(menuItem.id, 'Security') and (request.isUserInRole('OASISSECURITYADMINROLE') or
+                                                                                                     request.isUserInRole('OASISSECURITYADMIN')))}" layout="inline">
+                                    <h:outputText value="&#160; |" escape="false" rendered="#{not loop.first}" />
+                                    <p:outputPanel rendered="#{!fn:contains(menuItem.url, viewScope['moduleId'])}" layout="inline">
+                                        <a id="topnav_#{menuItem.id}" href="#{menuItem.url}" class="lkHdr" target="_self">#{menuItem.label}</a>
+                                    </p:outputPanel>
+                                    <p:outputPanel rendered="#{fn:contains(menuItem.url, viewScope['moduleId'])}" layout="inline">
+                                        <a id="topnav_#{menuItem.id}_1" href="javascript:void(0)" class="topNavCurrentApp">
+                                            #{menuItem.label}
+                                        </a>
+                                    </p:outputPanel>
+                                </p:outputPanel>
+                            </ui:repeat>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <h:commandButton id="x" value="Click Me" type="button" onclick="alert('h:commandButton');" rendered="false" />
+    <!-- END: header -->
+</ui:composition>

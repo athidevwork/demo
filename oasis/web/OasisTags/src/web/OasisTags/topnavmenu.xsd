@@ -1,0 +1,35 @@
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+
+    <xsd:simpleType name="status">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="A"/>
+            <xsd:enumeration value="I"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="yesorno">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Y"/>
+            <xsd:enumeration value="N"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:element name="mi">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:ID" use="required"/>
+            <xsd:attribute name="url" type="xsd:string" use="required"/>
+            <xsd:attribute name="text" type="xsd:string" use="required"/>
+            <xsd:attribute name="status" type="status" use="required"/>
+            <xsd:attribute name="openinnewbrowser" type="yesorno" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="menu">
+        <xsd:complexType>
+            <xsd:sequence maxOccurs="unbounded">
+                <xsd:element ref="mi"/>
+            </xsd:sequence>
+            <xsd:attribute name="selectedmi" type="xsd:string" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

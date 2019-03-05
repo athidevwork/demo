@@ -1,0 +1,229 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/spellexSpellerStyle.css" />
+		<script src="../../../js/gui.js"></script>
+		<script type="text/javascript" src="js/spellexControlWindow.js"></script>
+        <script type="text/javascript">
+        var spellerObject;
+        var controlWindowObj;
+
+        if (getParentWindow().getParentWindow()) {
+            spellerObject = getParentWindow().getParentWindow().speller;
+        }
+
+        function ignore_word() {
+            if (spellerObject) {
+                spellerObject.ignoreWord();
+            }
+        }
+
+        function ignore_all() {
+            if (spellerObject) {
+                spellerObject.ignoreAll();
+            }
+        }
+
+        function replace_word() {
+            if (spellerObject) {
+                spellerObject.replaceWord();
+            }
+        }
+
+        function replace_all() {
+            if (spellerObject) {
+                spellerObject.replaceAll();
+            }
+        }
+
+        //MG
+        function change_word() {
+            if (spellerObject) {
+                spellerObject.replaceWord();
+            }
+        }
+
+        function change_all() {
+            if (spellerObject) {
+                spellerObject.replaceAll();
+            }
+        }
+
+        function end_spell() {
+            if (spellerObject) {
+                spellerObject.terminateSpell();
+            }
+        }
+
+        function undo() {
+            if (spellerObject) {
+                spellerObject.undo();
+            }
+        }
+
+        function suggText() {
+            if (controlWindowObj) {
+                controlWindowObj.setSuggestedText();
+            }
+        }
+
+        //MG
+        function openSetSpellingOptions(url) {
+            window.name = "spellexControls";
+//            openWindow(url, 'SpellexOptions',360,320);
+            var link = window.open(url,'SpellexOptions',"toolbar=0,location=no,directories=0,status=0,menubar=0,scrollbars=yes,resizable=1,width=380,height=320");
+            link.focus();
+        }
+
+        //MG
+        function openEditDictionary(url) {
+            window.name = "spellexControls";
+//            openWindow(url, 'EditDictionary');
+            var link = window.open(url,'EditDictionary',"toolbar=0,location=yes,directories=0,status=0,menubar=0,scrollbars=yes,resizable=1,width=450,height=400");
+            link.focus();
+        }
+
+        //MG
+        function addToUserDictionary() {
+            //	alert('spellexControls.html -- addToUserDictionary()');
+            if (spellerObject) {
+                spellerObject.addToDictionary();
+            }
+        }
+
+//        var FCKLang = window.parent.parent.FCKLang ;
+        // by FredCK
+
+        function init_spell() {
+//          alert('spellexControls.html:init_spell()');
+        // By FredCK (fckLang attributes have been added to the HTML source of this page)
+            window.parent.parent.OnSpellerControlsLoad( this ) ;
+
+	        var controlForm = document.spellcheck;
+
+	        // create a new controlWindow object
+ 	        controlWindowObj = new controlWindow( controlForm );
+
+            // call the init_spell() function in the parent frameset
+            if (parent.frames.length) {
+                parent.init_spell(controlWindowObj);
+            } else {
+                alert('This page was loaded outside of a frameset. It might not display properly');
+            }
+        }
+
+        </script>
+	</head>
+	<body class="controlWindowBody" onLoad="init_spell();" style="OVERFLOW: hidden" scroll="no">	<!-- by FredCK -->
+		<form name="spellcheck">
+			<table border="0" cellpadding="0" cellspacing="0" border="0" align="center">
+				<tr>
+					<td colspan="3" class="normalLabel"><!--span fckLang="DlgSpellNotInDic">Not in dictionary:</span--><span id="problemTypeLabel">Not in dictionary:</span></td>
+				</tr>
+				<tr>
+					<td colspan="3"><input class="readonlyInput" type="text" name="misword" readonly /></td>
+				</tr>
+				<tr>
+					<td colspan="3" height="5"></td>
+				</tr>
+				<tr>
+					<td class="normalLabel"><span fckLang="DlgSpellChangeTo">Change to:</span></td>
+				</tr>
+				<tr valign="top">
+					<td>
+						<table border="0" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td class="normalLabel">
+									<input class="textDefault" type="text" name="txtsugg" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<select class="suggSlct" name="sugg" size="7" onChange="suggText();" onDblClick="replace_word();">
+										<option></option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>&nbsp;&nbsp;</td>
+					<td>
+						<table border="0" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td>
+									<input class="buttonDefault" type="button" name="btnIgnore" fckLang="DlgSpellBtnIgnore" value="Ignore" onClick="ignore_word();" disabled>
+								</td>
+								<td>&nbsp;&nbsp;</td>
+								<td>
+									<input class="buttonDefault" type="button" name="btnIgnoreAll" fckLang="DlgSpellBtnIgnoreAll" value="Ignore All" onClick="ignore_all();" disabled>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" height="5"></td>
+							</tr>
+					<!--		<tr>
+								<td>
+									<input class="buttonDefault" type="button" fckLang="DlgSpellBtnReplace" value="Replace" onClick="replace_word();">
+								</td>
+								<td>&nbsp;&nbsp;</td>
+								<td>
+									<input class="buttonDefault" type="button" fckLang="DlgSpellBtnReplaceAll" value="Replace All" onClick="replace_all();">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" height="5"></td>
+							</tr>     -->
+                            <tr>
+								<td>
+									<input class="buttonDefault" type="button" name="btnChange" fckLang="SpellexBtnChange" value="Change" onClick="change_word();" disabled>
+								</td>
+								<td>&nbsp;&nbsp;</td>
+								<td>
+									<input class="buttonDefault" type="button" name="btnChangeAll" fckLang="SpellexBtnChangeAll" value="Change All" onClick="change_all();" disabled>
+								</td>
+							</tr>
+                            <tr>
+								<td colspan="3" height="5"></td>
+							</tr>
+							<tr>
+								<td>
+									<input class="buttonDefault" type="button" name="btnUndo" fckLang="DlgSpellBtnUndo" value="Undo" onClick="undo();"
+										disabled>
+								</td>
+								<td>&nbsp;&nbsp;</td>
+								<td>
+									<!-- by FredCK
+									<input class="buttonDefault" type="button" value="Close" onClick="end_spell();">
+									-->
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" height="5"></td>
+							</tr>                            
+                            <tr>
+								<td>
+									<input class="buttonDefault" type="button" name="btnOptions" fckLang="SpellexBtnOption" value="Options" onClick="openSetSpellingOptions('spellexSetOptions.html');" disabled>
+								</td>
+								<td>&nbsp;&nbsp;</td>
+								<td>
+									<input class="buttonDefault" type="button" name="btnAddToDictionary" fckLang="SpellexBtnAddToDictionary" value="Add" onClick="addToUserDictionary();" disabled>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" height="5"></td>
+							</tr>
+                            <tr>
+								<td>
+									<input class="buttonDefault" type="button" name="btnEditDict" fckLang="SpellexBtnEditDictionary" value="Edit Dictionary" onClick="openEditDictionary('spellexEditUserDict.html');" disabled>
+								</td>
+								<td>&nbsp;&nbsp;</td>
+								<td>
+
+								</td>
+							</tr>
+                        </table>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

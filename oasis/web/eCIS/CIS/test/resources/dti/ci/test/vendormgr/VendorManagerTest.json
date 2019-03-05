@@ -1,0 +1,87 @@
+{
+  "testLoadVendor": {
+  "inputParameters": {
+    "entityId": "12467105",
+    "entityType":"O",
+    "entityName":"Vendor2"
+  },
+  "expected": {
+    "fieldNames": [
+      "vendorId",
+      "entityId",
+      "dateOfBirth",
+      "paymentOption",
+      "checkOption",
+      "irs1099ReqB",
+      "irs1099Type",
+      "payeeName",
+      "lienB",
+      "withholdingB",
+      "effectiveFromDate",
+      "effectiveToDate",
+      "vendorType",
+      "vendorStatus",
+      "paymentNumber",
+      "paymentAmount",
+      "paymentIssueDate",
+      "bankRoutingNumber",
+      "bankAccountType",
+      "bankAccountNumber",
+      "bankAccountName",
+      "vendorCode",
+      "countComputed"
+    ]
+  }
+},
+  "testLoadVendorAddress": {
+    "inputParameters": {
+      "entityId": "12467105",
+      "entityType":"O",
+      "entityName":"Vendor2"
+    },
+    "expected": {
+      "fieldNames": [
+        "addressId",
+        "addressTypeCode",
+        "addressTypeCodeLongDesc",
+        "addressTypeCodeShortDesc",
+        "sourceRecordId",
+        "sourceTableName",
+        "addressName",
+        "addressLine1",
+        "addressLine2",
+        "addressLine3",
+        "city",
+        "countyCode",
+        "stateCode",
+        "zipcode",
+        "zipPlusFour",
+        "primaryAddressB",
+        "usaAddressB",
+        "postOfficeAddressB",
+        "addressEffectiveFromDate",
+        "addressEffectiveToDate",
+        "countryCode",
+        "legacyDataId",
+        "province",
+        "expiredAddressId",
+        "copiedAddressId"
+      ]
+    }
+  },
+  "testLoadVendorPayment": {
+    "inputParameters": {
+      "entityId": "12467105",
+      "entityType":"O",
+      "entityName":"Vendor2"
+    },
+    "expected": {
+      "fieldNames": [
+        "vendorPaymentTotalsId",
+        "period",
+        "paidAmt",
+        "withheldAmt"
+      ]
+    }
+  }
+}

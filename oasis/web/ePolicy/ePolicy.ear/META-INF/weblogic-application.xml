@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE weblogic-application PUBLIC "-//BEA Systems, Inc.//DTD WebLogic Application 8.1.0//EN" "http://www.bea.com/servers/wls810/dtd/weblogic-application_2_0.dtd">
+
+<weblogic-application>
+    <listener>
+        <listener-class>dti.oasis.app.impl.WebLogicApplicationLifecycleListener</listener-class>
+    </listener>
+    <prefer-application-packages>
+        <package-name>javax.faces.*</package-name>
+        <package-name>com.sun.faces.*</package-name>
+        <package-name>com.bea.faces.*</package-name>
+        <package-name>com.sun.jersey.*</package-name>
+    </prefer-application-packages>
+
+    <prefer-application-resources>
+        <resource-name>javax.faces.*</resource-name>
+        <resource-name>com.sun.faces.*</resource-name>
+        <resource-name>com.bea.faces.*</resource-name>
+
+        <resource-name>META-INF/services/javax.servlet.ServletContainerInitializer</resource-name>
+        <resource-name>META-INF/services/com.sun.faces.*</resource-name>
+    </prefer-application-resources>
+</weblogic-application>

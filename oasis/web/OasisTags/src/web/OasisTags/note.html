@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=8">
+        <title>Note</title>
+        <link id="cssLink" rel="stylesheet" type="text/css"/>
+        <link id="cssButtonLink" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" id="guiJS"></script>
+        <script type="text/javascript">
+            var isNoteChanged=false;
+
+            // Implemented the function getParentWindow to get parent window for both new window and popup window
+            // since the current page doesn't have gui.js when the page is loaded.
+            function getParentWindow() {
+                var parentWindow = null;
+
+                if (window.frameElement) {
+                    if (window.frameElement.document && window.frameElement.document.parentWindow) {
+                        // IE8
+                        parentWindow = window.frameElement.document.parentWindow;
+                    } else if (window.frameElement && window != window.parent) {
+                        // HTML5
+                        parentWindow = window.parent;
+                    }
+                }else if ((window.opener && !window.opener.closed)) {
+                    parentWindow = window.opener;
+                }
+
+                if (parentWindow != null) {
+                    try {
+                        parentWindow.document;
+                    } catch (e) {
+                        // Cross domain
+                        parentWindow = null;
+                    }
+                }
+
+                return parentWindow;
+            }
+
+            function getNote() {
+                var corePath = ".";
+                var parentWindow = getParentWindow();
+
+                if (parentWindow) {
+                    corePath = parentWindow.getCorePath();
+                    if(parentWindow.currentSelectedNoteContent!=null) {
+                        var txtNodeElement = document.getElementsByName("txtNote")[0];
+                        txtNodeElement.value = parentWindow.currentSelectedNoteContent;
+                        if(parentWindow.currentSelectedNoteIsSecured) {
+                            txtNodeElement.readOnly = true;
+                            txtNodeElement.className = "disabledTextArea";
+                            document.getElementById("btnOk").style.display = "none";
+                            document.getElementById("btnCancel").value = "Close";
+                        }
+                    }
+
+                }
+
+                document.getElementById('cssLink').href= corePath + "/css/dti.css";
+                document.getElementById('cssButtonLink').href= corePath + "/css/button.css";
+                /*document.getElementById('cssLink').href= corePath + "/css/oasisnew1.css";*/
+                document.getElementById('guiJS').src= corePath + "/js/gui.js";
+            }
+
+            function closeNote(id, isDirectCall) {
+                if(isDirectCall && isNoteChanged && (id.value.toUpperCase()!="CLOSE")) {
+                    if(confirm('Are you sure to cancel and abandon any changes made?') == false)
+                        return;
+                }
+
+                var parentWindow = getParentWindow();
+
+                if (parentWindow) {
+                    if (window.frameElement) {
+                        // Close div popup.
+                        if (parentWindow.getDivPopupFromDivPopupControl) {
+                            var divPopup = parentWindow.getDivPopupFromDivPopupControl(this.frameElement);
+                            if(divPopup) {
+                                parentWindow.closeDiv(divPopup);
+                            }
+                        }
+                    } else {
+                        // Focus the parent window and close current window.
+                        parentWindow.focus();
+                        window.close();
+                    }
+                }
+            }
+
+            function updateNote(noteFieldId) {
+                var parentWindow = getParentWindow();
+                var noteDesc = document.all[noteFieldId].value;
+
+                if (parentWindow && parentWindow.isDefined(parentWindow.currentSelectedNoteContent)) {
+                    parentWindow.currentSelectedNoteContent = noteDesc;
+                    closeNote();
+                }
+            }
+        </script>
+    </head>
+    <body class="panel" topmargin=0 leftmargin=0 onload="return getNote();">
+        <table cellpadding=0 cellspacing=0 width=100% height=100%>
+            <tr height="95%">
+                <td width=100%>
+                    <textarea name="txtNote" class="enabledTextArea" onchange="javascript:isNoteChanged=true" rows="10" style="width:99%; height:98%" title="Note:"></textarea>
+                </td>
+            </tr>
+            <tr height="9px"><td></td></tr>
+            <tr>
+                <td align=center id="OkCancelButtons">
+                    <input type=submit class="buttons" onmouseover="return handleMouseover();" onmouseout="return handleMouseout();" value="Ok" id=btnOk name=btnOk onclick="updateNote('txtNote')" />
+                    &nbsp;&nbsp;&nbsp;
+                    <input type=submit class="buttons" onmouseover="return handleMouseover();" onmouseout="return handleMouseout();" value="Cancel" id=btnCancel name=btnCancel onclick="closeNote(this, true);" />
+                </td>
+            </tr>
+            <tr height="5px"><td></td></tr>
+        </table>
+    </body>
+</html>

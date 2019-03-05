@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+        "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+    <form-beans>
+        <form-bean name="CISalesforceListForm" type="org.apache.struts.action.DynaActionForm">
+            <form-property name="process" type="java.lang.String"/>
+            <form-property name="txtXML" type="java.lang.String"/>
+            <form-property name="contactID" type="java.lang.String"/>
+        </form-bean>
+        <form-bean name="importdata" type="org.apache.struts.action.DynaActionForm">
+            <!--issue 192772: need to preserve below form property for upload file to Java side-->
+            <form-property name="dataFile" type="org.apache.struts.upload.FormFile"/>
+        </form-bean>
+    </form-beans>
+    <action-mappings>
+        <action path="/ciEntitySearch" type="dti.ci.entitysearch.struts.MaintainEntitySearchAction" parameter="process">
+            <forward name="loadEmptyPage" path="/entitysearch/entitySearch.jsp" redirect="false"/>
+            <forward name="loadInitialPage" path="/ciEntitySearch.do?process=initPage" redirect="false"/>
+            <forward name="loadSearchResult" path="/entitysearch/entitySearch.jsp" redirect="false"/>
+            <forward name="entityList" path="/ciEntitySearch.do?process=search" redirect="false"/>
+            <forward name="oneRecordPerson" path="/ciEntityPersonModify.do?process=globalSearch" redirect="false"/>
+            <forward name="oneRecordOrganization" path="/ciEntityOrgModify.do?process=globalSearch" redirect="false"/>
+        </action>
+
+        <action path="/ciEntityPersonAdd" type="dti.ci.clientmgr.struts.EntityPersonAddAction" parameter="process">
+            <forward name="initPage" path="/ciEntityPersonAdd.do?process=initPage" redirect="false"/>
+            <forward name="success" path="/clientmgr/entityAdd.jsp" redirect="false"/>
+            <forward name="modify" path="/ciEntityPersonModify.do?process=loadEntityData&amp;entityType=P" redirect="false"/>
+            <forward name="saveEntitySuccess" path="/ciEntityPersonAdd.do?process=loadPageAfterSave" redirect="false"/>
+        </action>
+
+        <action path="/ciEntityOrgAdd" type="dti.ci.clientmgr.struts.EntityOrgAddAction" parameter="process">
+            <forward name="initPage" path="/ciEntityOrgAdd.do?process=initPage" redirect="false"/>
+            <forward name="success" path="/clientmgr/entityAdd.jsp" redirect="false"/>
+            <forward name="modify" path="/ciEntityOrgModify.do?process=loadEntityData&amp;entityType=O" redirect="false"/>
+            <forward name="saveEntitySuccess" path="/ciEntityOrgAdd.do?process=loadPageAfterSave" redirect="false"/>
+        </action>
+        <action path="/ciEntityPersonModify" type="dti.ci.entitymodify.struts.MaintainPersonModifyAction" parameter="process">
+            <forward name="loadEntityData" path="/entitymodify/PersonModify.jsp" redirect="false"/>
+            <forward name="saveEntityData" path="/ciEntityPersonModify.do?process=loadEntityData" redirect="false"/>
+            <forward name="changeTypeResult" path="/ciEntityOrgModify.do?process=loadEntityData" redirect="false"/>
+        </action>
+        <action path="/ciEntityOrgModify" type="dti.ci.entitymodify.struts.MaintainOrgModifyAction" parameter="process">
+            <forward name="loadEntityData" path="/entitymodify/OrganizationModify.jsp" redirect="false"/>
+            <forward name="saveEntityData" path="/ciEntityOrgModify.do?process=loadEntityData" redirect="false"/>
+            <forward name="changeTypeResult" path="/ciEntityPersonModify.do?process=loadEntityData" redirect="false"/>
+        </action>
+
+        <action path="/ciEntityModify" type="dti.ci.entitymodify.struts.MaintainEntityAction"  parameter="process" scope="request">
+            <forward name="P" path="/ciEntityPersonModify.do?entityType=P" redirect="false"/>
+            <forward name="O" path="/ciEntityOrgModify.do?entityType=O" redirect="false"/>
+        </action>
+
+        <action path="/ciAddressList" type="dti.ci.addressmgr.addresslistmgr.struts.MaintainAddressListAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/addressmgr/addresslistmgr/maintainAddressList.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciAddressList.do?process=loadAddressList" redirect="false"/>
+        </action>
+       <action path="/ciAddressAdd" type="dti.ci.addressmgr.struts.MaintainAddressDetailAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/addressmgr/maintainAddressDetail.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciAddressAdd.do?process=loadAddressDetail" redirect="false"/>
+        </action>
+        <action path="/ciAddressExpire" type="dti.ci.addressmgr.struts.MaintainAddressExpireAction" parameter="process" scope="request">
+            <forward name="loadAddressExpire" path="/addressmgr/maintainAddressExpire.jsp" redirect="false"/>
+            <forward name="expireAddress" path="/ciAddressExpire.do?process=loadAddressExpire" redirect="false"/>
+        </action>
+        <action path="/ciAddressCopy" type="dti.ci.addressmgr.struts.MaintainAddressCopyAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/addressmgr/maintainAddressCopy.jsp" redirect="false"/>
+        </action>
+        <action path="/ciChgAddressRole" type="dti.ci.addressmgr.struts.MaintainAddressRoleChangeAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/addressmgr/maintainAddressRoleChg.jsp" redirect="false"/>
+            <forward name="loadWarningResult" path="/addressmgr/maintainAddressRoleChgWarning.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciChgAddressRole.do?process=loadAddressRoleChg" redirect="false"/>
+        </action>
+        <action path="/ciAddressPickList" type="dti.ci.addressmgr.struts.MaintainAddressPickListAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/addressmgr/maintainAddressPickList.jsp" redirect="false"/>
+        </action>
+
+        <action path="/ciPhoneNumberList" type="dti.ci.phonemgr.struts.MaintainPhoneListAction" parameter="process">
+            <forward name="loadpage" path="/phonemgr/maintainPhoneNoList.jsp" redirect="false"/>
+            <forward name="loadgrid" path="/phonemgr/maintainPhoneList.jsp" redirect="false"/>
+            <forward name="savePhoneList" path="/ciPhoneNumberList.do?process=loadPhoneList" redirect="false"/>
+        </action>
+        <action path="/ciEntityClassList" type="dti.ci.entityclassmgr.struts.MaintainEntityClassListAction" parameter="process">
+            <forward name="loadAllEntityClassListResult" path="/entityclassmgr/entityClassList.jsp" redirect="false"/>
+            <forward name="saveAllEntityClassListResult" path="/ciEntityClassList.do?process=loadAllEntityClass" redirect="false"/>
+        </action>
+        <action path="/ciEntityClassModify" type="dti.ci.entityclassmgr.struts.MaintainModifyEntityClassAction" parameter="process">
+            <forward name="loadEntityClassResult" path="/entityclassmgr/maintainEntityClassDetail.jsp" redirect="false"/>
+            <forward name="saveEntityClassSuccess" path="/entityclassmgr/saveEntityClassResult.jsp" redirect="false"/>
+            <forward name="saveEntityClassFailed" path="/ciEntityClassModify.do?process=loadEntityClass" redirect="false"/>
+        </action>
+        <action path="/ciEntityClassAdd" type="dti.ci.entityclassmgr.struts.MaintainAddEntityClassAction" parameter="process">
+            <forward name="loadEntityClassPageResult" path="/entityclassmgr/maintainEntityClassDetail.jsp" redirect="false"/>
+            <forward name="saveEntityClassSuccess" path="/entityclassmgr/saveEntityClassResult.jsp" redirect="false"/>
+            <forward name="saveEntityClassFailed" path="/ciEntityClassAdd.do?process=loadEntityClassPage" redirect="false"/>
+        </action>
+
+        <action path="/ciEntityRole" type="dti.ci.rolemgr.struts.MaintainRoleAction" parameter="process" scope="request">
+            <forward name="success" path="/rolemgr/role.jsp" redirect="false"/>
+        </action>
+        <action path="/ciVendor" type="dti.ci.vendormgr.struts.MaintainVendorAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/vendormgr/vendor.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciVendor.do?process=loadVendor" redirect="false"/>
+        </action>
+        <action path="/ciVendorAddress" type="dti.ci.vendormgr.struts.MaintainVendorAddressAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/vendormgr/vendoraddressmgr/vendorAddress.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciVendorAddress.do?process=loadVendorAddress" redirect="false"/>
+        </action>
+        <action path="/ciContact" type="dti.ci.contactmgr.struts.MaintainContactAction" parameter="process">
+            <forward name="loadAllContactResult" path="/contactmgr/contact.jsp" redirect="false"/>
+            <forward name="saveAllContactResult" path="/ciContact.do?process=loadAllContact" redirect="false"/>
+        </action>
+        <action path="/ciRelationship" type="dti.ci.relationshipmgr.struts.RelationshipListAction" parameter="process">
+            <forward name="loadAllRelationShipResult" path="/relationshipmgr/relationshipList.jsp" redirect="false"/>
+            <forward name="expireRelationshipsResult" path="/ciRelationship.do?process=loadAllRelationShip" redirect="false"/>
+        </action>
+        <action path="/ciRelationshipModify" type="dti.ci.relationshipmgr.struts.MaintainRelationshipModifyAction"
+                 parameter="process">
+            <forward name="success" path="/relationshipmgr/maintainRelationshipModify.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciRelationshipModify.do?process=modifyRelationship"
+                     redirect="false"/>
+        </action>
+        <action path="/ciAuditTrail" type="dti.ci.auditmgr.struts.MaintainAuditTrailAction" parameter="process">
+            <forward name="searchAuditTrailDataResult" path="/auditmgr/auditTrail.jsp" redirect="false"/>
+        </action>
+        <action path="/ciAuditTrailPopup" type="dti.ci.auditmgr.struts.MaintainAuditTrailPopupAction" parameter="process">
+            <forward name="loadAuditTrailBySourceResult" path="/auditmgr/auditTrailPopup.jsp" redirect="false"/>
+        </action>
+        <action path="/ciWIPInquiry" type="dti.ci.wipinquirymgr.struts.MaintainWIPInquiryAction" parameter="process">
+            <forward name="success" path="/wipinquirymgr/WIPInquiry.jsp" redirect="false"/>
+        </action>
+        <action path="/ciClaims" type="dti.ci.claimsmgr.struts.MaintainClaimsAction" parameter="process" scope="request">
+            <forward name="success" path="/claimsmgr/claims.jsp" redirect="false"/>
+        </action>
+        <action path="/ciPolicies" type="dti.ci.policysummarymgr.struts.PolicySummaryAction" parameter="process">
+            <forward name="loadAllPolicyResult" path="/policysummarymgr/policySummary.jsp" redirect="false"/>
+        </action>
+        <action path="/ciTraining" type="dti.ci.trainingmgr.struts.MaintainTrainingAction" parameter="process">
+            <forward name="loadTrainingList" path="/trainingmgr/training.jsp" redirect="false"/>
+            <forward name="saveTrainingData" path="/ciTraining.do?process=loadTrainingList" redirect="false"/>
+        </action>
+        <action path="/ciRole" type="dti.ci.rolemgr.struts.MaintainRoleAction" parameter="process">
+            <forward name="loadRoleList" path="/rolemgr/role.jsp" redirect="false"/>
+        </action>
+        <action path="/ciTrainingSelInsNamePopup" type="dti.ci.trainingmgr.struts.MaintainSelectTrainingInsNameAction"  parameter="process">
+            <forward name="loadInstitutionNameList" path="/trainingmgr/trainingInstitutionName.jsp" redirect="false"/>
+        </action>
+        <action path="/orgGroupView"
+                type="dti.ci.orggroupmgr.struts.OrgGroupViewAction"
+                parameter="process" scope="request">
+            <forward name="loadOrgGroup" path="/orggroupmgr/viewOrgGroup.jsp" redirect="false"/>
+            <forward name="printOrgGroup" path="/orggroupmgr/orgGroupPrintSelect.jsp" redirect="false"/>
+        </action>
+        <action path="/ciCertification" type="dti.ci.certificationmgr.struts.MaintainCertificationAction" parameter="process">
+            <forward name="loadCertificationResult" path="/certificationmgr/maintainCertification.jsp" redirect="false"/>
+            <forward name="saveCertification" path="/ciCertification.do?process=loadCertification" redirect="false"/>
+        </action>
+        <action path="/ciLicense" type="dti.ci.licensemgr.struts.MaintainLicenseAction" parameter="process">
+            <forward name="loadLicenseResult" path="/licensemgr/maintainLicense.jsp" redirect="false"/>
+            <forward name="saveLicense" path="/ciLicense.do?process=loadLicense" redirect="false"/>
+        </action>
+        <action path="/ciDisability" type="dti.ci.disabilitymgr.struts.MaintainDisabilityAction" parameter="process">
+            <forward name="loadDisabilityList" path="/disabilitymgr/disability.jsp" redirect="false"/>
+            <forward name="saveDisabilityData" path="/ciDisability.do?process=loadDisabilityList" redirect="false"/>
+        </action>
+        <action path="/ciEducation" type="dti.ci.educationmgr.struts.MaintainEducationAction" parameter="process">
+            <forward name="loadEducationList" path="/educationmgr/education.jsp" redirect="false"/>
+            <forward name="saveEducationData" path="/ciEducation.do?process=loadEducationList" redirect="false"/>
+        </action>
+        <action path="/ciEducationseLinsNamePopup" type="dti.ci.educationmgr.struts.SelectInstitutionNameAction" parameter="process">
+            <forward name="loadInstitutionNameList" path="/educationmgr/selectInstitutionName.jsp" redirect="false"/>
+        </action>
+        <action path="/ciDenominator" type="dti.ci.entitydenominatormgr.struts.MaintainEntityDenominatorAction" parameter="process">
+            <forward name="loadAllEntityDenominatorResult" path="/entitydenominatormgr/maintainEntityDenominator.jsp" redirect="false"/>
+            <forward name="saveAllEntityDenominatorResult" path="/ciDenominator.do?process=loadAllEntityDenominator" redirect="false"/>
+        </action>
+        <action path="/ciVehicle" type="dti.ci.vehiclemgr.struts.MaintainVehicleAction" parameter="process">
+            <forward name="loadAllVehicleResult" path="/vehiclemgr/vehicle.jsp" redirect="false"/>
+            <forward name="saveAllVehicleResult" path="/ciVehicle.do?process=loadAllVehicle" redirect="false"/>
+        </action>
+        <action path="/ciProperty" type="dti.ci.propertymgr.struts.MaintainPropertyAction" parameter="process">
+            <forward name="loadAllPropertyResult" path="/propertymgr/property.jsp" redirect="false"/>
+            <forward name="saveAllPropertyResult" path="/ciProperty.do?process=loadAllProperty" redirect="false"/>
+            <forward name="lookupPropertyResult" path="/propertymgr/propertyLookup.jsp" redirect="false"/>
+        </action>
+        <action path="/ciCorres" type="dti.ci.correspondencemgr.struts.MaintainCorrespondenceAction" parameter="process">
+            <forward name="success" path="/correspondencemgr/maintainCorrespondence.jsp" redirect="false"/>
+        </action>
+
+        <action path="/ciExpertWitness" type="dti.ci.expertwitnessmgr.struts.MaintainExpertWitnessAction" parameter="process">
+            <forward name="loadExpertWitnessDataResult" path="/expertwitnessmgr/expertWitness.jsp" redirect="false"/>
+        </action>
+        <action path="/ciPriorCarrier" type="dti.ci.priorcarriermgr.struts.MaintainPriorCarrierAction"
+                parameter="process">
+            <forward name="loadAllPriorCarrierResult" path="/priorcarriermgr/priorCarrier.jsp" redirect="false"/>
+            <forward name="savePriorCarrierResult" path="/ciPriorCarrier.do?process=loadAllPriorCarrier" redirect="false"/>
+        </action>
+
+        <action path="/ciPriorCarrierHistory" type="dti.ci.priorcarriermgr.struts.maintainPriorCarrierHistory"
+                parameter="process" scope="request">
+            <forward name="loadPriorCarrierHistory" path="/priorcarriermgr/maintainPriorCarrierHistory.jsp" redirect="false"/>
+            <forward name="savePriorCarrierHistory" path="/ciPriorCarrierHistory.do?process=loadAllPriorCarrierHistory" redirect="false"/>
+        </action>
+
+        <action path="/ciSalesforce" type="dti.ci.struts.action.CISalesforceList" name="CISalesforceListForm"
+                scope="request">
+            <forward name="success" path="/CI_salesforcelist.jsp" redirect="false"/>
+        </action>
+
+        <action path="/demographic/clientmgr/specialhandlingmgr/maintainSpecialHandling"
+                type="dti.ci.demographic.clientmgr.specialhandlingmgr.struts.MaintainSpecialHandlingAction"
+                parameter="process"
+                scope="request">
+            <forward name="loadSPHResult" path="/demographic/clientmgr/specialhandlingmgr/maintainSpecialHandling.jsp"
+                     redirect="false"/>
+            <forward name="saveSPHResult"
+                     path="/demographic/clientmgr/specialhandlingmgr/maintainSpecialHandling.do?process=loadAllSpecialHandlings"
+                     redirect="false"/>
+        </action>
+
+        <action path="/demographic/clientmgr/clientidmgr/ciMaintainClientId"
+                type="dti.ci.demographic.clientmgr.clientidmgr.struts.CIMaintainClientIdAction" parameter="process"
+                scope="request">
+            <forward name="loadClientIdResult" path="/demographic/clientmgr/clientidmgr/clientId.jsp" redirect="false"/>
+            <forward name="saveClientIdResult"
+                     path="/demographic/clientmgr/clientidmgr/ciMaintainClientId.do?process=loadAllClientIds"
+                     redirect="false"/>
+        </action>
+
+        <action path="/ciMaintainEntityDuplicate"
+                type="dti.ci.demographic.clientmgr.mntduplicate.struts.CIEntityMntDuplicate" parameter="process"
+                scope="request">
+            <forward name="iniEntityMntDuplicate"
+                     path="/demographic/clientmgr/mntduplicate/ciMaintainEntityDuplicate.jsp" redirect="false"/>
+            <forward name="saveEntityMntDuplicate" path="/ciMaintainEntityDuplicate.do?process=iniEntityMntDuplicate"
+                     redirect="false"/>
+        </action>
+
+        <action path="/mergehistory/ciMaintainEntityMergeHistory"
+                type="dti.ci.mergehistory.struts.CIEntityMergeHistoryAction" parameter="process">
+            <forward name="loadHistory" path="/mergehistory/ciEntityMergeHistory.jsp" redirect="false"/>
+            <forward name="success" path="/mergehistory/ciMaintainEntityMergeHistory.do?process=loadMergeHistory" redirect="false"/>
+        </action>
+
+        <action path="/entityAddlEmail" type="dti.ci.entityaddlemailmgr.struts.EntityAddlEmailAction"
+                parameter="process" scope="request">
+            <forward name="initPage" path="/entityaddlemailmgr/entityAddlEmail.jsp" redirect="false"/>
+            <forward name="save" path="/entityAddlEmail.do?process=init" redirect="false"/>
+        </action>
+
+        <action path="/ciSelectedField" type="dti.ci.entityfieldselectmgr.struts.EntityFieldSelectAction" parameter="process"
+                scope="request">
+            <forward name="success" path="/entityfieldselectmgr/entityFieldSelect.jsp" redirect="false"/>
+        </action>
+
+        <action path="/ciSummary" type="dti.ci.summarymgr.struts.MaintainSummaryAction" parameter="process"
+                scope="request">
+            <forward name="loadCISummaryResult" path="/summarymgr/maintainSummary.jsp" redirect="false"/>
+            <forward name="loadAllAccountBillings" path="/summarymgr/accountBillingDetails.jsp" redirect="false"/>
+            <forward name="loadOnlyPolicyResult" path="/entitysearch/listpolicy/CIEntityListPolicy.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/ciAgent" type="dti.ci.agentmgr.struts.MaintainAgentAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/agentmgr/maintainAgent.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciAgent.do?process=loadAllAgent" redirect="false"/>
+        </action>
+
+        <action path="/agentmgr/selectAgentContract" type="dti.ci.agentmgr.struts.SelectAgentContractAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/agentmgr/selectAgentContract.jsp" redirect="false"/>
+        </action>
+
+        <action path="/agentmgr/maintainSubProducer" type="dti.ci.agentmgr.struts.MaintainSubProducerAction"
+                parameter="process" scope="request">
+            <forward name="loadAllSubProducerResult" path="/agentmgr/maintainSubProducer.jsp" redirect="false"/>
+        </action>
+
+        <action path="/commissionmgr/lookupCommission" type="dti.ci.commissionmgr.struts.LookupCommissionAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/commissionmgr/lookupCommission.jsp" redirect="false"/>
+        </action>
+
+        <action path="/ciRiskManagent" type="dti.ci.riskmgr.struts.RiskManagementAction"
+                parameter="process" scope="request">
+            <forward name="loadRmResult" path="/ciriskmgr/ciRiskManagement.jsp" redirect="false"/>
+        </action>
+        <action path="/maintainSurvey" type="dti.ci.riskmgr.survey.struts.MaintainSurveyAction"
+                parameter="process" scope="request">
+            <forward name="loadAll" path="/riskmgr/survey/maintainSurvey.jsp" redirect="false"/>
+        </action>
+        <action path="/policymgr/displayLockedPolicy" type="dti.ci.policymgr.struts.DisplayLockedPolicyAction"
+                parameter="process" scope="request">
+            <forward name="success" path="/policymgr/displayLockedPolicy.jsp" redirect="false"/>
+        </action>
+
+        <action path="/amalgamationmgr/maintainAmalgamation"
+                type="dti.ci.amalgamationmgr.struts.MaintainAmalgamationAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/amalgamationmgr/maintainAmalgamation.jsp" redirect="false"/>
+            <forward name="saveResult" path="/amalgamationmgr/maintainAmalgamation.do?process=loadAllAmalgamation"
+                     redirect="false"/>
+        </action>
+
+        <action path="/ciBilling" type="dti.ci.billingmgr.struts.CIBillingAction" parameter="process" scope="request">
+            <forward name="success" path="/billingmgr/ciBilling.jsp" redirect="false"/>
+        </action>
+
+        <action path="/claimcodehistory/claimCodeHistory"
+                type="dti.ci.claimcodehistory.struts.ClaimCodeHistoryAction"
+                parameter="process" scope="request">
+            <forward name="load" path="/claimcodehistory/viewClaimCodeHistory.jsp" redirect="false"/>
+        </action>
+
+        <action path="/reportmgr/maintainCIReport" type="dti.ci.reportmgr.struts.MaintainCIReportAction" parameter="process" scope="request">
+        </action>
+        <action path="/ciEntityAdditional"
+                type="dti.ci.entityadditionalmgr.struts.MaintainEntityAdditionalAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/entityadditionalmgr/maintainEntityAdditional.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciEntityAdditional.do?process=loadAllAvailableEntityAdditionals"
+                     redirect="false"/>
+        </action>
+        <action path="/ciEntityHistoricalData"
+                type="dti.ci.entityhistoricaldatamgr.struts.MaintainEntityHistoricalDataAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/entityhistoricaldatamgr/maintainEntityHistoricalData.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciEntityHistoricalData.do?process=loadAllAvailableEntityHistoricalDatas"
+                     redirect="false"/>
+        </action>
+        <action path="/ciEntityGlance"
+                type="dti.ci.entityglancemgr.struts.MaintainEntityGlanceAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/entityglancemgr/maintainEntityGlance.jsp" redirect="false"/>
+        </action>
+
+        <action path="/agentmgr/maintainPolicyAgentOutputOptions" type="dti.ci.agentmgr.struts.MaintainPolicyAgentOutputOptionsAction" parameter="process"
+                scope="request">
+            <forward name="success" path="/agentmgr/maintainPolicyAgentOutputOptions.jsp" redirect="false"/>
+            <forward name="saveResult" path="/agentmgr/maintainPolicyAgentOutputOptions.do?process=loadAllAgentOutputOption"
+                     redirect="false"/>
+        </action>
+
+        <action path="/agentmgr/agentOutputOptions" type="dti.ci.agentmgr.struts.AgentOutputOptionsAction" parameter="process"
+                scope="request">
+            <forward name="success" path="/agentmgr/agentOutputOptions.jsp" redirect="false"/>
+        </action>
+
+        <action path="/ciImport" type="dti.ci.importmgr.struts.MaintainDataImportAction" name="importdata" parameter="process" scope="request">
+            <forward name="initPage" path="/importmgr/dataImport.jsp" redirect="false"/>
+            <forward name="processData" path="/importmgr/dataImportResult.jsp" redirect="false"/>
+            <forward name="saveData" path="/importmgr/dataImportResult.jsp" redirect="false"/>
+        </action>
+
+        <action path="/phoneLog" type="dti.ci.vendormgr.struts.PhoneLogAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/vendormgr/phonelogmgr/phoneLog.jsp" redirect="false"/>
+            <forward name="saveResult" path="/phoneLog.do?process=load" redirect="false"/>
+        </action>
+
+        <action path="/ciCredentialRequest" type="dti.ci.credentialrequestmgr.struts.MaintainCredentialRequestAction"
+                parameter="process" scope="request">
+            <forward name="initPage" path="/credentialrequestmgr/maintainCredentialRequest.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciCredentialRequest.do?process=init" redirect="false"/>
+            <forward name="genAccount" path="/ciCredentialRequest.do?process=init" redirect="false"/>
+        </action>
+
+        <action path="/ciCredentialFeeAdjust" type="dti.ci.credentialrequestmgr.struts.MaintainCredentialFeeAdjustAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/credentialrequestmgr/maintainCredentialFeeAdjust.jsp" redirect="false"/>
+            <forward name="saveResult" path="/ciCredentialFeeAdjust.do?process=loadAllServiceCharges" redirect="false"/>
+        </action>
+
+        <action path="/entityQuickAddOrg" type="dti.ci.entityquickaddmgr.struts.EntityQuickAddOrgAction"
+                parameter="process" scope="request">
+            <forward name="initPage" path="/entityquickaddmgr/entityQuickAddOrg.jsp" redirect="false"/>
+            <forward name="saveResult" path="/entityQuickAddOrg.do?process=init" redirect="false"/>
+            <forward name="modify" path="/ciEntityOrgModify.do?process=loadEntityData" redirect="false"/>
+        </action>
+
+        <action path="/entityQuickAddPerson" type="dti.ci.entityquickaddmgr.struts.EntityQuickAddPersonAction"
+                parameter="process" scope="request">
+            <forward name="initPage" path="/entityquickaddmgr/entityQuickAddPerson.jsp" redirect="false"/>
+            <forward name="saveResult" path="/entityQuickAddPerson.do?process=init" redirect="false"/>
+            <forward name="modify" path="/ciEntityPersonModify.do?process=loadEntityData" redirect="false"/>
+        </action>
+    </action-mappings>
+    <controller processorClass="dti.oasis.struts.DefaultRequestProcessor"/>
+</struts-config>

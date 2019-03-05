@@ -1,0 +1,352 @@
+{
+  "testProcessSearchEntityClassCriteria": [
+    {
+      "inputRecord": {
+        "pk": "123456",
+        "filterCriteria_entityClassCode": "SOME_CODE"
+      },
+      "expectedProcessedInputRecord": {
+        "entityId": "123456",
+        "entityClassCode": "SOME_CODE"
+      }
+    },
+    {
+      "inputRecord": {
+        "pk": "654321",
+        "filterCriteria_entityClassCode": "ANOTHER_CODE"
+      },
+      "expectedProcessedInputRecord": {
+        "entityId": "654321",
+        "entityClassCode": "ANOTHER_CODE"
+      }
+    }
+  ],
+  "testAddEntityClass": [
+    {
+      "description": "Add single entity class.",
+      "inputRecord": {
+        "entityId": "123456",
+        "entityClass_entityClassCode": "CLASS_A",
+        "entityClass_entitySubClassCode": "SUB_CLASS_CODE_A",
+        "entityClass_entitySubTypeCode": "SUB_TYPE_CODE_A",
+        "entityClass_networkDiscount": "10.00%",
+        "entityClass_assignmentCount": "5",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      },
+      "newEntityClassRs": [
+        {
+          "entityId": "123456",
+          "entityClassCode": "CLASS_A",
+          "entitySubClassCode": "SUB_CLASS_CODE_A",
+          "entitySubTypeCode": "SUB_TYPE_CODE_A",
+          "networkDiscount": "10.00",
+          "assignmentCount": "5",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "NEW"
+        }
+      ]
+    },
+    {
+      "description": "Add multiple entity class.",
+      "inputRecord": {
+        "entityId": "123456",
+        "entityClass_entityClassCode": ",CLASS_A,CLASS_B,CLASS_C,",
+        "entityClass_entitySubClassCode": "",
+        "entityClass_entitySubTypeCode": "",
+        "entityClass_networkDiscount": "",
+        "entityClass_assignmentCount": "",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      },
+      "newEntityClassRs": [
+        {
+          "entityId": "123456",
+          "entityClassCode": "CLASS_A",
+          "entitySubClassCode": "",
+          "entitySubTypeCode": "",
+          "networkDiscount": "",
+          "assignmentCount": "",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "NEW"
+        },
+        {
+          "entityId": "123456",
+          "entityClassCode": "CLASS_B",
+          "entitySubClassCode": "",
+          "entitySubTypeCode": "",
+          "networkDiscount": "",
+          "assignmentCount": "",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "NEW"
+        },
+        {
+          "entityId": "123456",
+          "entityClassCode": "CLASS_C",
+          "entitySubClassCode": "",
+          "entitySubTypeCode": "",
+          "networkDiscount": "",
+          "assignmentCount": "",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "NEW"
+        }
+      ]
+    }
+  ],
+  "testModifyEntityClass": [
+    {
+      "description": "1. Modify non-network discount entity class",
+      "inputRecord": {
+        "entityClassId": "1000",
+        "entityId": "2000",
+        "entityType": "P",
+        "entityClass_entityClassCode": "NON_NETWORK",
+        "entityClass_entitySubClassCode": "",
+        "entityClass_entitySubTypeCode": "",
+        "entityClass_networkDiscount": "",
+        "entityClass_assignmentCount": "",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      },
+      "modifiedEntityClassRs": [
+        {
+          "entityClassId": "1000",
+          "entityId": "2000",
+          "entityClassCode": "NON_NETWORK",
+          "entitySubClassCode": "",
+          "entitySubTypeCode": "",
+          "networkDiscount": "",
+          "assignmentCount": "",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "MODIFIED"
+        }
+      ]
+    },
+    {
+      "description": "2. Modify non-network discount entity class for person",
+      "inputRecord": {
+        "entityClassId": "1000",
+        "entityId": "2000",
+        "entityType": "P",
+        "entityClass_entityClassCode": "NETWORK",
+        "entityClass_entitySubClassCode": "",
+        "entityClass_entitySubTypeCode": "",
+        "entityClass_networkDiscount": "",
+        "entityClass_assignmentCount": "",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      },
+      "modifiedEntityClassRs": [
+        {
+          "entityClassId": "1000",
+          "entityId": "2000",
+          "entityClassCode": "NETWORK",
+          "entitySubClassCode": "",
+          "entitySubTypeCode": "",
+          "networkDiscount": "",
+          "assignmentCount": "",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "MODIFIED"
+        }
+      ]
+    },
+    {
+      "description": "3. Modify non-network discount entity class for org",
+      "inputRecord": {
+        "entityClassId": "1000",
+        "entityId": "2000",
+        "entityType": "O",
+        "entityClass_entityClassCode": "NETWORK",
+        "entityClass_entitySubClassCode": "",
+        "entityClass_entitySubTypeCode": "",
+        "entityClass_networkDiscount": "",
+        "entityClass_assignmentCount": "",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      },
+      "modifiedEntityClassRs": [
+        {
+          "entityClassId": "1000",
+          "entityId": "2000",
+          "entityClassCode": "NETWORK",
+          "entitySubClassCode": "",
+          "entitySubTypeCode": "",
+          "networkDiscount": "",
+          "assignmentCount": "",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "MODIFIED"
+        }
+      ]
+    }
+  ],
+  "testModifyEntityClass_netWorkDiscountEnabled": [
+    {
+      "description": "1. Modify non-network discount entity class for person",
+      "inputRecord": {
+        "entityClassId": "1000",
+        "entityId": "2000",
+        "entityType": "P",
+        "entityClass_entityClassCode": "NON_NETWORK",
+        "entityClass_entitySubClassCode": "",
+        "entityClass_entitySubTypeCode": "",
+        "entityClass_networkDiscount": "",
+        "entityClass_assignmentCount": "",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      },
+      "modifiedEntityClassRs": [
+        {
+          "entityClassId": "1000",
+          "entityId": "2000",
+          "entityClassCode": "NON_NETWORK",
+          "entitySubClassCode": "",
+          "entitySubTypeCode": "",
+          "networkDiscount": "",
+          "assignmentCount": "",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "MODIFIED"
+        }
+      ]
+    },
+    {
+      "description": "2. Modify network discount for person.",
+      "inputRecord": {
+        "entityClassId": "1000",
+        "entityId": "2000",
+        "entityType": "P",
+        "entityClass_entityClassCode": "NETWORK",
+        "entityClass_entitySubClassCode": "",
+        "entityClass_entitySubTypeCode": "",
+        "entityClass_networkDiscount": "",
+        "entityClass_assignmentCount": "",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      },
+      "modifiedEntityClassRs": [
+        {
+          "entityClassId": "1000",
+          "entityId": "2000",
+          "entityClassCode": "NETWORK",
+          "entitySubClassCode": "",
+          "entitySubTypeCode": "",
+          "networkDiscount": "",
+          "assignmentCount": "",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "MODIFIED"
+        }
+      ]
+    },
+    {
+      "description": "3. Modify non-network discount entity class for org",
+      "inputRecord": {
+        "entityClassId": "1000",
+        "entityId": "2000",
+        "entityType": "O",
+        "entityClass_entityClassCode": "NON_NETWORK",
+        "entityClass_entitySubClassCode": "",
+        "entityClass_entitySubTypeCode": "",
+        "entityClass_networkDiscount": "",
+        "entityClass_assignmentCount": "",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      },
+      "modifiedEntityClassRs": [
+        {
+          "entityClassId": "1000",
+          "entityId": "2000",
+          "entityClassCode": "NON_NETWORK",
+          "entitySubClassCode": "",
+          "entitySubTypeCode": "",
+          "networkDiscount": "",
+          "assignmentCount": "",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "MODIFIED"
+        }
+      ]
+    },
+    {
+      "description": "4. Modify network discount for Org.",
+      "inputRecord": {
+        "entityClassId": "1000",
+        "entityId": "2000",
+        "entityType": "O",
+        "entityClass_entityClassCode": "NETWORK",
+        "entityClass_entitySubClassCode": "",
+        "entityClass_entitySubTypeCode": "",
+        "entityClass_networkDiscount": "",
+        "entityClass_assignmentCount": "",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      },
+      "modifiedEntityClassRs": [
+        {
+          "entityClassId": "1000",
+          "effectiveToDate": "01/01/2000",
+          "rowStatus": "EXPIRED"
+        },
+        {
+          "entityId": "2000",
+          "entityClassCode": "NETWORK",
+          "entitySubClassCode": "",
+          "entitySubTypeCode": "",
+          "networkDiscount": "",
+          "assignmentCount": "",
+          "effectiveFromDate": "01/01/2000",
+          "effectiveToDate": "01/01/3000",
+          "rowStatus": "NEW"
+        }
+      ]
+    }
+  ],
+  "testAddEntityClassFailed_overlapEntityClass": {
+    "inputRecord": {
+      "entityId": "2000",
+      "entityType": "P",
+      "entityClass_entityClassCode": "ENTITY_CLASS_A",
+      "entityClass_entitySubClassCode": "",
+      "entityClass_entitySubTypeCode": "",
+      "entityClass_networkDiscount": "",
+      "entityClass_assignmentCount": "",
+      "entityClass_effectiveFromDate": "01/01/2000",
+      "entityClass_effectiveToDate": "01/01/3000"
+    }
+  },
+  "testAddEntityClassFailed_invalidNetworkDiscount": [
+    {
+      "inputRecord": {
+        "entityId": "2000",
+        "entityType": "P",
+        "entityClass_entityClassCode": "NETWORK",
+        "entityClass_entitySubClassCode": "",
+        "entityClass_entitySubTypeCode": "",
+        "entityClass_networkDiscount": "0.9",
+        "entityClass_assignmentCount": "",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      }
+    },
+    {
+      "inputRecord": {
+        "entityId": "2000",
+        "entityType": "P",
+        "entityClass_entityClassCode": "NETWORK",
+        "entityClass_entitySubClassCode": "",
+        "entityClass_entitySubTypeCode": "",
+        "entityClass_networkDiscount": "100.1",
+        "entityClass_assignmentCount": "",
+        "entityClass_effectiveFromDate": "01/01/2000",
+        "entityClass_effectiveToDate": "01/01/3000"
+      }
+    }
+  ]
+}

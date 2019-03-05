@@ -1,0 +1,833 @@
+<project name="core" basedir=".">
+
+    <!-- These few properties are required in calling project's init.project.properties
+        before calling init.core.properties -->
+    <property name="tools.dir" value="${basedir}/../../../../../../tools"/>
+
+    <property name="j2ee.server.root.dir" value="/oracle/Middleware12.2.1.3"/>
+    <property name="jdk.root.dir" value="C:/DTIapps/JDK/jdk1.8.0_144"/>
+    <property name="j2ee.server.lib" value="${tools.dir}/weblogic/12.2.1.3/wlserver/server/lib"/>
+    <property name="weblogic.modules.lib" value="${tools.dir}/weblogic/12.2.1.3/wlserver/modules"/>
+    <property name="oracle.modules.lib" value="${tools.dir}/weblogic/12.2.1.3/oracle_common/modules"/>
+    <property name="jersey.modules.lib" value="${tools.dir}/OXB/Java/lib/jersey/2.25.1"/>
+
+    <property name="j2ee.applications.dir" value="${j2ee.server.root.dir}/user_projects/domains/mydomain/applications"/>
+    <property name="build.package.dir" value="${basedir}/package"/>
+    <property name="wl.build.package.dir" value="${build.package.dir}"/>
+    <property name="build.exploded.dir" value="${basedir}/exploded"/>
+    <property name="context.root.prefix" value=""/>
+    <property name="dbPoolId" value=""/>
+
+    <property name="javac.fork" value="true"/>
+    <property name="java.compiler.javac" value="${jdk.root.dir}/bin/javac" />
+    <property name="java.home" value="${jdk.root.dir}" />
+
+    <!-- Override this to define the excluded classes for compile. -->
+    <property name="oasistags.excluded.files" value=""/>
+
+    <path id="weblogic.jar.path">
+        <fileset dir="${jdk.root.dir}/lib" includes="tools.jar"/>
+        <fileset dir="${j2ee.server.lib}" includes="wls-api.jar"/>
+        <fileset dir="${j2ee.server.lib}" includes="weblogic.jar"/>
+        <!--<fileset dir="${weblogic.modules.lib}" includes="com.oracle.css.weblogic.security.wls_7.1.0.0.jar"/>-->
+        <!--<fileset dir="${weblogic.modules.lib}" includes="com.oracle.css.weblogic.security_7.1.0.0.jar"/>-->
+        <fileset dir="${oracle.modules.lib}" includes="javax.persistence.jar"/>
+        <fileset dir="${oracle.modules.lib}/oracle.jdbc" includes="ojdbc8.jar"/>
+        <fileset dir="${oracle.modules.lib}/oracle.toplink" includes="eclipselink.jar"/>
+        <!-- The jar below contains
+            weblogic.wsee.tools.anttasks.WsdlcTask class used in build-wsCM.xml and build-wsPM.xml (taskdef name="wsdlc")
+            That jar also contains some javax.persistence classes.
+            Make sure that project's javax.persistence jars are listed above that jar.
+            -->
+        <fileset dir="${weblogic.modules.lib}" includes="clients/com.oracle.webservices.wls.jaxws-wlswss-client.jar"/>
+        <fileset dir="${jersey.modules.lib}" includes="*.jar"/>
+    </path>
+
+    <taskdef name="wldeploy" classname="weblogic.ant.taskdefs.management.WLDeploy">
+        <classpath>
+            <pathelement location="${tools.dir}/weblogic/12.1.3/wlserver/server/lib/weblogic.jar"/>
+        </classpath>
+    </taskdef>
+
+    <taskdef name="wlappc" classname="weblogic.ant.taskdefs.j2ee.Appc">
+        <classpath>
+            <pathelement location="${j2ee.server.lib}/weblogic.jar"/>
+        </classpath>
+    </taskdef>
+
+    <target name="init.core.properties.for.ear" depends="init.ear.override.properties, init.core.properties"/>
+    <target name="init.ear.override.properties" >
+        <!-- Project properties -->
+        <property name="project.webapp.name" value="${project.name}.war"/>
+        <property name="project.dir" value="${basedir}"/>
+
+        <property name="project.src.dir" value="${project.dir}/${project.name}/src"/>
+        <property name="project.test.src.dir" value="${project.dir}/${project.name}/test/java"/>
+        <property name="project.test.config.dir" value="${project.dir}/${project.name}/test/resources"/>
+        <property name="project.lib.dir" value="${project.dir}/APP-INF/lib"/>
+        <property name="project.webapp.dir" value="${project.dir}/${project.name}/${project.webapp.name}"/>
+        <property name="project.webapp.resources.dir" value="${project.webapp.dir}/resources"/>
+        <!-- TODO: Remove when there are no gridheaders-->
+        <property name="project.webapp.gridheader.dir" value="${project.webapp.dir}/config"/>
+        <property name="project.ear.name" value="${project.app.name}.ear"/>
+        <property name="project.template.dir" value="${project.dir}/${project.name}/template"/>
+        <property name="project.test.src.dir" value="${project.dir}/${project.name}/test/src"/>
+
+        <!-- Build property overrides for creating EAR -->
+        <property name="build.base" value="${build.exploded.dir}"/>
+        <property name="build.app.dir" value="${build.base}/${project.app.name}"/>
+        <property name="build.app.classes.dir" value="${build.app.dir}/APP-INF/classes"/>
+        <property name="build.app.template.dir" value="${build.app.classes.dir}/dti/templates"/>
+        <property name="build.app.lib.dir" value="${build.app.dir}/APP-INF/lib"/>
+        <property name="build.webapp.dir" value="${build.app.dir}/${project.webapp.name}"/>
+    </target>
+
+    <target name="init.core.properties"
+            depends="init.build.info.properties, init.build.exploded.properties, init.build.package.properties">
+        <!-- Project properties -->
+
+        <property name="project.dir" value="${basedir}"/>
+        <property name="project.src.dir" value="${project.dir}/src"/>
+        <property name="project.test.src.dir" value="${project.dir}/test/java"/>
+        <property name="project.lib.dir" value="${project.dir}/WEB-INF/lib"/>
+        <property name="project.config.dir" value="${project.dir}/config"/>
+        <property name="project.test.config.dir" value="${project.dir}/test/resources"/>
+        <property name="project.webapp.dir" value="${project.dir}"/>
+        <property name="project.webapp.resources.dir" value="${project.webapp.dir}"/>
+        <property name="project.template.dir" value="${project.webapp.resources.dir}/templates" />
+        <property name="project.webapp.gridheader.dir" value="${project.webapp.dir}"/>
+
+        <!-- OasisTags Project properties -->
+        <property name="oasistags.project.name" value="OasisTags"/>
+        <property name="oasistags.project.dir" value="${project.dir}/../OasisTags"/>
+        <property name="oasistags.src.dir" value="${oasistags.project.dir}/src/java"/>
+        <property name="oasistags.config.dir" value="${oasistags.project.dir}/config"/>
+        <property name="oasistags.web.resources.dir" value="${oasistags.project.dir}/src/web/OasisTags"/>
+        <property name="oasistags.web.test-resources.dir" value="${oasistags.project.dir}/test/resources"/>
+        <property name="oasistags.web.web-inf.dir" value="${oasistags.project.dir}/src/web/OasisTags/WEB-INF"/>
+        <property name="oasistags.web.web-inf.lib.dir" value="${oasistags.project.dir}/src/web/OasisTags/WEB-INF/lib"/>
+        <property name="oasistags.test.dir" value="${oasistags.project.dir}/test"/>
+        <property name="oasistags.test.src.dir" value="${oasistags.test.dir}/src"/>
+        <property name="oasistags.test.config.dir" value="${oasistags.test.dir}/config"/>
+        <property name="oasistags.test.lib.dir" value="${oasistags.test.dir}/lib"/>
+
+        <!-- J2EE Application Server Constants -->
+        <property name="j2ee.server.username" value="admin"/>
+        <property name="j2ee.server.password" value="p@ssword"/>
+        <property name="wl.adminurl" value="t3://localhost:7001"/>
+        <property name="wl.environment.desc" value="local-dev"/>
+        <property name="wl.project.app.name" value="${project.app.name}"/>
+
+        <property name="wl.target" value="AdminServer"/>
+
+        <!-- Build properties -->
+        <!-- By default, set the build properties to build to the exploded directory. -->
+        <property name="build.base" value="${build.exploded.dir}"/>
+        <property name="build.app.dir" value="${build.base}/${project.app.name}"/>
+        <property name="build.app.classes.dir" value="${build.app.dir}/WEB-INF/classes"/>
+        <property name="build.app.config.classes.dir" value="${build.app.classes.dir}"/>
+        <property name="build.app.lib.dir" value="${build.app.dir}/WEB-INF/lib"/>
+        <property name="build.webapp.dir" value="${build.app.dir}"/>
+        <property name="build.webapp.classes.dir" value="${build.webapp.dir}/WEB-INF/classes"/>
+        <property name="build.webapp.template.dir" value="${build.webapp.classes.dir}/dti/templates" />
+
+        <property name="wl.build.base" value="${build.base}"/>
+        <property name="wl.build.app.dir" value="${wl.build.base}/${project.app.name}"/>
+
+        <property name="build.app.oasistags.classes.dir" value="${build.app.classes.dir}"/>
+        <property name="build.app.oasistags.lib.dir" value="${build.app.lib.dir}"/>
+
+        <property name="build.test.dir" value="${build.package.dir}/test"/>
+        <property name="build.test.classes.dir" value="${build.test.dir}/classes"/>
+        <property name="test.report.dir" value="${build.test.dir}/report"/>
+    </target>
+
+    <target name="init.build.info.properties">
+        <!-- Leave this as an empty string, and let RE and CruiseControl set it during build. -->
+        <property name="build.number" value=""/>
+    </target>
+
+    <target name="init.build.exploded.properties" unless="build.package">
+        <property name="jsp.precompile" value="false"/>
+        <property name="jsp.keepgenerated" value="true"/>
+        <property name="jsp.verbose" value="true"/>
+        <property name="jsp.debug" value="true"/>
+        <property name="jsp.pagecheckseconds" value="1"/>
+        <property name="compile.debug" value="on"/>
+        <property name="compile.optimize" value="on"/>
+        <property name="compile.nowarn" value="off"/>
+    </target>
+
+    <target name="init.build.package.properties" if="build.package">
+        <!--    To force WebLogic to refresh the cached JSP class files in the tmp folder, we tried setting the jsp-descriptor "page-check-seconds" to 60,
+and it worked well. However, we recently ran into another problem where this won't work. We deployed an older version of the application,
+say on 11/1/2010, so all the compile JSP files in the tmp cache had a date of 11/1/2010 or later. Then on 11/15/2010, we deployed a new
+version of the application that was build on 10/1/2010. The new changes in JSP files had a data of 10/1/2010 or less, so when it was deployed,
+none of the JSP files were considered newer than the cached files in the tmp folder.
+Therefore, we have decided to stick with using appc to precompile the JSP files, and using the jsp-descriptor "precompile" to force any cached
+JSP class files in the tmp folder to be recompiled at deployment. Unfortunately, a redeployment takes longer but only a small number of files
+are typcically cached so it doesn't take too much longer, and it saves a lot of time diagnosing problems caused by old cached JSP files. -->
+        <!--Update 1/28/2011- we have had timeout issues because the number of JSP file WebLogic compiles at deployment keeps growing.
+            For eClaims and eFM, there are currently about 500 JSP files being compiled. This causes the WLDT tool to timeout during deployment.
+            Therefore, out new approach is to set jsp.precompile to false and have WLDT and RE delete the application before deploying an update.-->
+        <property name="jsp.precompile" value="false"/>
+        <property name="jsp.keepgenerated" value="false"/>
+        <property name="jsp.verbose" value="false"/>
+        <property name="jsp.debug" value="false"/>
+        <property name="jsp.pagecheckseconds" value="-1"/>
+        <property name="compile.debug" value="on"/>
+        <property name="compile.optimize" value="on"/>
+        <property name="compile.nowarn" value="on"/>
+    </target>
+
+    <target name="init.core" depends="init.core.properties">
+        <available property="jdk1.3+" classname="java.lang.StrictMath"/>
+    </target>
+
+    <target name="init.test" depends="init, echo.build.properties"/>
+
+    <target name="echo.build.properties" unless="build.properties.are.echoed">
+        <property name="build.properties.are.echoed" value="true"/>
+        <echo message="java.home = ${java.home}"/>
+        <!-- Required Project Properties -->
+        <echo message="project.name=${project.name}"/>
+        <echo message="project.app.name=${project.app.name}"/>
+        <echo message="project.dir=${project.dir}"/>
+        <echo message="project.src.dir=${project.src.dir}"/>
+        <echo message="project.test.src.dir=${project.test.src.dir}"/>
+        <echo message="project.lib.dir=${project.lib.dir}"/>
+        <echo message="project.config.dir=${project.config.dir}"/>
+        <echo message="project.test.config.dir=${project.test.config.dir}"/>
+        <echo message="project.webapp.dir=${project.webapp.dir}"/>
+        <echo message="project.webapp.resources.dir=${project.webapp.resources.dir}"/>
+        <echo message="project.template.dir=${project.template.dir}"/>
+        <echo message="project.webapp.gridheader.dir=${project.webapp.gridheader.dir}"/>
+
+
+        <!-- Build Target Properties -->
+        <echo message="build.package=${build.package}"/>
+
+        <echo message="build.base=${build.base}"/>
+        <echo message="build.app.dir=${build.app.dir}"/>
+        <echo message="build.app.classes.dir=${build.app.classes.dir}"/>
+        <echo message="build.app.oasistags.classes.dir=${build.app.oasistags.classes.dir}"/>
+        <echo message="build.app.lib.dir=${build.app.lib.dir}"/>
+        <echo message="build.app.oasistags.lib.dir=${build.app.oasistags.lib.dir}"/>
+        <echo message="build.webapp.dir=${build.webapp.dir}"/>
+        <echo message="build.webapp.classes.dir=${build.webapp.classes.dir}"/>
+        <echo message="build.webapp.templates.dir=${build.webapp.templates.dir}"/>
+
+        <echo message="oasistags.excluded.files=${oasistags.excluded.files}"/>
+
+        <echo message="wl.build.base=${wl.build.base}"/>
+        <echo message="wl.build.app.dir=${wl.build.app.dir}"/>
+
+        <echo message="j2ee.server.lib: ${j2ee.server.lib}"/>
+        <echo message="jdk.root.dir: ${jdk.root.dir}"/>
+
+        <echo message="java.compiler.javac=${java.compiler.javac}"/>
+        <echo message="ant.home=${ant.home}"/>
+        <echo message="java.home=${java.home}"/>
+
+    </target>
+
+    <!--************************************************************************-->
+    <!-- Build OasisTags source and oasistags.jar                               -->
+    <!--************************************************************************-->
+    <!-- Copy library dependancies for this project to the build lib dir. -->
+    <target name="copy.oasistags.libs" depends="init"  unless="skip.compile">
+        <copy todir="${build.app.oasistags.lib.dir}">
+            <fileset dir="${oasistags.web.web-inf.lib.dir}" includes="*.jar"/>
+        </copy>
+        <copy todir="${build.app.lib.dir}">
+            <fileset dir="${tools.dir}/drools/drools-5.2.0/lib">
+                <include name="drools-compiler-5.2.0.Final.jar"/>
+                <include name="drools-core-5.2.0.Final.jar"/>
+                <include name="knowledge-api-5.2.0.Final.jar"/>
+                <include name="antlr-runtime-3.3.jar"/>
+                <include name="mvel2-2.1.0.drools2.jar"/>
+                <include name="xstream-1.3.1.jar"/>
+            </fileset>
+            <fileset dir="${tools.dir}/drools/drools-5.2.0">
+                <include name="ecj-4.4.jar"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!--Compile all OasisTags java source code-->
+    <target name="compile.oasistags" depends="init, copy.oasistags.libs" unless="skip.compile">
+        <mkdir dir="${build.app.oasistags.classes.dir}"/>
+        <javac destdir="${build.app.oasistags.classes.dir}"
+               optimize="${compile.optimize}"
+               debug="${compile.debug}" failonerror="true"
+               nowarn="${compile.nowarn}"
+               srcdir="${oasistags.src.dir}"
+               executable="${java.compiler.javac}"
+               fork="${javac.fork}"
+               excludes="**/*.smap, **/test/*, ${oasistags.excluded.files}">
+          <bootclasspath>
+            <pathelement location="${jdk.root.dir}/jre/lib/rt.jar"/>
+            <pathelement location="${jdk.root.dir}/jre/lib/jce.jar"/>
+          </bootclasspath>
+          <classpath>
+                <fileset dir="${build.app.lib.dir}" includes="**/*.jar"/>
+                <path refid="weblogic.jar.path"/>
+            </classpath>
+            <include name="**"/>
+        </javac>
+    </target>
+
+    <target name="copy.oasistags.config.files" depends="init">
+        <!-- Copy the config files required by other projects into the classes dir -->
+        <copy todir="${build.app.oasistags.classes.dir}">
+            <fileset dir="${oasistags.config.dir}" includes="**/*core*" excludes="**/buildInfo*"/>
+        </copy>
+        <copy todir="${build.app.oasistags.classes.dir}">
+            <fileset dir="${oasistags.config.dir}" includes="dti/customStyles.css,dti/customFckstyles.xml"/>
+        </copy>
+        <copy todir="${build.app.oasistags.classes.dir}">
+            <fileset dir="${oasistags.config.dir}" includes="dti/customApplicationConfig*.properties"/>
+        </copy>
+        <!-- Copy the buildInfo properties file, replacing all tokens-->
+        <copy file="${oasistags.config.dir}/dti/buildInfo-replaceable.properties"
+              tofile="${build.app.oasistags.classes.dir}/dti/buildInfo.properties" overwrite="true">
+            <filterset description="Copy the buildInfo-replaceable.properties to buildInfo.properties,
+                                    replacing all build info tokens with the values specified in the build.
+                                    This allow Release Engineering to override these parameters during the build.">
+                <filter token="BUILD_NUMBER" value="${build.number}"/>
+            </filterset>
+        </copy>
+        <!-- TODO: Remove the copy of xsd config files when the oasis tags xsd config files are moved into the oasistags.config.dir -->
+        <!-- Oasis Tags xsd config files to build classes directory -->
+        <copy todir="${build.app.lib.dir}/../classes">
+            <fileset dir="${oasistags.web.resources.dir}" includes="**/*.xsd"/>
+        </copy>
+    </target>
+
+    <!--Copy Spell Checker files to deploy directory-->
+    <target name="copy.spellcheck.config.files" depends="init">
+        <copy file="${oasistags.config.dir}/dti/spellex.properties"
+              tofile="${build.app.oasistags.classes.dir}/dti/spellex.properties" overwrite="true"/>
+        <copy todir="${build.app.oasistags.classes.dir}/dti/lex">
+            <fileset dir="${oasistags.config.dir}/dti/lex" includes="**/**"/>
+        </copy>
+    </target>
+    <!--Copy OasisTags Webapp files to deploy directory-->
+    <target name="copy.oasistags.webfiles" depends="init">
+        <!-- Copy the OasisTags web resources to the webapp/core -->
+        <copy todir="${build.webapp.dir}">
+            <fileset dir="${oasistags.web.resources.dir}"
+                     excludes="WEB-INF/**,**/*.iml,**/*.ipr,**/*.iws,.idea/**,**/*.awf,**/*.xml,**/*.xsd,**/jqwidgets-ver4.5.0/*-custom-src.js"/>
+        </copy>
+        <copy todir="${build.webapp.dir}/ckeditor">
+            <fileset dir="${oasistags.web.resources.dir}/ckeditor" />
+        </copy>
+        <copy todir="${build.webapp.dir}/lib/js/jqwidgets-ver4.5.0">
+            <fileset dir="${tools.dir}/jqWidgets/jqwidgets-ver4.5.0" />
+        </copy>
+    </target>
+
+    <target name="copy.oasistags.webfiles.shared" depends="init">
+        <!-- Copy the OasisTags web resources to the webapp/core -->
+        <copy todir="${build.webapp.dir}/core">
+            <fileset dir="${oasistags.web.resources.dir}"
+                     excludes="WEB-INF/**,jsf/resources/**,**/*.iml,**/*.ipr,**/*.iws,.idea/**,**/*.awf,**/*.xml,**/*.xsd,**/jqwidgets-ver4.5.0/*-custom-src.js"/>
+        </copy>
+        <copy todir="${build.webapp.dir}/core/ckeditor">
+            <fileset dir="${oasistags.web.resources.dir}/ckeditor" />
+        </copy>
+        <copy todir="${build.webapp.dir}/core/lib/js/jqwidgets-ver4.5.0">
+            <fileset dir="${tools.dir}/jqWidgets/jqwidgets-ver4.5.0" />
+        </copy>
+    </target>
+
+    <!--Copy OasisTags Webapp files to deploy directory-->
+    <target name="copy.oasistags.webfiles.for.ear" depends="init">
+        <!-- Copy the OasisTags web resources to the webapp/core -->
+        <copy todir="${build.webapp.dir}/core">
+            <fileset dir="${oasistags.web.resources.dir}"
+                     excludes="WEB-INF/**,jsf/resources/**,**/*.iml,**/*.ipr,**/*.iws,.idea/**,**/*.awf,**/*.xml,**/*.xsd,**/jqwidgets-ver4.5.0/*-custom-src.js"/>
+        </copy>
+        <copy todir="${build.webapp.dir}/core/ckeditor">
+            <fileset dir="${oasistags.web.resources.dir}/ckeditor" />
+        </copy>
+        <copy todir="${build.webapp.dir}/core/lib/js/jqwidgets-ver4.5.0">
+            <fileset dir="${tools.dir}/jqWidgets/jqwidgets-ver4.5.0" />
+        </copy>
+        <copy todir="${build.app.classes.dir}/META-INF/resources">
+            <fileset dir="${oasistags.web.resources.dir}/jsf/resources"
+                     includes="**/**"/>
+        </copy>
+        <!--<copy todir="${build.webapp.dir}/lib">-->
+            <!--<fileset dir="${oasistags.web.resources.dir}/lib"-->
+                     <!--includes="**/**"/>-->
+        <!--</copy>-->
+    </target>
+
+    <target name="build.oasistags" depends="init, compile.oasistags, copy.oasistags.config.files, copy.spellcheck.config.files"></target>
+
+    <!--************************************************************************-->
+    <!-- Build OasisTags Test source                                            -->
+    <!--************************************************************************-->
+    <!--Compile all OasisTags Test java source code-->
+    <target name="compile.oasistagstest" depends="init">
+        <mkdir dir="${build.test.classes.dir}"/>
+        <copy todir="${build.test.classes.dir}">
+            <fileset dir="${oasistags.test.config.dir}">
+                <exclude name="**/*.iml,**/*.ipr,**/*.iws,.idea/**"/>
+            </fileset>
+        </copy>
+        <javac destdir="${build.test.classes.dir}"
+               optimize="${compile.optimize}"
+               debug="${compile.debug}" failonerror="true"
+               nowarn="${compile.nowarn}"
+               srcdir="${oasistags.test.src.dir}"
+               executable="${java.compiler.javac}"
+               fork="${javac.fork}"
+               bootclasspath="${jdk.root.dir}/jre/lib/rt.jar"
+               excludes="**/*.smap">
+            <classpath>
+                <fileset dir="${build.app.lib.dir}" includes="**/*.jar"/>
+                <path path="${build.app.oasistags.classes.dir}" />
+                <fileset dir="${oasistags.test.lib.dir}" includes="*.jar"/>
+                <path refid="weblogic.jar.path"/>
+                <path refid="test.libs"/>
+            </classpath>
+            <include name="**"/>
+        </javac>
+    </target>
+
+    <target name="build.oasistagstest" depends="init, init.build.dirs, compile.oasistagstest"></target>
+
+    <!--************************************************************************-->
+    <!-- Common Build targets                                                   -->
+    <!--************************************************************************-->
+    <target name="clean" depends="init"/>
+
+    <target name="clean.and.build.package" depends="override.build.properties.for.package,init, clean.package.build, build.package"/>
+
+    <target name="clean.package.build" depends="init" if="build.package">
+        <echo message="START clean.package.build"/>
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="${build.package.dir}" includes="**/*" excludes="${build.package.dir}"/>
+        </delete>
+        <echo message="END clean.package.build"/>
+    </target>
+    <target name="clean.exploded.build" depends="init">
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="${build.app.dir}" includes="**/*" excludes="${build.app.dir}"/>
+        </delete>
+    </target>
+
+    <target name="init.build.dirs" >
+        <mkdir dir="${build.app.lib.dir}"/>
+    </target>
+
+    <!--Copy library dependancies for this project to the build lib dir.-->
+    <target name="copy.project.libs"
+            depends="init, init.build.dirs, copy.oasistags.libs"  unless="skip.compile">
+        <copy todir="${build.app.lib.dir}" failonerror="false">
+            <fileset dir="${project.lib.dir}" includes="**/*.jar"/>
+        </copy>
+    </target>
+
+    <!--Compile all java source code-->
+    <target name="compile.project"
+            depends="init, copy.project.libs, compile.oasistags" unless="skip.compile">
+        <!-- Compile the project java files into the project classes dir -->
+
+        <mkdir dir="${build.app.classes.dir}" />
+        <echo message="mkdir: ${build.app.classes.dir}"/>
+        <echo message="javac: ${project.src.dir}"/>
+        <javac destdir="${build.app.classes.dir}"
+               optimize="${compile.optimize}"
+               debug="${compile.debug}" failonerror="true"
+               nowarn="${compile.nowarn}"
+               srcdir="${project.src.dir}"
+               executable="${java.compiler.javac}"
+               fork="${javac.fork}"
+               bootclasspath="${jdk.root.dir}/jre/lib/rt.jar"
+               excludes="**/*.smap, **/test/*">
+            <classpath>
+                <fileset dir="${build.app.oasistags.lib.dir}" includes="**/*.jar"/>
+                <fileset dir="${build.app.lib.dir}" includes="**/*.jar"/>
+                <path path="${build.app.oasistags.classes.dir}" />
+                <path refid="weblogic.jar.path"/>
+            </classpath>
+            <include name="**"/>
+        </javac>
+        <copy todir="${build.app.classes.dir}">
+            <fileset dir="${project.src.dir}" includes="**/*.wsdl"/>
+        </copy>
+    </target>
+
+    <!--Override this target to copy project config files that are in non-stantard locations-->
+    <target name="copy.additional.project.config.files"/>
+    <!--Copy all project config files into the classpath.-->
+    <target name="copy.project.config.files"
+            depends="init, copy.additional.project.config.files">
+        <mkdir dir="${build.app.config.classes.dir}" />
+        <copy todir="${build.app.config.classes.dir}" overwrite="true">
+            <!-- Copy the project config files into the app classes dir -->
+            <fileset dir="${project.config.dir}" excludes="**/*.iml,**/*.ipr,**/*.iws,.idea/**"/>
+        </copy>
+    </target>
+
+    <!--Override this target to copy project web files that are in non-stantard locations-->
+    <target name="copy.additional.project.webfiles"/>
+    <!--Copy the weblogic.xml file, replacing tokens wih build target properties-->
+    <target name="copy.weblogic.xml">
+        <!-- Copy weblogic.xml, replacing tokens with build target properties -->
+        <copy todir="${build.webapp.dir}" overwrite="true">
+            <fileset dir="${project.webapp.dir}" includes="WEB-INF/weblogic.xml"/>
+
+            <filterset description="Replace build property tokens with configured values.">
+                <filter token="JSP_PRECOMPILE" value="${jsp.precompile}"/>
+                <filter token="JSP_KEEPGENERATED" value="${jsp.keepgenerated}"/>
+                <filter token="JSP_VERBOSE" value="${jsp.verbose}"/>
+                <filter token="JSP_DEBUG" value="${jsp.debug}"/>
+                <filter token="JSP_PAGECHECKSECONDS" value="${jsp.pagecheckseconds}"/>
+                <filter token="CONTEXT_ROOT_PREFIX" value="${context.root.prefix}"/>
+            </filterset>
+        </copy>
+    </target>
+    <!--Copy all of the project and dependant project web files.-->
+    <target name="copy.project.webfiles"
+            depends="init, copy.oasistags.webfiles, copy.weblogic.xml, copy.additional.project.webfiles">
+        <copy todir="${build.webapp.dir}" failonerror="false">
+
+            <!-- All Web Resource Files -->
+            <!-- TODO: Move all web resource files into a separate resources directory to make this easier to maintain -->
+            <fileset dir="${project.webapp.resources.dir}" >
+                <!-- Project admin files-->
+                <exclude name="**/*.iml"/>
+                <exclude name="**/*.ipr"/>
+                <exclude name="**/*.iws"/>
+                <exclude name=".idea/**"/>
+                <exclude name="build*.xml"/>
+                <exclude name="**/*.awf"/>
+                <!-- Source, JavaDoc, Config files-->
+                <exclude name="src/**"/>
+                <exclude name="test/**"/>
+                <exclude name="javadocs/**"/>
+                <exclude name="config/**"/>
+                <!-- Build Target files-->
+                <exclude name="**/lib/**"/>
+                <exclude name="**/classes/**"/>
+                <exclude name="package/**"/>
+                <exclude name="exploded/**"/>
+                <!-- IntelliJ inspection files-->
+                <exclude name="Intellij/**"/>
+                <!-- Grid Header and Template files-->
+                <exclude name="grid/**"/>
+                <!-- exclude template files -->
+                <exclude name="template*/**"/>
+                <!-- exclude RTF2PDF project files -->
+                <exclude name="RTF2PDF/**"/>
+                <!-- exclude RtfEditor20101 project files -->
+                <exclude name="RtfEditor20101/**"/>
+                <!-- All XML files-->
+                <exclude name="**/*.xml"/>
+            </fileset>
+
+            <!-- All Help Files -->
+            <fileset dir="${project.webapp.resources.dir}" includes="help/**" excludes="**/*.iml"/>
+
+        </copy>
+
+        <copy todir="${build.webapp.dir}">
+            <!-- Copy web.xml, struts config files, tld files-->
+            <fileset dir="${project.webapp.dir}" includes="WEB-INF/**" excludes="**/weblogic.xml,**/*.jar,**/*.iml**/*.awf"/>
+        </copy>
+
+        <!-- Grid Header XML Files and Field Column Mapping property files to the classpath -->
+        <!-- TODO: Move all grid files into a separate gridheader directory to make this easier to maintain -->
+        <copy todir="${build.webapp.classes.dir}" failonerror="false" >
+            <fileset dir="${project.webapp.gridheader.dir}"
+                     includes="*.xml,grid/**" excludes="build*.xml"/>
+        </copy>
+
+        <antcall target="copy.template.files"/>
+    </target>
+
+    <target name='copy.template.files' depends="init" >
+        <!-- move all template files to template directory -->
+        <mkdir dir="${build.webapp.template.dir}" />
+        <copy todir="${build.webapp.template.dir}" failonerror="false"> <!-- since some projects have no template files -->
+            <fileset dir ="${project.template.dir}" includes="*.xsl,*.dtd"/>
+        </copy>
+    </target>
+
+    <target name="appc" depends="init" if="build.package" unless="skip.precompile.jsps">
+        <echo message="START APPC"/>
+        <echo message="build.webapp.dir: ${build.webapp.dir}"/>
+        <echo message="build.webapp.classes.dir: ${build.webapp.classes.dir}"/>
+        <echo message="j2ee.server.lib: ${j2ee.server.lib}"/>
+        <!-- Temp Fix for eAdmin package build issue -->
+        <mkdir dir="${build.webapp.dir}" />
+        <echo message="mkdir build.webapp.dir: ${build.webapp.dir}"/>
+        <tstamp>
+            <format property="time.stamp" pattern="MM-dd-yyyy-hh-mm-ss-aa"/>
+        </tstamp>
+        <echo message="time.stamp: ${time.stamp}"/>
+        <java classname="weblogic.appc" fork="yes" failonerror="false" output="appc.log" dir="${build.webapp.dir}">
+            <!-- This setting causes WL not to use precompiled JSPs because it expects the class files to be all lower case. -->
+            <!--<jvmarg value="-Dweblogic.jsp.windows.caseSensitive=true"/>-->
+
+            <!-- Use Jikes to compile JSP files faster -->
+            <!--<arg line="-compiler ${build.support.tools.dir}/jikes.exe -verbose -noTryBlocks -depend -compileAll -webapp ${build.webapp.dir} -d ${build.webapp.classes.dir} ${build.webapp.dir}\*.jsp"/>-->
+            <!-- Alternately use normal Javac if problems with Jikes, but it's much slower -->
+            <arg line="-verbose -k ${build.webapp.dir}"/>
+            <classpath>
+                <path refid="weblogic.jar.path"/>
+                <fileset dir="${build.app.lib.dir}" includes="**/*.jar"/>
+                <path path="${build.app.classes.dir}" />
+                <!-- tools.jar is needed only if using Javac. -->
+                <fileset dir="${jdk.root.dir}/lib" includes="tools.jar"/>
+            </classpath>
+
+        </java>
+        <echo message="APPC - Copying file ${basedir}/appc.log..."/>
+        <copy file="${basedir}/appc.log" tofile="${basedir}/appclog/appc-${time.stamp}.log"/>
+        <echo message="APPC - Deleting file ${basedir}/appc.log..."/>
+        <delete file="${basedir}/appc.log"/>
+        <echo message="END APPC"/>
+    </target>
+    <target name="appc.fails.to.create.class.files" depends="init" if="build.package" unless="skip.precompile.jsps">
+        <echo message="build.webapp.dir: ${build.webapp.dir}"/>
+        <wlappc source="${build.webapp.dir}"
+                verbose="true"
+                continueCompilation="true"
+                forcegeneration="true"
+                keepgenerated="true"
+                linenumbers="true"
+                verbosejavac="true"/>
+    </target>
+
+    <!--Override this target to define 'depends' targets for building all dependant projects-->
+    <target name="build.dependant.projects"/>
+    <!--Build the project and all of its dependant projects.-->
+    <target name="build.project"
+            depends="init, clean, build.oasistags, build.dependant.projects,
+                    compile.project, copy.project.config.files, copy.project.webfiles, appc">
+        <antcall target="post.build.project"/>
+    </target>
+
+    <!--Override this target to define additional processing after building the project-->
+    <target name="post.build.project"/>
+
+    <target name="override.build.properties.for.exploded" unless="build.package">
+        <property name="build.exploded" value="true"/>
+    </target>
+    <target name="build.exploded"
+            description="Build the project into the j2ee applications directory."
+            depends="override.build.properties.for.exploded, init, build.project">
+        <!-- By default, this project file builds to the exploded directory, so no need to change any properties. -->
+    </target>
+    <!--Clean the exploded directory, and call build.exploded.-->
+    <target name="rebuild.exploded"
+            depends="init, clean.exploded.build, build.exploded"/>
+
+    <!--Build the entire project except compilation since that is being done by IntelliJ IDEA-->
+    <target name="build.exploded.skip.compile"
+            depends="init">
+        <antcall target="build.exploded" >
+            <param name="skip.compile" value="true"/>
+        </antcall>
+    </target>
+
+    <target name="build.and.deploy.exploded"
+            description="Build and deploy the latest to the j2ee applications directory."
+            depends="init">
+        <echo message="Building ${project.app.name} and deploying to ${wl.environment.desc}"/>
+        <antcall target="build.exploded"/>
+        <antcall target="DEPLOY"/>
+    </target>
+
+    <target name="override.build.properties.for.package">
+        <property name="build.package" value="true"/>
+        <!-- Set the build base directory to the package directory -->
+        <property name="build.base" value="${build.package.dir}"/>
+        <property name="wl.build.base" value="${wl.build.package.dir}"/>
+    </target>
+    <!--Build the project into the package subdirectory of the project-->
+    <target name="build.package"
+            depends="override.build.properties.for.package, init, build.project">
+    </target>
+    <!--Build the project into a the package subdirectory of the project, and zip the build.-->
+    <target name="build.package.zip"
+            depends="override.build.properties.for.package, init, build.package">
+
+        <!-- Create a ZIP of the package -->
+        <zip basedir="${build.package.dir}" destfile="${build.package.dir}/${project.app.name}.zip" includes="${project.app.name}/**"/>
+
+        <!-- Use the following instead to create a bundled WAR -->
+        <!--<zip basedir="${build.package.dir}/${project.app.name}" destfile="${build.package.dir}/${project.app.name}.war" includes="**"/>-->
+    </target>
+
+    <target name="DEPLOY"
+            description="Request the WebLogic Server deploy the application."
+            depends="init">
+        <!-- Deploy the application in WL -->
+        <wldeploy action="deploy" name="${wl.project.app.name}" user="${j2ee.server.username}" password="${j2ee.server.password}"
+                  verbose="true" adminurl="${wl.adminurl}" debug="true" targets="${wl.target}" source="${wl.build.app.dir}" noStage="true"/>
+    </target>
+
+    <target name="UNDEPLOY"
+            description="Request the WebLogic Server undeploy the application if it is already running."
+            depends="init">
+        <!-- Undeploy the application in WL -->
+        <wldeploy action="undeploy" name="${wl.project.app.name}" user="${j2ee.server.username}" password="${j2ee.server.password}"
+                  verbose="true" adminurl="${wl.adminurl}" debug="true" targets="${wl.target}"/>
+    </target>
+
+    <!--Make customized configurations to customApplicationConfig.properties, such as dbPoolId=OasisProd..-->
+    <target name="build.package.and.customize.configuration" depends="clean.and.build.package" >
+
+        <!-- Undeploy the application in WL first to clean up the tmp cache of JSP .class files -->
+        <echo message="Deleting application: ${dbPoolId}_${project.app.name} to target ${wl.target} " />
+        <wldeploy action="undeploy" name="${dbPoolId}_${project.app.name}" user="${j2ee.server.username}" password="${j2ee.server.password}"
+                  verbose="true" adminurl="${wl.adminurl}" debug="true" targets="${wl.target}" failonerror="false"/>
+
+        <echo message="Delopying application: ${dbPoolId}_${project.app.name} to target ${wl.target} " />
+        <wldeploy action="deploy" name="${dbPoolId}_${project.app.name}" user="${j2ee.server.username}" password="${j2ee.server.password}"
+                  verbose="true" adminurl="${wl.adminurl}" debug="true" targets="${wl.target}" source="${wl.build.app.dir}"/>
+    </target>
+
+    <target name="guvnor.model.clean">
+        <echo>clean for guvnor model</echo>
+        <delete dir="${oasistags.project.dir}/temp" quiet="true"/>
+        <delete file="${oasistags.project.dir}/oasistags.jar" quiet="true"/>
+    </target>
+
+    <target name="guvnor.model.compile" depends="init,copy.oasistags.libs,guvnor.model.clean">
+        <echo>compile java classes for guvnor model</echo>
+        <mkdir dir="${oasistags.project.dir}/temp"/>
+        <javac destdir="${oasistags.project.dir}/temp"
+               optimize="${compile.optimize}"
+               debug="${compile.debug}" failonerror="true"
+               nowarn="${compile.nowarn}"
+               srcdir="${oasistags.src.dir}"
+               executable="${java.compiler.javac}"
+               fork="${javac.fork}"
+               bootclasspath="${jdk.root.dir}/jre/lib/rt.jar"
+               excludes="**/*.smap, **/test/*">
+            <classpath>
+                <fileset dir="${build.app.lib.dir}" includes="**/*.jar"/>
+                <path refid="weblogic.jar.path"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="guvnor.model.jar" depends="guvnor.model.compile">
+        <echo>jar file for guvnor model</echo>
+        <jar destfile="${oasistags.project.dir}/oasistags.jar">
+            <fileset dir="${oasistags.project.dir}/temp">
+                <include name="dti/oasis/busobjs/YesNoFlag.class"/>
+                <include name="dti/oasis/busobjs/EnumType.class"/>
+                <include name="dti/oasis/busobjs/Info.class"/>
+                <include name="dti/oasis/converter/Converter.class"/>
+                <include name="dti/oasis/obr/Context.class"/>
+                <include name="dti/oasis/obr/SysParm.class"/>
+                <include name="dti/oasis/obr/event/*.class"/>
+                <include name="dti/oasis/recordset/Record.class"/>
+                <include name="dti/oasis/recordset/RecordSet.class"/>
+                <include name="dti/oasis/recordset/Field.class"/>
+                <include name="dti/oasis/util/PageBean.class"/>
+                <include name="dti/oasis/util/ByteArray.class"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="jqx.custom.minify" depends="init">
+        <attrib readonly="false">
+            <fileset dir="${oasistags.web.resources.dir}/lib/js/jqwidgets-ver4.5.0" includes="**/*-custom.js"/>
+        </attrib>
+
+        <java jar="${tools.dir}/closure-compiler/closure-compiler-v20170124/closure-compiler-v20170124.jar" fork="true">
+            <arg line="--js_output_file=${oasistags.web.resources.dir}/lib/js/jqwidgets-ver4.5.0/jqxgrid-custom.js ${oasistags.web.resources.dir}/lib/js/jqwidgets-ver4.5.0/jqxgrid-custom-src.js"/>
+        </java>
+
+        <java jar="${tools.dir}/closure-compiler/closure-compiler-v20170124/closure-compiler-v20170124.jar" fork="true">
+            <arg line="--js_output_file=${oasistags.web.resources.dir}/lib/js/jqwidgets-ver4.5.0/jqxgrid.sort-custom.js ${oasistags.web.resources.dir}/lib/js/jqwidgets-ver4.5.0/jqxgrid.sort-custom-src.js"/>
+        </java>
+
+        <java jar="${tools.dir}/closure-compiler/closure-compiler-v20170124/closure-compiler-v20170124.jar" fork="true">
+            <arg line="--js_output_file=${oasistags.web.resources.dir}/lib/js/jqwidgets-ver4.5.0/jqxgrid.edit-custom.js ${oasistags.web.resources.dir}/lib/js/jqwidgets-ver4.5.0/jqxgrid.edit-custom-src.js"/>
+        </java>
+    </target>
+
+    <!-- Define test libs -->
+    <path id="test.libs">
+        <pathelement location="${tools.dir}/test-libs/hamcrest/hamcrest-all-1.3.jar"/>
+        <pathelement location="${tools.dir}/test-libs/junit5/5.1.0/junit-platform-console-standalone/junit-platform-console-standalone-1.1.0.jar"/>
+        <pathelement location="${tools.dir}/test-libs/mockito/mockito-core-2.13.0.jar"/>
+        <pathelement location="${tools.dir}/test-libs/byte-buddy/byte-buddy-1.7.9.jar"/>
+        <pathelement location="${tools.dir}/test-libs/byte-buddy/byte-buddy-agent-1.7.9.jar"/>
+        <pathelement location="${tools.dir}/test-libs/objenesis/objenesis-2.6.jar"/>
+        <pathelement location="${tools.dir}/test-libs/opentest4j/opentest4j-1.0.0.jar"/>
+        <fileset dir="${tools.dir}/test-libs/json-path" includes="*.jar"/>
+    </path>
+
+    <target name="compile.project.test" depends="init">
+        <mkdir dir="${build.test.classes.dir}"/>
+        <mkdir dir="${project.test.config.dir}"/>
+
+        <copy todir="${build.test.classes.dir}">
+            <fileset dir="${project.test.config.dir}">
+                <exclude name="**/*.iml,**/*.ipr,**/*.iws,.idea/**"/>
+            </fileset>
+        </copy>
+
+        <echo message="${project.test.src.dir}"/>
+
+        <mkdir dir="${project.test.src.dir}"/>
+
+        <javac destdir="${build.test.classes.dir}"
+               optimize="${compile.optimize}"
+               debug="${compile.debug}" failonerror="true"
+               nowarn="${compile.nowarn}"
+               srcdir="${project.test.src.dir}"
+               executable="${java.compiler.javac}"
+               fork="${javac.fork}"
+               bootclasspath="${jdk.root.dir}/jre/lib/rt.jar"
+               excludes="**/*.smap">
+            <classpath>
+                <fileset dir="${build.app.lib.dir}" includes="**/*.jar"/>
+                <path path="${build.app.oasistags.classes.dir}" />
+                <fileset dir="${oasistags.test.lib.dir}" includes="*.jar"/>
+                <path refid="weblogic.jar.path"/>
+                <path refid="test.libs"/>
+            </classpath>
+            <include name="**"/>
+        </javac>
+    </target>
+
+    <target name="build.project.test" depends="init, init.build.dirs, compile.project.test"/>
+
+    <target name="test" depends="init, init.build.dirs">
+        <!--<java classname="org.junit.platform.console.ConsoleLauncher" fork="true">-->
+            <!--<arg line="-h"/>-->
+            <!--<classpath>-->
+                <!--<path refid="test.libs"/>-->
+            <!--</classpath>-->
+        <!--</java>-->
+
+        <antcall target="build.exploded"/>
+        <antcall target="build.oasistagstest"/>
+        <antcall target="build.project.test"/>
+
+        <echo message="${build.app.lib.dir}"/>
+
+        <java classname="org.junit.platform.console.ConsoleLauncher" fork="true">
+            <arg line="-p dti"/>
+            <classpath>
+                <path path="${build.test.classes.dir}"/>
+                <path path="${build.app.classes.dir}"/>
+                <path refid="test.libs"/>
+                <path refid="weblogic.jar.path"/>
+                <fileset dir="${build.app.lib.dir}" includes="**/*.jar"/>
+            </classpath>
+        </java>
+    </target>
+</project>

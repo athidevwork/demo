@@ -1,0 +1,672 @@
+﻿#menu {
+    background-repeat: repeat;
+}
+
+#globalSearch{
+    padding: 0px;
+}
+
+.header {
+    background-image: url(./images/OASIS-logo.gif);
+    background-color: #669acc;
+    background-position-y:0px;
+    color: #FFF;
+}
+
+.headerEnvInfo {
+    font-size:24px;
+    padding-top:none;
+}
+
+.wcFindSource {
+
+}
+
+a.topNavCurrentApp:link, a.topNavCurrentApp:visited, a.topNavCurrentApp:hover {
+    color:White;
+    cursor: default;
+    border-bottom: none;
+    font-family: Arial, Verdana, "Trebuchet MS";
+    font-size: 11px;
+}
+
+.txtWhite {
+    color: #FFF;
+}
+
+
+a.lkHdr:link, a.lkHdr:visited {
+    background-image: url(./images/ico-arrow-link-white.gif);
+    background-repeat: no-repeat;
+    color: #FFF;
+    padding-left: 13px;
+    font-family: Arial, Verdana, "Trebuchet MS";
+    font-size: 11px;
+    text-decoration: none;
+}
+
+a.lkHdr:hover {
+    text-decoration: underline;
+    border-bottom: none;
+}
+
+a.lkHdr:visited {
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.btHdr {
+    background-image: url(./images/bt-logoff.gif);
+    background-repeat: no-repeat;
+    background-color: #669acc;
+    color: rgb(109,176,63);
+    font-size: 11px;
+    font-weight: bold;
+    font-family: Arial, Verdana, "Trebuchet MS";
+    margin-right:5px;
+    min-width: 43px;
+}
+
+.menu {
+    background-image: url(./images/bg-menu-blue.gif);
+    background-repeat: repeat-x;
+}
+
+.jMenuDiv {
+    height:30px;
+}
+
+.jMenuDiv, .jMenu li, .jMenu li a:hover, .jMenu li:hover>a, .jMenu li ul li, .jMenu li ul li a:hover {
+    background-image: url('./images/bg-menu-blue.gif');
+}
+
+.menu, .jMenuDiv, .jMenu, .jMenu li, .jMenu li ul li {
+    background-color: #003E7E;
+}
+
+.jMenuDiv, .jMenu li ul li {
+    background-repeat: repeat;
+}
+
+.jMenu li a.selectedMenu {
+    background-image: url(./images/bg-menu-grey.gif);
+    background-repeat: repeat-x;
+    color: #666;
+}
+
+.jMenu li:hover>a {
+    background-color: #003E7E;
+    background-image: url('./images/bg-menu-blue.gif');
+}
+
+.jMenuDiv li a SPAN {
+    font-family:  Arial, Verdana, "Trebuchet MS";
+    font-size: 12px;
+}
+
+.jMenu li ul li:first-child {
+    border-top: 1px solid #369;
+}
+
+.jMenu li ul li {
+    border-bottom: 1px solid #369;
+    border-left: 1px solid #369;
+    border-right: 1px solid #369;
+}
+
+.jMenu li ul li a {
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.jMenu li a.selectedMenu {
+    background-image: url('./images/bg-menu-blue.gif');;
+    background-color: #003E7E;
+}
+
+.jMenu li a.selectedMenu span{
+    color: #666;
+}
+
+.jMenu li ul li a:hover {
+    border-top: 1px solid #369;
+    border-bottom: 1px solid #369;
+    border-left: 1px solid #369;
+    border-right: 1px solid #369;
+    text-decoration: underline;
+}
+
+.jMenu li a:hover {
+    text-decoration: underline;
+}
+/* Tab Menus */
+
+.jTabMenuDiv {
+    font-family:  Arial, Verdana, "Trebuchet MS";
+    font-size: 12px;
+}
+
+.jTabMenu li, .jTabMenu li ul li, .jTabMenu li:hover>a, .jTabMenu li ul li a:hover {
+    background: none url(./images/bg-menu-grey.gif) repeat;
+    color:black;
+}
+
+.jTabMenu li a:hover, .jTabMenu li ul li a:hover {
+    text-decoration: underline;
+}
+
+.jTabMenu li a span, .jTabMenu li:hover a span {
+    font-family:  Arial, Verdana, "Trebuchet MS";
+    font-size: 12px;
+    color: black;
+}
+
+.jTabMenu li ul li {
+    background: url(./images/bg-menu-grey.gif);
+    background-repeat: repeat;
+    display: block;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-top:1px solid #ccc;
+}
+
+.jTabMenu li {
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.jTabMenu li:first-child {
+    border-left: 1px solid #ccc;
+}
+
+.jTabMenu li ul li:first-child {
+    border-top: 1px solid #ccc;
+}
+
+jTabMenu li ul li a {
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.jTabMenu li ul li a:hover {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.jTabMenu li.selectedTab, .jTabMenu li.firstSelectedTab{
+    border-left: 1px solid #999;
+    border-top: 1px solid #999;
+    border-bottom: 0px solid #999;
+    border-right: 1px solid #999;
+}
+
+.jTabMenu li.lastBlankTab{
+    background-image: none;
+    width: 100%;
+    border-top: 0px solid #ccc;
+    border-left: 0px solid #ccc;
+    border-right:  0px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+div.jTabMenuDiv > ul li.tab a:hover span,
+div.jTabMenuDiv > ul li.tab:hover>a span,
+div.jTabMenuDiv > ul li ul li a:hover span,
+div.jTabMenuDiv > ul li ul li:hover>a span {
+    color:black;
+}
+
+#globalSearchContainer {
+    height: 22px;
+}
+
+#globalSearch {
+    vertical-align: middle;
+}
+
+.globalActionItemList {
+    color: #999;
+}
+
+.horizontalButtonCollection span.leftBlueButtonArea, .horizontalButtonCollection span.leftBlueArrowButtonArea {
+    background:none url(./images/lbButton.gif) no-repeat;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left:2px;
+    padding-right: 0px;
+}
+
+.horizontalButtonCollection span.BlueButtonHolder, .horizontalButtonCollection dt span.BlueArrowButtonHolder {
+    background: #6699cc url(./images/bButton.gif) repeat;
+    _width:0%; /* IE9 and below */
+}
+
+
+.horizontalButtonCollection span.rightBlueButtonArea, .horizontalButtonCollection span.rightBlueArrowButtonArea {
+    background:none url(./images/rbButton.gif) no-repeat;
+    background-position-x:100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left:0px;
+    padding-right:2px;
+    width:100%;
+}
+
+
+.horizontalButtonCollection input.BlueButton, .horizontalButtonCollection input.BlueArrowButton {
+    background: url(./images/bButton.gif) repeat;
+    height: 21px;
+}
+
+.horizontalButtonCollection input.BlueButton:hover, .horizontalButtonCollection input.BlueArrowButton:hover {
+    color:#FFF;
+}
+
+.horizontalButtonCollection span.leftGrayButtonArea, .horizontalButtonCollection span.leftGrayArrowButtonArea {
+    background:none url(./images/lgbutton.gif) no-repeat;
+}
+
+.horizontalButtonCollection span.GrayButtonHolder, .horizontalButtonCollection dt span.GrayArrowButtonHolder {
+    background: #6699cc url(./images/gbutton.gif) repeat;
+}
+
+.horizontalButtonCollection span.rightGrayButtonArea, .horizontalButtonCollection span.rightGrayArrowButtonArea {
+    background-position: none 0%;
+    background-color: transparent;
+    background-image: url('images/rgbutton.gif');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+}
+
+.horizontalButtonCollection input.GrayButton, .horizontalButtonCollection input.GrayArrowButton {
+    background: url(./images/) repeat;
+    height: 22px;
+    color: #036;
+}
+
+.horizontalButtonCollection input.GrayButton:hover, .horizontalButtonCollection input.GrayArrowButton:hover {
+    color: #036;
+}
+
+.buttonText {
+    background-image: url('./images/bt-blue-m.gif');
+    height:21px;
+}
+
+.btBlueMedium {
+    background-image: url('./images/bt-blue-m.gif');
+    height:21px;
+}
+
+.btBlueLarge {
+    background-image: url('./images/bt-blue-l.gif');
+    height:21px;
+}
+
+.btBlueSmall1 {
+    background-image: url('./images/bt-blue-s.gif');
+    height:21px;
+}
+
+.btLightBlue, .globalSearchButton {
+    background-image: url('./images/bt-search.gif');
+    height:19px;
+    background-color:#7eb2e2;
+    color:#036;
+}
+
+/* page header */
+
+div.pageHeader {
+    width:100%;
+    margin:0;
+    padding-bottom:10px;
+}
+
+.pageTitle {
+    color: #666;
+}
+
+.pagePrintHelpLinks {
+    padding-right: 0px;
+}
+
+.pagePrintHelpLinks a:link, pagePrintHelpLinks a:visited, .pagePrintHelpLinks a:hover {
+    color:#369;
+}
+
+.pageNextPrevLinks {
+    color: #666;
+    padding-top:0px;
+}
+
+/*
+SPAN.navigationTitle {
+    color: White;
+}
+*/
+
+/* page header */
+
+
+/* Panel */
+
+.panel {
+    background-image: url('./images/bg-panelarea.gif');
+}
+
+.panel #panelTitleWithBorder {
+    margin-left:0px;
+    border-bottom: 1px solid #cedfef;
+}
+
+.panel SPAN.panelTitle {
+    font-family: Arial, Verdana, "Trebuchet MS";
+    color: #666;
+    font-size: 14px;
+}
+
+.panel a.panelUpTitle:link {
+}
+
+/* Panel */
+
+div.navigateTerms .navigationTitle {
+    color:#003E7E;
+}
+
+/* form fields */
+.panel > div > table.formFields {
+
+}
+
+.formFields {
+
+}
+
+.formFields * SPAN.oasis_formlabel {
+    font-family: Arial, Verdana, "Trebuchet MS";
+}
+
+.formFields TD.editableLabel, .formFields TD.readonlyLabel {
+}
+
+.oasis_formlabelreq {
+}
+/* form fields */
+
+/* header related */
+#formFieldsTableForHeaderFieldsFirst, #formFieldsTableForHeaderFieldsSecond, #formFieldsTableForHeaderFieldsThird {
+
+}
+.headerDataFieldsFirstColBorder TD, .headerDataFieldsSecondColBorder TD, .headerDataFieldsThirdColNoBorder TD {
+
+}
+
+.headerDataFieldsFirstColBorder, .headerDataFieldsSecondColBorder, .headerDataFieldsThirdColNoBorder {
+    border-right: 1px solid #c1d5ed;
+    padding: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.readonlyHeaderDataLabelCellFirstColLabel, .editableHeaderDataLabelCellFirstColLabel,
+.readonlyHeaderDataLabelCellSecondColLabel, .editableHeaderDataLabelCellSecondColLabel,
+.readonlyHeaderDataLabelCellThirdColLabel, .editableHeaderDataLabelCellThirdColLabel {
+    min-height: 18px;
+}
+
+.readonlyHeaderDataLabelCellFirstColLabel SPAN, .editableHeaderDataLabelCellFirstColLabel SPAN,
+.readonlyHeaderDataLabelCellSecondColLabel SPAN, .editableHeaderDataLabelCellSecondColLabel SPAN,
+.readonlyHeaderDataLabelCellThirdColLabel SPAN, .editableHeaderDataLabelCellThirdColLabel SPAN {
+
+}
+
+#formFieldsTableForHeaderFieldsAll > tbody > tr > td {
+    padding-right:0px;
+}
+#formFieldsTableForHeaderFieldsAll > tbody > tr > td {
+    vertical-align: top;
+}
+/* header related */
+
+/* Grid related */
+DIV.divGridHolder {
+    border:1px solid #9cafc0;
+}
+
+DIV.divGrid {
+    border:none;
+    BORDER-TOP: #808080 3px solid;
+}
+
+table.clsGrid th {
+    background-color: #6699cc   ;
+    top : 0px;
+    vertical-align: middle;
+    height: 22px;
+    font-family: Arial, Verdana, "Trebuchet MS";
+    font-size: 9px;
+    padding:0px;
+}
+
+table.clsGrid th font, table.clsGrid th font .bodystyle {
+    font-family: Arial, Verdana, "Trebuchet MS";
+    font-size: 9px;
+    color:white;
+    font-weight: bold;
+}
+
+table.clsGrid th a:link, table.clsGrid th a:active  {
+    font-family: Arial, Verdana, "Trebuchet MS";
+    font-size: 9px;
+}
+
+table.clsGrid th a:hover  {
+    font-family: Arial, Verdana, "Trebuchet MS";
+    font-size: 9px;
+    color: Black;
+}
+
+table.clsGrid tr {
+
+}
+
+table.clsGrid tr.alternate_colors_one {
+    background-color: #F2F2F2   ;
+}
+table.clsGrid tr.alternate_colors_two {
+    background-color: #FFF;
+}
+
+.hiliteSelectRow *, .hiliteRow *, .hiliteRow * SPAN{
+    background-color: #c2dcf5;
+    color:Black;
+}
+
+table.clsGrid TD {
+    /*padding: 2px;*/
+}
+
+A.gridcontent:hover, A.gridcontent:hover span {
+    color:#c2dcf5;
+}
+
+/* Grid related */
+
+.errormessage {
+    padding:0px;
+    padding-left:20px;
+    font-size: 8pt;
+    background-image: url("./images/error.gif");
+    background-repeat: no-repeat;
+    background-color:transparent;
+    height: 22px;
+}
+
+.infomessage {
+    background-position: none;
+    padding-left:20px;
+    font-size: 8pt;
+    font-weight: bold;
+    border: 1px solid #DDEBF3;
+    color: #76ABC6;
+    background-color: transparent;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-image: url('images/info.gif');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+}
+
+.envLogin {
+    width: 550px;
+    margin-left: auto;
+}
+
+.loginEnvInfo {
+    color: #DC143C;
+    font-size: 24px;
+    font-weight: 900;
+    padding-left:0px;
+    text-align: center;
+}
+
+.loginBody {
+    background-color: #7fb1e4;
+    background-image: none;
+}
+
+.loginTop {
+    margin:auto;
+    margin-top: 90px;
+}
+
+.mainLogin {
+    width: 563px;
+    height: 280px;
+    margin-left: auto;
+}
+
+.loginLeft {
+    display: inline;
+    float: left;
+    padding-top: 50px;
+    padding-left: 16px;
+    height: 133px;
+}
+
+.loginRight {
+    padding-top: 50px;
+    padding-left: 60px;
+}
+
+.loginError {
+    border-top: 3px solid #F53914;
+    border-right: 3px solid #F53914;
+    border-bottom: 3px solid #F53914;
+    border-left: 22px solid #F53914;
+    margin-bottom:10px;
+    width:514px;
+}
+
+
+div.loginTxt {
+}
+
+ul.login li {
+    list-style-image:url(../images/ico-arrow-link-white.gif);
+}
+
+ul.login li a {
+}
+
+div.loginTxt > span.txtBlueBold11px {
+    background-color: transparent;
+}
+
+div.loginTxt ul li, {
+}
+
+.loginTxt ul li a:link, .loginTxt ul li a:visited, .loginTxt ul li:hover {
+}
+
+ul.login li a.lkWhite:link, ul.login li a.lkWhite:visited, ul.login li a.lkWhite:hover {
+    color:#fff;
+}
+
+.loginFooter {
+    color:white;
+    background: url(./images/logo-ftrlogin.gif) no-repeat;
+    background-position: right top;
+    font-weight: normal;
+}
+
+.mainLogin * .mainForm, .mainLogin * .txtBoldRight {
+    color:#333333;
+}
+
+
+DIV.popup {
+    border-top:Solid 1px #6699cc;
+    border-left:Solid 1px #6699cc;
+    border-bottom:Solid 2px #6699cc;
+    border-right:Solid 2px #6699cc;
+}
+
+TD.popupheader {
+    background: #6699cc url("./images/bg-menu-blue.gif");
+    border-bottom:Solid 1px #6699cc;
+}
+
+.popupDialog {
+    border-top: Solid 1px #6699cc;
+    border-left: Solid 1px #6699cc;
+    border-bottom: Solid 2px #6699cc;
+    border-right: Solid 2px #6699cc;
+    padding: 0px;
+}
+
+.popupDialog .ui-dialog-titlebar {
+    background: #6699cc url("./images/bg-menu-blue.gif");
+    border-bottom:Solid 1px #6699cc;
+    height:22px;
+}
+
+.savingIndicator .ui-dialog-titlebar {
+    background: #6699cc url("./images/bg-menu-blue.gif") repeat-x;
+}
+
+.confirmDialog .ui-dialog-titlebar {
+    background: #6699cc url("./images/bg-menu-blue.gif") repeat-x;
+}
+
+A.popupheader:link, A.popupheader:visited {
+
+}
+
+A.popupheader:hover {
+    color: Black;
+}
+
+TABLE.popupcontent {
+    background: #6699cc url("./images/lines2.gif");
+}
+
+DIV.popupcontent {
+    border:Solid 1px #6699cc;
+}
+
+table.popupcontent .alternate_colors_one {
+    background-color: #ededed;
+}
+
+table.popupcontent .alternate_colors_two {
+    background-color: white;
+}

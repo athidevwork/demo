@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4" relativePaths="true" type="J2EE_APPLICATION_MODULE" j2ee-integration="WebLogic Server">
+  <component name="AppServerSpecificValidatorsManager" />
+  <component name="ApplicationModuleBuildComponent">
+    <setting name="EXPLODED_URL" value="file://$MODULE_DIR$/../../../../../../../../bea/user_projects/domains/mydomain/applications/ePolicy" />
+    <setting name="EXPLODED_ENABLED" value="true" />
+    <setting name="JAR_URL" value="file://" />
+    <setting name="JAR_ENABLED" value="false" />
+    <setting name="SYNC_EXPLODED_DIR" value="true" />
+    <setting name="BUILD_MODULE_ON_FRAME_DEACTIVATION" value="false" />
+    <setting name="BUILD_EXTERNAL_DEPENDENCIES" value="false" />
+  </component>
+  <component name="ApplicationModuleProperties">
+    <containerElement type="module" name="CIS.war">
+      <attribute name="method" value="0" />
+      <attribute name="URI" value="&lt;N/A&gt;" />
+      <attribute name="contextRoot" value="ePolicy/CIS" />
+    </containerElement>
+    <containerElement type="module" name="CommonServices.war">
+      <attribute name="method" value="4" />
+      <attribute name="URI" value="CS.war" />
+      <attribute name="contextRoot" value="ePolicy/CS" />
+    </containerElement>
+    <containerElement type="module" name="OasisTagsWeb">
+      <attribute name="method" value="0" />
+      <attribute name="URI" value="&lt;N/A&gt;" />
+      <attribute name="contextRoot" value="OasisTagsWeb" />
+    </containerElement>
+    <containerElement type="module" name="PM.war">
+      <attribute name="method" value="0" />
+      <attribute name="URI" value="&lt;N/A&gt;" />
+      <attribute name="contextRoot" value="ePolicy/PM" />
+    </containerElement>
+    <deploymentDescriptor name="application.xml" url="file://$MODULE_DIR$/META-INF/application.xml" optional="false" version="1.3" />
+    <deploymentDescriptor name="weblogic-application.xml" url="file://$MODULE_DIR$/META-INF/weblogic-application.xml" optional="false" version="7.x" />
+    <deploymentDescriptor name="" url="file://$MODULE_DIR$/META-INF/weblogic-application.xml" optional="true">
+      <option name="DEFAULT_DIR" value="META-INF" />
+      <option name="NAME" value="" />
+      <option name="DESCRIPTION" value="" />
+    </deploymentDescriptor>
+  </component>
+  <component name="ModuleRootManager" />
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <exclude-output />
+    <exploded url="file://$MODULE_DIR$/../../../../../../../../bea/user_projects/domains/mydomain/applications/ePolicy" />
+    <exclude-exploded />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Weblogic v8.1" level="application_server_libraries" />
+    <orderEntry type="module" module-name="CommonServices.war" />
+    <orderEntryProperties />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ACTIVE_VCS_NAME" value="Perforce" />
+    <option name="USE_PROJECT_VCS" value="false" />
+  </component>
+  <component name="WeblogicApplicationModuleProperties" />
+</module>
+

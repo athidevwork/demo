@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:simpleType name="yesorno">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Y"/>
+            <xsd:enumeration value="N"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="displaytype">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="default"/>
+            <xsd:enumeration value="money"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="alignments">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="left"/>
+            <xsd:enumeration value="right"/>
+            <xsd:enumeration value="center"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="default"/>
+            <xsd:enumeration value="text"/>
+            <xsd:enumeration value="formatdate"/>
+            <xsd:enumeration value="formatdatetime"/>
+            <xsd:enumeration value="number"/>
+            <xsd:enumeration value="dropdown"/>
+            <xsd:enumeration value="updateonlydropdown"/>
+            <xsd:enumeration value="url"/>
+            <xsd:enumeration value="updateonly"/>
+            <xsd:enumeration value="date"/>
+            <xsd:enumeration value="checkbox"/>
+            <xsd:enumeration value="checkboxread"/>
+            <xsd:enumeration value="radiobutton"/>
+            <xsd:enumeration value="img"/>
+            <xsd:enumeration value="anchor"/>
+            <xsd:enumeration value="formatmoney"/>
+            <xsd:enumeration value="textarea"/>
+            <xsd:enumeration value="updateonlydate"/>
+            <xsd:enumeration value="updateonlydatetime"/>
+            <xsd:enumeration value="updateonlymoney"/>
+            <xsd:enumeration value="updateonlynumber"/>
+            <xsd:enumeration value="updateonlyurl"/>
+            <xsd:enumeration value="updateonlydropdown"/>
+            <xsd:enumeration value="uppercasetext"/>
+            <xsd:enumeration value="lowercasetext"/>
+            <xsd:enumeration value="updateonlypercentage"/>
+            <xsd:enumeration value="updateonlyphone"/>
+            <xsd:enumeration value="phone"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:element name="fieldname" type="xsd:string"/>
+    <xsd:element name="name" type="xsd:string"/>
+    <xsd:attribute name="type" type="type"/>
+    <xsd:attribute name="length" type="xsd:string"/>
+    <xsd:attribute name="align" type="alignments"/>
+    <xsd:attribute name="visible" type="yesorno"/>
+    <xsd:attribute name="display" type="displaytype"/>
+    <xsd:attribute name="maxlength" type="xsd:string"/>
+    <xsd:attribute name="rows" type="xsd:string"/>
+    <xsd:attribute name="cols" type="xsd:string"/>
+    <xsd:attribute name="decimalplaces" type="xsd:integer"/>
+    <xsd:attribute name="width" type="xsd:string"/>
+
+    <xsd:element name="title" type="xsd:string"/>
+    <xsd:element name="value" type="xsd:string"/>
+    <xsd:element name="label" type="xsd:string"/>
+
+    <xsd:element name="record">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element ref="value"/>
+                <xsd:element ref="label"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="listdata">
+        <xsd:complexType>
+            <xsd:sequence maxOccurs="unbounded">
+                <xsd:element ref="record"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="href">
+        <xsd:complexType>
+            <xsd:attribute name="url" type="xsd:string" use="required"/>
+            <xsd:attribute name="hrefkey" type="xsd:string" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="listsql" nillable="false" type="xsd:string"/>
+
+    <xsd:element name="header">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:choice>
+                    <xsd:element ref="fieldname"/>
+                    <xsd:element ref="name"/>
+                </xsd:choice>
+                <xsd:choice minOccurs="0" maxOccurs="1">
+                    <xsd:element ref="listdata"/>
+                    <xsd:element ref="listsql"/>
+                </xsd:choice>
+                <xsd:element ref="href" minOccurs="0" maxOccurs="1"/>
+                <xsd:element ref="title" minOccurs="0" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute ref="type" use="optional"/>
+            <xsd:attribute ref="length" use="optional"/>
+            <xsd:attribute ref="display" use="optional"/>
+            <xsd:attribute ref="align" use="optional"/>
+            <xsd:attribute ref="visible" use="required"/>
+            <xsd:attribute ref="maxlength" use="optional"/>
+            <xsd:attribute ref="rows" use="optional"/>
+            <xsd:attribute ref="cols" use="optional"/>
+            <xsd:attribute ref="decimalplaces" use="optional"/>
+            <xsd:attribute ref="width" use="optional"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="headers">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="header" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

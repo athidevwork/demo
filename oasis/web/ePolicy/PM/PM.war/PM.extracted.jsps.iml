@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4" relativePaths="true" type="JAVA_MODULE">
+  <component name="ModuleRootManager" />
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../../../../../../../../../temp" />
+    <content url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_M1_m1/PM">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_M1_m1/PM" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_M1_m1/PM/jarfiles" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_M1_m1/PM/public" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_ePolicy_ePolicy/CIS">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_ePolicy_ePolicy/CIS/jarfiles" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_ePolicy_ePolicy/CIS/public" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_ePolicy_ePolicy/CS">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_ePolicy_ePolicy/CS/jarfiles" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_ePolicy_ePolicy/CS/public" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_ePolicy_ePolicy/PM">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_ePolicy_ePolicy/PM/jarfiles" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../../../../../bea/user_projects/domains/mydomain/myserver/.wlnotdelete/extract/myserver_ePolicy_ePolicy/PM/public" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="WebLogic v8.1 (Prj Lib)" level="project" />
+    <orderEntry type="module" module-name="OasisTags" />
+    <orderEntry type="module" module-name="PM" />
+    <orderEntry type="module" module-name="PM.war" />
+    <orderEntry type="library" name="ePolicy.lib" level="project" />
+    <orderEntryProperties />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ACTIVE_VCS_NAME" value="" />
+    <option name="USE_PROJECT_VCS" value="false" />
+  </component>
+</module>
+

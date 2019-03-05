@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+    <!-- ************************************************************** -->
+    <!-- Core Framework Configuration                                -->
+    <!-- ************************************************************** -->
+    <context:annotation-config/>
+
+    <context:component-scan base-package="dti" />
+
+    <context:load-time-weaver/>
+    <!-- ************************************************************** -->
+    <!-- Bean Post Processors                                           -->
+    <!-- ************************************************************** -->
+    <bean id="BeanVerifier" class="dti.oasis.app.impl.BeanVerifier"/>
+    <bean id="ApplicationLifecycleRegistrar" class="dti.oasis.app.ApplicationLifecycleRegistrar"/>
+    <bean id="RequestLifecycleRegistrar" class="dti.oasis.request.RequestLifecycleRegistrar"/>
+    <bean id="RefreshParmsEventRegistrar" class="dti.oasis.app.RefreshParmsEventRegistrar"/>
+
+    <!-- ************************************************************** -->
+    <!-- Application Lifecycle Listeners Configuration                  -->
+    <!-- ************************************************************** -->
+    <!-- User this block to register any High-Priority ApplicationLifecycleListeners.
+        <util:set id="HighPriorityApplicationLifecycleListeners">
+            <ref bean="SomeHighPriorityComponent"/>
+        </util:set>
+    -->
+
+    <!-- ************************************************************** -->
+    <!-- Request Lifecycle Configuration                                -->
+    <!-- ************************************************************** -->
+    <bean id="RequestLifecycleAdvisor" class="dti.oasis.request.RequestLifecycleAdvisor">
+        <!--<property name="requestStorageManager" ref="RequestStorageManager"/>-->
+        <property name="userSessionManagerAdmin" ref="UserSessionManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Core Framework Components Configuration                        -->
+    <!-- ************************************************************** -->
+    <bean id="RequestStorageManager" class="dti.oasis.request.RequestStorageManager">
+    </bean>
+
+    <bean id="UserSessionManager" class="dti.oasis.session.impl.UserSessionManagerImpl">
+        <!--<property name="requestStorageManager" ref="RequestStorageManager"/>-->
+    </bean>
+
+    <bean id="MessageManager" class="dti.oasis.messagemgr.impl.MessageManagerImpl">
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+
+    <bean id="OasisAccessRequestLifecycleListener"
+          class="dti.oasis.accesstrailmgr.request.OasisAccessRequestLifecycleListener">
+        <property name="accessTrailManager" ref="AccessTrailManager"/>
+    </bean>
+
+    <bean id="PageViewStateRequestLifecycleHandler"
+          class="dti.oasis.request.PageViewStateRequestLifecycleHandler">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- DataSource Configuration                                       -->
+    <!-- ************************************************************** -->
+    <bean id="AppDataSource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <property name="targetDataSource" ref="SetupUserConnectionDataSourceProxy"/>
+    </bean>
+    <bean id="SetupUserConnectionDataSourceProxy" class="dti.oasis.data.SetupUserConnectionDataSourceProxy">
+        <property name="targetDataSource" ref="DBPoolDataSourceLocator"/>
+        <property name="userSessionManager" ref="UserSessionManager"/>
+        <!--<property name="requestStorageManager" ref="RequestStorageManager"/>-->
+    </bean>
+
+    <bean id="DBPoolDataSourceLocator" class="dti.oasis.data.DBPoolDataSourceLocator">
+        <property name="userSessionManager" ref="UserSessionManager"/>
+    </bean>
+
+    <bean id="ReadOnlyDataSource" class="dti.oasis.data.CachedPerRequestDataSource">
+        <property name="targetDataSource" ref="SetupUserConnectionDataSourceProxy"/>
+        <property name="readOnly" value="true"/>
+        <!--<property name="requestStorageManager" ref="RequestStorageManager"/>-->
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Core Database Transaction Configuration                        -->
+    <!-- ************************************************************** -->
+    <bean id="TxManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="AppDataSource"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Sample Database Transaction Configuration
+            Copy this section to your Spring config file, and:
+            - Replace XX with your project name.
+            - Replace the TxAttributes nameMap entries with appropriate
+                entries for your project.
+            - Replace the PolicyManager idref with a list of
+                references to all beans being wrapped with tx management-->
+    <!-- ************************************************************** -->
+<!--
+    <bean id="XX.TxAttributes" class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+        <property name="nameMap">
+            <map>
+                <entry key="add*" value="PROPAGATION_REQUIRED"/>
+                <entry key="save*" value="PROPAGATION_REQUIRED"/>
+                <entry key="update*" value="PROPAGATION_REQUIRED"/>
+                <entry key="delete*" value="PROPAGATION_REQUIRED"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="XX.TxInterceptor" class="dti.oasis.data.DBTransactionInterceptor">
+        <property name="transactionManager" ref="TxManager"/>
+        <property name="transactionAttributeSource" ref="XX.TxAttributes"/>
+        <property name="errorHandlerController" ref="ErrorHandlerController"/>
+    </bean>
+    <bean id="XX.TxAutoProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="interceptorNames">
+            <list>
+                <idref bean="XX.TxInterceptor"/>
+            </list>
+        </property>
+        <property name="beanNames">
+            <list>
+                <idref bean="PolicyManager"/>
+            </list>
+        </property>
+    </bean>
+-->
+
+    <!-- ************************************************************** -->
+    <!-- Stored Procedure DAO Configuration                             -->
+    <!-- ************************************************************** -->
+    <bean id="StoredProcedureDAO" class="dti.oasis.data.StoredProcedureDAO" scope="prototype" lazy-init="true">
+        <property name="appDataSource" ref="AppDataSource"/>
+        <property name="storedProcedureDAOHelper" ref="StoredProcedureDAOHelper"/>
+        <property name="executeBatchSize" value="${executeBatchSize}"/>
+        <property name="errorHandlerController" ref="ErrorHandlerController"/>
+        <property name="warningTime" value="${storedproceduredao.warn.if.query.exceeds}"/>
+        <property name="dbMechanic" ref="DBMechanic"/>
+    </bean>
+    <bean id="XMLStoredProcedureDAO" class="dti.oasis.data.XMLStoredProcedureDAO" scope="prototype" lazy-init="true" parent="StoredProcedureDAO">
+        <property name="storedProcedureDAOHelper" ref="StoredProcedureDAOHelper"/>
+        <property name="warningTime" value="${storedproceduredao.warn.if.query.exceeds}"/>
+    </bean>
+
+    <bean id="StoredProcedureDAOHelper" class="dti.oasis.data.StoredProcedureDAOHelper">
+        <property name="readOnlyDataSource" ref="ReadOnlyDataSource"/>
+        <property name="parameterColumnNameFormatter">
+            <bean class="dti.oasis.data.ColumnNameToJavaFieldNameFormatter">
+                <property name="stripPrefixes" value="i_,p_,o_,in_,out_"/>
+            </bean>
+        </property>
+        <property name="resultSetColumnNameFormatter">
+            <bean class="dti.oasis.data.ColumnNameToJavaFieldNameFormatter"/>
+        </property>
+        <property name="defaultOutputDataTypeConverters">
+            <map>
+                <entry key="DATE">
+                    <ref bean="StringConverter"/>
+                </entry>
+                <entry key="TIMESTAMP">
+                    <ref bean="StringConverter"/>
+                </entry>
+            </map>
+        </property>
+        <property name="spDAOOverrideColumnProperties">
+            <bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+                <property name="location" value="dti/spDAOOverrideColumns.properties"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="StringConverter"  class="dti.oasis.converter.StringConverter">
+        <property name="simpleDateFormatPattern" value="MM/dd/yyyy"/>
+        <property name="simpleDateTimeFormatPattern" value="MM/dd/yyyy HH:mm:ss"/>
+    </bean>
+    
+    <!-- ************************************************************** -->
+    <!-- Base DAO Configuration                                         -->
+    <!-- ************************************************************** -->
+    <bean id="BaseDAO" abstract="true">
+        <property name="appDataSource" ref="AppDataSource"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Error Handler Configuration                                    -->
+    <!-- ************************************************************** -->
+    <bean id="ErrorHandlerController" class="dti.oasis.error.ErrorHandlerController">
+        <property name="errorHandlers">
+            <list>
+                <ref bean="DBMechanic"></ref>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="DBMechanic" class="dti.oasis.data.DBMechanic">
+        <property name="errorCodesForConnectionPoolReset">
+            <list>
+                <value>24338</value>    <!-- ORA-24338: statement handle not executed  -->
+                <value>4061</value>     <!-- ORA-4061: existing state of name has been invalidated  -->
+                <value>4064</value>     <!-- ORA-4064: not executed, invalidated name  -->
+                <value>4065</value>     <!-- ORA-4065: not executed, altered, or dropped name  -->
+                <value>4068</value>     <!-- ORA-04068: existing state of packages has been discarded  -->
+                <value>1003</value>     <!-- ORA-01003: no statement parsed  -->
+                <value>6508</value>     <!-- ORA-06508: could not find program unit being called  -->
+            </list>
+        </property>
+        <property name="errorMessagePatternsForConnectionPoolReset">
+            <value>Invalid column reference</value>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Navigation Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="NavigationManager" class="dti.oasis.navigationmgr.impl.NavigationManagerImpl">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- CodeLookupManager Configuration                                -->
+    <!-- ************************************************************** -->
+    <bean id="dti.oasis.codelookupmgr.struts.CodeLookupAction" class="dti.oasis.codelookupmgr.struts.CodeLookupAction">
+        <property name="codeLookupManager" ref="CodeLookupManager"/>
+    </bean>
+    <bean id="CodeLookupManager" class="dti.oasis.codelookupmgr.impl.CodeLookupManagerImpl">
+        <property name="ajaxReloadDefault" value="${codelookupmgr.ajax.reload.default}"/>
+        <property name="addSelectOptionDefault" value="${codelookupmgr.add.select.option.default}"/>
+        <property name="selectOptionCode" value="${codelookupmgr.select.option.code}"/>
+        <property name="selectOptionLabel" value="${codelookupmgr.select.option.label}"/>
+        <property name="allOptionCode" value="${codelookupmgr.all.option.code}"/>
+        <property name="allOptionLabel" value="${codelookupmgr.all.option.label}"/>
+        <property name="cacheLOOKUPLovsByDefault" value="${codelookupmgr.cache.lookup.lovs.by.default}"/>
+        <property name="codeLookupDAO">
+            <bean class="dti.oasis.codelookupmgr.dao.CodeLookupJdbcDAO">
+                <property name="readOnlyDataSource" ref="ReadOnlyDataSource"/>
+                <property name="warningTime" value="${codelookupmgr.warn.if.query.exceeds}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Performance and Trace Intercepter Configuration                -->
+    <!-- ************************************************************** -->
+    <bean id="TraceInterceptor" class="dti.oasis.log.TraceInterceptor"></bean>
+    <bean id="PerfMonInterceptor" class="dti.oasis.performance.PerformanceMonitorInterceptor"></bean>
+
+    <!-- ************************************************************** -->
+    <!-- Sample Configuration to enable Performance or Trace Monitoring
+            for all methods in the listed beanNames.
+            Copy this section to your Spring config file, and:
+            - Replace XX with your project name.
+            - Replace the PolicyManager idref with a list of
+                references to all beans being wrapped with tx management
+             - Include PerfMonInterceptor, TraceIncerceptor, or both as desired. -->
+    <!-- ************************************************************** -->
+    <!--
+        <bean id="XX.PerfTraceAutoProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+            <property name="beanNames">
+                <list>
+                    <idref bean="PolicyManager"/>
+                </list>
+            </property>
+            <property name="interceptorNames">
+                <list>
+                    <idref bean="PerfMonInterceptor"/>
+                    <idref bean="TraceInterceptor"/>
+                </list>
+            </property>
+        </bean>
+    -->
+
+    <!-- ************************************************************** -->
+    <!-- Converter setup for grid sort capability                       -->
+    <!-- ************************************************************** -->
+    <bean id="DateConverter" class="dti.oasis.converter.DateConverter">
+    </bean>
+
+    <bean id="IntegerConverter" class="dti.oasis.converter.IntegerConverter"/>
+
+    <bean id="UpperCaseConverter" class="dti.oasis.converter.UpperCaseConverter">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Converter Factory setup.                                       -->
+    <!-- ************************************************************** -->
+    <bean id="ConverterFactory" class="dti.oasis.converter.ConverterFactory">
+        <property name="convertersByName">
+            <map>
+                <entry key="DATE_CONVERTER">
+                    <ref bean="DateConverter"/>
+                </entry>
+                <entry key="INTEGER_CONVERTER">
+                    <ref bean="IntegerConverter"/>
+                </entry>
+                <entry key="UPPER_CASE_CONVERTER">
+                    <ref bean="UpperCaseConverter"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Action Class Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="dti.oasis.log.MaintainJavascriptLogAction" class="dti.oasis.log.MaintainJavascriptLogAction" >
+        <property name="enableJavascriptLogging" value="${javascript.logging.enable}"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Workflow Action Class                                          -->
+    <!-- ************************************************************** -->
+    <bean id="dti.oasis.workflowmgr.struts.WorkflowAction" class="dti.oasis.workflowmgr.struts.WorkflowAction">
+        <property name="readOnlyDataSource" ref="ReadOnlyDataSource"/>
+    </bean>
+
+    <bean id="WorkflowAgentImpl" class="dti.oasis.workflowmgr.impl.WorkflowAgentImpl" scope="prototype" lazy-init="true">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- User Preference Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="UserPreferenceManager" class="dti.oasis.userpreference.impl.UserPreferenceManagerImpl">
+        <property name="userPreferenceDAO">
+            <bean id="UserPreferenceDAO" class="dti.oasis.userpreference.dao.UserPreferenceJdbcDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Id Generator Action Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="di.oasis.idgeneratormgr.struts.IdGeneratorAction" class="dti.oasis.idgeneratormgr.struts.IdGeneratorAction">
+        <property name="readOnlyDataSource" ref="ReadOnlyDataSource"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Access Trail Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="AccessTrailManager" class="dti.oasis.accesstrailmgr.impl.AccessTrailManagerImpl">
+        <property name="accessTrailDAO" ref="accessTrailDAO"/>
+    </bean>
+    <bean id="accessTrailDAO" class="dti.oasis.accesstrailmgr.dao.AccessTrailJdbcDAO">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Ows Access Trail Configuration                                 -->
+    <!-- ************************************************************** -->
+    <bean id="owsAccessTrailManager" class="dti.oasis.accesstrailmgr.impl.OwsAccessTrailManagerImpl">
+        <property name="owsAccessTrailDAO" ref="OwsAccessTrailDAO"/>
+        <property name="owsLogQueueManager" ref="owsLogQueueManager"/>
+        <property name="logByOwsLogQueue" value="${ows.logging.background}"/>
+    </bean>
+
+    <bean id="OwsAccessTrailDAO" class="dti.oasis.accesstrailmgr.dao.OwsAccessTrailJdbcDAO">
+    </bean>
+
+    <bean id="owsLogProcessor" class="dti.oasis.accesstrailmgr.OwsLogProcessor">
+        <property name="owsAccessTrailManager" ref="owsAccessTrailManager"/>
+        <property name="owsLogQueueManager" ref="owsLogQueueManager"/>
+    </bean>
+
+    <bean id="owsLogQueueManager" class="dti.oasis.accesstrailmgr.impl.OwsLogQueueManagerImpl">
+        <property name="owsLogProcessor" ref="owsLogProcessor"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- LogInitializer Configuration                                   -->
+    <!-- ************************************************************** -->
+    <bean id="LogInitializer" class="dti.oasis.log.LogInitializer">
+        <property name="loggingFormatter" value="${logging.formatter}"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Knowledge Base Manager Configuration                           -->
+    <!-- ************************************************************** -->
+    <bean id="KnowledgeBaseManager" class="dti.oasis.obr.impl.KnowledgeBaseManagerImpl" init-method="initialize">
+        <property name="pageRuleDAO" ref="pageRuleDAO"/>
+    </bean>
+
+    <bean id="pageRuleDAO" class="dti.oasis.obr.dao.PageRuleJdbcDAO"/>
+
+    <!-- ************************************************************** -->
+    <!-- Page Activity Action Configuration                             -->
+    <!-- ************************************************************** -->
+    <bean id="PageViewStateManager" class="dti.oasis.session.pageviewstate.impl.PageViewStateManagerImpl">
+
+    </bean>
+
+    <bean id="pageViewStateAction" class="dti.oasis.session.pageviewstate.struts.PageViewStateAction">
+
+    </bean>
+
+
+    <!-- ************************************************************** -->
+    <!-- Page View State Timer Configuration                            -->
+    <!-- ************************************************************** -->
+    <task:scheduled-tasks>
+        <task:scheduled ref="PageViewStateManager" method="cleanupScheduledTasks" fixed-delay="${pageViewState.cleanup.delay}" fixed-rate="${pageViewState.cleanup.period}"></task:scheduled>
+    </task:scheduled-tasks>
+
+    <!-- ************************************************************** -->
+    <!-- User Cache Configuration                                       -->
+    <!-- ************************************************************** -->
+    <bean id="UserCacheManager" class="dti.oasis.cachemgr.UserCacheManager">
+    </bean>
+
+    <!--
+        Register custom View Scope in Spring configuration
+    -->
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="view">
+                    <bean class="dti.oasis.spring.scope.ViewScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!-- The following configuration are for field mapping in web service. -->
+    <bean id="stringElementValueConverter" class="dti.oasis.ows.util.impl.StringElementValueConverter"/>
+    <bean id="dateElementValueConverter" class="dti.oasis.ows.util.impl.DateElementValueConverter"/>
+    <bean id="dateTimeElementValueConverter" class="dti.oasis.ows.util.impl.DateTimeElementValueConverter"/>
+    <bean id="phoneNumberElementValueConverter" class="dti.oasis.ows.util.impl.PhoneNumberElementValueConverter"/>
+    <bean id="yesNoFlagElementValueConverter" class="dti.oasis.ows.util.impl.YesNoFlagElementValueConverter"/>
+    <bean id="yesNoEmptyFlagElementValueConverter" class="dti.oasis.ows.util.impl.YesNoEmptyFlagElementValueConverter"/>
+    <bean id="ssnElementValueConverter" class="dti.oasis.ows.util.impl.SsnElementValueConverter"/>
+    <bean id="businessEmailListElementValueConverter" class="dti.oasis.ows.util.impl.BusinessEmailListElementValueConverter"/>
+
+    <bean id="fieldElementMap" class="dti.oasis.ows.util.FieldElementMap"  abstract="true">
+        <property name="stringElementValueConverter" ref="stringElementValueConverter"/>
+        <property name="dateElementValueConverter" ref="dateElementValueConverter"/>
+        <property name="dateTimeElementValueConverter" ref="dateTimeElementValueConverter"/>
+        <property name="phoneNumberElementValueConverter" ref="phoneNumberElementValueConverter"/>
+        <property name="yesNoFlagElementValueConverter" ref="yesNoFlagElementValueConverter"/>
+        <property name="yesNoEmptyFlagElementValueConverter" ref="yesNoEmptyFlagElementValueConverter"/>
+        <property name="ssnElementValueConverter" ref="ssnElementValueConverter"/>
+        <property name="businessEmailListElementValueConverter" ref="businessEmailListElementValueConverter"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Oasis Executor Services                                        -->
+    <!-- ************************************************************** -->
+    <bean id="OasisExecutorServiceManager" class="dti.oasis.concurrent.OasisExecutorServiceManagerImpl" />
+
+    <bean id="sysParmProvider" class="dti.oasis.util.SysParmProvider" factory-method="getInstance"/>
+
+</beans>

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="eApp.lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../eApp/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../eApp/lib" recursive="false" />
+  </library>
+</component>

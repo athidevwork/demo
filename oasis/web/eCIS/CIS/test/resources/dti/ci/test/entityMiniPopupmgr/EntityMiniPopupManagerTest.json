@@ -1,0 +1,128 @@
+{
+  "EntityMiniPopupManagerTest": {
+    "testLoadEntity": {
+      "expected": {
+        "fieldNames": [
+          "entity_licenseState",
+          "entity_license",
+          "entity_clientId",
+          "entity_dateOfBirth",
+          "entity_entityNameComputed",
+          "entity_externalDataId",
+          "entity_federalTaxId",
+          "entity_hicn",
+          "entity_legalName",
+          "entity_referenceNumber",
+          "entity_socialSecurityNumber",
+          "entity_legacyDataId",
+          "entity_vendorCode",
+          "entity_vendorIrs1099Type"
+        ]
+      }
+    },
+
+    "inputRecord": {
+      "entityId": 12525077
+    },
+    "testLoadEntityAddressList": {
+      "expected": {
+        "fieldNames": [
+          "addressId",
+          "sourceRecordId",
+          "addrExpired",
+          "addrChange",
+          "addrAddress",
+          "addrPhone",
+          "addrAddressTypeCode",
+          "addrEffectiveFromDate",
+          "addrEffectiveToDate",
+          "addrPrimaryAddressB",
+          "addrPrimaryAddressBDesc",
+          "addrSourceTableName",
+          "addrUsaAddressB",
+          "addrUsaAddressBDesc",
+          "addrUsaZip",
+          "addrAddressTypeCodeDesc"
+        ]
+      }
+    },
+    "testLoadAddressPhoneList": {
+      "expected": {
+        "fieldNames": [
+          "phoneNumberId",
+          "addrPhnAddress",
+          "addrPhnPrimaryAddressB",
+          "addrPhnAddrTypeCode",
+          "addrPhnPhoneTypeCodeDesc",
+          "addrPhnPrimaryNumberBDesc",
+          "addrPhnPhoneNumFormatted",
+          "addrPhnUsaNumberBDesc",
+          "addrPhnListedNumberBDesc",
+          "addrPhnPermisToReleaseB"
+        ]
+      }
+    },
+    "testGetContactList": {
+      "expected": {
+        "fieldNames": [
+          "contact_contactId",
+          "contact_entityId",
+          "contact_addressId",
+          "contact_areaCode",
+          "contact_char1",
+          "contact_char2",
+          "contact_char3",
+          "contact_contactType",
+          "contact_date1",
+          "contact_date2",
+          "contact_date3",
+          "contact_effectiveFromDate",
+          "contact_effectiveToDate",
+          "contact_emailAddress",
+          "contact_faxAreaCode",
+          "contact_faxPhoneNumber",
+          "contact_firstName",
+          "contact_lastName",
+          "contact_middleName",
+          "contact_nameComputed",
+          "contact_num1",
+          "contact_num2",
+          "contact_num3",
+          "contact_phoneExtension",
+          "contact_phoneNumber",
+          "contact_primaryb",
+          "contact_primaryBComputed",
+          "contact_socialSecurityNumber",
+          "contact_title",
+          "contact_noteInd"
+        ]
+      }
+    },
+    "testLoadEntityGeneralPhoneList": {
+      "expected": {
+        "fieldNames": [
+          "phoneNumberId",
+          "sourceRecordId",
+          "entityId",
+          "phnumAreaCode",
+          "phnumFullFormatted",
+          "phnumTypeCodeDesc",
+          "phnumPrimaryBDesc",
+          "phnumPermissionBDesc",
+          "phnumFormatted",
+          "phnumUsaBDesc",
+          "phnumListedBDesc",
+          "phnumListB",
+          "phnumPermissionB",
+          "phnumExtension",
+          "phnumNumber",
+          "phnumTypeCode",
+          "phnumPrimaryB",
+          "phnumSourceTableName",
+          "phnumSourceTableNameDesc",
+          "phnumUsaB"
+        ]
+      }
+    }
+  }
+}

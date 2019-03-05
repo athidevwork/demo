@@ -1,0 +1,90 @@
+package dti.pm.validationmgr.impl;
+
+import dti.pm.validationmgr.dao.ValidationDAO;
+import dti.oasis.recordset.Record;
+import dti.oasis.util.LogUtils;
+import dti.oasis.messagemgr.MessageManager;
+import dti.oasis.app.ConfigurationException;
+import dti.oasis.app.ApplicationContext;
+import dti.oasis.validationmgr.RecordValidator;
+
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
+/**
+ * This class implements validation of Accounting Month.
+ * <p/>
+ * <p/>
+ * <p>(C) 2003 Delphi Technology, inc. (dti)</p>
+ * Date:   May 23, 2007
+ *
+ * @author sma
+ */
+/*
+ *
+ * Revision Date    Revised By  Description
+ * ---------------------------------------------------
+ *
+ * ---------------------------------------------------
+ */
+public class AccountingMonthRecordValidator implements RecordValidator {
+              
+    /**
+     * Validate the given record.
+     *
+     * @param inputRecord    the data Record to validate
+     * @return true if the record is valid; otherwise false.
+     */
+    public boolean validate(Record inputRecord) {
+        Logger l = LogUtils.enterLog(getClass(), "validate", new Object[]{inputRecord});
+
+        boolean isValid = getValidationDAO().checkAccountingMonth(inputRecord).booleanValue();
+        if (!isValid) {
+            MessageManager.getInstance().addErrorMessage(getMessageKey(),
+                new String[]{String.valueOf(inputRecord.getRecordNumber()+1)}, "accountingDate");
+        }
+
+        if (l.isLoggable(Level.FINER)) {
+            l.exiting(getClass().getName(), "validate", Boolean.valueOf(isValid));
+        }
+        return isValid;
+    }
+
+    //-------------------------------------------------
+    // Configuration constructor and accessor methods
+    //-------------------------------------------------
+    public void verifyConfig() {
+        if (getValidationDAO() == null)
+            throw new ConfigurationException("The required property 'validationDAO' is missing.");
+    }
+
+    public AccountingMonthRecordValidator() {
+    }
+
+    public AccountingMonthRecordValidator(String messageKey) {
+        setMessageKey(messageKey);
+    }
+
+    public ValidationDAO getValidationDAO() {
+        if (m_validationDAO == null)
+            m_validationDAO = (ValidationDAO) ApplicationContext.getInstance().getBean(ValidationDAO.BEAN_NAME);
+        return m_validationDAO;
+    }
+
+    public void setValidationDAO(ValidationDAO validationDAO) {
+        m_validationDAO = validationDAO;
+    }
+
+    public String getMessageKey() {
+        if (m_messageKey == null)
+            m_messageKey = "pm.accountingMonthCheckRecordValidator.error";
+        return m_messageKey;
+    }
+
+    public void setMessageKey(String messageKey) {
+        m_messageKey = messageKey;
+    }
+
+    private ValidationDAO m_validationDAO;
+    private String m_messageKey;
+}

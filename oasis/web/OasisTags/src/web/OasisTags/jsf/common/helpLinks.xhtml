@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <!-- BEGIN: footer -->
+    <div class="pagePrintHelpLinks" nowrap="true">
+        <script type="text/javascript">
+            function openEAdmin(url) {
+                url = getAppPath().substr(0, getAppPath().lastIndexOf('/') + 1) + url;
+                var winOptions = 'scrollbars=yes,resizable=yes,toolbar=yes,menubar=yes,status=yes,location=yes,titlebar=yes';
+                var winName = 'EAdminWindow';
+                var newwindow = window.open(url, winName, winOptions);
+                if (newwindow != null &amp;&amp; newwindow.focus) {
+                    //alert('focus');
+                    newwindow.focus()
+                }   else {
+                    //alert('No focus');
+                }
+            }
+
+            function openForumURL(url) {
+                var winOptions = 'scrollbars=yes,resizable=yes,toolbar=yes,menubar=yes,status=yes,location=yes,titlebar=yes';
+                var winName = 'ForumWindow';
+                var newwindow = window.open(url, winName, winOptions);
+                if (newwindow != null &amp;&amp; newwindow.focus) {
+                    newwindow.focus()
+                }
+            }
+
+            function viewHelp(url){
+                var helpWidth=400;
+                openPopupForHelp(url, 'HelpWindow', helpWidth, screen.height-55, 0, (screen.width-helpWidth)-10, 'yes');
+            }
+
+            function openPopupForHelp(sUrl, winName, width, height, top, left, resizable) {
+                var myPopup = '';
+                var redirectUrl = getAppPath()+"/core/redirectToHelp.jsp";
+                sUrl = encodeURIComponent(sUrl);
+                myPopup = window.open(redirectUrl+'?helpPageUrl='+sUrl, winName, 'scrollbars=yes,width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',resizable=' + resizable);
+                if (!myPopup.opener)
+                    myPopup.opener = self;
+                myPopup.focus();
+                return myPopup;
+            }
+
+        </script>
+        <p:outputPanel rendered="#{request.isUserInRole('OASISSYSINFOADMINROLE') or request.isUserInRole('OASISSYSINFOADMIN') or
+                                   request.isUserInRole('OASISSYSADMINROLE') or request.isUserInRole('OASISSYSADMIN') or
+                                   request.isUserInRole('EMPLOYEEROLE') or request.isUserInRole('EMPLOYEE')}" layout="inline">
+            <a class="txtSmallBlue"
+               href="javascript:openEAdmin('../eAdmin/SysInfo/accesstrail/viewActiveUsers.dti');">Active Users</a> |
+        </p:outputPanel>
+
+        <a class="txtSmallBlue" href="javascript:window.print();">Print</a> |
+
+        <a class="txtSmallBlue" href="javascript:openForumURL('http://www.oasiscustomergroup.com/');">User Forum</a> |
+
+
+        <a class="txtSmallBlue"
+           href="javascript:viewHelp('#{viewScope['pageHelpURL']}');">Help</a>
+    </div>
+</ui:composition>

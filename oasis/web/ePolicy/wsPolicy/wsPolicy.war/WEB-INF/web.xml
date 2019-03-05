@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		                       http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+           version="2.5">
+
+    <filter>
+        <filter-name>WebServiceRequestLifecycleFilter</filter-name>
+        <filter-class>dti.oasis.request.service.WebServiceRequestLifecycleFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>WebServiceRequestLifecycleFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>OK</web-resource-name>
+            <description>OK to Connect</description>
+            <url-pattern>PolicyInquiryService</url-pattern>
+            <url-pattern>PolicyChangeService</url-pattern>
+            <url-pattern>PolicyPremiumInquiryService</url-pattern>
+            <url-pattern>QuickQuoteService</url-pattern>
+            <url-pattern>QuoteAcceptService</url-pattern>
+            <url-pattern>PolicyNumberGenerationService</url-pattern>
+            <url-pattern>QuoteCopyService</url-pattern>
+            <url-pattern>InitiateElectronicApplicationService</url-pattern>
+            <url-pattern>PolicyCertificateOfInsuranceChangeService</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>OWSUSERROLE</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>allobjs</web-resource-name>
+            <description>All Action Classes, JSPs, HTML Files</description>
+            <url-pattern>*.do</url-pattern>
+            <url-pattern>*.jsp</url-pattern>
+            <url-pattern>*.html</url-pattern>
+            <url-pattern>*.bmp</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>EMPLOYEEROLE</role-name>
+            <role-name>OASISSYSADMINROLE</role-name>
+        </auth-constraint>
+        <!-- When using SSL, this chunk should be "uncommented"
+              <user-data-constraint>
+                  <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+              </user-data-constraint>
+        -->
+    </security-constraint>
+
+    <security-role>
+        <description>OASIS Web Service User</description>
+        <role-name>OWSUSERROLE</role-name>
+    </security-role>
+    <security-role>
+        <description>EMPLOYEE</description>
+        <role-name>EMPLOYEEROLE</role-name>
+    </security-role>
+    <security-role>
+        <description>OASISSYSADMIN</description>
+        <role-name>OASISSYSADMINROLE</role-name>
+    </security-role>
+
+    <listener>
+        <listener-class>dti.oasis.session.impl.HttpUserSessionListener</listener-class>
+    </listener>
+
+</web-app>

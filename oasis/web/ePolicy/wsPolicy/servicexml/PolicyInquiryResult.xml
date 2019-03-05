@@ -1,0 +1,1754 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<PolicyInquiryResult >
+    <!--One or more elements -->
+    <Address key="">
+        <AddressNumberId/>
+        <LineOne/>
+        <LineTwo/>
+        <LineThree/>
+        <CityName/>
+        <CountyName/>
+        <StateOrProvinceCode description=""/>
+        <PostalCode/>
+        <CountryCode description=""/>
+        <CountryName/>
+        <AttentionName/>
+        <PostOfficeAddressIndicator description=""/>
+    </Address>
+
+    <Address key="">
+        <AddressNumberId/>
+        <LineOne/>
+        <LineTwo/>
+        <LineThree/>
+        <CityName/>
+        <CountyName/>
+        <StateOrProvinceCode description=""/>
+        <PostalCode/>
+        <CountryCode description=""/>
+        <CountryName/>
+        <AttentionName/>
+        <PostOfficeAddressIndicator description=""/>
+    </Address>
+
+	<!--One or more elements -->
+    <Person key="">
+        <PersonNumberId/>
+        <PersonName>
+            <Surname/>
+            <GivenName/>
+            <OtherGivenName/>
+            <PersonTitlePrefix/>
+            <NameSuffix/>
+            <FullName/>
+        </PersonName>
+
+        <!--One or more elements -->
+        <BusinessEmail key="">
+            <Email/>
+        </BusinessEmail>
+        <BusinessEmail key="">
+            <Email/>
+        </BusinessEmail>
+        <BusinessEmail key="">
+            <Email/>
+        </BusinessEmail>
+
+        <!--One or more elements -->
+        <BasicPhoneNumber addressReference="">
+            <PhoneNumberId/>
+            <PhoneTypeCode description=""/>
+            <PhoneNumber/>
+            <PrimaryIndicator description=""/>
+        </BasicPhoneNumber>
+        <BasicPhoneNumber addressReference="">
+            <PhoneNumberId/>
+            <PhoneTypeCode description=""/>
+            <PhoneNumber/>
+            <PrimaryIndicator description=""/>
+        </BasicPhoneNumber>
+
+        <!--One or more elements -->
+        <BasicAddress addressReference="">
+            <PrimaryIndicator description=""/>
+            <AddressTypeCode description=""/>
+            <AddressPeriod>
+                <StartDate/>
+                <EndDate/>
+            </AddressPeriod>
+        </BasicAddress>
+        <BasicAddress addressReference="">
+            <PrimaryIndicator description=""/>
+            <AddressTypeCode description=""/>
+            <AddressPeriod>
+                <StartDate/>
+                <EndDate/>
+            </AddressPeriod>
+        </BasicAddress>
+
+        <!--One or more elements -->
+        <Relation>
+            <RelationType/>
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Relation>
+        <Relation>
+            <RelationType/>
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Relation>
+
+        <Contact key="">
+            <PersonName>
+                <Surname/>
+                <GivenName/>
+                <OtherGivenName/>
+                <PersonTitlePrefix/>
+                <NameSuffix/>
+                <FullName/>
+            </PersonName>
+            <BusinessEmail>
+                <Email/>
+            </BusinessEmail>
+            <BasicPhoneNumber>
+                <PhoneTypeCode description=""/>
+                <PhoneNumber/>
+            </BasicPhoneNumber>
+        </Contact>
+    </Person>
+
+    <Person key="">
+        <PersonNumberId/>
+        <PersonName>
+            <Surname/>
+            <GivenName/>
+            <OtherGivenName/>
+            <PersonTitlePrefix/>
+            <NameSuffix/>
+            <FullName/>
+        </PersonName>
+
+        <!--One or more elements -->
+        <BusinessEmail key="">
+            <Email/>
+        </BusinessEmail>
+
+        <!--One or more elements -->
+        <BasicPhoneNumber addressReference="">
+            <PhoneNumberId/>
+            <PhoneTypeCode description=""/>
+            <PhoneNumber/>
+            <PrimaryIndicator description=""/>
+        </BasicPhoneNumber>
+
+        <!--One or more elements -->
+        <BasicAddress addressReference="">
+            <PrimaryIndicator description=""/>
+            <AddressTypeCode description=""/>
+            <AddressPeriod>
+                <StartDate/>
+                <EndDate/>
+            </AddressPeriod>
+        </BasicAddress>
+
+        <!--One or more elements -->
+        <Relation>
+            <RelationType/>
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Relation>
+
+        <Contact key="">
+            <PersonName>
+                <Surname/>
+                <GivenName/>
+                <OtherGivenName/>
+                <PersonTitlePrefix/>
+                <NameSuffix/>
+                <FullName/>
+            </PersonName>
+            <BusinessEmail>
+                <Email/>
+            </BusinessEmail>
+            <BasicPhoneNumber>
+                <PhoneTypeCode description=""/>
+                <PhoneNumber/>
+            </BasicPhoneNumber>
+        </Contact>
+    </Person>
+
+	<!--One or more elements -->
+    <Organization key="">
+        <OrganizationNumberId/>
+        <OrganizationName>
+            <FullName/>
+        </OrganizationName>
+
+        <!--One or more elements -->
+        <BusinessEmail key="">
+            <Email/>
+        </BusinessEmail>
+        <BusinessEmail key="">
+            <Email/>
+        </BusinessEmail>
+        <BusinessEmail key="">
+            <Email/>
+        </BusinessEmail>
+
+        <!--One or more elements -->
+        <BasicPhoneNumber addressReference="">
+            <PhoneNumberId/>
+            <PhoneTypeCode description=""/>
+            <PhoneNumber/>
+            <PrimaryIndicator description=""/>
+        </BasicPhoneNumber>
+        <BasicPhoneNumber addressReference="">
+            <PhoneNumberId/>
+            <PhoneTypeCode description=""/>
+            <PhoneNumber/>
+            <PrimaryIndicator description=""/>
+        </BasicPhoneNumber>
+
+        <!--One or more elements -->
+        <BasicAddress addressReference="">
+            <PrimaryIndicator description=""/>
+            <AddressTypeCode description=""/>
+            <AddressPeriod>
+                <StartDate/>
+                <EndDate/>
+            </AddressPeriod>
+        </BasicAddress>
+        <BasicAddress addressReference="">
+            <PrimaryIndicator description=""/>
+            <AddressTypeCode description=""/>
+            <AddressPeriod>
+                <StartDate/>
+                <EndDate/>
+            </AddressPeriod>
+        </BasicAddress>
+
+        <!--One or more elements -->
+        <Relation>
+            <RelationType/>
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Relation>
+        <Relation>
+            <RelationType/>
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Relation>
+
+        <Contact key="">
+            <PersonName>
+                <Surname/>
+                <GivenName/>
+                <OtherGivenName/>
+                <PersonTitlePrefix/>
+                <NameSuffix/>
+                <FullName/>
+            </PersonName>
+            <BusinessEmail>
+                <Email/>
+            </BusinessEmail>
+            <BasicPhoneNumber>
+                <PhoneTypeCode description=""/>
+                <PhoneNumber/>
+            </BasicPhoneNumber>
+        </Contact>
+    </Organization>
+    <Organization key="">
+        <OrganizationNumberId/>
+        <OrganizationName>
+            <FullName/>
+        </OrganizationName>
+
+        <!--One or more elements -->
+        <BusinessEmail key="">
+            <Email/>
+        </BusinessEmail>
+        <BusinessEmail key="">
+            <Email/>
+        </BusinessEmail>
+        <BusinessEmail key="">
+            <Email/>
+        </BusinessEmail>
+
+        <!--One or more elements -->
+        <BasicPhoneNumber addressReference="">
+            <PhoneNumberId/>
+            <PhoneTypeCode description=""/>
+            <PhoneNumber/>
+            <PrimaryIndicator description=""/>
+        </BasicPhoneNumber>
+        <BasicPhoneNumber addressReference="">
+            <PhoneNumberId/>
+            <PhoneTypeCode description=""/>
+            <PhoneNumber/>
+            <PrimaryIndicator description=""/>
+        </BasicPhoneNumber>
+
+        <!--One or more elements -->
+        <BasicAddress addressReference="">
+            <PrimaryIndicator description=""/>
+            <AddressTypeCode description=""/>
+            <AddressPeriod>
+                <StartDate/>
+                <EndDate/>
+            </AddressPeriod>
+        </BasicAddress>
+        <BasicAddress addressReference="">
+            <PrimaryIndicator description=""/>
+            <AddressTypeCode description=""/>
+            <AddressPeriod>
+                <StartDate/>
+                <EndDate/>
+            </AddressPeriod>
+        </BasicAddress>
+
+        <!--One or more elements -->
+        <Relation>
+            <RelationType/>
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Relation>
+        <Relation>
+            <RelationType/>
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Relation>
+
+        <Contact key="">
+            <PersonName>
+                <Surname/>
+                <GivenName/>
+                <OtherGivenName/>
+                <PersonTitlePrefix/>
+                <NameSuffix/>
+                <FullName/>
+            </PersonName>
+            <BusinessEmail>
+                <Email/>
+            </BusinessEmail>
+            <BasicPhoneNumber>
+                <PhoneTypeCode description=""/>
+                <PhoneNumber/>
+            </BasicPhoneNumber>
+        </Contact>
+    </Organization>
+
+	<!--One or more elements -->
+    <Property key="">
+        <PropertyNumberId/>
+        <PropertyName>
+            <FullName/>
+        </PropertyName>
+
+        <!--One or more elements -->
+        <BasicPhoneNumber addressReference="">
+            <PhoneNumberId/>
+            <PhoneTypeCode description=""/>
+            <PhoneNumber/>
+            <PrimaryIndicator description=""/>
+        </BasicPhoneNumber>
+        <BasicPhoneNumber addressReference="">
+            <PhoneNumberId/>
+            <PhoneTypeCode description=""/>
+            <PhoneNumber/>
+            <PrimaryIndicator description=""/>
+        </BasicPhoneNumber>
+
+        <BasicAddress addressReference="">
+            <PrimaryIndicator description=""/>
+            <AddressTypeCode description=""/>
+            <AddressPeriod>
+                <StartDate/>
+                <EndDate/>
+            </AddressPeriod>
+        </BasicAddress>
+    </Property>
+    <Property key="">
+        <PropertyNumberId/>
+        <PropertyName>
+            <FullName/>
+        </PropertyName>
+
+        <!--One or more elements -->
+        <BasicPhoneNumber addressReference="">
+            <PhoneNumberId/>
+            <PhoneTypeCode description=""/>
+            <PhoneNumber/>
+            <PrimaryIndicator description=""/>
+        </BasicPhoneNumber>
+
+        <BasicAddress addressReference="">
+            <PrimaryIndicator description=""/>
+            <AddressTypeCode description=""/>
+            <AddressPeriod>
+                <StartDate/>
+                <EndDate/>
+            </AddressPeriod>
+        </BasicAddress>
+    </Property>
+
+	<!--One or more elements -->
+    <MedicalMalpracticePolicy>
+        <PolicyId/>
+        <PolicyNumberId/>
+
+        <ContractPeriod>
+            <PolicyTermNumberId/>
+            <ShortTermIndicator/>
+            <StartDate/>
+            <EndDate/>
+        </ContractPeriod>
+
+        <TransactionDetail>
+            <TransactionNumberId/>
+            <TransactionCode/>
+            <TransactionStatusCode/>
+        </TransactionDetail>
+
+        <RenewalDetail>
+            <RenewalIndicator/>
+            <NonRenewalReason/>
+        </RenewalDetail>
+
+        <PolicyHolder>
+            <ReferredParty addressReference="">
+                <PartyNumberId/>
+            </ReferredParty>
+        </PolicyHolder>
+
+        <RelatedPolicy>
+            <PolicyNumberId/>
+        </RelatedPolicy>
+
+        <Insurer organizationReference="" personReference="">
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Insurer>
+
+        <Producer organizationReference="" personReference="">
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Producer>
+
+        <PrincipalBillingAccountInformation>
+            <BillingAccountNumber/>
+            <BillingAccountIdentifier/>
+            <PaymentPlanId/>
+        </PrincipalBillingAccountInformation>
+
+        <PolicyDetail>
+            <PolicyId/>
+            <PolicyType description=""/>
+            <PolicyFormCode/>
+            <PolicyStatusCode/>
+            <PolicyCycleCode/>
+            <PolicyLayerCode/>
+            <PriorPolicy>
+                <PolicyNumberId/>
+            </PriorPolicy>
+            <RequestDate/>
+            <ReceiveDate/>
+            <GuaranteeDate/>
+            <DeclinationDate/>
+            <IbnrDate/>
+            <IssueCompany>
+                <ReferredParty addressReference="">
+                    <PartyNumberId/>
+                </ReferredParty>
+                <ControllingStateOrProvinceCode/>
+                <ReferralCode/>
+                <ProcessLocationCode/>
+            </IssueCompany>
+            <OrganizationType/>
+            <BinderIndicator/>
+            <CollateralIndicator/>
+            <ProgramCode/>
+            <CategoryCode/>
+            <HospitalTier/>
+            <ClaimsMadeYear/>
+            <PeerGroupCode/>
+            <FirstPotentialCancelDate/>
+            <SecondPotentialCancelDate/>
+            <PlAggregatCode/>
+            <GlAggregateCode/>
+            <AdditionalInformation>
+                <AdditionalDateTime key="1"/>
+                <AdditionalDateTime key="2"/>
+                <AdditionalDateTime key="3"/>
+                <AdditionalNumber key="1"/>
+                <AdditionalNumber key="2"/>
+                <AdditionalNumber key="3"/>
+                <AdditionalData key="1"/>
+                <AdditionalData key="2"/>
+                <AdditionalData key="3"/>
+            </AdditionalInformation>
+        </PolicyDetail>
+
+        <!--One or more elements -->
+        <Insured personReference=""  organizationReference=""  propertyReference="">
+
+            <InsuredNumberId/>
+
+            <ReferredParty>
+            <PartyNumberId/>
+            </ReferredParty>
+
+            <InsuredVersion>
+                <InsuredVersionNumberId/>
+
+                <PrimaryIndicator/>
+
+                <EffectivePeriod>
+                    <StartDate/>
+                    <EndDate/>
+                </EffectivePeriod>
+
+                <PracticeStateOrProvinceCode description=""/>
+                <PracticeCountyCode description=""/>
+                <InsuredStatusCode/>
+                <InsuredTypeCode description=""/>
+                <InsuredClassCode description=""/>
+                <InsuredSubClassCode/>
+                <InsuredAlternateSpecialtyCode/>
+                <InsuredClaimsDeductibleNumberId/>
+                <TeachingIndicator/>
+                <InsuredProcedureCode/>
+                <InsuredMatureIndicator/>
+                <InsuredMoonlightingIndicator/>
+                <ClaimsMadeYear/>
+                <IbnrIndicator/>
+                <IbnrStatus/>
+                <ScorecardEligibilityIndicator/>
+                <InsuredCityCode/>
+                <AdditionalNotes/>
+
+                <FullTimeEquivalencyInformation>
+                    <FullTimeEquivalency/>
+                    <FullTimeHours/>
+                    <PartTimeHours/>
+                    <PerDiemHours/>
+                </FullTimeEquivalencyInformation>
+
+                <MalpracticeLiabilityExposureInformation>
+                    <ExposureUnit/>
+                    <ExposureBasisCode/>
+                    <DoctorCount/>
+                    <SquareFootage/>
+                    <VapCount/>
+                    <BedCount/>
+                    <ExtendedBedCount/>
+                    <SkillBedCount/>
+                    <CensusCount/>
+                    <OutpatientVisitCount/>
+                    <DeliveryCount/>
+                    <ImpatientSurgeryCount/>
+                    <OutpatientSurgeryCount/>
+                    <EmergencyRoomVisitCount/>
+                </MalpracticeLiabilityExposureInformation>
+
+                <BuildingInformation addressReference="">
+                    <BuildingClassCode/>
+                    <BuildingValue/>
+                    <BuildingTypeCode/>
+                    <BuildingUseTypeCode/>
+                    <FrameTypeCode/>
+                    <ProtectionClassCode/>
+                    <SprinklerIndicator/>
+                    <ConstructionTypeCode/>
+                    <RoofTypeCode/>
+                    <FloorTypeCode/>
+                    <ProtectionTypeCode/>
+                    <FireServiceTypeCode/>
+                    <HydrantTypeCode/>
+                    <SecurityTypeCode/>
+                    <LocationCode/>
+                    <LocationDescription/>
+                </BuildingInformation>
+
+                <VehiclesOperatedInformation>
+                    <FleetIndicator/>
+                    <VehicleManufacturerCode/>
+                    <VehicleManufacturerSubclassCode/>
+                    <VehicleModelCode/>
+                    <VehicleYear/>
+                    <VehicleOriginalCost/>
+                    <VehicleVin/>
+                </VehiclesOperatedInformation>
+
+                <AdditionalInformation>
+                    <AdditionalDateTime key="1"/>
+                    <AdditionalDateTime key="2"/>
+                    <AdditionalDateTime key="3"/>
+                    <AdditionalDateTime key="4"/>
+                    <AdditionalNumber key="1"/>
+                    <AdditionalNumber key="2"/>
+                    <AdditionalNumber key="3"/>
+                    <AdditionalNumber key="4"/>
+                    <AdditionalData key="1"/>
+                    <AdditionalData key="2"/>
+                    <AdditionalData key="3"/>
+                    <AdditionalData key="4"/>
+                </AdditionalInformation>
+
+                <InsuredVersionDetail>
+                   <VersionModeCode/>
+                   <ParentVersionNumberId/>
+                   <AfterImageIndicator/>
+               </InsuredVersionDetail>
+            </InsuredVersion>
+            <InsuredVersion>
+                <InsuredVersionNumberId/>
+
+                <PrimaryIndicator/>
+
+                <EffectivePeriod>
+                    <StartDate/>
+                    <EndDate/>
+                </EffectivePeriod>
+
+                <PracticeStateOrProvinceCode description=""/>
+                <PracticeCountyCode description=""/>
+                <InsuredStatusCode/>
+                <InsuredTypeCode description=""/>
+                <InsuredClassCode description=""/>
+                <InsuredSubClassCode/>
+                <InsuredAlternateSpecialtyCode/>
+                <InsuredClaimsDeductibleNumberId/>
+                <TeachingIndicator/>
+                <InsuredProcedureCode/>
+                <InsuredMatureIndicator/>
+                <InsuredMoonlightingIndicator/>
+                <ClaimsMadeYear/>
+                <IbnrIndicator/>
+                <IbnrStatus/>
+                <ScorecardEligibilityIndicator/>
+                <InsuredCityCode/>
+                <AdditionalNotes/>
+
+                <FullTimeEquivalencyInformation>
+                    <FullTimeEquivalency/>
+                    <FullTimeHours/>
+                    <PartTimeHours/>
+                    <PerDiemHours/>
+                </FullTimeEquivalencyInformation>
+
+                <MalpracticeLiabilityExposureInformation>
+                    <ExposureUnit/>
+                    <ExposureBasisCode/>
+                    <DoctorCount/>
+                    <SquareFootage/>
+                    <VapCount/>
+                    <BedCount/>
+                    <ExtendedBedCount/>
+                    <SkillBedCount/>
+                    <CensusCount/>
+                    <OutpatientVisitCount/>
+                    <DeliveryCount/>
+                    <ImpatientSurgeryCount/>
+                    <OutpatientSurgeryCount/>
+                    <EmergencyRoomVisitCount/>
+                </MalpracticeLiabilityExposureInformation>
+
+                <BuildingInformation addressReference="">
+                    <BuildingClassCode/>
+                    <BuildingValue/>
+                    <BuildingTypeCode/>
+                    <BuildingUseTypeCode/>
+                    <FrameTypeCode/>
+                    <ProtectionClassCode/>
+                    <SprinklerIndicator/>
+                    <ConstructionTypeCode/>
+                    <RoofTypeCode/>
+                    <FloorTypeCode/>
+                    <ProtectionTypeCode/>
+                    <FireServiceTypeCode/>
+                    <HydrantTypeCode/>
+                    <SecurityTypeCode/>
+                    <LocationCode/>
+                    <LocationDescription/>
+                </BuildingInformation>
+
+                <VehiclesOperatedInformation>
+                    <FleetIndicator/>
+                    <VehicleManufacturerCode/>
+                    <VehicleManufacturerSubclassCode/>
+                    <VehicleModelCode/>
+                    <VehicleYear/>
+                    <VehicleOriginalCost/>
+                    <VehicleVin/>
+                </VehiclesOperatedInformation>
+
+                <AdditionalInformation>
+                    <AdditionalDateTime key="1"/>
+                    <AdditionalDateTime key="2"/>
+                    <AdditionalDateTime key="3"/>
+                    <AdditionalDateTime key="4"/>
+                    <AdditionalNumber key="1"/>
+                    <AdditionalNumber key="2"/>
+                    <AdditionalNumber key="3"/>
+                    <AdditionalNumber key="4"/>
+                    <AdditionalData key="1"/>
+                    <AdditionalData key="2"/>
+                    <AdditionalData key="3"/>
+                    <AdditionalData key="4"/>
+                </AdditionalInformation>
+
+                <InsuredVersionDetail>
+                   <VersionModeCode/>
+                   <ParentVersionNumberId/>
+                   <AfterImageIndicator/>
+               </InsuredVersionDetail>
+            </InsuredVersion>
+        </Insured>
+        <Insured personReference=""  organizationReference=""  propertyReference="">
+
+            <InsuredNumberId/>
+
+            <ReferredParty>
+            <PartyNumberId/>
+            </ReferredParty>
+
+            <InsuredVersion>
+                <InsuredVersionNumberId/>
+
+                <PrimaryIndicator/>
+
+                <EffectivePeriod>
+                    <StartDate/>
+                    <EndDate/>
+                </EffectivePeriod>
+
+                <PracticeStateOrProvinceCode description=""/>
+                <PracticeCountyCode description=""/>
+                <InsuredStatusCode/>
+                <InsuredTypeCode description=""/>
+                <InsuredClassCode description=""/>
+                <InsuredSubClassCode/>
+                <InsuredAlternateSpecialtyCode/>
+                <InsuredClaimsDeductibleNumberId/>
+                <TeachingIndicator/>
+                <InsuredProcedureCode/>
+                <InsuredMatureIndicator/>
+                <InsuredMoonlightingIndicator/>
+                <ClaimsMadeYear/>
+                <IbnrIndicator/>
+                <IbnrStatus/>
+                <ScorecardEligibilityIndicator/>
+                <InsuredCityCode/>
+                <AdditionalNotes/>
+
+                <FullTimeEquivalencyInformation>
+                    <FullTimeEquivalency/>
+                    <FullTimeHours/>
+                    <PartTimeHours/>
+                    <PerDiemHours/>
+                </FullTimeEquivalencyInformation>
+
+                <MalpracticeLiabilityExposureInformation>
+                    <ExposureUnit/>
+                    <ExposureBasisCode/>
+                    <DoctorCount/>
+                    <SquareFootage/>
+                    <VapCount/>
+                    <BedCount/>
+                    <ExtendedBedCount/>
+                    <SkillBedCount/>
+                    <CensusCount/>
+                    <OutpatientVisitCount/>
+                    <DeliveryCount/>
+                    <ImpatientSurgeryCount/>
+                    <OutpatientSurgeryCount/>
+                    <EmergencyRoomVisitCount/>
+                </MalpracticeLiabilityExposureInformation>
+
+                <BuildingInformation addressReference="">
+                    <BuildingClassCode/>
+                    <BuildingValue/>
+                    <BuildingTypeCode/>
+                    <BuildingUseTypeCode/>
+                    <FrameTypeCode/>
+                    <ProtectionClassCode/>
+                    <SprinklerIndicator/>
+                    <ConstructionTypeCode/>
+                    <RoofTypeCode/>
+                    <FloorTypeCode/>
+                    <ProtectionTypeCode/>
+                    <FireServiceTypeCode/>
+                    <HydrantTypeCode/>
+                    <SecurityTypeCode/>
+                    <LocationCode/>
+                    <LocationDescription/>
+                </BuildingInformation>
+
+                <VehiclesOperatedInformation>
+                    <FleetIndicator/>
+                    <VehicleManufacturerCode/>
+                    <VehicleManufacturerSubclassCode/>
+                    <VehicleModelCode/>
+                    <VehicleYear/>
+                    <VehicleOriginalCost/>
+                    <VehicleVin/>
+                </VehiclesOperatedInformation>
+
+                <AdditionalInformation>
+                    <AdditionalDateTime key="1"/>
+                    <AdditionalDateTime key="2"/>
+                    <AdditionalDateTime key="3"/>
+                    <AdditionalDateTime key="4"/>
+                    <AdditionalNumber key="1"/>
+                    <AdditionalNumber key="2"/>
+                    <AdditionalNumber key="3"/>
+                    <AdditionalNumber key="4"/>
+                    <AdditionalData key="1"/>
+                    <AdditionalData key="2"/>
+                    <AdditionalData key="3"/>
+                    <AdditionalData key="4"/>
+                </AdditionalInformation>
+
+                <InsuredVersionDetail>
+                   <VersionModeCode/>
+                   <ParentVersionNumberId/>
+                   <AfterImageIndicator/>
+               </InsuredVersionDetail>
+            </InsuredVersion>
+        </Insured>
+
+        <MedicalMalpracticeLineOfBusiness>
+            <!--One or more elements -->
+            <MedicalMalpracticeCoverage>
+                <CoverageNumberId/>
+                <ParentCoverageNumberId/>
+                <MedicalMalpracticeCoverageCode description=""/>
+
+                <ReferredInsured insuredReference=""/>
+
+                <MedicalMalpracticeCoverageVersion>
+                    <MedicalMalpracticeCoverageVersionId/>
+                    <PrimaryIndicator/>
+                    <MedicalMalpracticeCoverageStatusCode/>
+
+                    <EffectivePeriod>
+                        <StartDate/>
+                        <EndDate/>
+                    </EffectivePeriod>
+
+                    <Limit>
+                        <LimitTypeCode description=""/>
+                        <SharedLimitIndicator/>
+                        <IncidentLimitTypeCode description=""/>
+                        <AdjustedIncidentLimitTypeCode description=""/>
+                        <AgregateLimitTypeCode description=""/>
+                        <AdjustedAgregateLimitTypeCode description=""/>
+                        <SubLimitIndicator/>
+                        <ErosionTypeCode/>
+                    </Limit>
+
+                    <ClaimMadeLiabilityPolicyInformation>
+                        <CurrentRetroactiveDate/>
+                        <SplitRetroactiveDate/>
+                        <ClaimsMadeDate/>
+                    </ClaimMadeLiabilityPolicyInformation>
+
+                    <PayorCode/>
+                    <CancellationMethodCode/>
+                    <AnnualBaseRate/>
+                    <DefaultAmountOfInsurance/>
+                    <AdditionalAmountOfInsurance/>
+                    <LossOfIncomeDays/>
+                    <ExposureUnit/>
+                    <BuildingRate/>
+                    <ForecastIndicator/>
+                    <DirectPrimaryIndicator/>
+                    <AdditionalSymbolCode/>
+
+                    <CoverageConversionInformation>
+                        <ClaimsMadeDate/>
+                        <ClaimsMadeOverrideDate/>
+                        <OccurenceDate/>
+                        <OccurenceOverrideDate/>
+                    </CoverageConversionInformation>
+
+                    <Pcf>
+                        <PracticeCountyCode/>
+                        <StartDate/>
+                    </Pcf>
+
+                    <Deductible/>
+
+                    <AdditionalInformation>
+                        <AdditionalDateTime key="1"/>
+                        <AdditionalDateTime key="2"/>
+                        <AdditionalDateTime key="3"/>
+                        <AdditionalNumber key="1"/>
+                        <AdditionalNumber key="2"/>
+                        <AdditionalNumber key="3"/>
+                        <AdditionalData key="1"/>
+                        <AdditionalData key="2"/>
+                        <AdditionalData key="3"/>
+                    </AdditionalInformation>
+
+                    <MedicalMalpracticeCoverageVersionDetail>
+                        <VersionModeCode/>
+                        <ParentVersionNumberId/>
+                        <AfterImageIndicator/>
+                    </MedicalMalpracticeCoverageVersionDetail>
+
+                </MedicalMalpracticeCoverageVersion>
+                <MedicalMalpracticeCoverageVersion>
+                    <MedicalMalpracticeCoverageVersionId/>
+                    <PrimaryIndicator/>
+                    <MedicalMalpracticeCoverageStatusCode/>
+
+                    <EffectivePeriod>
+                        <StartDate/>
+                        <EndDate/>
+                    </EffectivePeriod>
+
+                    <Limit>
+                        <LimitTypeCode description=""/>
+                        <SharedLimitIndicator/>
+                        <IncidentLimitTypeCode description=""/>
+                        <AdjustedIncidentLimitTypeCode description=""/>
+                        <AgregateLimitTypeCode description=""/>
+                        <AdjustedAgregateLimitTypeCode description=""/>
+                        <SubLimitIndicator/>
+                        <ErosionTypeCode/>
+                    </Limit>
+
+                    <ClaimMadeLiabilityPolicyInformation>
+                        <CurrentRetroactiveDate/>
+                        <SplitRetroactiveDate/>
+                        <ClaimsMadeDate/>
+                    </ClaimMadeLiabilityPolicyInformation>
+
+                    <PayorCode/>
+                    <CancellationMethodCode/>
+                    <AnnualBaseRate/>
+                    <DefaultAmountOfInsurance/>
+                    <AdditionalAmountOfInsurance/>
+                    <LossOfIncomeDays/>
+                    <ExposureUnit/>
+                    <BuildingRate/>
+                    <ForecastIndicator/>
+                    <DirectPrimaryIndicator/>
+                    <AdditionalSymbolCode/>
+
+                    <CoverageConversionInformation>
+                        <ClaimsMadeDate/>
+                        <ClaimsMadeOverrideDate/>
+                        <OccurenceDate/>
+                        <OccurenceOverrideDate/>
+                    </CoverageConversionInformation>
+
+                    <Pcf>
+                        <PracticeCountyCode/>
+                        <StartDate/>
+                    </Pcf>
+
+                    <Deductible/>
+
+                    <AdditionalInformation>
+                        <AdditionalDateTime key="1"/>
+                        <AdditionalDateTime key="2"/>
+                        <AdditionalDateTime key="3"/>
+                        <AdditionalNumber key="1"/>
+                        <AdditionalNumber key="2"/>
+                        <AdditionalNumber key="3"/>
+                        <AdditionalData key="1"/>
+                        <AdditionalData key="2"/>
+                        <AdditionalData key="3"/>
+                    </AdditionalInformation>
+
+                    <MedicalMalpracticeCoverageVersionDetail>
+                        <VersionModeCode/>
+                        <ParentVersionNumberId/>
+                        <AfterImageIndicator/>
+                    </MedicalMalpracticeCoverageVersionDetail>
+
+                </MedicalMalpracticeCoverageVersion>
+            </MedicalMalpracticeCoverage>
+            <MedicalMalpracticeCoverage>
+                <CoverageNumberId/>
+                <ParentCoverageNumberId/>
+                <MedicalMalpracticeCoverageCode description=""/>
+
+                <ReferredInsured insuredReference=""/>
+
+                <MedicalMalpracticeCoverageVersion>
+                    <MedicalMalpracticeCoverageVersionId/>
+                    <PrimaryIndicator/>
+                    <MedicalMalpracticeCoverageStatusCode/>
+
+                    <EffectivePeriod>
+                        <StartDate/>
+                        <EndDate/>
+                    </EffectivePeriod>
+
+                    <Limit>
+                        <LimitTypeCode description=""/>
+                        <SharedLimitIndicator/>
+                        <IncidentLimitTypeCode description=""/>
+                        <AdjustedIncidentLimitTypeCode description=""/>
+                        <AgregateLimitTypeCode description=""/>
+                        <AdjustedAgregateLimitTypeCode description=""/>
+                        <SubLimitIndicator/>
+                        <ErosionTypeCode/>
+                    </Limit>
+
+                    <ClaimMadeLiabilityPolicyInformation>
+                        <CurrentRetroactiveDate/>
+                        <SplitRetroactiveDate/>
+                        <ClaimsMadeDate/>
+                    </ClaimMadeLiabilityPolicyInformation>
+
+                    <PayorCode/>
+                    <CancellationMethodCode/>
+                    <AnnualBaseRate/>
+                    <DefaultAmountOfInsurance/>
+                    <AdditionalAmountOfInsurance/>
+                    <LossOfIncomeDays/>
+                    <ExposureUnit/>
+                    <BuildingRate/>
+                    <ForecastIndicator/>
+                    <DirectPrimaryIndicator/>
+                    <AdditionalSymbolCode/>
+
+                    <CoverageConversionInformation>
+                        <ClaimsMadeDate/>
+                        <ClaimsMadeOverrideDate/>
+                        <OccurenceDate/>
+                        <OccurenceOverrideDate/>
+                    </CoverageConversionInformation>
+
+                    <Pcf>
+                        <PracticeCountyCode/>
+                        <StartDate/>
+                    </Pcf>
+
+                    <Deductible/>
+
+                    <AdditionalInformation>
+                        <AdditionalDateTime key="1"/>
+                        <AdditionalDateTime key="2"/>
+                        <AdditionalDateTime key="3"/>
+                        <AdditionalNumber key="1"/>
+                        <AdditionalNumber key="2"/>
+                        <AdditionalNumber key="3"/>
+                        <AdditionalData key="1"/>
+                        <AdditionalData key="2"/>
+                        <AdditionalData key="3"/>
+                    </AdditionalInformation>
+
+                    <MedicalMalpracticeCoverageVersionDetail>
+                        <VersionModeCode/>
+                        <ParentVersionNumberId/>
+                        <AfterImageIndicator/>
+                    </MedicalMalpracticeCoverageVersionDetail>
+
+                </MedicalMalpracticeCoverageVersion>
+            </MedicalMalpracticeCoverage>
+        </MedicalMalpracticeLineOfBusiness>
+
+        <!--One or more elements -->
+        <CreditSurchargeDeductible>
+            <CreditSurchargeDeductibleNumberId/>
+            <ReferredMedicalMalpracticePolicyCoverage medicalMalpracticePolicyCoverageReference=""/>
+            <CreditSurchargeDeductibleCodeNumberId/>
+            <CreditSurchargeDeductibleCode description=""/>
+
+            <CreditSurchargeDeductibleVersion>
+                <CreditSurchargeDeductibleVersionId/>
+
+                <EffectivePeriod>
+                    <StartDate/>
+                    <EndDate/>
+                </EffectivePeriod>
+
+                <NumericValue/>
+                <IncidentDeductibleNumericValue/>
+                <AggregateDeductibleNumericValue/>
+                <CycleDate/>
+                <ProrateIndicator/>
+                <ClassificationCode/>
+                <AdditionalNotes/>
+
+                <AdditionalInformation>
+                    <AdditionalDateTime key="1"/>
+                    <AdditionalDateTime key="2"/>
+                    <AdditionalDateTime key="3"/>
+                    <AdditionalNumber key="1"/>
+                    <AdditionalNumber key="2"/>
+                    <AdditionalNumber key="3"/>
+                    <AdditionalData key="1"/>
+                    <AdditionalData key="2"/>
+                    <AdditionalData key="3"/>
+                </AdditionalInformation>
+
+                <CreditSurchargeDeductibleVersionDetail>
+                    <VersionModeCode/>
+                    <ParentVersionNumberId/>
+                    <AfterImageIndicator/>
+                </CreditSurchargeDeductibleVersionDetail>
+            </CreditSurchargeDeductibleVersion>
+            <CreditSurchargeDeductibleVersion>
+                <CreditSurchargeDeductibleVersionId/>
+
+                <EffectivePeriod>
+                    <StartDate/>
+                    <EndDate/>
+                </EffectivePeriod>
+
+                <NumericValue/>
+                <IncidentDeductibleNumericValue/>
+                <AggregateDeductibleNumericValue/>
+                <CycleDate/>
+                <ProrateIndicator/>
+                <ClassificationCode/>
+                <AdditionalNotes/>
+
+                <AdditionalInformation>
+                    <AdditionalDateTime key="1"/>
+                    <AdditionalDateTime key="2"/>
+                    <AdditionalDateTime key="3"/>
+                    <AdditionalNumber key="1"/>
+                    <AdditionalNumber key="2"/>
+                    <AdditionalNumber key="3"/>
+                    <AdditionalData key="1"/>
+                    <AdditionalData key="2"/>
+                    <AdditionalData key="3"/>
+                </AdditionalInformation>
+
+                <CreditSurchargeDeductibleVersionDetail>
+                    <VersionModeCode/>
+                    <ParentVersionNumberId/>
+                    <AfterImageIndicator/>
+                </CreditSurchargeDeductibleVersionDetail>
+            </CreditSurchargeDeductibleVersion>
+        </CreditSurchargeDeductible>
+        <CreditSurchargeDeductible>
+            <CreditSurchargeDeductibleNumberId/>
+            <ReferredMedicalMalpracticePolicyCoverage medicalMalpracticePolicyCoverageReference=""/>
+            <CreditSurchargeDeductibleCodeNumberId/>
+            <CreditSurchargeDeductibleCode description=""/>
+
+            <CreditSurchargeDeductibleVersion>
+                <CreditSurchargeDeductibleVersionId/>
+
+                <EffectivePeriod>
+                    <StartDate/>
+                    <EndDate/>
+                </EffectivePeriod>
+
+                <NumericValue/>
+                <IncidentDeductibleNumericValue/>
+                <AggregateDeductibleNumericValue/>
+                <CycleDate/>
+                <ProrateIndicator/>
+                <ClassificationCode/>
+                <AdditionalNotes/>
+
+                <AdditionalInformation>
+                    <AdditionalDateTime key="1"/>
+                    <AdditionalDateTime key="2"/>
+                    <AdditionalDateTime key="3"/>
+                    <AdditionalNumber key="1"/>
+                    <AdditionalNumber key="2"/>
+                    <AdditionalNumber key="3"/>
+                    <AdditionalData key="1"/>
+                    <AdditionalData key="2"/>
+                    <AdditionalData key="3"/>
+                </AdditionalInformation>
+
+                <CreditSurchargeDeductibleVersionDetail>
+                    <VersionModeCode/>
+                    <ParentVersionNumberId/>
+                    <AfterImageIndicator/>
+                </CreditSurchargeDeductibleVersionDetail>
+            </CreditSurchargeDeductibleVersion>
+        </CreditSurchargeDeductible>
+    </MedicalMalpracticePolicy>
+    <MedicalMalpracticePolicy>
+        <PolicyId/>
+        <PolicyNumberId/>
+
+        <ContractPeriod>
+            <PolicyTermNumberId/>
+            <ShortTermIndicator/>
+            <StartDate/>
+            <EndDate/>
+        </ContractPeriod>
+
+        <TransactionDetail>
+            <TransactionNumberId/>
+            <TransactionCode/>
+        </TransactionDetail>
+
+        <RenewalDetail>
+            <RenewalIndicator/>
+            <NonRenewalReason/>
+        </RenewalDetail>
+
+        <PolicyHolder>
+            <ReferredParty addressReference="">
+                <PartyNumberId/>
+            </ReferredParty>
+        </PolicyHolder>
+
+        <RelatedPolicy>
+            <PolicyNumberId/>
+        </RelatedPolicy>
+
+        <Insurer organizationReference="">
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Insurer>
+
+        <Producer organizationReference="">
+            <ReferredParty>
+                <PartyNumberId/>
+            </ReferredParty>
+        </Producer>
+
+        <PrincipalBillingAccountInformation>
+            <BillingAccountNumber/>
+            <BillingAccountIdentifier/>
+            <PaymentPlanId/>
+        </PrincipalBillingAccountInformation>
+
+        <PolicyDetail>
+            <PolicyId/>
+            <PolicyType description=""/>
+            <PolicyFormCode/>
+            <PolicyStatusCode/>
+            <PolicyCycleCode/>
+            <PolicyLayerCode/>
+            <PriorPolicy>
+                <PolicyNumberId/>
+            </PriorPolicy>
+            <RequestDate/>
+            <ReceiveDate/>
+            <GuaranteeDate/>
+            <DeclinationDate/>
+            <IbnrDate/>
+            <IssueCompany>
+                <ReferredParty addressReference="">
+                    <PartyNumberId/>
+                </ReferredParty>
+                <ControllingStateOrProvinceCode/>
+                <ReferralCode/>
+                <ProcessLocationCode/>
+            </IssueCompany>
+            <OrganizationType/>
+            <BinderIndicator/>
+            <CollateralIndicator/>
+            <ProgramCode/>
+            <CategoryCode/>
+            <HospitalTier/>
+            <ClaimsMadeYear/>
+            <PeerGroupCode/>
+            <FirstPotentialCancelDate/>
+            <SecondPotentialCancelDate/>
+            <PlAggregatCode/>
+            <GlAggregateCode/>
+            <AdditionalInformation>
+                <AdditionalDateTime key="1"/>
+                <AdditionalDateTime key="2"/>
+                <AdditionalDateTime key="3"/>
+                <AdditionalNumber key="1"/>
+                <AdditionalNumber key="2"/>
+                <AdditionalNumber key="3"/>
+                <AdditionalData key="1"/>
+                <AdditionalData key="2"/>
+                <AdditionalData key="3"/>
+            </AdditionalInformation>
+        </PolicyDetail>
+
+        <!--One or more elements -->
+        <Insured personReference=""  organizationReference=""  propertyReference="">
+
+            <InsuredNumberId/>
+
+            <ReferredParty>
+            <PartyNumberId/>
+            </ReferredParty>
+
+            <InsuredVersion>
+                <InsuredVersionNumberId/>
+
+                <PrimaryIndicator/>
+
+                <EffectivePeriod>
+                    <StartDate/>
+                    <EndDate/>
+                </EffectivePeriod>
+
+                <PracticeStateOrProvinceCode description=""/>
+                <PracticeCountyCode description=""/>
+                <InsuredStatusCode/>
+                <InsuredTypeCode description=""/>
+                <InsuredClassCode description=""/>
+                <InsuredSubClassCode/>
+                <InsuredAlternateSpecialtyCode/>
+                <InsuredClaimsDeductibleNumberId/>
+                <TeachingIndicator/>
+                <InsuredProcedureCode/>
+                <InsuredMatureIndicator/>
+                <InsuredMoonlightingIndicator/>
+                <ClaimsMadeYear/>
+                <IbnrIndicator/>
+                <IbnrStatus/>
+                <ScorecardEligibilityIndicator/>
+                <InsuredCityCode/>
+                <AdditionalNotes/>
+
+                <FullTimeEquivalencyInformation>
+                    <FullTimeEquivalency/>
+                    <FullTimeHours/>
+                    <PartTimeHours/>
+                    <PerDiemHours/>
+                </FullTimeEquivalencyInformation>
+
+                <MalpracticeLiabilityExposureInformation>
+                    <ExposureUnit/>
+                    <ExposureBasisCode/>
+                    <DoctorCount/>
+                    <SquareFootage/>
+                    <VapCount/>
+                    <BedCount/>
+                    <ExtendedBedCount/>
+                    <SkillBedCount/>
+                    <CensusCount/>
+                    <OutpatientVisitCount/>
+                    <DeliveryCount/>
+                    <ImpatientSurgeryCount/>
+                    <OutpatientSurgeryCount/>
+                    <EmergencyRoomVisitCount/>
+                </MalpracticeLiabilityExposureInformation>
+
+                <BuildingInformation addressReference="">
+                    <BuildingClassCode/>
+                    <BuildingValue/>
+                    <BuildingTypeCode/>
+                    <BuildingUseTypeCode/>
+                    <FrameTypeCode/>
+                    <ProtectionClassCode/>
+                    <SprinklerIndicator/>
+                    <ConstructionTypeCode/>
+                    <RoofTypeCode/>
+                    <FloorTypeCode/>
+                    <ProtectionTypeCode/>
+                    <FireServiceTypeCode/>
+                    <HydrantTypeCode/>
+                    <SecurityTypeCode/>
+                    <LocationCode/>
+                    <LocationDescription/>
+                </BuildingInformation>
+
+                <VehiclesOperatedInformation>
+                    <FleetIndicator/>
+                    <VehicleManufacturerCode/>
+                    <VehicleManufacturerSubclassCode/>
+                    <VehicleModelCode/>
+                    <VehicleYear/>
+                    <VehicleOriginalCost/>
+                    <VehicleVin/>
+                </VehiclesOperatedInformation>
+
+                <AdditionalInformation>
+                    <AdditionalDateTime key="1"/>
+                    <AdditionalDateTime key="2"/>
+                    <AdditionalDateTime key="3"/>
+                    <AdditionalDateTime key="4"/>
+                    <AdditionalNumber key="1"/>
+                    <AdditionalNumber key="2"/>
+                    <AdditionalNumber key="3"/>
+                    <AdditionalNumber key="4"/>
+                    <AdditionalData key="1"/>
+                    <AdditionalData key="2"/>
+                    <AdditionalData key="3"/>
+                    <AdditionalData key="4"/>
+                </AdditionalInformation>
+
+                <InsuredVersionDetail>
+                   <VersionModeCode/>
+                   <ParentVersionNumberId/>
+                   <AfterImageIndicator/>
+               </InsuredVersionDetail>
+            </InsuredVersion>
+        </Insured>
+        <Insured personReference=""  organizationReference=""  propertyReference="">
+
+            <InsuredNumberId/>
+
+            <ReferredParty>
+            <PartyNumberId/>
+            </ReferredParty>
+
+            <InsuredVersion>
+                <InsuredVersionNumberId/>
+
+                <PrimaryIndicator/>
+
+                <EffectivePeriod>
+                    <StartDate/>
+                    <EndDate/>
+                </EffectivePeriod>
+
+                <PracticeStateOrProvinceCode description=""/>
+                <PracticeCountyCode description=""/>
+                <InsuredStatusCode/>
+                <InsuredTypeCode description=""/>
+                <InsuredClassCode description=""/>
+                <InsuredSubClassCode/>
+                <InsuredAlternateSpecialtyCode/>
+                <InsuredClaimsDeductibleNumberId/>
+                <TeachingIndicator/>
+                <InsuredProcedureCode/>
+                <InsuredMatureIndicator/>
+                <InsuredMoonlightingIndicator/>
+                <ClaimsMadeYear/>
+                <IbnrIndicator/>
+                <IbnrStatus/>
+                <ScorecardEligibilityIndicator/>
+                <InsuredCityCode/>
+                <AdditionalNotes/>
+
+                <FullTimeEquivalencyInformation>
+                    <FullTimeEquivalency/>
+                    <FullTimeHours/>
+                    <PartTimeHours/>
+                    <PerDiemHours/>
+                </FullTimeEquivalencyInformation>
+
+                <MalpracticeLiabilityExposureInformation>
+                    <ExposureUnit/>
+                    <ExposureBasisCode/>
+                    <DoctorCount/>
+                    <SquareFootage/>
+                    <VapCount/>
+                    <BedCount/>
+                    <ExtendedBedCount/>
+                    <SkillBedCount/>
+                    <CensusCount/>
+                    <OutpatientVisitCount/>
+                    <DeliveryCount/>
+                    <ImpatientSurgeryCount/>
+                    <OutpatientSurgeryCount/>
+                    <EmergencyRoomVisitCount/>
+                </MalpracticeLiabilityExposureInformation>
+
+                <BuildingInformation addressReference="">
+                    <BuildingClassCode/>
+                    <BuildingValue/>
+                    <BuildingTypeCode/>
+                    <BuildingUseTypeCode/>
+                    <FrameTypeCode/>
+                    <ProtectionClassCode/>
+                    <SprinklerIndicator/>
+                    <ConstructionTypeCode/>
+                    <RoofTypeCode/>
+                    <FloorTypeCode/>
+                    <ProtectionTypeCode/>
+                    <FireServiceTypeCode/>
+                    <HydrantTypeCode/>
+                    <SecurityTypeCode/>
+                    <LocationCode/>
+                    <LocationDescription/>
+                </BuildingInformation>
+
+                <VehiclesOperatedInformation>
+                    <FleetIndicator/>
+                    <VehicleManufacturerCode/>
+                    <VehicleManufacturerSubclassCode/>
+                    <VehicleModelCode/>
+                    <VehicleYear/>
+                    <VehicleOriginalCost/>
+                    <VehicleVin/>
+                </VehiclesOperatedInformation>
+
+                <AdditionalInformation>
+                    <AdditionalDateTime key="1"/>
+                    <AdditionalDateTime key="2"/>
+                    <AdditionalDateTime key="3"/>
+                    <AdditionalDateTime key="4"/>
+                    <AdditionalNumber key="1"/>
+                    <AdditionalNumber key="2"/>
+                    <AdditionalNumber key="3"/>
+                    <AdditionalNumber key="4"/>
+                    <AdditionalData key="1"/>
+                    <AdditionalData key="2"/>
+                    <AdditionalData key="3"/>
+                    <AdditionalData key="4"/>
+                </AdditionalInformation>
+
+                <InsuredVersionDetail>
+                   <VersionModeCode/>
+                   <ParentVersionNumberId/>
+                   <AfterImageIndicator/>
+               </InsuredVersionDetail>
+            </InsuredVersion>
+        </Insured>
+
+        <MedicalMalpracticeLineOfBusiness>
+            <!--One or more elements -->
+            <MedicalMalpracticeCoverage>
+                <CoverageNumberId/>
+                <ParentCoverageNumberId/>
+                <MedicalMalpracticeCoverageCode description=""/>
+
+                <ReferredInsured insuredReference=""/>
+
+                <MedicalMalpracticeCoverageVersion>
+                    <MedicalMalpracticeCoverageVersionId/>
+                    <PrimaryIndicator/>
+                    <MedicalMalpracticeCoverageStatusCode/>
+
+                    <EffectivePeriod>
+                        <StartDate/>
+                        <EndDate/>
+                    </EffectivePeriod>
+
+                    <Limit>
+                        <LimitTypeCode description=""/>
+                        <SharedLimitIndicator/>
+                        <IncidentLimitTypeCode description=""/>
+                        <AdjustedIncidentLimitTypeCode description=""/>
+                        <AgregateLimitTypeCode description=""/>
+                        <AdjustedAgregateLimitTypeCode description=""/>
+                        <SubLimitIndicator/>
+                        <ErosionTypeCode/>
+                    </Limit>
+
+                    <ClaimMadeLiabilityPolicyInformation>
+                        <CurrentRetroactiveDate/>
+                        <SplitRetroactiveDate/>
+                        <ClaimsMadeDate/>
+                    </ClaimMadeLiabilityPolicyInformation>
+
+                    <PayorCode/>
+                    <CancellationMethodCode/>
+                    <AnnualBaseRate/>
+                    <DefaultAmountOfInsurance/>
+                    <AdditionalAmountOfInsurance/>
+                    <LossOfIncomeDays/>
+                    <ExposureUnit/>
+                    <BuildingRate/>
+                    <ForecastIndicator/>
+                    <DirectPrimaryIndicator/>
+                    <AdditionalSymbolCode/>
+
+                    <CoverageConversionInformation>
+                        <ClaimsMadeDate/>
+                        <ClaimsMadeOverrideDate/>
+                        <OccurenceDate/>
+                        <OccurenceOverrideDate/>
+                    </CoverageConversionInformation>
+
+                    <Pcf>
+                        <PracticeCountyCode/>
+                        <StartDate/>
+                    </Pcf>
+
+                    <Deductible/>
+
+                    <AdditionalInformation>
+                        <AdditionalDateTime key="1"/>
+                        <AdditionalDateTime key="2"/>
+                        <AdditionalDateTime key="3"/>
+                        <AdditionalNumber key="1"/>
+                        <AdditionalNumber key="2"/>
+                        <AdditionalNumber key="3"/>
+                        <AdditionalData key="1"/>
+                        <AdditionalData key="2"/>
+                        <AdditionalData key="3"/>
+                    </AdditionalInformation>
+
+                    <MedicalMalpracticeCoverageVersionDetail>
+                        <VersionModeCode/>
+                        <ParentVersionNumberId/>
+                        <AfterImageIndicator/>
+                    </MedicalMalpracticeCoverageVersionDetail>
+
+                </MedicalMalpracticeCoverageVersion>
+            </MedicalMalpracticeCoverage>
+            <MedicalMalpracticeCoverage>
+                <CoverageNumberId/>
+                <ParentCoverageNumberId/>
+                <MedicalMalpracticeCoverageCode description=""/>
+
+                <ReferredInsured insuredReference=""/>
+
+                <MedicalMalpracticeCoverageVersion>
+                    <MedicalMalpracticeCoverageVersionId/>
+                    <PrimaryIndicator/>
+                    <MedicalMalpracticeCoverageStatusCode/>
+
+                    <EffectivePeriod>
+                        <StartDate/>
+                        <EndDate/>
+                    </EffectivePeriod>
+
+                    <Limit>
+                        <LimitTypeCode description=""/>
+                        <SharedLimitIndicator/>
+                        <IncidentLimitTypeCode description=""/>
+                        <AdjustedIncidentLimitTypeCode description=""/>
+                        <AgregateLimitTypeCode description=""/>
+                        <AdjustedAgregateLimitTypeCode description=""/>
+                        <SubLimitIndicator/>
+                        <ErosionTypeCode/>
+                    </Limit>
+
+                    <ClaimMadeLiabilityPolicyInformation>
+                        <CurrentRetroactiveDate/>
+                        <SplitRetroactiveDate/>
+                        <ClaimsMadeDate/>
+                    </ClaimMadeLiabilityPolicyInformation>
+
+                    <PayorCode/>
+                    <CancellationMethodCode/>
+                    <AnnualBaseRate/>
+                    <DefaultAmountOfInsurance/>
+                    <AdditionalAmountOfInsurance/>
+                    <LossOfIncomeDays/>
+                    <ExposureUnit/>
+                    <BuildingRate/>
+                    <ForecastIndicator/>
+                    <DirectPrimaryIndicator/>
+                    <AdditionalSymbolCode/>
+
+                    <CoverageConversionInformation>
+                        <ClaimsMadeDate/>
+                        <ClaimsMadeOverrideDate/>
+                        <OccurenceDate/>
+                        <OccurenceOverrideDate/>
+                    </CoverageConversionInformation>
+
+                    <Pcf>
+                        <PracticeCountyCode/>
+                        <StartDate/>
+                    </Pcf>
+
+                    <Deductible/>
+
+                    <AdditionalInformation>
+                        <AdditionalDateTime key="1"/>
+                        <AdditionalDateTime key="2"/>
+                        <AdditionalDateTime key="3"/>
+                        <AdditionalNumber key="1"/>
+                        <AdditionalNumber key="2"/>
+                        <AdditionalNumber key="3"/>
+                        <AdditionalData key="1"/>
+                        <AdditionalData key="2"/>
+                        <AdditionalData key="3"/>
+                    </AdditionalInformation>
+
+                    <MedicalMalpracticeCoverageVersionDetail>
+                        <VersionModeCode/>
+                        <ParentVersionNumberId/>
+                        <AfterImageIndicator/>
+                    </MedicalMalpracticeCoverageVersionDetail>
+
+                </MedicalMalpracticeCoverageVersion>
+            </MedicalMalpracticeCoverage>
+        </MedicalMalpracticeLineOfBusiness>
+
+        <!--One or more elements -->
+        <CreditSurchargeDeductible>
+            <CreditSurchargeDeductibleNumberId/>
+            <ReferredMedicalMalpracticePolicyCoverage medicalMalpracticePolicyCoverageReference=""/>
+            <CreditSurchargeDeductibleCodeNumberId/>
+            <CreditSurchargeDeductibleCode description=""/>
+
+            <CreditSurchargeDeductibleVersion>
+                <CreditSurchargeDeductibleVersionId/>
+
+                <EffectivePeriod>
+                    <StartDate/>
+                    <EndDate/>
+                </EffectivePeriod>
+
+                <NumericValue/>
+                <IncidentDeductibleNumericValue/>
+                <AggregateDeductibleNumericValue/>
+                <CycleDate/>
+                <ProrateIndicator/>
+                <ClassificationCode/>
+                <AdditionalNotes/>
+
+                <AdditionalInformation>
+                    <AdditionalDateTime key="1"/>
+                    <AdditionalDateTime key="2"/>
+                    <AdditionalDateTime key="3"/>
+                    <AdditionalNumber key="1"/>
+                    <AdditionalNumber key="2"/>
+                    <AdditionalNumber key="3"/>
+                    <AdditionalData key="1"/>
+                    <AdditionalData key="2"/>
+                    <AdditionalData key="3"/>
+                </AdditionalInformation>
+
+                <CreditSurchargeDeductibleVersionDetail>
+                    <VersionModeCode/>
+                    <ParentVersionNumberId/>
+                    <AfterImageIndicator/>
+                </CreditSurchargeDeductibleVersionDetail>
+            </CreditSurchargeDeductibleVersion>
+        </CreditSurchargeDeductible>
+        <CreditSurchargeDeductible>
+            <CreditSurchargeDeductibleNumberId/>
+            <ReferredMedicalMalpracticePolicyCoverage medicalMalpracticePolicyCoverageReference=""/>
+            <CreditSurchargeDeductibleCodeNumberId/>
+            <CreditSurchargeDeductibleCode description=""/>
+
+            <CreditSurchargeDeductibleVersion>
+                <CreditSurchargeDeductibleVersionId/>
+
+                <EffectivePeriod>
+                    <StartDate/>
+                    <EndDate/>
+                </EffectivePeriod>
+
+                <NumericValue/>
+                <IncidentDeductibleNumericValue/>
+                <AggregateDeductibleNumericValue/>
+                <CycleDate/>
+                <ProrateIndicator/>
+                <ClassificationCode/>
+                <AdditionalNotes/>
+
+                <AdditionalInformation>
+                    <AdditionalDateTime key="1"/>
+                    <AdditionalDateTime key="2"/>
+                    <AdditionalDateTime key="3"/>
+                    <AdditionalNumber key="1"/>
+                    <AdditionalNumber key="2"/>
+                    <AdditionalNumber key="3"/>
+                    <AdditionalData key="1"/>
+                    <AdditionalData key="2"/>
+                    <AdditionalData key="3"/>
+                </AdditionalInformation>
+
+                <CreditSurchargeDeductibleVersionDetail>
+                    <VersionModeCode/>
+                    <ParentVersionNumberId/>
+                    <AfterImageIndicator/>
+                </CreditSurchargeDeductibleVersionDetail>
+            </CreditSurchargeDeductibleVersion>
+        </CreditSurchargeDeductible>
+    </MedicalMalpracticePolicy>
+</PolicyInquiryResult>

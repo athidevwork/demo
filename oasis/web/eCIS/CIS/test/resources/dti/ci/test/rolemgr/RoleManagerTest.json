@@ -1,0 +1,33 @@
+{
+  "testLoadRoleList": {
+    "inputParameters": {
+      "entityId": "4953058",
+      "entityType":"P",
+      "entityName":"TestClaimant_56%2C%20Delphi_56%2C%20MD%2C%20SENIOR"
+    },
+    "expected": {
+      "fieldNames": [
+        "entityRoleId",
+        "selectInd",
+        "entityId",
+        "searchCriteria_roleTypeCode",
+        "roleTypeCodeComputed",
+        "externalId",
+        "externalIdComputed",
+        "name",
+        "effectiveFromDate",
+        "effectiveToDate",
+        "accountingFromDate",
+        "accountingToDate",
+        "sourceRecordFk",
+        "sourceTableName",
+        "cmJurisdictionCode",
+        "claimId",
+        "addlRole1",
+        "addlRole2",
+        "addlRole3",
+        "riskType"
+      ]
+    }
+  }
+}

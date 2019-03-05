@@ -1,0 +1,611 @@
+﻿/*!
+ * jQuery UI CSS Framework 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ */
+
+/* Layout helpers
+----------------------------------*/
+.blueTheme .ui-helper-hidden { display: none; }
+.blueTheme .ui-helper-hidden-accessible { position: absolute !important; clip: rect(1px 1px 1px 1px); clip: rect(1px,1px,1px,1px); }
+.blueTheme .ui-helper-reset { margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none; }
+.blueTheme .ui-helper-clearfix:before, .blueTheme .ui-helper-clearfix:after { content: ""; display: table; }
+.blueTheme .ui-helper-clearfix:after { clear: both; }
+.blueTheme .ui-helper-clearfix { zoom: 1; }
+.blueTheme .ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
+
+
+/* Interaction Cues
+----------------------------------*/
+.blueTheme .ui-state-disabled { cursor: default !important; }
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.blueTheme .ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.blueTheme .ui-widget-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+
+/*!
+ * jQuery UI CSS Framework 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ *
+ * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Arial,%20Verdana,%20"Trebuchet%20MS"&fwDefault=bold&fsDefault=11px&cornerRadius=5px&bgColorHeader=6699cc&bgTextureHeader=04_highlight_hard.png&bgImgOpacityHeader=30&borderColorHeader=6699cc&fcHeader=ffffff&iconColorHeader=ffffff&bgColorContent=e8f0f8&bgTextureContent=04_highlight_hard.png&bgImgOpacityContent=100&borderColorContent=6699cc&fcContent=333333&iconColorContent=333333&bgColorDefault=6699cc&bgTextureDefault=04_highlight_hard.png&bgImgOpacityDefault=30&borderColorDefault=6699cc&fcDefault=ffffff&iconColorDefault=ffffff&bgColorHover=6699cc&bgTextureHover=04_highlight_hard.png&bgImgOpacityHover=30&borderColorHover=6699cc&fcHover=ffffff&iconColorHover=ffffff&bgColorActive=6699cc&bgTextureActive=04_highlight_hard.png&bgImgOpacityActive=30&borderColorActive=6699cc&fcActive=ffffff&iconColorActive=ffffff&bgColorHighlight=ffffff&bgTextureHighlight=04_highlight_hard.png&bgImgOpacityHighlight=100&borderColorHighlight=6699cc&fcHighlight=003366&iconColorHighlight=003366&bgColorError=ffffff&bgTextureError=04_highlight_hard.png&bgImgOpacityError=100&borderColorError=cc3300&fcError=cc3300&iconColorError=cc3300&bgColorOverlay=dedede&bgTextureOverlay=07_diagonals_small.png&bgImgOpacityOverlay=100&opacityOverlay=70&bgColorShadow=6d7378&bgTextureShadow=01_flat.png&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=5px&offsetTopShadow=-5px&offsetLeftShadow=-5px&cornerRadiusShadow=5px
+ */
+
+
+/* Component containers
+----------------------------------*/
+.blueTheme .ui-widget { font-family: Arial, Verdana, "\"Trebuchet MS\""; 
+font-size: 11px; }
+.blueTheme .ui-widget .ui-widget { font-size: 1em; }
+.blueTheme .ui-widget input, .blueTheme .ui-widget select, .blueTheme .ui-widget textarea, .blueTheme .ui-widget button { font-family: Arial, Verdana, "\"Trebuchet MS\""; 
+font-size: 1em; }
+.blueTheme .ui-widget-content { border: 1px solid #6699cc; background: #e8f0f8 url(../../images/primefaces/blueTheme/ui-bg_highlight-hard_100_e8f0f8_1x100.png) 50% top repeat-x; color: #333333; }
+.blueTheme .ui-widget-content a { color: #333333; }
+.blueTheme .ui-widget-header { border: 1px solid #6699cc; background: #6699cc url(../../images/primefaces/blueTheme/ui-bg_highlight-hard_30_6699cc_1x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
+.blueTheme .ui-widget-header a { color: #ffffff; }
+
+/* Interaction states
+----------------------------------*/
+.blueTheme .ui-state-default, .blueTheme .ui-widget-content .ui-state-default, .blueTheme .ui-widget-header .ui-state-default { border: 1px solid #6699cc; background: #6699cc url(../../images/primefaces/blueTheme/ui-bg_highlight-hard_30_6699cc_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
+.blueTheme .ui-state-default a, .blueTheme .ui-state-default a:link, .blueTheme .ui-state-default a:visited { color: #ffffff; text-decoration: none; }
+.blueTheme .ui-state-hover, .blueTheme .ui-widget-content .ui-state-hover, .blueTheme .ui-widget-header .ui-state-hover, .blueTheme .ui-state-focus, .blueTheme .ui-widget-content .ui-state-focus, .blueTheme .ui-widget-header .ui-state-focus { border: 1px solid #6699cc; background: #6699cc url(../../images/primefaces/blueTheme/ui-bg_highlight-hard_30_6699cc_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
+.blueTheme .ui-state-hover a, .blueTheme .ui-state-hover a:hover { color: #ffffff; text-decoration: none; }
+.blueTheme .ui-state-active, .blueTheme .ui-widget-content .ui-state-active, .blueTheme .ui-widget-header .ui-state-active { border: 1px solid #6699cc; background: #6699cc url(../../images/primefaces/blueTheme/ui-bg_highlight-hard_30_6699cc_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
+.blueTheme .ui-state-active a, .blueTheme .ui-state-active a:link, .blueTheme .ui-state-active a:visited { color: #ffffff; text-decoration: none; }
+.blueTheme .ui-widget :active { outline: none; }
+
+/* Interaction Cues
+----------------------------------*/
+.blueTheme .ui-state-highlight, .blueTheme .ui-widget-content .ui-state-highlight, .blueTheme .ui-widget-header .ui-state-highlight  {border: 1px solid #6699cc; background: #ffffff url(../../images/primefaces/blueTheme/ui-bg_highlight-hard_100_ffffff_1x100.png) 50% top repeat-x; color: #003366; }
+.blueTheme .ui-state-highlight a, .blueTheme .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #003366; }
+.blueTheme .ui-state-error, .blueTheme .ui-widget-content .ui-state-error, .blueTheme .ui-widget-header .ui-state-error {border: 1px solid #cc3300; background: #ffffff url(../../images/primefaces/blueTheme/ui-bg_highlight-hard_100_ffffff_1x100.png) 50% top repeat-x; color: #cc3300; }
+.blueTheme .ui-state-error a, .blueTheme .ui-widget-content .ui-state-error a, .blueTheme .ui-widget-header .ui-state-error a { color: #cc3300; }
+.blueTheme .ui-state-error-text, .blueTheme .ui-widget-content .ui-state-error-text, .blueTheme .ui-widget-header .ui-state-error-text { color: #cc3300; }
+.blueTheme .ui-priority-primary, .blueTheme .ui-widget-content .ui-priority-primary, .blueTheme .ui-widget-header .ui-priority-primary { font-weight: bold; }
+.blueTheme .ui-priority-secondary, .blueTheme .ui-widget-content .ui-priority-secondary,  .ui-widget-header .ui-priority-secondary { opacity: .7; filter:Alpha(Opacity=70); font-weight: normal; }
+.blueTheme .ui-state-disabled, .blueTheme .ui-widget-content .ui-state-disabled, .blueTheme .ui-widget-header .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.blueTheme .ui-icon { width: 16px; height: 16px; background-image: url(../../images/primefaces/blueTheme/ui-icons_333333_256x240.png); }
+.blueTheme .ui-widget-content .ui-icon {background-image: url(../../images/primefaces/blueTheme/ui-icons_333333_256x240.png); }
+.blueTheme .ui-widget-header .ui-icon {background-image: url(../../images/primefaces/blueTheme/ui-icons_ffffff_256x240.png); }
+.blueTheme .ui-state-default .ui-icon { background-image: url(../../images/primefaces/blueTheme/ui-icons_ffffff_256x240.png); }
+.blueTheme .ui-state-hover .ui-icon, .blueTheme .ui-state-focus .ui-icon {background-image: url(../../images/primefaces/blueTheme/ui-icons_ffffff_256x240.png); }
+.blueTheme .ui-state-active .ui-icon {background-image: url(../../images/primefaces/blueTheme/ui-icons_ffffff_256x240.png); }
+.blueTheme .ui-state-highlight .ui-icon {background-image: url(../../images/primefaces/blueTheme/ui-icons_003366_256x240.png); }
+.blueTheme .ui-state-error .ui-icon, .blueTheme .ui-state-error-text .ui-icon {background-image: url(../../images/primefaces/blueTheme/ui-icons_cc3300_256x240.png); }
+
+/* positioning */
+.blueTheme .ui-icon-carat-1-n { background-position: 0 0; }
+.blueTheme .ui-icon-carat-1-ne { background-position: -16px 0; }
+.blueTheme .ui-icon-carat-1-e { background-position: -32px 0; }
+.blueTheme .ui-icon-carat-1-se { background-position: -48px 0; }
+.blueTheme .ui-icon-carat-1-s { background-position: -64px 0; }
+.blueTheme .ui-icon-carat-1-sw { background-position: -80px 0; }
+.blueTheme .ui-icon-carat-1-w { background-position: -96px 0; }
+.blueTheme .ui-icon-carat-1-nw { background-position: -112px 0; }
+.blueTheme .ui-icon-carat-2-n-s { background-position: -128px 0; }
+.blueTheme .ui-icon-carat-2-e-w { background-position: -144px 0; }
+.blueTheme .ui-icon-triangle-1-n { background-position: 0 -16px; }
+.blueTheme .ui-icon-triangle-1-ne { background-position: -16px -16px; }
+.blueTheme .ui-icon-triangle-1-e { background-position: -32px -16px; }
+.blueTheme .ui-icon-triangle-1-se { background-position: -48px -16px; }
+.blueTheme .ui-icon-triangle-1-s { background-position: -64px -16px; }
+.blueTheme .ui-icon-triangle-1-sw { background-position: -80px -16px; }
+.blueTheme .ui-icon-triangle-1-w { background-position: -96px -16px; }
+.blueTheme .ui-icon-triangle-1-nw { background-position: -112px -16px; }
+.blueTheme .ui-icon-triangle-2-n-s { background-position: -128px -16px; }
+.blueTheme .ui-icon-triangle-2-e-w { background-position: -144px -16px; }
+.blueTheme .ui-icon-arrow-1-n { background-position: 0 -32px; }
+.blueTheme .ui-icon-arrow-1-ne { background-position: -16px -32px; }
+.blueTheme .ui-icon-arrow-1-e { background-position: -32px -32px; }
+.blueTheme .ui-icon-arrow-1-se { background-position: -48px -32px; }
+.blueTheme .ui-icon-arrow-1-s { background-position: -64px -32px; }
+.blueTheme .ui-icon-arrow-1-sw { background-position: -80px -32px; }
+.blueTheme .ui-icon-arrow-1-w { background-position: -96px -32px; }
+.blueTheme .ui-icon-arrow-1-nw { background-position: -112px -32px; }
+.blueTheme .ui-icon-arrow-2-n-s { background-position: -128px -32px; }
+.blueTheme .ui-icon-arrow-2-ne-sw { background-position: -144px -32px; }
+.blueTheme .ui-icon-arrow-2-e-w { background-position: -160px -32px; }
+.blueTheme .ui-icon-arrow-2-se-nw { background-position: -176px -32px; }
+.blueTheme .ui-icon-arrowstop-1-n { background-position: -192px -32px; }
+.blueTheme .ui-icon-arrowstop-1-e { background-position: -208px -32px; }
+.blueTheme .ui-icon-arrowstop-1-s { background-position: -224px -32px; }
+.blueTheme .ui-icon-arrowstop-1-w { background-position: -240px -32px; }
+.blueTheme .ui-icon-arrowthick-1-n { background-position: 0 -48px; }
+.blueTheme .ui-icon-arrowthick-1-ne { background-position: -16px -48px; }
+.blueTheme .ui-icon-arrowthick-1-e { background-position: -32px -48px; }
+.blueTheme .ui-icon-arrowthick-1-se { background-position: -48px -48px; }
+.blueTheme .ui-icon-arrowthick-1-s { background-position: -64px -48px; }
+.blueTheme .ui-icon-arrowthick-1-sw { background-position: -80px -48px; }
+.blueTheme .ui-icon-arrowthick-1-w { background-position: -96px -48px; }
+.blueTheme .ui-icon-arrowthick-1-nw { background-position: -112px -48px; }
+.blueTheme .ui-icon-arrowthick-2-n-s { background-position: -128px -48px; }
+.blueTheme .ui-icon-arrowthick-2-ne-sw { background-position: -144px -48px; }
+.blueTheme .ui-icon-arrowthick-2-e-w { background-position: -160px -48px; }
+.blueTheme .ui-icon-arrowthick-2-se-nw { background-position: -176px -48px; }
+.blueTheme .ui-icon-arrowthickstop-1-n { background-position: -192px -48px; }
+.blueTheme .ui-icon-arrowthickstop-1-e { background-position: -208px -48px; }
+.blueTheme .ui-icon-arrowthickstop-1-s { background-position: -224px -48px; }
+.blueTheme .ui-icon-arrowthickstop-1-w { background-position: -240px -48px; }
+.blueTheme .ui-icon-arrowreturnthick-1-w { background-position: 0 -64px; }
+.blueTheme .ui-icon-arrowreturnthick-1-n { background-position: -16px -64px; }
+.blueTheme .ui-icon-arrowreturnthick-1-e { background-position: -32px -64px; }
+.blueTheme .ui-icon-arrowreturnthick-1-s { background-position: -48px -64px; }
+.blueTheme .ui-icon-arrowreturn-1-w { background-position: -64px -64px; }
+.blueTheme .ui-icon-arrowreturn-1-n { background-position: -80px -64px; }
+.blueTheme .ui-icon-arrowreturn-1-e { background-position: -96px -64px; }
+.blueTheme .ui-icon-arrowreturn-1-s { background-position: -112px -64px; }
+.blueTheme .ui-icon-arrowrefresh-1-w { background-position: -128px -64px; }
+.blueTheme .ui-icon-arrowrefresh-1-n { background-position: -144px -64px; }
+.blueTheme .ui-icon-arrowrefresh-1-e { background-position: -160px -64px; }
+.blueTheme .ui-icon-arrowrefresh-1-s { background-position: -176px -64px; }
+.blueTheme .ui-icon-arrow-4 { background-position: 0 -80px; }
+.blueTheme .ui-icon-arrow-4-diag { background-position: -16px -80px; }
+.blueTheme .ui-icon-extlink { background-position: -32px -80px; }
+.blueTheme .ui-icon-newwin { background-position: -48px -80px; }
+.blueTheme .ui-icon-refresh { background-position: -64px -80px; }
+.blueTheme .ui-icon-shuffle { background-position: -80px -80px; }
+.blueTheme .ui-icon-transfer-e-w { background-position: -96px -80px; }
+.blueTheme .ui-icon-transferthick-e-w { background-position: -112px -80px; }
+.blueTheme .ui-icon-folder-collapsed { background-position: 0 -96px; }
+.blueTheme .ui-icon-folder-open { background-position: -16px -96px; }
+.blueTheme .ui-icon-document { background-position: -32px -96px; }
+.blueTheme .ui-icon-document-b { background-position: -48px -96px; }
+.blueTheme .ui-icon-note { background-position: -64px -96px; }
+.blueTheme .ui-icon-mail-closed { background-position: -80px -96px; }
+.blueTheme .ui-icon-mail-open { background-position: -96px -96px; }
+.blueTheme .ui-icon-suitcase { background-position: -112px -96px; }
+.blueTheme .ui-icon-comment { background-position: -128px -96px; }
+.blueTheme .ui-icon-person { background-position: -144px -96px; }
+.blueTheme .ui-icon-print { background-position: -160px -96px; }
+.blueTheme .ui-icon-trash { background-position: -176px -96px; }
+.blueTheme .ui-icon-locked { background-position: -192px -96px; }
+.blueTheme .ui-icon-unlocked { background-position: -208px -96px; }
+.blueTheme .ui-icon-bookmark { background-position: -224px -96px; }
+.blueTheme .ui-icon-tag { background-position: -240px -96px; }
+.blueTheme .ui-icon-home { background-position: 0 -112px; }
+.blueTheme .ui-icon-flag { background-position: -16px -112px; }
+.blueTheme .ui-icon-calendar { background-position: -32px -112px; }
+.blueTheme .ui-icon-cart { background-position: -48px -112px; }
+.blueTheme .ui-icon-pencil { background-position: -64px -112px; }
+.blueTheme .ui-icon-clock { background-position: -80px -112px; }
+.blueTheme .ui-icon-disk { background-position: -96px -112px; }
+.blueTheme .ui-icon-calculator { background-position: -112px -112px; }
+.blueTheme .ui-icon-zoomin { background-position: -128px -112px; }
+.blueTheme .ui-icon-zoomout { background-position: -144px -112px; }
+.blueTheme .ui-icon-search { background-position: -160px -112px; }
+.blueTheme .ui-icon-wrench { background-position: -176px -112px; }
+.blueTheme .ui-icon-gear { background-position: -192px -112px; }
+.blueTheme .ui-icon-heart { background-position: -208px -112px; }
+.blueTheme .ui-icon-star { background-position: -224px -112px; }
+.blueTheme .ui-icon-link { background-position: -240px -112px; }
+.blueTheme .ui-icon-cancel { background-position: 0 -128px; }
+.blueTheme .ui-icon-plus { background-position: -16px -128px; }
+.blueTheme .ui-icon-plusthick { background-position: -32px -128px; }
+.blueTheme .ui-icon-minus { background-position: -48px -128px; }
+.blueTheme .ui-icon-minusthick { background-position: -64px -128px; }
+.blueTheme .ui-icon-close { background-position: -80px -128px; }
+.blueTheme .ui-icon-closethick { background-position: -96px -128px; }
+.blueTheme .ui-icon-key { background-position: -112px -128px; }
+.blueTheme .ui-icon-lightbulb { background-position: -128px -128px; }
+.blueTheme .ui-icon-scissors { background-position: -144px -128px; }
+.blueTheme .ui-icon-clipboard { background-position: -160px -128px; }
+.blueTheme .ui-icon-copy { background-position: -176px -128px; }
+.blueTheme .ui-icon-contact { background-position: -192px -128px; }
+.blueTheme .ui-icon-image { background-position: -208px -128px; }
+.blueTheme .ui-icon-video { background-position: -224px -128px; }
+.blueTheme .ui-icon-script { background-position: -240px -128px; }
+.blueTheme .ui-icon-alert { background-position: 0 -144px; }
+.blueTheme .ui-icon-info { background-position: -16px -144px; }
+.blueTheme .ui-icon-notice { background-position: -32px -144px; }
+.blueTheme .ui-icon-help { background-position: -48px -144px; }
+.blueTheme .ui-icon-check { background-position: -64px -144px; }
+.blueTheme .ui-icon-bullet { background-position: -80px -144px; }
+.blueTheme .ui-icon-radio-off { background-position: -96px -144px; }
+.blueTheme .ui-icon-radio-on { background-position: -112px -144px; }
+.blueTheme .ui-icon-pin-w { background-position: -128px -144px; }
+.blueTheme .ui-icon-pin-s { background-position: -144px -144px; }
+.blueTheme .ui-icon-play { background-position: 0 -160px; }
+.blueTheme .ui-icon-pause { background-position: -16px -160px; }
+.blueTheme .ui-icon-seek-next { background-position: -32px -160px; }
+.blueTheme .ui-icon-seek-prev { background-position: -48px -160px; }
+.blueTheme .ui-icon-seek-end { background-position: -64px -160px; }
+.blueTheme .ui-icon-seek-start { background-position: -80px -160px; }
+/* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
+.blueTheme .ui-icon-seek-first { background-position: -80px -160px; }
+.blueTheme .ui-icon-stop { background-position: -96px -160px; }
+.blueTheme .ui-icon-eject { background-position: -112px -160px; }
+.blueTheme .ui-icon-volume-off { background-position: -128px -160px; }
+.blueTheme .ui-icon-volume-on { background-position: -144px -160px; }
+.blueTheme .ui-icon-power { background-position: 0 -176px; }
+.blueTheme .ui-icon-signal-diag { background-position: -16px -176px; }
+.blueTheme .ui-icon-signal { background-position: -32px -176px; }
+.blueTheme .ui-icon-battery-0 { background-position: -48px -176px; }
+.blueTheme .ui-icon-battery-1 { background-position: -64px -176px; }
+.blueTheme .ui-icon-battery-2 { background-position: -80px -176px; }
+.blueTheme .ui-icon-battery-3 { background-position: -96px -176px; }
+.blueTheme .ui-icon-circle-plus { background-position: 0 -192px; }
+.blueTheme .ui-icon-circle-minus { background-position: -16px -192px; }
+.blueTheme .ui-icon-circle-close { background-position: -32px -192px; }
+.blueTheme .ui-icon-circle-triangle-e { background-position: -48px -192px; }
+.blueTheme .ui-icon-circle-triangle-s { background-position: -64px -192px; }
+.blueTheme .ui-icon-circle-triangle-w { background-position: -80px -192px; }
+.blueTheme .ui-icon-circle-triangle-n { background-position: -96px -192px; }
+.blueTheme .ui-icon-circle-arrow-e { background-position: -112px -192px; }
+.blueTheme .ui-icon-circle-arrow-s { background-position: -128px -192px; }
+.blueTheme .ui-icon-circle-arrow-w { background-position: -144px -192px; }
+.blueTheme .ui-icon-circle-arrow-n { background-position: -160px -192px; }
+.blueTheme .ui-icon-circle-zoomin { background-position: -176px -192px; }
+.blueTheme .ui-icon-circle-zoomout { background-position: -192px -192px; }
+.blueTheme .ui-icon-circle-check { background-position: -208px -192px; }
+.blueTheme .ui-icon-circlesmall-plus { background-position: 0 -208px; }
+.blueTheme .ui-icon-circlesmall-minus { background-position: -16px -208px; }
+.blueTheme .ui-icon-circlesmall-close { background-position: -32px -208px; }
+.blueTheme .ui-icon-squaresmall-plus { background-position: -48px -208px; }
+.blueTheme .ui-icon-squaresmall-minus { background-position: -64px -208px; }
+.blueTheme .ui-icon-squaresmall-close { background-position: -80px -208px; }
+.blueTheme .ui-icon-grip-dotted-vertical { background-position: 0 -224px; }
+.blueTheme .ui-icon-grip-dotted-horizontal { background-position: -16px -224px; }
+.blueTheme .ui-icon-grip-solid-vertical { background-position: -32px -224px; }
+.blueTheme .ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
+.blueTheme .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
+.blueTheme .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Corner radius */
+.blueTheme .ui-corner-all, .blueTheme .ui-corner-top, .blueTheme .ui-corner-left, .blueTheme .ui-corner-tl { -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; -khtml-border-top-left-radius: 5px; border-top-left-radius: 5px; }
+.blueTheme .ui-corner-all, .blueTheme .ui-corner-top, .blueTheme .ui-corner-right, .blueTheme .ui-corner-tr { -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; -khtml-border-top-right-radius: 5px; border-top-right-radius: 5px; }
+.blueTheme .ui-corner-all, .blueTheme .ui-corner-bottom, .blueTheme .ui-corner-left, .blueTheme .ui-corner-bl { -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px; -khtml-border-bottom-left-radius: 5px; border-bottom-left-radius: 5px; }
+.blueTheme .ui-corner-all, .blueTheme .ui-corner-bottom, .blueTheme .ui-corner-right, .blueTheme .ui-corner-br { -moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px; -khtml-border-bottom-right-radius: 5px; border-bottom-right-radius: 5px; }
+
+/* Overlays */
+.blueTheme .ui-widget-overlay { background: #dedede url(../../images/primefaces/blueTheme/ui-bg_diagonals-small_100_dedede_40x40.png) 50% 50% repeat; opacity: .70;filter:Alpha(Opacity=70); }
+.blueTheme .ui-widget-shadow { margin: -5px 0 0 -5px; padding: 5px; background: #6d7378 url(../../images/primefaces/blueTheme/ui-bg_flat_0_6d7378_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 5px; -khtml-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
+
+.blueTheme .ui-selectonemenu-label.ui-corner-all { border-width: 1px; padding:0px; margin: 0px; box-shadow:none; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important; -khtml-border-radius: 0px !important; border-radius: 0px !important; }
+
+/*!
+ * jQuery UI Resizable 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Resizable#theming
+ */
+.blueTheme .ui-resizable { position: relative;}
+.blueTheme .ui-resizable-handle { position: absolute;font-size: 0.1px; display: block; }
+.blueTheme .ui-resizable-disabled .ui-resizable-handle, .blueTheme .ui-resizable-autohide .ui-resizable-handle { display: none; }
+.blueTheme .ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; left: 0; }
+.blueTheme .ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0; }
+.blueTheme .ui-resizable-e { cursor: e-resize; width: 7px; right: -5px; top: 0; height: 100%; }
+.blueTheme .ui-resizable-w { cursor: w-resize; width: 7px; left: -5px; top: 0; height: 100%; }
+.blueTheme .ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 1px; bottom: 1px; }
+.blueTheme .ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: -5px; bottom: -5px; }
+.blueTheme .ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: -5px; top: -5px; }
+.blueTheme .ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;}/*!
+ * jQuery UI Selectable 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Selectable#theming
+ */
+.blueTheme .ui-selectable-helper { position: absolute; z-index: 100; border:1px dotted black; }
+/*!
+ * jQuery UI Accordion 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Accordion#theming
+ */
+/* IE/Win - Fix animation bug - #4615 */
+.blueTheme .ui-accordion { width: 100%; }
+.blueTheme .ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1; }
+.blueTheme .ui-accordion .ui-accordion-li-fix { display: inline; }
+.blueTheme .ui-accordion .ui-accordion-header-active { border-bottom: 0 !important; }
+.blueTheme .ui-accordion .ui-accordion-header a { display: block; font-size: 1em; padding: .5em .5em .5em .7em; }
+.blueTheme .ui-accordion-icons .ui-accordion-header a { padding-left: 2.2em; }
+.blueTheme .ui-accordion .ui-accordion-header .ui-icon { position: absolute; left: .5em; top: 50%; margin-top: -8px; }
+.blueTheme .ui-accordion .ui-accordion-content { padding: 1em 2.2em; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
+.blueTheme .ui-accordion .ui-accordion-content-active { display: block; }
+/*!
+ * jQuery UI Autocomplete 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Autocomplete#theming
+ */
+.blueTheme .ui-autocomplete { position: absolute; cursor: default; }	
+
+/* workarounds */
+* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
+/*
+ * jQuery UI Menu 1.8.23
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Menu#theming
+ */
+.blueTheme .ui-menu , .blueTheme .ui-menu-child {
+	list-style:none;
+	padding: 0px;
+	margin: 0;
+	display:inline;
+	float: left;
+
+    border:none;
+    background-image: url('../../images/bg-menu-blue.gif');
+    background-repeat: repeat;
+    font-family: Arial, Verdana, "Trebuchet MS";
+    font-style: normal;
+    font-weight: normal;
+    font-size:12px;
+}
+.blueTheme .ui-menu .ui-menu {
+	margin-top: -3px;
+}
+.blueTheme .ui-menu .ui-menu-item {
+	margin:0;
+	padding: 0;
+	zoom: 1;
+	float: left;
+	clear: left;
+	width: 100%;
+}
+.blueTheme .ui-menu .ui-menu-item a {
+	text-decoration:none;
+	display:block;
+	padding:.2em .4em;
+	line-height:1.5;
+	zoom:1;
+}
+.blueTheme .ui-menu .ui-menu-item a.ui-state-hover,
+.blueTheme .ui-menu .ui-menu-item a.ui-state-active {
+	font-weight: normal;
+	margin: -1px;
+}
+
+.blueTheme .ui-menuitem-text {
+    color:white;
+    font-weight: bold;
+}
+
+
+/*!
+ * jQuery UI Button 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Button#theming
+ */
+.blueTheme .ui-button { display: inline-block; position: relative; padding: 0; margin-right: .1em; text-decoration: none !important; cursor: pointer; text-align: center; zoom: 1; overflow: visible; } /* the overflow property removes extra width in IE */
+.blueTheme .ui-button-icon-only { width: 2.2em; } /* to make room for the icon, a width needs to be set here */
+button.ui-button-icon-only { width: 2.4em; } /* button elements seem to need a little more width */
+.blueTheme .ui-button-icons-only { width: 3.4em; } 
+button.ui-button-icons-only { width: 3.7em; } 
+
+/*button text element */
+.blueTheme .ui-button .ui-button-text { display: block; line-height: 1.2em; min-width:60px  }
+.blueTheme .ui-button-text-only .ui-button-text { padding: .4em 1em; }
+.blueTheme .ui-button-icon-only .ui-button-text, .blueTheme .ui-button-icons-only .ui-button-text { padding: .4em; text-indent: -9999999px; }
+.blueTheme .ui-button-text-icon-primary .ui-button-text, .blueTheme .ui-button-text-icons .ui-button-text { padding: .4em 1em .4em 2.1em; }
+.blueTheme .ui-button-text-icon-secondary .ui-button-text, .blueTheme .ui-button-text-icons .ui-button-text { padding: .4em 2.1em .4em 1em; }
+.blueTheme .ui-button-text-icons .ui-button-text { padding-left: 2.1em; padding-right: 2.1em; }
+/* no icon support for input elements, provide padding by default */
+input.ui-button { padding: .4em 1em; }
+
+/*button icon element(s) */
+.blueTheme .ui-button-icon-only .ui-icon, .blueTheme .ui-button-text-icon-primary .ui-icon, .blueTheme .ui-button-text-icon-secondary .ui-icon, .blueTheme .ui-button-text-icons .ui-icon, .blueTheme .ui-button-icons-only .ui-icon { position: absolute; top: 50%; margin-top: -8px; }
+.blueTheme .ui-button-icon-only .ui-icon { left: 50%; margin-left: -8px; }
+.blueTheme .ui-button-text-icon-primary .ui-button-icon-primary, .blueTheme .ui-button-text-icons .ui-button-icon-primary, .blueTheme .ui-button-icons-only .ui-button-icon-primary { left: .5em; }
+.blueTheme .ui-button-text-icon-secondary .ui-button-icon-secondary, .blueTheme .ui-button-text-icons .ui-button-icon-secondary, .blueTheme .ui-button-icons-only .ui-button-icon-secondary { right: .5em; }
+.blueTheme .ui-button-text-icons .ui-button-icon-secondary, .blueTheme .ui-button-icons-only .ui-button-icon-secondary { right: .5em; }
+
+/*button sets*/
+.blueTheme .ui-buttonset { margin-right: 7px; }
+.blueTheme .ui-buttonset .ui-button { margin-left: 0; margin-right: -.3em; }
+
+/* workarounds */
+button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra padding in Firefox */
+/*!
+ * jQuery UI Dialog 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Dialog#theming
+ */
+.blueTheme .ui-dialog { position: absolute; padding: .2em; width: 300px; overflow: hidden; }
+.blueTheme .ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
+.blueTheme .ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
+.blueTheme .ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.blueTheme .ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
+.blueTheme .ui-dialog .ui-dialog-titlebar-close:hover, .blueTheme .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
+.blueTheme .ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+.blueTheme .ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.blueTheme .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
+.blueTheme .ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.blueTheme .ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.blueTheme .ui-draggable .ui-dialog-titlebar { cursor: move; }
+/*!
+ * jQuery UI Slider 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Slider#theming
+ */
+.blueTheme .ui-slider { position: relative; text-align: left; }
+.blueTheme .ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: 1.2em; height: 1.2em; cursor: default; }
+.blueTheme .ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background-position: 0 0; }
+
+.blueTheme .ui-slider-horizontal { height: .8em; }
+.blueTheme .ui-slider-horizontal .ui-slider-handle { top: -.3em; margin-left: -.6em; }
+.blueTheme .ui-slider-horizontal .ui-slider-range { top: 0; height: 100%; }
+.blueTheme .ui-slider-horizontal .ui-slider-range-min { left: 0; }
+.blueTheme .ui-slider-horizontal .ui-slider-range-max { right: 0; }
+
+.blueTheme .ui-slider-vertical { width: .8em; height: 100px; }
+.blueTheme .ui-slider-vertical .ui-slider-handle { left: -.3em; margin-left: 0; margin-bottom: -.6em; }
+.blueTheme .ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
+.blueTheme .ui-slider-vertical .ui-slider-range-min { bottom: 0; }
+.blueTheme .ui-slider-vertical .ui-slider-range-max { top: 0; }/*!
+ * jQuery UI Tabs 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Tabs#theming
+ */
+.blueTheme .ui-tabs { position: relative; padding: .2em; zoom: 1; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+.blueTheme .ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; }
+.blueTheme .ui-tabs .ui-tabs-nav li { list-style: none; float: left; position: relative; top: 1px; margin: 0 .2em 1px 0; border-bottom: 0 !important; padding: 0; white-space: nowrap; }
+.blueTheme .ui-tabs .ui-tabs-nav li a { float: left; padding: .5em 1em; text-decoration: none; }
+.blueTheme .ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 1px; }
+.blueTheme .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .blueTheme .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .blueTheme .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
+.blueTheme .ui-tabs .ui-tabs-nav li a, .blueTheme .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.blueTheme .ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 1em 1.4em; background: none; }
+.blueTheme .ui-tabs .ui-tabs-hide { display: none !important; }
+/*!
+ * jQuery UI Datepicker 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Datepicker#theming
+ */
+.blueTheme .ui-datepicker { width: 17em; padding: .2em .2em 0; display: none; }
+.blueTheme .ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
+.blueTheme .ui-datepicker .ui-datepicker-prev, .blueTheme .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
+.blueTheme .ui-datepicker .ui-datepicker-prev-hover, .blueTheme .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
+.blueTheme .ui-datepicker .ui-datepicker-prev { left:2px; }
+.blueTheme .ui-datepicker .ui-datepicker-next { right:2px; }
+.blueTheme .ui-datepicker .ui-datepicker-prev-hover { left:1px; }
+.blueTheme .ui-datepicker .ui-datepicker-next-hover { right:1px; }
+.blueTheme .ui-datepicker .ui-datepicker-prev span, .blueTheme .ui-datepicker .ui-datepicker-next span { display: block; position: absolute; left: 50%; margin-left: -8px; top: 50%; margin-top: -8px;  }
+.blueTheme .ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
+.blueTheme .ui-datepicker .ui-datepicker-title select { font-size:1em; margin:1px 0; }
+.blueTheme .ui-datepicker select.ui-datepicker-month-year {width: 100%;}
+.blueTheme .ui-datepicker select.ui-datepicker-month, 
+.blueTheme .ui-datepicker select.ui-datepicker-year { width: 49%;}
+.blueTheme .ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
+.blueTheme .ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0;  }
+.blueTheme .ui-datepicker td { border: 0; padding: 1px; }
+.blueTheme .ui-datepicker td span, .blueTheme .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; }
+.blueTheme .ui-datepicker .ui-datepicker-buttonpane { background-image: none; margin: .7em 0 0 0; padding:0 .2em; border-left: 0; border-right: 0; border-bottom: 0; }
+.blueTheme .ui-datepicker .ui-datepicker-buttonpane button { float: right; margin: .5em .2em .4em; cursor: pointer; padding: .2em .6em .3em .6em; width:auto; overflow:visible; }
+.blueTheme .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current { float:left; }
+
+/* with multiple calendars */
+.blueTheme .ui-datepicker.ui-datepicker-multi { width:auto; }
+.blueTheme .ui-datepicker-multi .ui-datepicker-group { float:left; }
+.blueTheme .ui-datepicker-multi .ui-datepicker-group table { width:95%; margin:0 auto .4em; }
+.blueTheme .ui-datepicker-multi-2 .ui-datepicker-group { width:50%; }
+.blueTheme .ui-datepicker-multi-3 .ui-datepicker-group { width:33.3%; }
+.blueTheme .ui-datepicker-multi-4 .ui-datepicker-group { width:25%; }
+.blueTheme .ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header { border-left-width:0; }
+.blueTheme .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header { border-left-width:0; }
+.blueTheme .ui-datepicker-multi .ui-datepicker-buttonpane { clear:left; }
+.blueTheme .ui-datepicker-row-break { clear:both; width:100%; font-size:0em; }
+
+/* RTL support */
+.blueTheme .ui-datepicker-rtl { direction: rtl; }
+.blueTheme .ui-datepicker-rtl .ui-datepicker-prev { right: 2px; left: auto; }
+.blueTheme .ui-datepicker-rtl .ui-datepicker-next { left: 2px; right: auto; }
+.blueTheme .ui-datepicker-rtl .ui-datepicker-prev:hover { right: 1px; left: auto; }
+.blueTheme .ui-datepicker-rtl .ui-datepicker-next:hover { left: 1px; right: auto; }
+.blueTheme .ui-datepicker-rtl .ui-datepicker-buttonpane { clear:right; }
+.blueTheme .ui-datepicker-rtl .ui-datepicker-buttonpane button { float: left; }
+.blueTheme .ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current { float:right; }
+.blueTheme .ui-datepicker-rtl .ui-datepicker-group { float:right; }
+.blueTheme .ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+.blueTheme .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+
+/* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
+.blueTheme .ui-datepicker-cover {
+    position: absolute; /*must have*/
+    z-index: -1; /*must have*/
+    filter: mask(); /*must have*/
+    top: -4px; /*must have*/
+    left: -4px; /*must have*/
+    width: 200px; /*must have*/
+    height: 200px; /*must have*/
+}/*!
+ * jQuery UI Progressbar 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Progressbar#theming
+ */
+.blueTheme .ui-progressbar { height:2em; text-align: left; overflow: hidden; }
+.blueTheme .ui-progressbar .ui-progressbar-value {margin: -1px; height:100%; }
+
+/* NEW UI */
+.blueTheme .ui-widget-content {
+    background-image: none;
+    background-color:#003E7E;
+}
+
+.blueTheme .ui-state-hover, .blueTheme .ui-widget-content .ui-state-hover, .blueTheme .ui-widget-header .ui-state-hover, .blueTheme .ui-state-focus, .blueTheme .ui-widget-content .ui-state-focus, .blueTheme .ui-widget-header .ui-state-focus  {
+    background-image: none;
+}
+
+.blueTheme .ui-state-hover, .blueTheme .ui-widget-content .ui-state-hover, .blueTheme .ui-widget-header .ui-state-hover, .blueTheme .ui-state-focus, .blueTheme .ui-widget-content .ui-state-focus, .blueTheme .ui-widget-header .ui-state-focus {
+    background-color: #7DBB54;
+    background-image: none;
+}
+
+.blueTheme .ui-button {
+    background: #7DBB54;
+}
+
+.blueTheme .ui-button:hover {
+    color: #000000;
+}
+
+.blueTheme .ui-state-default:hover {
+    color: #000000;
+}

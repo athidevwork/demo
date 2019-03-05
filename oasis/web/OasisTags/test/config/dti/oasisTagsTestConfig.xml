@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="classpath:dti/applicationConfig.xml"/>
+
+    <context:load-time-weaver weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+    
+    <!-- ************************************************************** -->
+    <!-- Data Sources                                                   -->
+    <!-- ************************************************************** -->
+    <bean id="JndiDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+      <property name="proxyInterface"   value="javax.sql.DataSource"/>
+      <property name="jndiName"         value="jdbc/${dbPoolId}"/>
+      <property name="lookupOnStartup"  value="false"/>
+      <property name="cache"            value="true"/>
+    </bean>
+<!--
+    <bean id="AppDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+      <property name="proxyInterface"   value="javax.sql.DataSource"/>
+      <property name="jndiName"         value="jdbc/${dbPoolId}"/>
+      <property name="lookupOnStartup"  value="false"/>
+      <property name="cache"            value="true"/>
+    </bean>
+-->
+    <bean id="AppDataSource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy" lazy-init="true">
+      <property name="targetDataSource" ref="JndiDataSource" />
+    </bean>
+
+    <bean id="ReadOnlyDataSource" class="dti.oasis.data.CachedPerRequestDataSource">
+        <property name="targetDataSource" ref="JndiDataSource" />
+        <property name="readOnly" value="true"/>
+        <property name="requestStorageManager" ref="RequestStorageManager"/>
+    </bean>
+
+
+    <!-- ************************************************************** -->
+    <!-- Sample Configuration to enable Performance or Trace Monitoring
+            for all methods in the listed beanNames.
+            Copy this section to your Spring config file, and:
+            - Replace XX with your project name.
+            - Replace the PolicyManager idref with a list of
+                references to all beans being wrapped with tx management
+             - Include PerfMonInterceptor, TraceIncerceptor, or both as desired. -->
+    <!-- ************************************************************** -->
+<!--
+        <bean id="XX.PerfTraceAutoProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+            <property name="proxyTargetClass" value="true"/>
+            <property name="beanNames">
+                <list>
+                    <idref bean="StoredProcedureDAO"/>
+                    <idref bean="StoredProcedureDAOHelper"/>
+                </list>
+            </property>
+            <property name="interceptorNames">
+                <list>
+                    <idref bean="PerfMonInterceptor"/>
+                    <idref bean="TraceInterceptor"/>
+                </list>
+            </property>
+        </bean>
+-->
+
+</beans>

@@ -1,0 +1,324 @@
+/* ----------------------------------*/
+/* ---------Global Menu     ---------*/
+/* ----------------------------------*/
+
+.menu {
+    background-image: none;
+    background-color: #003E7E;
+}
+
+.jMenu {
+    display: table;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.jMenu li {
+    display: table-cell;
+    background-image: none;
+    background-color: #003E7E;
+    margin: 0;
+    list-style: none;
+    min-width: 120px;
+    text-align: center;
+}
+
+.jMenu li a {
+    padding: 7px 15px;
+    display: block;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    font-size: 12px;
+    font-weight:bold;
+}
+
+.jMenu li a span{
+    color: white;
+    font-size:14px;
+    font-weight:bold;
+    white-space:nowrap;
+    font-family: Calibri;
+}
+
+.jMenu li a.isParent span{
+    background-image: url(../images/ico-arrow-down-grey.gif);
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: 20px;
+}
+
+.jMenu li a:hover {
+    background-image: none;
+    background-color: #7DBB54;
+    text-decoration: none;
+}
+
+.jMenu li:hover>a {
+    background-image: none;
+    background-color: #7DBB54;
+}
+
+.jMenu li ul {
+    display: none;
+    position: absolute;
+    z-index: 8000;
+    padding: 0;
+    margin: 0;
+    list-style: none
+}
+
+.jMenu li ul li:first-child {
+    border-top: none;
+}
+
+.jMenu li ul li {
+    background-image: none;
+    background-color: #003E7E;
+    display: block;
+    border:none;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    min-width: 145px;
+    text-align: left;
+}
+
+.jMenu li ul li a {
+    font-size: 12px;
+    text-transform: none;
+    display: block;
+    padding: 7px;
+    border-top: none;
+    border-bottom: none;
+    white-space:nowrap;
+}
+
+.jMenu li ul li a.isParent span{
+    background-image: url(../images/ico-arrow-right-grey.gif);
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: 20px;
+}
+
+.jMenu li ul li a:hover {
+    background-image: none;
+    background-color: #7DBB54;
+    border: none;
+    text-decoration: none;
+}
+
+.jMenu li ul li a span{
+    width: 90%;
+    display:block;
+    white-space:nowrap;
+}
+
+.jMenuDiv {
+    position: relative;
+    width:100%;
+    height: 32px;
+    background-color: #003E7E;
+    background-image: none;
+    font-family: Arial, Verdana, "Trebuchet MS";
+    font-style: normal;
+    font-weight: normal;
+    font-size:12px;
+}
+
+.jMenu li a.selectedMenu {
+    background-image: none;
+    background-color: #7DBB54;
+}
+.jMenu li a.selectedMenu span{
+    color: white;
+}
+
+/* ----------------------------------*/
+/* ---------Tab Menu     ---------*/
+/* ----------------------------------*/
+
+.jTabMenu {
+    display: table;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border:none;
+    border-spacing: 0px;
+}
+
+.jTabMenu li {
+    display: table-cell;
+    background-image: none;
+    margin: 0;
+    list-style: none;
+    min-width: 60px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: 0px solid #ccc;
+}
+
+.jTabMenu li:first-child {
+    border-left: 1px solid #ccc;
+}
+
+.jTabMenu li a {
+    padding: 7px 7px;
+    display: block;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight:bold;
+}
+
+.jTabMenu li a span{
+    color: #003e7e;
+    font-family:  Calibri, "Lucida Grande", Gadget, Helvetica, Arial, Verdana, "Trebuchet MS";
+    font-size: 14px;
+    font-weight:bold;
+    white-space: nowrap;
+}
+
+.jTabMenu li a.isParent span {
+    background-image: url(../images/ico-arrow-down-grey.gif);
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: 20px;
+}
+
+.jTabMenu li a:hover {
+    background-image: none;
+    background-color: #7DBB54;
+    text-decoration: none;
+}
+
+.jTabMenu li:hover>a {
+    background-image: none;
+    background-color: #7DBB54;
+}
+
+.jTabMenu li:hover>a span {
+    color:white;
+}
+
+.jTabMenu li ul {
+    display: none;
+    position: absolute;
+    z-index: 8000;
+    padding: 0;
+    margin: 0;
+    list-style: none
+}
+
+.jTabMenu li ul li:first-child {
+    border-top: 1px solid #ccc;
+}
+
+.jTabMenu li ul li {
+    background: url(../images/bg-menu-grey.gif);
+    background-repeat: repeat;
+    display: block;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    min-width: 120px;
+    text-align: left;
+}
+
+.jTabMenu li ul li a {
+    font-size: 12px;
+    text-transform: none;
+    display: block;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    white-space:nowrap;
+}
+
+.jTabMenu li ul li a.isParent span{
+    background-image: url(../images/ico-arrow-right-grey.gif);
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: 20px;
+}
+
+.jTabMenu li ul li a:hover {
+    background: none;
+    background-color: #7DBB54;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    text-decoration: none;
+}
+
+.jTabMenu li ul li a span{
+    width: 90%;
+    display:block;
+    white-space: nowrap;
+}
+
+div.jTabMenuDiv > ul li.tab a:hover span,
+div.jTabMenuDiv > ul li.tab:hover>a span,
+div.jTabMenuDiv > ul li ul li a:hover span,
+div.jTabMenuDiv > ul li ul li:hover>a span {
+    color:white;
+}
+
+.jTabMenu li.selectedTab, .jTabMenu li.firstSelectedTab{
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-bottom: 0px solid #ccc;
+    border-right: 1px solid #ccc;
+    background-image: none;
+    background-color: #7DBB54;
+}
+
+.jTabMenuDiv {
+    position: relative;
+    width:100%;
+    height: 32px;
+    font-family: Calibri, "Lucida Grande", Gadget, Helvetica, Arial, Verdana, "Trebuchet MS";
+    font-style: normal;
+    font-weight: normal;
+    font-size:14px;
+    border-bottom: 0px;
+}
+
+.jTabMenu li.lastBlankTab{
+    background-image: none;
+    width: 100%;
+    border-top: 0px solid #ccc;
+    border-left: 0px solid #ccc;
+    border-right:  0px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.tabHeader {
+    border:1px solid #ccc;
+    border-top:none;
+    margin:0px;
+    padding:0;
+    width:100%;
+    float:left;
+}
+
+.tabDetail {
+    padding:3px;
+}
+
+.workflowAttention {
+    background-image: url(../images/exclamation.16.png);
+    background-repeat: no-repeat;
+    background-position: right;
+}
+

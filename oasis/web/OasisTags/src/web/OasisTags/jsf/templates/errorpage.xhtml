@@ -1,0 +1,167 @@
+<ui:composition template="/core/jsf/templates/baseTemplateNoMenu.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:f="http://java.sun.com/jsf/core">
+<ui:define name="title">Error</ui:define>
+
+
+<ui:define name="content">
+    <script type='text/javascript'>
+        function showErr(showIt) {
+            if (showIt) {
+                document.all("stack").style.display = 'block';
+                document.all("showbtn").style.display = 'none';
+            }
+            else {
+                document.all("stack").style.display = 'none';
+                document.all("showbtn").style.display = 'block';
+            }
+        }
+        function home() {
+            var appContext = "#{request.contextPath}";
+            document.location.href = appContext;
+        }
+        function logoff() {
+            var logoutPage = "#{request.contextPath}/core/logout.jsp?faces-redirect=true";
+            document.location.href = logoutPage;
+        }
+        function goBack() {
+            var backPage = "#{requestScope['javax.servlet.error.request_uri']}";
+            if("#{param['originalRequestURI']}")
+                backPage = "#{param['originalRequestURI']}";
+            document.location.href = backPage;
+        }
+        function closeErrorPopup() {
+            closeDialog(true);
+        }
+    </script>
+    <style type="text/css">
+        .processingIndicator .ui-dialog-titlebar {
+            display: none
+        }
+    </style>
+    <ui:insert name="errorContent">
+        <!-- START: Main Body Content -->
+            <table width="100%" border="0" cellpadding="2" cellspacing="0">
+                <tr>
+                    <td>&#160;</td>
+                </tr>      <!-- TO DO: different messages for different errors see ErrorPage.jsp -->
+                <tr><td>
+                    The following error was encountered:</td>
+                </tr>
+                <tr>
+                    <td class="errortext">#{MessageManager.formatMessage('appException.unexpected.error')}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li>
+                                #{MessageManager.formatMessage('label.login.error.click')} <a
+                                    href="mailto:#{MessageManager.formatMessage('label.login.support.mailto')}">#{MessageManager.formatMessage('label.login.error.here')}</a> #{MessageManager.formatMessage('label.login.error.emailSupport')}
+                            </li>
+                            <li>
+                                #{MessageManager.formatMessage('label.login.error.phoneSupport')}
+                                #{MessageManager.formatMessage('label.login.phonecontact')}.
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>&#160;</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div id="showParent">
+                            <span class="blueTheme">
+                                <h:commandButton value="Go Back" type="button" onclick="goBack();"/>
+                                <h:commandButton value="Home" type="button" onclick="home();"/>
+                                <h:commandButton value="Log off" type="button" onclick="logoff();"/>
+                            </span>
+                        </div>
+                        <div id="showChild">
+                            <span class="blueTheme">
+                                <h:commandButton value="Close" type="button" onclick="closeErrorPopup();"/>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>&#160;</td>
+                </tr>
+                <tr>
+                    <td><strong>Requested Page:</strong> <a
+                            href="#{requestScope['javax.servlet.error.request_uri']}">#{requestScope['javax.servlet.error.request_uri']}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Oasis User Name:</strong> #{sessionScope.userBean.userId}</td>
+                </tr>
+                <tr>
+                    <td><strong>Error Time:</strong> #{of:formatDate(now, 'yyyy-MM-dd HH:mm:ss.S z')}</td>
+                </tr>
+                <tr>
+                    <td><strong>Remote IP Address:</strong> #{request.remoteAddr}</td>
+                </tr>
+                <tr>
+                    <td><strong>X-Forwarded-For:</strong> #{header['X-Forwarded-For']}</td>
+                </tr>
+                <tr>
+                    <td>&#160;</td>
+                </tr>
+
+                <tr>
+                    <td>&#160;
+                        <div id="showbtn">
+                            <span class="blueTheme">
+                                <h:commandButton type="button" value="Show Details" onclick="showErr(true);"/>
+                            </span>
+                        </div>
+
+                        <div id="stack" style="display: none;">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="blueTheme">
+                                            <h:commandButton type="button" value="Hide Details"
+                                                             onclick="javascript:showErr(false);"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="bottom"><b>Stack Trace:</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="top left bottom right">
+                                    <pre style="font-size:8pt">
+                                        #{of:printStackTrace(requestScope['javax.servlet.error.exception'])}
+                                    </pre>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        <!-- END: Main Body Content -->
+    </ui:insert>
+    <h:outputScript rendered="#{facesContext.partialViewContext.ajaxRequest}">scrollTo(0, 0);</h:outputScript>
+    <script type="text/javascript">
+        function testOnLoad(){
+            if(window == window.parent) {
+                document.all("showParent").style.display = 'block';
+                document.all("showChild").style.display = 'none';
+            } else {
+                document.all("showChild").style.display = 'block';
+                document.all("showParent").style.display = 'none';
+            }
+        }
+        window.attachEvent("onload", testOnLoad);
+    </script>
+</ui:define>
+</ui:composition>

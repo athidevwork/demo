@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="orbeon.lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../../../../tools/orbeon/webapp/WEB-INF/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="intellijad://intellijad" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../../../tools/orbeon/webapp/WEB-INF/lib" recursive="false" />
+  </library>
+</component>

@@ -1,0 +1,56 @@
+{
+  "EntityAuditManagerTest": {
+    "testLoadAllAuditData": {
+      "InputParameter": {
+        "pk": 42343492,
+        "filterCriteria_operationTable": "ENTITY"
+      },
+      "expected": {
+        "fieldNames": [
+          "oasisAuditTrailId",
+          "sourceRecordId",
+          "sourceTableName",
+          "sysCreateTime",
+          "sysCreatedBy",
+          "operationType",
+          "operationTable",
+          "shortDescr",
+          "transDescr",
+          "userViewDescr",
+          "auditViewPref",
+          "auditViewPrefValue"
+        ]
+      }
+    },
+    "testLoadAuditDataForPopup": {
+      "InputParmsForPM": {
+        "historyType": "transactionHistory",
+        "sourceNo": "MP0492708"
+      },
+      "InputParmsForCM": {
+        "historyType": "claimTransactionHistory",
+        "sourceNo": "109468"
+      },
+      "InputParmsForOther": {
+        "historyType": "OASIS_AUDIT_TRAIL",
+        "detail_operationTable": "RM_SURVEY",
+        "detail_sourceRecordFk": "8005379754"
+      },
+      "expected":{
+        "fieldNames": [
+          "auditTrailId",
+          "detail_sourceRecordFk",
+          "sourceTableName",
+          "sysCreateTime",
+          "sysCreatedBy",
+          "transDesc",
+          "operationType",
+          "detail_operationTable",
+          "shortDesc",
+          "userViewDesc",
+          "auditViewPref"
+        ]
+      }
+    }
+  }
+}

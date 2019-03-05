@@ -1,0 +1,246 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <!--
+    Description:
+
+    Author: mgitelman
+    Date: 1/10/13
+
+
+    Revision Date    Revised By  Description
+    *****************************************************************************
+    *****************************************************************************
+    (C) 2012 Delphi Technology, inc. (dti)
+    -->
+    <div id="processingDialog" align="center" style="display:none">
+        <h:graphicImage value="/core/images/running.gif" alt="saving"/>
+        <span class="txtOrange" >#{MessageManager.formatMessage('label.process.info.processing')}</span>
+    </div>
+
+    <style type="text/css">
+        .processingIndicator .ui-dialog-titlebar {
+            display: none
+        }
+
+        .ui-dialog-content-warn {
+            color: #CC0000;
+            font-size: 1.4em;
+        }
+
+        .ui-dialog-content-info {
+            color: #5C9CCC;
+            font-size: 1.4em;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        function getEnvPath() {
+            return '#{global.envPath}';
+        }
+
+        function getDateMask() {
+            return '#{global.dateFormat}';
+        }
+
+        function getAppPath() {
+            return '#{request.contextPath}';
+        }
+
+        $("#processingDialog").dialog(
+                {modal:true,
+                    autoOpen:false,
+                    closeOnEscape:false,
+                    dialogClass:'processingIndicator',
+                    position:['right', 'top'],
+                    height:35,
+                    width:120,
+                    resizable:false,
+                    draggable:false}
+        );
+
+
+        //        enableJavascriptLogging = "true";
+        //        var PAGE_VIEW_STATE_CACHE_KEY = "__UWID";
+        //        function getCorePath() {
+        //            //alert('#{request.contextPath}/core') ;
+        //            return '#{request.contextPath}/core';
+        //        }
+        function handleAjaxError(xhr, status, args) {
+            if (status.status == 200) {
+                if (status.responseText.indexOf("j_username") > 0) {
+                    PF('pageExpiredDialog').show();
+                }
+            } else {
+                displayErrorMessageDialog();
+            }
+        }
+
+
+        $(document).on('pfAjaxStart', function(e, xhr, settings) {
+            onAjaxStart();
+        });
+
+        $(document).on('pfAjaxSend', function(e, xhr, settings) {
+            onAjaxSend(xhr, e, settings);
+        });
+
+        $(document).on('pfAjaxComplete', function(e, xhr, settings) {
+            onAjaxComplete(e, xhr, settings);
+        });
+
+        $(document).on('pfAjaxStop', function(e, xhr, settings) {
+            onAjaxStop();
+        });
+
+        $(document).on('pfAjaxError', function(e, xhr, settings) {
+            handleAjaxError(xhr,e,settings);
+        });
+
+        function relogin(){
+            var rootWindow = window;
+            if (rootWindow.parent != "_parent") {
+                rootWindow = rootWindow.parent;
+            }
+            var targetlocation = "#{request.contextPath}/index.jsp";
+
+            setTimeout(function changeURL() {rootWindow.location = targetlocation}  ,0)
+
+        }
+
+        var keepSessionAlive = "#{global.dtiApplicationContext.getProperty('keepSessionAlive','true')}";
+        var promptForSessionKeepAlive = "#{global.dtiApplicationContext.getProperty('promptForSessionKeepAlive', 'true')}";
+        var maxInactiveInterval = #{session.getMaxInactiveInterval()};
+
+    </script>
+
+
+    <p:growl autoUpdate="true" showSummary="true" showDetail="true" severity="info"/>
+
+    <p:dialog header="Session Expired" resizable="false" closable="false"
+              widgetVar="pageExpiredDialog" modal="true" width="400" style="z-index: 9999 !important;">
+        <p:outputPanel styleClass="grayTheme">
+            <h:outputText value="Due to inactivity on page your session has expired (#{session.maxInactiveInterval}). Press 'OK' to continue." />
+            <p:commandButton ajax="false" onclick="relogin();"
+                         value="OK" />
+        </p:outputPanel>
+    </p:dialog>
+
+    <p:dialog header="Session Timeout Warning" resizable="false" closable="false" id="idleDialogId"
+              widgetVar="idleDialog" modal="true" width="400" onShow="setAutoClose();" style="z-index: 9999 !important;">
+        <p:outputPanel styleClass="grayTheme">
+            <h:outputText value="Your login session is about to timeout. Press 'OK' to renew your session. #{session.maxInactiveInterval}" />
+            <p:commandButton onclick="cancelAutoClose();" actionListener="#{global.renewSession}" oncomplete="#{p:widgetVar(':headerForm:idleDialogId')}.hide();" value="OK" />
+        </p:outputPanel>
+    </p:dialog>
+
+    <p:confirmDialog header="Message" severity="alert" id="warningMessageDialogId"
+                     widgetVar="warningMessageDialog" width="500">
+        <f:facet name="message">
+            <table border="0" width="450">
+                <tr>
+                    <td align="left">
+                        <h:outputText id="warningMessageDetail" value="" styleClass="ui-dialog-content-warn"/>
+                    </td>
+                </tr>
+            </table>
+        </f:facet>
+        <table border="0" width="100%">
+            <tr>
+                <td align="center">
+                    <p:outputPanel styleClass="grayTheme">
+                        <p:commandButton value="OK" onclick="#{p:widgetVar(':headerForm:warningMessageDialogId')}.hide();" type="button"/>
+                    </p:outputPanel>
+                </td>
+            </tr>
+        </table>
+    </p:confirmDialog>
+
+    <p:dialog header="Response Error" id="errorMessageDialogId" modal="true" resizable="false"
+              widgetVar="errorMessageDialog" width="600" height="200" dynamic="true">
+        <p:messages id="ajaxErrorMsgs" autoUpdate="true" showSummary="true" showDetail="true"/>
+
+        <table width="100%" border="0" cellpadding="2" cellspacing="0">
+            <tr>
+                <td>&#160;</td>
+            </tr>
+
+            <tr>
+                <td>
+                    The following error was encountered:
+                </td>
+            </tr>
+            <tr>
+                <td class="errortext">#{MessageManager.formatMessage('eAdmin.ajax.unexpected.error')}</td>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li>
+                            #{MessageManager.formatMessage('label.login.error.click')} <a
+                                href="mailto:#{MessageManager.formatMessage('label.login.support.mailto')}">#{MessageManager.formatMessage('label.login.error.here')}</a> #{MessageManager.formatMessage('label.login.error.emailSupport')}
+                        </li>
+                        <li>
+                            #{MessageManager.formatMessage('label.login.error.phoneSupport')}
+                            #{MessageManager.formatMessage('label.login.phonecontact')}.
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>&#160;</td>
+            </tr>
+
+            <tr>
+                <td align="center">
+                <p:outputPanel styleClass="grayTheme">
+                    <p:commandButton value="Close" onclick="#{p:widgetVar(':headerForm:errorMessageDialogId')}.hide();" type="button"/>
+                </p:outputPanel>
+                </td>
+            </tr>
+        </table>
+
+    </p:dialog>
+
+    <p:confirmDialog header="Close Page" severity="alert" id="closePageDlgId"
+                     widgetVar="closePageDlg" width="500">
+        <f:facet name="message">
+            <h:outputText value="Data has been changed; if you click on OK, changes will be lost."
+                          styleClass="ui-dialog-content-warn"/>
+        </f:facet>
+        <table border="0" width="40%" align="center">
+            <tr>
+                <td align="center">
+                    <p:outputPanel styleClass="grayTheme">
+                        <p:commandButton value="OK" onclick="baseOnClosePage();" type="button"/>
+                        <p:spacer width="10"/>
+                        <p:commandButton value="Cancel" onclick="cancelClose();" type="button"/>
+                    </p:outputPanel>
+                </td>
+            </tr>
+        </table>
+    </p:confirmDialog>
+
+    <p:confirmDialog header="Confirm Page" severity="alert" id="confirmPageDialogId"
+                     widgetVar="confirmPageDialog" width="500">
+        <f:facet name="message">
+            <h:outputText id="confirmMessageDetail" value="Data has been changed; if you click on OK, changes will be lost."
+                          styleClass="ui-dialog-content-warn"/>
+        </f:facet>
+        <table border="0" width="100%">
+            <tr>
+                <td align="center">
+                    <p:outputPanel styleClass="grayTheme">
+                        <p:commandButton value="OK" onclick="handleOnCompleteConfirm();" type="button"/>
+                        <p:spacer width="10"/>
+                        <p:commandButton value="Cancel" onclick="#{p:widgetVar(':headerForm:confirmPageDialogId')}.hide()" type="button"/>
+                    </p:outputPanel>
+                </td>
+            </tr>
+        </table>
+    </p:confirmDialog>
+</ui:composition>

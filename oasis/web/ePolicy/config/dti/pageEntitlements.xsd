@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:simpleType name="EnabledOrDisabledOrHideOrShow">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Enabled/Disabled"/>
+            <xsd:enumeration value="Disabled/Enabled"/>
+            <xsd:enumeration value="Hide/Show"/>
+            <xsd:enumeration value="Show/Hide"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DefaultEnabledOrDisabledOrHideOrShow">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Enabled"/>
+            <xsd:enumeration value="Disabled"/>
+            <xsd:enumeration value="Hide"/>
+            <xsd:enumeration value="Show"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PageOrRow">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Page"/>
+            <xsd:enumeration value="Row"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:element name="tag">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:string" use="required"/>
+            <xsd:attribute name="indFieldName" type="xsd:string" use="required"/>
+            <xsd:attribute name="indFieldLocation" type="PageOrRow" use="required"/>
+            <xsd:attribute name="gridId" type="xsd:string" use="optional"/>
+            <xsd:attribute name="action" type="EnabledOrDisabledOrHideOrShow" use="required"/>
+            <xsd:attribute name="defaultActionForNoRows" type="DefaultEnabledOrDisabledOrHideOrShow"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="tags">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tag" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="page">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tags" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="pageURI" type="xsd:string" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="pageEntitlement">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="page" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

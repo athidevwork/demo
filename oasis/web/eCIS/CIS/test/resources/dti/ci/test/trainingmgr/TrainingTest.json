@@ -1,0 +1,31 @@
+{
+  "testLoadTrainingList": {
+    "inputParameters": {
+      "entityId": "4233885",
+      "entityType":"P",
+      "entityName":"Arun%2C%20Sanji"
+    },
+    "expected": {
+      "fieldNames": [
+        "educationProfileId",
+        "selectInd",
+        "trainingTypeCode",
+        "trainingTypeCodeShortDesc",
+        "trainingTypeCodeLongDesc",
+        "institutionName",
+        "riskClassCode",
+        "riskClassCodeShortDesc",
+        "riskClassCodeLongDesc",
+        "effectiveFromDate",
+        "effectiveToDate"
+        "policyNo",
+        "entityAttendeeId",
+        "sourceRecordId",
+        "sourceTable",
+        "entityInstitutionId",
+        "trainingpopupInd",
+        "SELECT_IND"
+      ]
+    }
+  }
+}

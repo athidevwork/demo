@@ -1,0 +1,54 @@
+{
+  "IntegrateTest": {
+    "testLoadVendorAddress": {
+      "recordWithValidId":{
+        "entityId": "33861329",
+        "actionClassName":"dti.ci.vendoraddressmgr.struts.MaintainVendorAddressAction"
+      },
+      "recordWithInvalidId": {
+        "entityId": "2",
+        "actionClassName":"dti.ci.vendoraddressmgr.struts.MaintainVendorAddressAction"
+      },
+      "expected": {
+        "expectedFieldsWithAddress": [
+          "addressId",
+          "sourceRecordId",
+          "sourceTableName",
+          "address_addressTypeCode",
+          "address_addressName",
+          "address_addressLine1",
+          "address_addressLine2",
+          "address_addressLine3",
+          "address_city",
+          "address_countyCode",
+          "address_stateCode",
+          "address_zipCode",
+          "address_zipPlusFour",
+          "address_primaryAddressB",
+          "address_usaAddressB",
+          "address_postOfficeAddressB",
+          "address_effectiveFromDate",
+          "address_effectiveToDate",
+          "address_countryCode",
+          "address_legacyDataId",
+          "address_province",
+          "expiredAddressId",
+          "copiedAddressId",
+          "sqlOperation",
+          "address_addressTypeCodeShortDesc",
+          "address_addressTypeCodeLongDesc"
+        ],
+        "expectedFieldsWithoutAddress": [
+          "sourceRecordId",
+          "sourceTableName",
+          "address_postOfficeAddressB",
+          "address_addressTypeCodeShortDesc",
+          "address_addressTypeCodeLongDesc",
+          "address_addressTypeCode",
+          "sqlOperation",
+          "address_effectiveFromDate"
+        ]
+      }
+    }
+  }
+}

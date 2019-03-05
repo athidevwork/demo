@@ -1,0 +1,100 @@
+Module,Location,File Name,Vendor,Type (Open Source or Commecial),License Type / URL,License Type / URL 2,Project URL / Notes
+CIS,\\oasis\web\cis\WEB-INF\lib,axis.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+CIS,\\oasis\web\cis\WEB-INF\lib,axis-ant.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+CIS,\\oasis\web\cis\WEB-INF\lib,commons-discovery-0.2.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+CIS,\\oasis\web\cis\WEB-INF\lib,jaxrpc.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+CIS,\\oasis\web\cis\WEB-INF\lib,saaj.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+CIS,\\oasis\web\cis\WEB-INF\lib,wsdl4j-1.5.1.jar,IBM,Open Source,Common Public License - v 1.0,,http://sourceforge.net/projects/wsdl4j/
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,cecore.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,celib.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,ceplugins.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,cereports.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,cesession.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,commons-lang.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,Version 2.2 - we have newer version on OasisTags
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,CorbaIDL.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,ebus405.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,httpclient-4.2.5.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,httpcore-4.2.4.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,MetafileRenderer.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,rasapp.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,rascore.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,ReportTemplate.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,Serialization.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,URIUtil.jar,"Business Objects, Inc.",Commercial,,,
+CommonServices,\\oasis\web\CommonServices\WEB-INF\lib,webreporting.jar,"Business Objects, Inc.",Commercial,,,
+eAdmin,\\oasis\web\eAdmin\APP-INF\lib,eclipselink-2.6.0.jar,Eclipse.org,Open Source,Eclipse Public License - v 1.0,Eclipse Distribution Licensed,
+eAdmin,\\oasis\web\eAdmin\APP-INF\lib,jersey-spring3-2.23.jar,GlassFish Community,Open Source,CDDL,,
+eAdmin,\\oasis\web\eAdmin\APP-INF\lib,spring-bridge-2.4.0.jar,GlassFish Community,Open Source,CDDL,,
+eFM,\\oasis\web\eFM\APP-INF\lib,jcert.jar,Oracle Corporation,Free,,,http://www.oracle.com/technetwork/java/javase/downloads/index.html 
+eFM,\\oasis\web\eFM\APP-INF\lib,jnet.jar,Oracle Corporation,Free,Oracle Binary Code License Agreement for Java SE ,,
+eFM,\\oasis\web\eFM\APP-INF\lib,jsse.jar,Oracle Corporation,Free,Java SE Platform Products Third Party License Readme Files,,
+eFM,\\oasis\web\eFM\APP-INF\lib,regexp.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+eFM,\\oasis\web\eFM\APP-INF\lib,xml4j.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,http://publib.boulder.ibm.com/infocenter/wsdoc400/v6r0/index.jsp?topic=/com.ibm.websphere.iseries.doc/info/ae/ae/migxml.htm
+ePolicy,\\oasis\web\ePolicy\APP-INF\lib,bcprov-jdk16-146.jar,BouncyCastle.org,Free,The MIT License (MIT),,http://bouncycastle.org/license.html
+ePolicy,\\oasis\web\ePolicy\APP-INF\lib,commons-codec-1.8.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+ePolicy,\\oasis\web\ePolicy\APP-INF\lib,jcert.jar,Oracle Corporation,Free,,,
+ePolicy,\\oasis\web\ePolicy\APP-INF\lib,jnet.jar,Oracle Corporation,Free,,,
+ePolicy,\\oasis\web\ePolicy\APP-INF\lib,jsse.jar,Oracle Corporation,Free,,,
+ePolicy,\\oasis\web\ePolicy\APP-INF\lib,regexp.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+ePolicy,\\oasis\web\ePolicy\APP-INF\lib,xml4j.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,antlr.jar,Contributors,Open Source,The BSD License,,http://www.antlr.org/license.html
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,aopalliance-1.0.0.jar,SpringSource,Free,AOP Alliance API 1.0.0,,http://ebr.springsource.com/repository/app/bundle/version/detail?name=com.springsource.org.aopalliance&version=1.0.0
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,avalon-framework-4.2.0.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,batik-all-1.7.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,http://xmlgraphics.apache.org/batik
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,bsh-core-2.0b4.jar,Pat Niemeyer,Free,SPL and LGPL,,http://www.beanshell.org/license.html
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,cglib-nodep-2.1_3.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons.logging-1.9.1.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons-beanutils.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons-fileupload-1.1.1.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons-io-1.3.1.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons-collections.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons-digester-1.8.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons-fileupload-1.1.1.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons-io-1.3.1.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons-lang3-3.1.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons-logging-1.1.3.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,commons-validator-1.3.1.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,dom4j-1.6.1.jar,MetaStuff Ltd.,Free,MetaStuff License,,http://www.dom4j.org/
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,fop.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,http://xmlgraphics.apache.org/fop
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,glassfish.jstl_1.0.0.0_1-2-2-0.jar,Oracle Corporation,Free,COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)Version 1.1,,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,iText.jar,iText,Free,MPL/LGPL,,http://stackoverflow.com/questions/13515210/difference-between-lowagie-and-itext
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,iText-5.0.2.jar,iText,Free,GNU AFFERO GENERAL PUBLIC LICENSE,,http://itextpdf.com/pricing
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,jakarta-oro.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,v. 1.1 but we think Version 2.0 supperseeds version 1.1
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,javax.faces-2.2.8.jar,Oracle Corporation,Free,COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)Version 1.1,,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,jstl.jar,Oracle Corporation,Free,,,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,omnifaces-1.2.jar,OmniFaces,Free,"Apache License, Version 2.0",,http://omnifaces.org
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,poi-3.7.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,poi-ooxml-3.7-20101029.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,poi-ooxml-schemas-3.7-20101029.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,primefaces-5.1.jar,PrimeTek,Free,"Apache License, Version 2.0",,http://www.primefaces.org/license
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,redmond-1.0.10.jar,PrimeTek,Free,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,serializer-2.7.0.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,http://xml.apache.org/xalan-j/usagepatterns.html
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spellex.jar,Spellex Corporation,Commercial,Unlimited Binary Redistribution,,http://www.spellex.com/
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-aop-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,https://github.com/spring-projects/spring-framework
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-beans-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,http://ebr.springsource.com/repository/app/library/version/detail?name=org.springframework.spring&version=3.0.2.RELEASE
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-context-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-context-support-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-core-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-expression-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-instrument-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-jdbc-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-orm-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-tx-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-web-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,spring-webmvc-4.3.1.RELEASE.jar,SpringSource,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,standard.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,struts-core-1.3.10.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,struts-el-1.3.10.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,struts-extras-1.3.10.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,struts-taglib-1.3.10.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,xalan-2.7.0.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,xdb.jar,Oracle Corporation,Free,OTN License Agreement,,http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,xercesImpl-2.7.1.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,xml-apis-1.3.04.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+,,,www.w3.org,Free,W3C® DOCUMENT LICENSE,,http://www.w3.org/Consortium/Legal/copyright-software-19980720
+,,,David Megginson,Free,SAX2 License,,http://www.megginson.com/SAX/copying.html
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,xml-apis-ext-1.3.04.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+,,,www.w3.org,Free,W3C® DOCUMENT LICENSE,,http://www.w3.org/Consortium/Legal/copyright-software-19980720
+OasisTags,\\oasis\web\OasisTags\src\web\OasisTags\WEB-INF\lib,xmlgraphics-commons-1.4.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\test\lib,ant-junit.jar,The Apache Software Foundation,Open Source,"Apache License, Version 2.0",,
+OasisTags,\\oasis\web\OasisTags\test\lib,junit.jar,JUnit Contributors,Open Source,Eclipse Public License - v 1.0,,http://junit.org/license.html

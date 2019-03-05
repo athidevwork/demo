@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="RAMS.lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../RAMS/WEB-INF/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../RAMS/WEB-INF/lib" recursive="false" />
+  </library>
+</component>

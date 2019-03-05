@@ -1,0 +1,1684 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+    <form-beans/>
+    <global-exceptions/>
+    <global-forwards>
+        <forward name="error" path="/core/ErrorPage.jsp" redirect="false"/>
+        <forward name="errorpopup" path="/core/ErrorPagePopup.jsp" redirect="false"/>
+        <forward name="erroriframe" path="/core/ErrorPageIFrame.jsp" redirect="false"/>
+        <forward name="logout" path="/core/logout.jsp" redirect="false"/>
+        <forward name="closePage" path="/pmcore/closePage.jsp" redirect="false"/>
+
+        <forward name="loadPolicyFailure" path="/policymgr/findPolicy.do?process=displaySearchCriteria"
+                 redirect="false"/>
+        <forward name="invokeValidation" path="/transactionmgr/validateTransaction.do?process=validateTransaction"
+                 redirect="false"/>
+        <forward name="invokeReviewDuplicate" path="/policymgr/reviewduplicatemgr/maintainReviewDuplicate.do?process=display"
+                 redirect="false"/>
+        <forward name="invokeValidationReviewDuplicate" path="/policymgr/reviewduplicatemgr/maintainReviewDuplicate.do?process=validateReviewDuplicate"
+                 redirect="false"/>
+        <forward name="invokeValidationNotify" path="/transactionmgr/validateTransaction.do?process=validateNotify"
+                 redirect="false"/>
+        <forward name="invokeValidationNotifyMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeCheckClearingReminderMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeCheckClearingReminder" path="/transactionmgr/checkClearingReminder.do?process=checkClearingReminder" redirect="false"/>
+
+        <forward name="invokeFeeProcessMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeFeeProcess" path="/transactionmgr/processFee.do?process=processFee" redirect="false"/>
+        <forward name="invokeTaxProcessMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeTaxProcess" path="/transactionmgr/processTax.do?process=processTax" redirect="false"/>
+        <forward name="invokeProductNotifyPreRateMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeProductNotifyPreRate" path="/transactionmgr/notify.do?process=notifyPreRate"
+                 redirect="false"/>
+        <forward name="invokeProductNotifyPostRateMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeProductNotifyPostRate" path="/transactionmgr/notify.do?process=notifyPostRate"
+                 redirect="false"/>
+        <forward name="invokeProductNotifyDenyQuote" path="/transactionmgr/notify.do?process=notifyDenyQuote"
+                 redirect="false"/>
+        <forward name="invokeTransferDividend" path="/policymgr/dividendmgr/transferDividend.do?process=loadAllTransferRisk"
+                 redirect="false"/>
+        <forward name="invokeRatingMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeRating" path="/transactionmgr/rateTransaction.do?process=rateTransaction"
+                 redirect="false"/>
+        <forward name="invokeInitializeRating" path="/transactionmgr/rateTransaction.do?process=initializeRating"
+                 redirect="false"/>
+        <forward name="invokeInitializeOutput" path="/transactionmgr/rateTransaction.do?process=initializeOutput"
+                 redirect="false"/>
+        <forward name="invokeAdditionalInsuredInitLongTrans"
+                 path="/policymgr/additionalinsuredmgr/maintainAdditionalInsured.do?process=saveAllAdditionalInsuredInWorkflow"
+                 redirect="false"/>
+        <forward name="invokeCoiInitLongTrans" path="/riskmgr/coimgr/maintainCoi.do?process=saveAllCoiInWorkflow"
+                 redirect="false"/>
+        <forward name="invokeAdditionalInsuredMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeCoiMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeRateTransactionMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="monitorInvokeRatingLongTrans"
+                 path="/workflowmgr/struts/monitorLongRunningTransaction.do?process=monitorLongRunningTransaction"
+                 redirect="false"/>
+        <forward name="monitorSaveCoiHolderLongTrans"
+                 path="/workflowmgr/struts/monitorLongRunningTransaction.do?process=monitorLongRunningTransaction"
+                 redirect="false"/>
+        <forward name="monitorSaveAdditionalInsuredLongTrans"
+                 path="/workflowmgr/struts/monitorLongRunningTransaction.do?process=monitorLongRunningTransaction"
+                 redirect="false"/>
+        <forward name="monitorInvokeSaveEndorsementQuote"
+                 path="/workflowmgr/struts/monitorLongRunningTransaction.do?process=monitorLongRunningTransaction"
+                 redirect="false"/>
+        <forward name="monitorInvokeProcessSaveOfficial"
+                 path="/workflowmgr/struts/monitorLongRunningTransaction.do?process=monitorLongRunningTransaction"
+                 redirect="false"/>
+        <forward name="monitorInvokeProcessSaveWip"
+                 path="/workflowmgr/struts/monitorLongRunningTransaction.do?process=monitorLongRunningTransaction"
+                 redirect="false"/>
+        <forward name="monitorInvokeProcessValidation"
+                 path="/workflowmgr/struts/monitorLongRunningTransaction.do?process=monitorLongRunningTransaction"
+                 redirect="false"/>
+        <forward name="invokePremiumValidationMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokePremiumValidation" path="/transactionmgr/validatePremium.do?process=validatePremium"
+                 redirect="false"/>
+        <forward name="invokeCoverageBillingMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeCoverageBilling" path="/billingmgr/loadCoverageBilling.do?process=loadCoverageBilling"
+                 redirect="false"/>
+        <forward name="invokeProductNotifyMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeRelPolConfirmMsg" path="/transactionmgr/viewRelatedPolicyConfirmMsg.jsp" redirect="false"/>
+        <forward name="invokeRelPolErrorMsg" path="/transactionmgr/viewRelatedPolicyErrorMsg.jsp" redirect="false"/>
+        <forward name="invokeLockedPolicyMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeProductNotify" path="/transactionmgr/notify.do?process=notifyOfficial" redirect="false"/>
+        <forward name="invokeOpenClaimsValidationMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeOpenClaimsValidation"
+                 path="/transactionmgr/validateOpenClaims.do?process=validateOpenClaims" redirect="false"/>
+        <forward name="invokeViewRelatedPoliciesMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeValidateLockedRelPolicyProcess"
+                 path="/transactionmgr/viewRelatedPolicy.do?process=validateLockedRelatedPolicy" redirect="false"/>
+        <forward name="invokeDenyQuoteMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="captureDenyData"
+                 path="/policymgr/denyQuote.do?process=captureDenyData" redirect="false"/>
+
+        <forward name="invokeProcessSaveOfficialMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeProcessSaveOfficial" path="/transactionmgr/saveOfficial.do?process=processSaveOfficial"
+                 redirect="false"/>
+        <forward name="invokeSaveWipMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeSaveWipProcess" path="/transactionmgr/saveWip.do?process=processSaveWip"
+                 redirect="false"/>
+        <forward name="exitFromInvokeSaveWipProcess" path="/transactionmgr/saveWip.do?process=exitFromInvokeSaveWipProcess"
+                 redirect="false"/>
+        <forward name="invokeProcessSaveEndorsementQuoteMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeProcessSaveEndorsementQuote"
+                 path="/transactionmgr/saveAsEndorsementQuote.do?process=processSaveAsEndorsementQuote"
+                 redirect="false"/>
+        <forward name="exitSaveEndorsementQuote"
+                 path="/transactionmgr/saveAsEndorsementQuote.do?process=exitSaveAsEndorsementQuote" redirect="false"/>
+        <forward name="exitMonitorInvokeSaveEndorsementQuote"
+                 path="/transactionmgr/saveAsEndorsementQuote.do?process=exitMonitorInvokeSaveEndorsementQuote" redirect="false"/>
+        <forward name="invokeSaveCoiHolderMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeProcessSaveTailOfficial" path="/transactionmgr/saveOfficial.do?process=processSaveOfficial"
+                 redirect="false"/>
+        <forward name="invokeBillingValidationMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeBillingValidation" path="/transactionmgr/validateBillingRelation.do" redirect="false"/>
+        <forward name="invokeTailDeltaValidationMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeTailDeltaValidation" path="/tailmgr/maintainTail.do?process=validateTailDelta"
+                 redirect="false"/>
+        <forward name="invokePmFmDiscrepancy" path="/transactionmgr/viewPmFmDiscrepancy.do?process=loadAllPmFmDiscrepancy"
+                 redirect="false"/>
+        <forward name="invokeRelatedPolicySaveError"
+                 path="/transactionmgr/viewRelatedPolicyError.do?process=viewRelatedPolicyError" redirect="false"/>
+        <forward name="invokeMiniTailMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeMiniTail"
+                 path="/coveragemgr/minitailmgr/processMinitail.do?process=loadAllMinitail" redirect="false"/>
+        <forward name="invokeFreeMiniTailMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeFreeMiniTail"
+                 path="/coveragemgr/minitailmgr/viewFreeMiniTail.do?process=loadAllFreeMiniTail" redirect="false"/>
+        <forward name="exitWorkflow" path="/core/workflowExit.jsp" redirect="false"/>
+        <forward name="exitWorkflowAndRefreshWithNewTerm" path="/transactionmgr/closePageAndRefreshWithNewTerm.jsp" redirect="false"/>
+        <forward name="exitWorkflowWithError" path="/transactionmgr/saveOfficial.do?process=exitWorkflowWithError"
+                 redirect="false"/>
+        <forward name="exitWorkflowWithAmalgamateConfirm" path="/transactionmgr/saveOfficial.do?process=exitWorkflowWithAmalgamateConfirm"
+                 redirect="false"/>
+        <forward name="exitWorkflowAndUnlockPolicy"
+                 path="/transactionmgr/maintainEndorsementQuote.do?process=exitWorkflowAndUnlockPolicy"
+                 redirect="false"/>
+        <forward name="invokeViewValidationError"
+                 path="/transactionmgr/viewValidationError.do?process=loadAllValidationError" redirect="false"/>
+
+        <!--for default ibnr workflow-->
+        <forward name="invokeDefaultIbnrDetailNotifyMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeDefaultIbnrDetailNotifyProcess" path="/riskmgr/ibnrriskmgr/ibnrNotify.do" redirect="false"/>
+        <forward name="invokeViewAssociatedRiskMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeViewAssociatedRisk" path="/riskmgr/ibnrriskmgr/selectAssociatedRisk.do?process=loadAllAssociatedRiskType" redirect="false"/>
+        <forward name="invokeViewIbnrInactiveRiskMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeViewIbnrInactiveRisk" path="/riskmgr/ibnrriskmgr/maintainIbnrRisk.do?process=loadAllIbnrRisk" redirect="false"/>
+        
+        <!--for view tail workflow-->
+        <forward name="invokeViewTailProcessMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeViewTailProcess" path="/tailmgr/maintainTail.do?process=loadAllTail"
+                 redirect="false"/>
+        <!--view related policy workflow-->
+        <forward name="invokeViewRelPolicyProcess"
+                 path="/transactionmgr/viewRelatedPolicy.do?process=loadAllRelatedPolicy"
+                 redirect="false"/>
+        <forward name="invokeValidationMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <!-- For apply endorsement quote -->
+        <forward name="invokeLockPolicyMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeLockPolicy"
+                 path="/transactionmgr/maintainEndorsementQuote.do?process=lockPolicy"
+                 redirect="false"/>
+        <forward name="invokeApplyEndorsementQuoteMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeApplyEndorsementQuote"
+                 path="/transactionmgr/maintainEndorsementQuote.do?process=processApplyEndorsementQuote"
+                 redirect="false"/>
+
+        <!-- For accept short term policy workflow -->
+        <forward name="invokeAcceptShortTermPolicyMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeAcceptShortTermPolicy" path="/transactionmgr/shorttermpolicymgr/shortTermPolicyAction.do?process=performAcceptPolicy" redirect="false"/>
+
+        <!-- For multi cancellation workflow -->
+        <forward name="invokeViewTailMsgForMultiCancel" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="processNextCancelTransactionMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        <forward name="processNextCancelTransaction"
+                 path="/transactionmgr/cancelprocessmgr/viewMultiCancelConfirmation.do?process=processNextCancelTransaction"
+                 redirect="false"/>
+
+        <!-- For rerate workflow -->
+        <forward name="invokeReRateMsg" path="/workflowmgr/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeReRate" path="/policymgr/massReRate.do?process=performReRateOnDemand"
+                 redirect="false"/>
+        <forward name="invokeReRateReportMsg" path="/workflowmgr/workflowProcessing.jsp" redirect="false"/>
+        <forward name="invokeReRateReport" path="/policymgr/massReRate.do?process=loadAllReRateResult" redirect="false"/>
+
+        <!-- view premium workflow -->
+        <forward name="invokeViewPremiumProcess"
+                 path="/policymgr/premiummgr/viewPremium.do?process=loadAllPremium"
+                 redirect="false"/>
+        <!-- view premium workflow -->
+        <forward name="invokeMaintainQuoteTransfer"
+                 path="/quotemgr/maintainQuoteTransfer.do?process=loadQuoteTransfer"
+                 redirect="false"/>
+        
+    </global-forwards>
+    <action-mappings>
+        <action path="/core/log/maintainJavascriptLog" type="dti.oasis.log.MaintainJavascriptLogAction"
+                parameter="process" scope="request">
+        </action>
+
+        <action path="/core/maintainStrutsToken"
+                type="dti.pm.core.struts.MaintainStrutsToken" parameter="process" scope="request">
+        </action>
+
+        <action path="/transactionmgr/renewalprocessmgr/renewPolicy"
+                type="dti.pm.transactionmgr.renewalprocessmgr.struts.RenewPolicyAction" parameter="process"
+                scope="request">
+            <forward name="maintainPolicy" path="/billingmgr/maintainBilling.do"/>
+            <forward name="loadRenewTermExpiration" path="/transactionmgr/renewalprocessmgr/renewalTermExpiration.jsp"/>
+        </action>
+
+        <action path="/transactionmgr/cancelprocessmgr/performCancellation"
+                type="dti.pm.transactionmgr.cancelprocessmgr.struts.PerformCancellationAction" parameter="process"
+                scope="request">
+            <forward name="showCancellationPage" path="/transactionmgr/cancelprocessmgr/captureCancellationDetail.jsp"/>
+        </action>
+
+        <action path="/transactionmgr/cancelprocessmgr/futureCancellationDetail"
+                type="dti.pm.transactionmgr.cancelprocessmgr.struts.FutureCancellationDetailAction" parameter="process"
+                scope="request">
+            <forward name="showFutureCancellationDetailsPage" path="/transactionmgr/cancelprocessmgr/futureCancellationDetail.jsp"/>
+        </action>
+
+        <action path="/transactionmgr/cancelprocessmgr/performMultiCancellation"
+                type="dti.pm.transactionmgr.cancelprocessmgr.struts.PerformMultiCancellationAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/transactionmgr/cancelprocessmgr/performMultiCancellation.jsp"/>
+            <forward name="loadAllCancelItem"
+                     path="/transactionmgr/cancelprocessmgr/performMultiCancellation.do?process=loadAllCancelableItem"
+                     redirect="false"/>
+            <forward name="viewMultiCancelInfo"
+                     path="/transactionmgr/cancelprocessmgr/ViewMultiCancelInfo.do?process=loadAllMultiCancelableInfo"
+                     redirect="false"/>
+            <forward name="closePage" path="/transactionmgr/cancelprocessmgr/closeMultiCancelPage.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/cancelprocessmgr/ViewMultiCancelInfo"
+                type="dti.pm.transactionmgr.cancelprocessmgr.struts.ViewMultiCancelInfoAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/transactionmgr/cancelprocessmgr/viewMultiCancelInfo.jsp"/>
+        </action>
+
+        <action path="/transactionmgr/cancelprocessmgr/viewMultiCancelConfirmation"
+                type="dti.pm.transactionmgr.cancelprocessmgr.struts.ViewMultiCancelConfirmationAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/transactionmgr/cancelprocessmgr/viewMultiCancelConfirmation.jsp"/>
+        </action>
+
+        <action path="/policymgr/reRateResult"
+                type="dti.pm.policymgr.struts.ReRateResultAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/reRateResult.jsp"/>
+            <forward name="saveResult" path="/policymgr/findPolicy.do?process=findAllPolicy" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/loadReRateOptions"
+                type="dti.pm.policymgr.struts.LoadReRateOptionsAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/loadReRateOptions.jsp"/>
+        </action>
+
+        <action path="/policymgr/massReRate"
+                type="dti.pm.policymgr.struts.MassReRateAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/reRateResult.jsp"/>
+        </action>
+
+        <action path="/policymgr/massReRateDetail"
+                type="dti.pm.policymgr.struts.MassReRateDetailAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/reRateResultDetail.jsp"/>
+        </action>
+
+        <action path="/transactionmgr/cancelprocessmgr/purgePolicy"
+                type="dti.pm.transactionmgr.cancelprocessmgr.struts.PurgePolicyAction" parameter="process"
+                scope="request">
+        </action>
+
+        <action path="/transactionmgr/cancelprocessmgr/flatCancelPolicy"
+                type="dti.pm.transactionmgr.cancelprocessmgr.struts.FlatCancelPolicyAction" parameter="process"
+                scope="request">
+        </action>
+
+        <action path="/renewalquestionnairemgr/generateRenewalQuestionnaire"
+                type="dti.pm.renewalquestionnairemgr.struts.GenerateRenewalQustionnaireAction" parameter="process"
+                scope="request">
+            <forward name="loadRenewalQuestion" path="/renewalquestionnairemgr/generateRenewalQuestionnaire.jsp"/>
+            <forward name="searchRenewalQuestion" path="/renewalquestionnairemgr/generateRenewalQuestionnaire.do?process=loadAllRenewalQuestionnaire" redirect="false"/>
+        </action>
+        <action path="/renewalquestionnairemgr/generateRenewalQuestionnaireInfo"
+                type="dti.pm.renewalquestionnairemgr.struts.GenerateRenewalQustionnaireInformationAction" parameter="process"
+                scope="request">
+            <forward name="loadAllRenewalQuestionnaireInformation" path="/renewalquestionnairemgr/generateRenewalQuestionnaireInformation.jsp" />
+        </action>
+        
+        <action path="/renewalquestionnairemgr/renewalQuestionnaireMailingEvent"
+                type="dti.pm.renewalquestionnairemgr.struts.RenewalQuestionnaireMailingEventAction" parameter="process"
+                scope="request">
+            <forward name="loadAllMailingEvent" path="/renewalquestionnairemgr/renewalQuestionnaireMailingEvent.jsp"/>
+            <forward name="searchMailingEvent" path="/renewalquestionnairemgr/renewalQuestionnaireMailingEvent.do?process=loadAllMailingEvent"
+                     redirect="false"/>
+        </action>
+
+        <action path="/renewalquestionnairemgr/renewalMailingEventQuestionnaire"
+                type="dti.pm.renewalquestionnairemgr.struts.RenewalMailingEventQuestionnaireAction" parameter="process"
+                scope="request">
+            <forward name="loadAllQuestionnaire" path="/renewalquestionnairemgr/renewalMailingEventQuestionnaire.jsp"/>
+        </action>
+
+        <action path="/renewalquestionnairemgr/addRenewalQuestionnaire"
+                type="dti.pm.renewalquestionnairemgr.struts.AddRenewalQuestionnaireAction" parameter="process"
+                scope="request">
+            <forward name="addRenewalQuestion" path="/renewalquestionnairemgr/addRenewalQuestionnaire.jsp"/>
+        </action>
+
+        <action path="/renewalquestionnairemgr/renewalMailingEventPrint"
+                type="dti.pm.renewalquestionnairemgr.struts.RenewalMailingEventPrintAction" parameter="process"
+                scope="request">
+            <forward name="performPrint" path="/renewalquestionnairemgr/printOptions.jsp"/>
+        </action>
+
+        <action path="/renewalquestionnairemgr/captureResponseError"
+                type="dti.pm.renewalquestionnairemgr.struts.CaptureResponseErrorAction" parameter="process"
+                scope="request">
+            <forward name="responseError" path="/renewalquestionnairemgr/captureResponseError.jsp"/>
+        </action>
+
+        <action path="/renewalquestionnairemgr/renewalQuestionnaireResponse"
+                type="dti.pm.renewalquestionnairemgr.struts.RenewalQuestionnaireResponseAction" parameter="process"
+                scope="request">
+            <forward name="loadQuestionnaireResponse" path="/renewalquestionnairemgr/renewalQuestionnaireResponse.jsp"/>
+            <forward name="loadQuestionnaireResponsePopup" path="/renewalquestionnairemgr/renewalQuestionnaireResponsePopup.jsp"/>
+            <forward name="searchResponseDate" path="/renewalquestionnairemgr/renewalQuestionnaireResponse.do?process=loadAllQuestionnaireResponse"/>
+            <forward name="reopenResponse" path="/renewalquestionnairemgr/renewalQuestionnaireResponse.do?process=loadAllQuestionnaireResponse"/>
+            <forward name="saveResponse" path="/renewalquestionnairemgr/renewalQuestionnaireResponse.do?process=loadAllQuestionnaireResponse"/>
+        </action>
+
+         <action path="/renewalquestionnairemgr/renewalQuestionnaireResponseSave"
+                type="dti.pm.renewalquestionnairemgr.struts.RenewalQuestionnaireResponseSaveAction" parameter="process"
+                scope="request">
+            <forward name="loadOption" path="/renewalquestionnairemgr/renewalQuestionnaireResponseSave.jsp"/>
+        </action>
+
+        <action path="/schedulemgr/maintainSchedule" type="dti.pm.schedulemgr.struts.MaintainScheduleAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/schedulemgr/maintainSchedule.jsp"/>
+            <forward name="saveResult" path="/schedulemgr/maintainSchedule.do?process=loadAllSchedule"
+                     redirect="false"/>
+        </action>
+
+        <action path="/tailmgr/maintainTail" type="dti.pm.tailmgr.struts.MaintainTailAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/tailmgr/maintainTail.jsp"/>
+            <forward name="loadAllTail" path="/tailmgr/maintainTail.do?process=loadAllTail"/>
+            <forward name="viewValidationErrors" path="/tailmgr/showTailErrors.do" redirect="false"/>
+        </action>
+        <action path="/tailmgr/selectTail" type="dti.pm.tailmgr.struts.SelectTailAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/tailmgr/selectTail.jsp"/>
+        </action>
+        <action path="/tailmgr/showTailErrors" type="dti.pm.tailmgr.struts.ShowTailValidationErrorAction"
+                parameter="process"
+                scope="request">
+            <forward name="viewValidationErrors" path="/tailmgr/tailValidateErrors.jsp"/>
+            <forward name="loadAllTail" path="/tailmgr/maintainTail.do?process=loadAllTail"/>
+        </action>
+        <action path="/tailmgr/captureFinancePercent" type="dti.pm.tailmgr.struts.CaptureFinancePercentAction"
+                parameter="process"
+                scope="request">
+            <forward name="success" path="/tailmgr/captureFinancePercent.jsp"/>
+        </action>
+
+
+        <action path="/policymgr/denyQuote" type="dti.pm.policymgr.struts.DenyQuoteAction" parameter="process"
+                scope="request">
+            <forward name="loadDenyData" path="/policymgr/denyQuote.jsp"/>
+        </action>
+
+        <action path="/policymgr/maintainQuote" type="dti.pm.policymgr.struts.MaintainQuoteAction" parameter="process"
+                scope="request">
+            <forward name="copyResult" path="/policymgr/maintainPolicy.do?process=loadPolicyDetail" redirect="false"/>
+            <forward name="reactiveResult" path="/policymgr/maintainPolicy.do?process=loadPolicyDetail"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/processQuoteStatus" type="dti.pm.policymgr.struts.ProcessQuoteStatusAction"
+                parameter="process" scope="request">
+            <forward name="loadStatusResult" path="/policymgr/processQuoteStatus.jsp"/>
+            <forward name="saveStatusResult" path="/policymgr/processQuoteStatus.do?process=loadAllQuoteStatus"
+                redirect="false"/>
+        </action>
+
+        <action path="/session/pageViewState/cleanUp" type="dti.oasis.session.pageviewstate.struts.PageViewStateAction" 
+                parameter="process"/>
+
+        <action path="/codelookupmgr/loadListOfValues" type="dti.oasis.codelookupmgr.struts.CodeLookupAction"
+                parameter="process"/>
+
+        <action path="/home" type="dti.pm.home.struts.HomeAction" parameter="process">
+            <forward name="success" path="/home.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/findPolicy" type="dti.pm.policymgr.struts.FindPolicyAction" parameter="process"
+                scope="request">
+            <forward name="success" path="/policymgr/findPolicy.jsp" redirect="false"/>
+            <forward name="globalSearchSuccess" path="/policymgr/maintainPolicy.do?process=loadPolicyDetail"
+                     redirect="true"/>
+            <forward name="loadSearchCriteria" path="/policymgr/findPolicy.do?process=findAllPolicy" redirect="false"/>
+            <forward name="loadInitialPage" path="/policymgr/findPolicy.do?process=displaySearchCriteria"
+                     redirect="true"/>
+        </action>
+
+        <action path="/policymgr/userviewmgr/manageAddtionalSql"
+                type="dti.pm.policymgr.userviewmgr.struts.ManageAdditionalSqlAction" parameter="process"
+                scope="request">
+            <forward name="success" path="/policymgr/userviewmgr/manageAdditionalSql.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/maintainPolicy" type="dti.pm.policymgr.struts.MaintainPolicyAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/maintainPolicy.jsp" redirect="false"/>
+            <forward name="saveResult" path="/policymgr/maintainPolicy.do?process=loadPolicyDetail" redirect="false"/>
+            <forward name="saveResultRedirect" path="/policymgr/maintainPolicy.do?process=loadPolicyDetail" redirect="true"/>
+        </action>
+
+        <action path="/riskmgr/maintainRisk" type="dti.pm.riskmgr.struts.MaintainRiskAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/maintainRisk.jsp" redirect="false"/>
+            <forward name="saveResult" path="/riskmgr/maintainRisk.do?process=loadAllRisk" redirect="false"/>
+        </action>
+        <action path="/riskmgr/findRisk" type="dti.pm.riskmgr.struts.FindRiskAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/findRisk.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/viewRiskSummary" type="dti.pm.riskmgr.struts.ViewRiskSummaryAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/viewRiskSummary.jsp" redirect="false"/>
+            <forward name="saveResult" path="/riskmgr/viewRiskSummary.do?process=loadAllRiskSummaryOrDetail" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/maintainRiskDetail" type="dti.pm.riskmgr.struts.MaintainRiskDetailAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/maintainRiskDetail.jsp" redirect="false"/>
+            <forward name="saveResult" path="/riskmgr/maintainRiskDetail.do?process=loadAllRiskSummaryOrDetail" redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/maintainCoverage" type="dti.pm.coveragemgr.struts.MaintainCoverageAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/coveragemgr/maintainCoverage.jsp" redirect="false"/>
+            <forward name="saveResult" path="/coveragemgr/maintainCoverage.do?process=loadAllCoverage"
+                     redirect="false"/>
+        <forward name="reload" path="/coveragemgr/maintainCoverage.do?process=loadAllCoverage"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/maintainExcessCoverage" type="dti.pm.coveragemgr.struts.MaintainExcessCoverageAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/coveragemgr/maintainExcessCoverage.jsp" redirect="false"/>
+            <forward name="saveResult" path="/coveragemgr/maintainExcessCoverage.do?process=loadAllCarrier"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coverageclassmgr/maintainCoverageClass"
+                type="dti.pm.coverageclassmgr.struts.MaintainCoverageClassAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/coverageclassmgr/maintainCoverageClass.jsp" redirect="false"/>
+            <forward name="saveResult" path="/coverageclassmgr/maintainCoverageClass.do?process=loadAllCoverageClass"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/minitailmgr/processMinitail"
+                type="dti.pm.coveragemgr.minitailmgr.struts.ProcessMinitailAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/coveragemgr/minitailmgr/processMinitail.jsp" redirect="false"/>
+            <forward name="saveResult" path="/coveragemgr/minitailmgr/processMinitail.do?process=loadAllMinitail"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/minitailmgr/viewFreeMiniTail"
+                type="dti.pm.coveragemgr.minitailmgr.struts.ViewFreeMiniTailAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/coveragemgr/minitailmgr/viewFreeMiniTail.jsp" redirect="false"/>
+        </action>
+
+        <action path="/billingmgr/maintainBilling" type="dti.pm.billingmgr.struts.MaintainBillingAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/billingmgr/maintainBilling.jsp" redirect="false"/>
+            <forward name="saveResult" path="/billingmgr/maintainBilling.do?process=setupBilling" redirect="false"/>
+        </action>
+
+        <action path="/getOasisGridData" type="dti.oasis.tags.ogcachemgr.struts.MaintainCacheAction" scope="request">
+        </action>
+
+
+        <action path="/policymgr/underwritermgr/maintainUnderwriter"
+                type="dti.pm.policymgr.underwritermgr.struts.MaintainUnderwriterAction" parameter="process"
+                scope="request">
+            <forward name="loadUwResult" path="/policymgr/underwritermgr/maintainUnderwriter.jsp" redirect="false"/>
+            <forward name="saveUwResult"
+                     path="/policymgr/underwritermgr/maintainUnderwriter.do?process=loadTermUnderwriters"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/underwritermgr/addUnderwriter"
+                type="dti.pm.policymgr.underwritermgr.struts.AddUnderwriterAction" parameter="process"
+                scope="request">
+            <forward name="display" path="/policymgr/underwritermgr/addUnderwriter.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/underwritermgr/transferUnderwriter"
+                type="dti.pm.policymgr.underwritermgr.struts.TransferUnderwriterAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/underwritermgr/transferUnderwriter.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/underwritermgr/viewTransUWErrorMsg"
+                type="dti.pm.policymgr.underwritermgr.struts.ViewTransUWErrorMsgAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/underwritermgr/viewErrorMsg.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/captureTransactionDetails"
+                type="dti.pm.transactionmgr.struts.CaptureTransactionDetailsAction" parameter="process" scope="request">
+            <forward name="display" path="/transactionmgr/maintainTransaction.do?process=display" redirect="false"/>
+            <forward name="success" path="/transactionmgr/captureTransactionDetails.jsp" redirect="false"/>
+            <forward name="refresh" path="/transactionmgr/maintainTransaction.do?process=display" redirect="false"/>
+        </action>
+
+
+        <action path="/transactionmgr/captureTransactionQuoteDetails"
+                type="dti.pm.transactionmgr.struts.CaptureTransactionQuoteDetailsAction" parameter="process"
+                scope="request">
+            <forward name="display" path="/transactionmgr/maintainTransaction.do?process=display" redirect="false"/>
+            <forward name="success" path="/transactionmgr/captureTransactionQuoteDetails.jsp" redirect="false"/>
+            <forward name="refresh" path="/transactionmgr/maintainTransaction.do?process=display" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/endorseTransaction"
+                type="dti.pm.transactionmgr.struts.CreateEndorsementTransactionAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/transactionmgr/createEndorsementTransaction.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/deleteWIPTransaction"
+                type="dti.pm.transactionmgr.struts.DeleteWIPTransactionAction" parameter="process" scope="request">
+        </action>
+
+        <action path="/policymgr/createPolicy" type="dti.pm.policymgr.struts.CreatePolicyAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/createPolicy.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/selectQuoteRiskCoverage" type="dti.pm.policymgr.struts.SelectQuoteRiskCovgAction"
+                parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/selectQuoteRiskCovg.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/viewRelatedPolicy" type="dti.pm.transactionmgr.struts.ViewRelatedPolicyAction"
+                parameter="process"
+                scope="request">
+            <forward name="loadRelatedPolicyResult" path="/transactionmgr/viewRelatedPolicy.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/extendCancelTerm" type="dti.pm.transactionmgr.struts.ExtendCancelTermAction"
+                parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/transactionmgr/extendCancelTerm.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/transactionmgr/extendCancelTerm.do?process=getInitialValuesForExtendCancelTerm"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/selectProductCoverage"
+                type="dti.pm.coveragemgr.struts.SelectProductCoverageAction" parameter="process" scope="request">
+            <forward name="success" path="/coveragemgr/selectProductCoverage.jsp" redirect="false"/>
+        </action>
+
+        <action path="/coverageclassmgr/selectProductCoverageClass"
+                type="dti.pm.coverageclassmgr.struts.SelectProductCoverageClassAction" parameter="process"
+                scope="request">
+            <forward name="success" path="/coverageclassmgr/selectProductCoverageClass.jsp" redirect="false"/>
+        </action>
+
+        <action path="/acctlookupmgr/lookupAccount" type="dti.pm.acctlookupmgr.struts.LookupAccountAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/acctlookupmgr/lookupAccount.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/selectRiskType" type="dti.pm.riskmgr.struts.SelectRiskTypeAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/selectRiskType.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/selectLocation" type="dti.pm.riskmgr.struts.SelectLocationAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/selectLocation.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/selectExistingRisk" type="dti.pm.riskmgr.struts.SelectExistingRiskAction"
+                parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/selectExistingRisk.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/selectAffiliation" type="dti.pm.riskmgr.struts.SelectAffiliationAction"
+                parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/selectAffiliation.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/selectCoi" type="dti.pm.riskmgr.struts.SelectCoiAction"
+                parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/selectCoiHolder.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/selectSchedule" type="dti.pm.riskmgr.struts.SelectScheduleAction"
+                parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/selectSchedule.jsp" redirect="false"/>
+        </action>
+
+        <action path="/entitymgr/lookupEntity" type="dti.pm.entitymgr.struts.LookupEntityAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/entitymgr/lookupEntity.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/loadSaveOptions" type="dti.pm.transactionmgr.struts.LoadSaveOptionsAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/loadSaveOptions.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/specialhandlingmgr/maintainSpecialHandling"
+                type="dti.pm.policymgr.specialhandlingmgr.struts.MaintainSpecialHandlingAction" parameter="process"
+                scope="request">
+            <forward name="loadShResult" path="/policymgr/specialhandlingmgr/maintainSpecialHandling.jsp"
+                     redirect="false"/>
+            <forward name="saveShResult"
+                     path="/policymgr/specialhandlingmgr/maintainSpecialHandling.do?process=loadAllSpecialHandlings"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/reinsurancemgr/maintainReinsurance"
+                type="dti.pm.policymgr.reinsurancemgr.struts.MaintainReinsuranceAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/reinsurancemgr/maintainReinsurance.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/reinsurancemgr/maintainReinsurance.do?process=loadAllReinsurance"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/limitsharingmgr/maintainLimitSharing"
+                type="dti.pm.policymgr.limitsharingmgr.struts.MaintainLimitSharingAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/limitsharingmgr/maintainLimitSharing.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/limitsharingmgr/maintainLimitSharing.do?process=loadAllLimitSharing"
+                     redirect="false"/>
+            <forward name="loadSeparateLimit" path="/policymgr/limitsharingmgr/separateLimits.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/limitsharingmgr/selectSharedDetail"
+                type="dti.pm.policymgr.limitsharingmgr.struts.SelectSharedDetailAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/limitsharingmgr/selectSharedDetail.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/premiumadjustmentprocessmgr/maintainPremiumAdjustment"
+                type="dti.pm.transactionmgr.premiumadjustmentprocessmgr.struts.MaintainPremiumAdjustmentAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/transactionmgr/premiumadjustmentprocessmgr/maintainPremiumAdjustment.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/mailingmgr/maintainProductMailing"
+                type="dti.pm.policymgr.mailingmgr.struts.MaintainProductMailingAction" parameter="process"
+                scope="request">
+            <forward name="loadProductMailing" path="/policymgr/mailingmgr/maintainProductMailing.jsp"
+                     redirect="false"/>
+            <forward name="saveProductMailing"
+                     path="/policymgr/mailingmgr/maintainProductMailing.do?process=loadAllProductMailing"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/mailingmgr/maintainPolicyMailing"
+                type="dti.pm.policymgr.mailingmgr.struts.MaintainPolicyMailingAction" parameter="process"
+                scope="request">
+            <forward name="loadResultForPopUp" path="/policymgr/mailingmgr/maintainPolicyMailingForPopup.jsp"
+                     redirect="false"/>
+            <forward name="loadResultForMainMenu" path="/policymgr/mailingmgr/maintainPolicyMailingForMainMenu.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/mailingmgr/maintainPolicyMailing.do?process=loadAllPolicyMailing"
+                     redirect="false"/>
+            <forward name="createResult"
+                     path="/policymgr/mailingmgr/maintainPolicyMailing.do?process=loadAllPolicyMailing"
+                     redirect="true"/>
+            <forward name="processMsg" path="/policymgr/mailingmgr/mailingEventProcessing.jsp"
+                     redirect="false"/>
+            <forward name="generateResult"
+                     path="/policymgr/mailingmgr/loadMailingError.do?process=loadAllMailingGenerationError"
+                     redirect="false"/>
+            <forward name="loadPastMailingPolicy"
+                     path="/policymgr/mailingmgr/selectPastMailing.do?process=loadAllPastMailing"
+                     redirect="false"/>
+            <forward name="reprintResult" path="/policymgr/mailingmgr/result.jsp"
+                     redirect="false"/>
+            <forward name="loadMailingRecipient" path="/policymgr/mailingmgr/mailingRecipient.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/mailingmgr/selectMailingType"
+                type="dti.pm.policymgr.mailingmgr.struts.SelectMailingTypeAction" parameter="process" scope="request">
+            <forward name="selectMailingType" path="/policymgr/mailingmgr/selectMailingType.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/mailingmgr/selectPastMailing"
+                type="dti.pm.policymgr.mailingmgr.struts.SelectPastMailingAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/mailingmgr/selectPastMailing.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/mailingmgr/loadMailingError"
+                type="dti.pm.policymgr.mailingmgr.struts.LoadMailingErrorAction" parameter="process"
+                scope="request">
+            <forward name="mailingError" path="/policymgr/mailingmgr/mailingError.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/additionalinsuredmgr/maintainAdditionalInsured"
+                type="dti.pm.policymgr.additionalinsuredmgr.struts.MaintainAdditionalInsuredAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/additionalinsuredmgr/maintainAdditionalInsured.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/additionalinsuredmgr/maintainAdditionalInsured.do?process=loadAllAdditionalInsured"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/underlyingpolicymgr/maintainUnderlyingPolicy"
+                type="dti.pm.policymgr.underlyingpolicymgr.struts.MaintainUnderlyingPolicyAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/underlyingpolicymgr/maintainUnderlyingPolicy.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/underlyingpolicymgr/maintainUnderlyingPolicy.do?process=loadAllUnderlyingPolicy"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/underlyingpolicymgr/selectActivePolicy"
+                type="dti.pm.policymgr.underlyingpolicymgr.struts.SelectActivePolicyAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/underlyingpolicymgr/selectActivePolicy.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/vlcoveragemgr/maintainVLCoverage"
+                type="dti.pm.coveragemgr.vlcoveragemgr.struts.MaintainVLCoverageAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/coveragemgr/vlcoveragemgr/maintainVLCoverage.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/coveragemgr/vlcoveragemgr/maintainVLCoverage.do?process=loadAllVLRisk"
+                     redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/empphysmgr/maintainEmployedPhysician"
+                type="dti.pm.riskmgr.empphysmgr.struts.MaintainEmployedPhysicianAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/empphysmgr/maintainEmployedPhysician.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/riskmgr/empphysmgr/maintainEmployedPhysician.do?process=loadAllEmployedPhysician"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/prioractmgr/maintainPriorActAction"
+                type="dti.pm.coveragemgr.prioractmgr.struts.MaintainPriorActAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/coveragemgr/prioractmgr/maintainPriorActs.jsp"
+                     redirect="false"/>
+            <forward name="saveResult" path="/coveragemgr/prioractmgr/maintainPriorActAction.do?process=loadAllPriorAct"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/tailquotemgr/maintainTailQuote"
+                type="dti.pm.policymgr.tailquotemgr.struts.MaintainTailQuoteAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/tailquotemgr/maintainTailQuoteTransaction.jsp"
+                     redirect="false"/>
+            <forward name="loadTailQuoteResult" path="/policymgr/tailquotemgr/maintainTailQuote.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/tailquotemgr/maintainTailQuote.do?process=loadAllTailQuoteTransaction"
+                     redirect="false"/>
+            <forward name="saveTailQuoteResult"
+                     path="/policymgr/tailquotemgr/maintainTailQuote.do?process=loadAllTailQuote"
+                     redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/performRiskCopyAll"
+                type="dti.pm.riskmgr.struts.PerformRiskCopyAllAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/performRiskCopyAll.jsp"
+                     redirect="false"/>
+            <forward name="copyResult" path="/riskmgr/mainRiskCopy.do?process=loadAllCopyRisk"
+                     redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/maintainRetroDate"
+                type="dti.pm.riskmgr.struts.MaintainRetroDateAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/maintainRetroDate.jsp"
+                     redirect="false"/>
+            <forward name="saveResult" path="/riskmgr/maintainRetroDate.do?process=loadAllNewCopiedCMCoverage"
+                     redirect="false"/>
+        </action>
+
+
+        <action path="/riskmgr/empphysmgr/selectFteRisk"
+                type="dti.pm.riskmgr.empphysmgr.struts.SelectFteRiskAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/empphysmgr/selectFteRisk.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/premiummgr/viewPremium"
+                type="dti.pm.policymgr.premiummgr.struts.ViewPremiumAction" parameter="process" scope="request">
+            <forward name="loadPremResult" path="/policymgr/premiummgr/viewPremium.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/premiummgr/viewPremiumAccounting"
+                type="dti.pm.policymgr.premiummgr.struts.ViewPremiumAccountingAction" parameter="process" scope="request">
+            <forward name="loadPage" path="/policymgr/premiummgr/viewPremiumAccounting.jsp" redirect="false"/>
+            <forward name="loadResult" path="/policymgr/premiummgr/viewPremiumAccounting.jsp" redirect="false"/>
+            <forward name="generateError" path="/policymgr/premiummgr/viewPremiumAccounting.do?process=getInitialValuesForPremiumAccounting"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/premiummgr/viewFund"
+                type="dti.pm.policymgr.premiummgr.struts.ViewFundAction" parameter="process" scope="request">
+            <forward name="loadFundResult" path="/policymgr/premiummgr/viewFund.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/premiummgr/viewRatingLog"
+                type="dti.pm.policymgr.premiummgr.struts.ViewRatingLogAction" parameter="process" scope="request">
+            <forward name="loadRatingLogResult" path="/policymgr/premiummgr/viewRatingLog.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/premiummgr/viewMemberContribution"
+                type="dti.pm.policymgr.premiummgr.struts.ViewMemberContributionAction" parameter="process"
+                scope="request">
+            <forward name="loadMemberContributionResult" path="/policymgr/premiummgr/viewMemberContribution.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/premiummgr/viewLayerDetail"
+                type="dti.pm.policymgr.premiummgr.struts.ViewLayerDetailAction" parameter="process" scope="request">
+            <forward name="loadLayerDetailResult" path="/policymgr/premiummgr/viewLayerDetail.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/premiummgr/viewPayment"
+                type="dti.pm.policymgr.premiummgr.struts.ViewPaymentAction" parameter="process" scope="request">
+            <forward name="loadPaymentResult" path="/policymgr/premiummgr/viewPayment.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/regionalmgr/maintainRegionalTeam"
+                type="dti.pm.policymgr.regionalmgr.struts.MaintainRegionalTeamAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/regionalmgr/maintainRegionalTeam.jsp" redirect="false"/>
+            <forward name="saveResult" path="/policymgr/regionalmgr/maintainRegionalTeam.do?process=loadAllRegionalTeam" 
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/applicationmgr/maintainApplication"
+                type="dti.pm.policymgr.applicationmgr.struts.MaintainApplicationAction" parameter="process" scope="request">
+            <forward name="loadCurrentApplication" path="/policymgr/applicationmgr/applicationList.jsp" redirect="false"/>
+		</action>
+
+        <action path="/agentmgr/maintainPolicyAgent" type="dti.pm.agentmgr.struts.MaintainPolicyAgentAction"
+                parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/agentmgr/maintainPolicyAgent.jsp" redirect="false"/>
+            <forward name="saveResult" path="/agentmgr/maintainPolicyAgent.do?process=loadAllAgent" redirect="false"/>
+        </action>
+
+        <action path="/agentmgr/viewAgentHistory" type="dti.pm.agentmgr.struts.ViewAgentHistoryAction"
+                parameter="process" scope="request">
+            <forward name="loadAllAgentHist" path="/agentmgr/viewAgentHistory.jsp" redirect="false"/>
+        </action>
+
+        <action path="/componentmgr/selectComponent"
+                type="dti.pm.componentmgr.struts.SelectComponentAction" parameter="process" scope="request">
+            <forward name="success" path="/componentmgr/selectComponent.jsp" redirect="false"/>
+        </action>
+
+        <action path="/componentmgr/processComponent"
+                type="dti.pm.componentmgr.struts.ProcessMassComponentAction" parameter="process" scope="request">
+            <forward name="success" path="/componentmgr/processMassComponent.jsp" redirect="false"/>
+            <forward name="applyResult" path="/componentmgr/processComponent.do?process=display" redirect="false"/>
+            <forward name="viewApplyError"
+                     path="/transactionmgr/viewValidationError.do?process=loadAllValidationError" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/reissueprocessmgr/reissuePolicy"
+                type="dti.pm.transactionmgr.reissueprocessmgr.struts.ReissuePolicyAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/transactionmgr/reissueprocessmgr/reissuePolicy.jsp" redirect="false"/>
+        </action>
+
+        <action path="/componentmgr/cycleDetail"
+                type="dti.pm.componentmgr.struts.CycleDetailAction" parameter="process"
+                scope="request">
+            <forward name="success" path="/componentmgr/cycleDetail.jsp" redirect="false"/>
+        </action>
+
+        <action path="/componentmgr/maintainSurchargePoints"
+                type="dti.pm.componentmgr.struts.MaintainSurchargePointsAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/componentmgr/maintainSurchargePoints.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/componentmgr/maintainSurchargePoints.do?process=loadAllSurchargePoint"
+                     redirect="false"/>
+        </action>
+
+        <action path="/componentmgr/maintainRmComponent"
+                type="dti.pm.componentmgr.struts.MaintainRmComponentAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/componentmgr/maintainRmComponent.jsp" redirect="false"/>
+            <forward name="saveResult" path="/componentmgr/maintainRmComponent.do?process=loadAllProcessingEvent"
+                     redirect="false"/>
+        </action>
+
+        <action path="/componentmgr/processCorpOrgComponent"
+                type="dti.pm.componentmgr.struts.ProcessCorpOrgComponentAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/componentmgr/processCorpOrgComponent.jsp" redirect="false"/>
+            <forward name="processDiscount" path="/componentmgr/processCorpOrgComponent.do?process=loadAllCorpOrgDiscountMember"
+                     redirect="false"/>
+        </action>
+
+        <action path="/componentmgr/viewCorpOrgComponentHistory"
+                type="dti.pm.componentmgr.struts.ViewCorpOrgComponentHistoryAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/componentmgr/viewCorpOrgComponentHistory.jsp" redirect="false"/>
+        </action>
+        <action path="/componentmgr/experiencemgr/processExperienceComponent"
+                type="dti.pm.componentmgr.experiencemgr.struts.ProcessExperienceComponentAction" parameter="process" scope="request">
+            <forward name="loadSearchCriteria" path="/componentmgr/experiencemgr/processExperienceComponent.jsp" redirect="false"/>
+		</action>
+        <action path="/transactionmgr/changeTermDates" type="dti.pm.transactionmgr.struts.ChangeTermDatesAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/changeTermEffDates.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/changeTermExpirationDate"
+                type="dti.pm.transactionmgr.struts.ChangeTermExpirationDateAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/changeTermExpDate.jsp" redirect="false"/>
+            <forward name="failure" path="/transactionmgr/changeTermExpirationDate.do?process=captureTermExpirationDate"
+                     redirect="false"/>
+            <forward name="success" path="/pmcore/closePage.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/changePolicyAdministrator"
+                type="dti.pm.transactionmgr.struts.ChangePolicyAdministratorAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/changePolicyAdministrator.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/transactionmgr/changePolicyAdministrator.do?process=capturePolicyAdministrator"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/viewPolicyAdministratorHistory"
+                type="dti.pm.transactionmgr.struts.ViewPolicyAdministratorHistoryAction"
+                parameter="process" scope="request">
+            <forward name="loadPolicyAdminResult" path="/transactionmgr/viewPolicyAdministratorHistory.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/validateTransaction" type="dti.pm.transactionmgr.struts.ValidateTransactionAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/validateTransaction.jsp" redirect="false"/>
+            <forward name="viewValidationError"
+                     path="/transactionmgr/viewValidationError.do?process=loadAllValidationError" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/viewValidationError" type="dti.pm.transactionmgr.struts.ViewValidationErrorAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/viewValidationError.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/viewCopyQuoteValidationError"
+                type="dti.pm.transactionmgr.struts.ViewCopyQuoteValidationErrorAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/viewCopyQuoteValidationError.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/processFee" type="dti.pm.transactionmgr.struts.ProcessFeeAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/processFee.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/processTax" type="dti.pm.transactionmgr.struts.ProcessTaxAction"
+                parameter="process" scope="request">
+            <forward name="viewTax" path="/policymgr/taxmgr/viewTax.do?process=loadAllTax" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/notify" type="dti.pm.transactionmgr.struts.NotifyAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/transactionmgr/notify.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/checkClearingReminder" type="dti.pm.transactionmgr.struts.CheckClearingReminderAction" parameter="process"
+                scope="request">
+            <forward name="loadPage" path="/transactionmgr/checkClearingReminder.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/rateTransaction" type="dti.pm.transactionmgr.struts.RateTransactionAction"
+                parameter="process" scope="request">
+        </action>
+
+        <action path="/workflowmgr/struts/monitorLongRunningTransaction"
+                type="dti.pm.workflowmgr.struts.LongRunningTransactionAction"
+                parameter="process" scope="request">
+            <forward name="continueMonitoring" path="/workflowmgr/longTransProcessing.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/saveWip" type="dti.pm.transactionmgr.struts.SaveWipAction"
+                parameter="process" scope="request">
+            <forward name="continueMonitoring"
+                     path="/workflowmgr/struts/monitorLongRunningTransaction.do?process=continueMonitoring"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/validateBillingRelation"
+                type="dti.pm.transactionmgr.struts.ValidateBillingRelationAction"
+                parameter="process" scope="request">
+        </action>
+
+        <action path="/transactionmgr/validatePremium" type="dti.pm.transactionmgr.struts.ValidatePremiumAction"
+                parameter="process" scope="request">
+            <forward name="viewValidationError"
+                     path="/transactionmgr/viewValidationError.do?process=loadAllValidationError" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/validateOpenClaims" type="dti.pm.transactionmgr.struts.ValidateOpenClaimsAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/openClaimsValidation.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/saveOfficial" type="dti.pm.transactionmgr.struts.SaveOfficialAction"
+                parameter="process" scope="request">
+            <forward name="closePageWithAmalgamateConfirm" path="/transactionmgr/closePageWithAmalgamateConfirm.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/viewPmFmDiscrepancy"
+                type="dti.pm.transactionmgr.struts.ViewPmFmDiscrepancyAction" parameter="process" scope="request">
+            <forward name="loadDiscrepancy" path="/transactionmgr/viewPmFmDiscrepancy.jsp" redirect="false"/>
+        </action>
+        
+        <action path="/transactionmgr/saveAsEndorsementQuote"
+                type="dti.pm.transactionmgr.struts.SaveAsEndorsementQuoteAction"
+                parameter="process" scope="request">
+            <forward name="success" path="/transactionmgr/endorsementquotemgr/saveEndorsementQuoteSuccess.jsp"
+                     redirect="false"/>
+        </action>
+        <action path="/transactionmgr/maintainEndorsementQuote"
+                type="dti.pm.transactionmgr.struts.MaintainEndorsementQuoteAction" parameter="process" scope="request">
+        </action>
+
+        <action path="/transactionmgr/viewRelatedPolicyError"
+                type="dti.pm.transactionmgr.struts.ViewRelatedPolicyErrorAction" parameter="process" scope="request">
+            <forward name="loadRelatedPolicyError" path="/transactionmgr/viewRelatedPolicyError.jsp" redirect="false"/>
+            <forward name="loadRelatedPolicyErrorWithNoPolicyHeader" path="/transactionmgr/viewRelatedPolicyErrorWithNoPolicyHeader.jsp" redirect="false"/>
+        </action>
+
+        <action path="/workflowmgr/workflow" type="dti.pm.workflowmgr.struts.PolicyWorkflowAction" parameter="process"
+                scope="request">
+            <forward name="invokeValidationMsg" path="/core/workflowProcessing.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/reinstateprocessmgr/performReinstate"
+                type="dti.pm.transactionmgr.reinstateprocessmgr.struts.PerformReinstateAction" parameter="process"
+                scope="request"/>
+
+        <action path="/riskmgr/coimgr/maintainCoi" type="dti.pm.riskmgr.coimgr.struts.MaintainCoiAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/coimgr/maintainCoi.jsp" redirect="false"/>
+            <forward name="saveResult" path="/riskmgr/coimgr/maintainCoi.do?process=loadAllCoiHolder" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/affiliationmgr/maintainAffiliation" type="dti.pm.riskmgr.affiliationmgr.struts.MaintainAffiliationAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/affiliationmgr/maintainAffiliation.jsp" redirect="false"/>
+            <forward name="saveResult" path="/riskmgr/affiliationmgr/maintainAffiliation.do?process=loadAllAffiliation" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/affiliationmgr/captureAffiliationStartDate" type="dti.pm.riskmgr.affiliationmgr.struts.CaptureAffiliationStartDateAction"
+                parameter="process" scope="request">
+            <forward name="success" path="/riskmgr/affiliationmgr/captureAffiliationStartDate.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/coimgr/captureCoiAsOfDate" type="dti.pm.riskmgr.coimgr.struts.CaptureCoiAsOfDateAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/coimgr/coiAsOfDate.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/additionalinsuredmgr/captureAddInsAsOfDate" type="dti.pm.policymgr.additionalinsuredmgr.struts.CaptureAddInsAsOfDateAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/additionalinsuredmgr/addInsAsOfDate.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/coimgr/captureCoiClaimHistory"
+                type="dti.pm.riskmgr.coimgr.struts.CaptureCoiClaimHistoryAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/coimgr/coiClaims.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/coimgr/standaloneGenerateCoi"
+                type="dti.pm.riskmgr.coimgr.struts.StandaloneGenerateCoiAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/coimgr/generateCoiAsOfDate.jsp" redirect="false"/>
+            <forward name="saveResult" path="/riskmgr/coimgr/standaloneGenerateCoi.do?process=display"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/manuscriptmgr/maintainManuscript"
+                type="dti.pm.coveragemgr.manuscriptmgr.struts.MaintainManuscriptAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/coveragemgr/manuscriptmgr/maintainManuscript.jsp" redirect="false"/>
+            <forward name="saveResult" path="/coveragemgr/manuscriptmgr/maintainManuscript.do?process=loadAllManuscript"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/manuscriptmgr/selectManuscript"
+                type="dti.pm.coveragemgr.manuscriptmgr.struts.SelectManuscriptAction" parameter="process"
+                scope="request">
+            <forward name="success" path="/coveragemgr/manuscriptmgr/selectManuscript.jsp" redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/manuscriptmgr/maintainManuscriptDetail"
+                type="dti.pm.coveragemgr.manuscriptmgr.struts.MaintainManuscriptDetailAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/coveragemgr/manuscriptmgr/maintainManuscriptDetail.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/coveragemgr/manuscriptmgr/maintainManuscriptDetail.do?process=loadAllManuscriptDetail"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/underlyingmgr/maintainUnderlyingCoverage"
+                type="dti.pm.coveragemgr.underlyingmgr.struts.MaintainUnderlyingCoverageAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/coveragemgr/underlyingmgr/maintainUnderlyingCoverage.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/coveragemgr/underlyingmgr/maintainUnderlyingCoverage.do?process=loadAllUnderlyingCoverage"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/underlyingmgr/SelectUnderlyingRelation"
+                type="dti.pm.coveragemgr.underlyingmgr.struts.SelectUnderlyingRelationAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/coveragemgr/underlyingmgr/selectUnderlyingRelation.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/lockmgr/maintainLock"
+                type="dti.pm.policymgr.lockmgr.struts.MaintainLockAction" parameter="process" scope="request">
+        </action>
+
+        <action path="/policymgr/lockmgr/maintainUnlockPolicy"
+                type="dti.pm.policymgr.lockmgr.struts.MaintainUnlockPolicyAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/lockmgr/maintainUnlockPolicy.jsp" redirect="false"/>
+            <forward name="viewUnlockResults" path="/policymgr/lockmgr/maintainUnlockPolicy.do?process=loadAllLockedPolicy" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/maintainTransaction" type="dti.pm.transactionmgr.struts.MaintainTransactionAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/maintainTransaction.jsp" redirect="false"/>
+            <forward name="saveResult" path="/transactionmgr/maintainTransaction.do?process=loadAllTransaction"
+                     redirect="false"/>
+            <forward name="loadChangeResult" path="/transactionmgr/changeDetail.jsp" redirect="false"/>
+            <forward name="loadFormResult" path="/transactionmgr/transactionForm.jsp" redirect="false"/>
+            <forward name="viewDocument_errorpopup" path="/transactionmgr/viewDocumentErrorPopup.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/batchrenewalprocessmgr/createBatchRenewalProcess"
+                type="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.CreateBatchRenewalProcessAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/batchrenewalprocessmgr/createBatchRenewalProcess.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/transactionmgr/batchrenewalprocessmgr/createBatchRenewalProcess.do?process=captureBatchRenewalDetail"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/batchrenewalprocessmgr/createCommonAnniversaryBatchRenewalProcess"
+                type="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.CreateCommonAnniversaryBatchRenewalProcessAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/batchrenewalprocessmgr/createCommonAnniversaryBatchRenewalProcess.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/transactionmgr/batchrenewalprocessmgr/createCommonAnniversaryBatchRenewalProcess.do?process=captureCommonAnniversaryBatchRenewalDetail"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/batchrenewalprocessmgr/maintainBatchRenewalProcess"
+                type="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.MaintainBatchRenewalProcessAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/batchrenewalprocessmgr/maintainBatchRenewalProcess.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/transactionmgr/batchrenewalprocessmgr/maintainBatchRenewalProcess.do?process=loadAllRenewalEvent"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/batchrenewalprocessmgr/maintainBatchRenewalDetailProcess"
+                type="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.MaintainBatchRenewalDetailProcessAction"
+                parameter="process" scope="request">
+            <forward name="loadResult"
+                     path="/transactionmgr/batchrenewalprocessmgr/maintainBatchRenewalDetailProcess.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/transactionmgr/batchrenewalprocessmgr/maintainBatchRenewalDetailProcess.do?process=loadAllRenewalDetail"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/batchrenewalprocessmgr/captureRenewalBatchPrinter"
+                type="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.CaptureRenewalBatchPrinterAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/batchrenewalprocessmgr/renewalBatchPrinter.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/coirenewalmgr/createCoiRenewal"
+                type="dti.pm.transactionmgr.coirenewalmgr.struts.CreateCoiRenewalAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/transactionmgr/coirenewalmgr/createCoiRenewal.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/transactionmgr/coirenewalmgr/createCoiRenewal.do?process=captureCoiRenewal"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/coirenewalmgr/maintainCoiRenewalEvent"
+                type="dti.pm.transactionmgr.coirenewalmgr.struts.MaintainCoiRenewalEventAction"
+                parameter="process" scope="request">
+            <forward name="loadResult"
+                     path="/transactionmgr/coirenewalmgr/maintainCoiRenewalEvent.jsp"
+                     redirect="false"/>
+             <forward name="loadDetailResult"
+                     path="/transactionmgr/coirenewalmgr/maintainCoiRenewalEventDetail.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/taxmgr/viewTax"
+                type="dti.pm.policymgr.taxmgr.struts.ViewTaxAction" parameter="process" scope="request">
+            <forward name="loadTaxResult" path="/policymgr/taxmgr/viewTax.jsp" redirect="false"/>
+        </action>
+        <action path="/policymgr/taxmgr/maintainTax"
+                type="dti.pm.policymgr.taxmgr.struts.MaintainTaxAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/taxmgr/maintainTax.jsp" redirect="false"/>
+            <forward name="saveResult" path="/policymgr/taxmgr/maintainTax.do?process=loadAllTax" redirect="false"/>
+        </action>
+        <action path="/transactionmgr/auditmgr/selectAuditLevel"
+                type="dti.pm.transactionmgr.auditmgr.struts.SelectAuditLevelAction" parameter="process" scope="request">
+            <forward name="selectAuditLevel" path="/transactionmgr/auditmgr/selectAuditLevel.jsp" redirect="false"/>
+        </action>
+        <action path="/transactionmgr/auditmgr/viewAudit"
+                type="dti.pm.transactionmgr.auditmgr.struts.ViewAuditAction" parameter="process" scope="request">
+            <forward name="loadAuditResult" path="/transactionmgr/auditmgr/viewAudit.jsp" redirect="false"/>
+            <forward name="selectAuditLevel"
+                     path="/transactionmgr/auditmgr/selectAuditLevel.do?process=selectAuditLevel" redirect="false"/>
+        </action>
+        <action path="/policymgr/viewPolicySummary"
+                type="dti.pm.policymgr.struts.ViewPolicySummaryAction" parameter="process" scope="request">
+            <forward name="loadAllPolicySummary" path="/policymgr/policySummary.jsp" redirect="false"/>
+            <forward name="loadAllTransactionSummary" path="/policymgr/transactionSummary.jsp" redirect="false"/>
+            <forward name="loadAllRiskSummary" path="/policymgr/riskSummary.jsp" redirect="false"/>
+            <forward name="loadAllCoverageSummary" path="/policymgr/coverageSummary.jsp" redirect="false"/>
+            <forward name="loadAllAgentSummary" path="/policymgr/agentSummary.jsp" redirect="false"/>
+        </action>
+        <action path="/riskmgr/maintainRiskRelation" type="dti.pm.riskmgr.struts.MaintainRiskRelationAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/maintainRiskRelation.jsp" redirect="false"/>
+            <forward name="saveResult" path="/riskmgr/maintainRiskRelation.do?process=loadAllRiskRelation"
+                     redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/selectPolInsRiskRelation"
+                type="dti.pm.riskmgr.struts.SelectPolicyInsuredRiskRelationAction" parameter="process" scope="request">
+            <forward name="success" path="/riskmgr/selectPolInsRiskRelation.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/selectCompInsRiskRelation"
+                type="dti.pm.riskmgr.struts.SelectCompanyInsuredRiskRelationAction" parameter="process" scope="request">
+            <forward name="success" path="/riskmgr/selectCompInsRiskRelation.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/viewInsuredHistory"
+                type="dti.pm.riskmgr.struts.ViewInsuredHistoryAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/viewInsuredHistory.jsp" redirect="false"/>
+        </action>
+        
+        <action path="/cs/diary/workflowDiary" type="dti.pm.cs.diary.struts.WorkflowDiaryAction" parameter="process"
+                scope="request">
+            <forward name="loadWorkflowDiary" path="/cs/diary/workflowDiary.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/selectAddress"
+                type="dti.pm.policymgr.struts.SelectAddressAction" parameter="process" scope="request">
+            <forward name="success" path="/policymgr/selectAddress.jsp" redirect="false"/>
+            <forward name="saveResult" path="/policymgr/selectAddress.do?process=loadAllAddress"
+                     redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/performRiskAddressPhoneCopy" type="dti.pm.riskmgr.struts.PerformRiskAddressPhoneCopyAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/performRiskAddressPhoneCopy.jsp" redirect="false"/>
+        </action>
+
+        <action path="/notesmgr/maintainPartTimeNotes" type="dti.pm.notesmgr.struts.MaintainPartTimeNotesAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/notesmgr/maintainPartTimeNotes.jsp" redirect="false"/>
+            <forward name="saveResult" path="/notesmgr/maintainPartTimeNotes.do?process=loadAllPartTimeNotes"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/premiummgr/maintainPremiumWorkSheet" type="dti.pm.policymgr.premiummgr.struts.MaintainPremiumWorkSheetAction"
+                parameter="process" scope="request">
+        </action>
+
+        <action path="/policyreportmgr/maintainPolicyReport" type="dti.pm.policyreportmgr.struts.MaintainPolicyReportAction"
+                parameter="process" scope="request">
+        </action>
+
+        <action path="/policymgr/reviewduplicatemgr/maintainReviewDuplicate"
+                type="dti.pm.policymgr.reviewduplicatemgr.struts.MaintainReviewDuplicateAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/reviewduplicatemgr/maintainReviewDuplicate.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/reviewduplicatemgr/maintainReviewDuplicate.do?process=display"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/quickquotemgr/processQuickQuote"
+                type="dti.pm.policymgr.quickquotemgr.struts.ProcessQuickQuoteAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/quickquotemgr/processQuickQuote.jsp" redirect="false"/>
+            <forward name="processResult"
+                     path="/policymgr/quickquotemgr/processQuickQuote.do?process=display"
+                     redirect="false"/>
+        </action>
+
+        <action path="/coveragemgr/excesspremiummgr/maintainExcessPremium"
+                type="dti.pm.coveragemgr.excesspremiummgr.struts.MaintainExcessPremiumAction"
+                parameter="process" scope="request">
+            <forward name="loadResult" path="/coveragemgr/excesspremiummgr/maintainExcessPremium.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/coveragemgr/excesspremiummgr/maintainExcessPremium.do?process=loadAllExcessPremium"
+                     redirect="false"/>
+            <forward name="refreshResult"
+                     path="/coveragemgr/excesspremiummgr/maintainExcessPremium.do?process=loadAllExcessPremium"
+                     redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/cancelprocessmgr/viewTransactionSnapshot"
+                type="dti.pm.transactionmgr.cancelprocessmgr.struts.ViewTransactionSnapshotAction" parameter="process"
+                scope="request">
+            <forward name="loadTransactionSnapshot" path="/transactionmgr/cancelprocessmgr/viewTransactionSnapshot.jsp"
+                     redirect="false"/>
+            <forward name="loadTermSnapshot" path="/transactionmgr/cancelprocessmgr/viewTermSnapshot.jsp"
+                     redirect="false"/>
+            <forward name="loadPolicyComponentSnapshot"
+                     path="/transactionmgr/cancelprocessmgr/viewPolicyComponentSnapshot.jsp" redirect="false"/>
+            <forward name="loadRiskSnapshot" path="/transactionmgr/cancelprocessmgr/viewRiskSnapshot.jsp"
+                     redirect="false"/>
+            <forward name="loadCoverageSnapshot" path="/transactionmgr/cancelprocessmgr/viewCoverageSnapshot.jsp"
+                     redirect="false"/>
+            <forward name="loadCoverageComponentSnapshot"
+                     path="/transactionmgr/cancelprocessmgr/viewCoverageComponentSnapshot.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/selectProcedureCode"
+                type="dti.pm.riskmgr.struts.SelectProcedureCodeAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/selectProcedureCode.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/viewProfessionalEntityDetail"
+                type="dti.pm.transactionmgr.struts.ViewProfessionalEntityDetailAction" parameter="process"
+                scope="request">
+            <forward name="loadTransaction" path="/transactionmgr/viewProfessionalEntityTransaction.jsp"
+                     redirect="false"/>
+            <forward name="loadDetails" path="/transactionmgr/viewProfessionalEntityTransactionDetail.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/maintainRiskSurchargePoints"
+                type="dti.pm.riskmgr.struts.MaintainRiskSurchargePointsAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/maintainRiskSurchargePoints.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/riskmgr/maintainRiskSurchargePoints.do?process=loadAllRiskSurchargePoint"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/quickpaymgr/loadAllQuickPayDetail"
+                type="dti.pm.policymgr.quickpaymgr.struts.ViewQuickPayDetailAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/quickpaymgr/viewQuickPayDetail.jsp"
+                     redirect="false"/>
+            <forward name="loadRiskCoverageResult"
+                     path="/policymgr/quickpaymgr/viewQuickPayRiskCoverage.jsp"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/quickpaymgr/maintainQuickPay"
+                type="dti.pm.policymgr.quickpaymgr.struts.MaintainQuickPayAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/quickpaymgr/maintainQuickPay.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/quickpaymgr/maintainQuickPay.do?process=loadAllQuickPay"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/quickpaymgr/maintainQuickPayDetail"
+                type="dti.pm.policymgr.quickpaymgr.struts.MaintainQuickPayTransactionDetailAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/quickpaymgr/maintainQuickPayTransactionDetail.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/quickpaymgr/maintainQuickPayDetail.do?process=loadAllQuickPayTransactionDetail"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/quickpaymgr/processQuickPay"
+                type="dti.pm.policymgr.quickpaymgr.struts.ProcessQuickPayAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/quickpaymgr/processQuickPay.jsp"
+                     redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/quickpaymgr/processQuickPay.do?process=loadAllQuickPay"
+                     redirect="false"/>
+        </action>
+        
+        <action path="/billingmgr/loadCoverageBilling"
+                type="dti.pm.billingmgr.struts.LoadCoverageBillingAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/billingmgr/loadCoverageBilling.jsp" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/performUndoTerm"
+                type="dti.pm.transactionmgr.struts.PerformUndoTermAction" parameter="process" scope="request">
+        </action>
+
+        <action path="/riskmgr/viewClaimsSummary"
+                type="dti.pm.riskmgr.struts.ViewClaimsSummaryAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/viewClaimsSummary.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/limitsharingmgr/viewSharedLimit"
+                type="dti.pm.policymgr.limitsharingmgr.struts.ViewSharedLimitAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/limitsharingmgr/viewSharedLimit.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/distributionmgr/processDistribution"
+                type="dti.pm.policymgr.distributionmgr.struts.ProcessDistributionAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/distributionmgr/processDistribution.jsp" redirect="false"/>
+            <forward name="saveResult" path="/policymgr/distributionmgr/processDistribution.do?process=loadAllDistribution"
+                     redirect="false"/>
+        </action>
+
+        <action path="/componentmgr/experiencemgr/processErp"
+                type="dti.pm.componentmgr.experiencemgr.struts.ProcessErpAction" parameter="process" scope="request">
+            <forward name="showProcessErpPage" path="/componentmgr/experiencemgr/processErp.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/ibnrriskmgr/selectAssociatedRisk"
+                type="dti.pm.riskmgr.ibnrriskmgr.struts.SelectAssociatedRiskAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/ibnrriskmgr/selectAssociatedRisk.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/ibnrriskmgr/maintainIbnrRisk"
+                type="dti.pm.riskmgr.ibnrriskmgr.struts.MaintainIbnrRiskAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/ibnrriskmgr/maintainIbnrRisk.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/riskmgr/ibnrriskmgr/maintainIbnrRisk.do?process=loadAllIbnrRisk"
+                     redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/ibnrriskmgr/ibnrNotify" type="dti.pm.riskmgr.ibnrriskmgr.struts.IbnrNotifyAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/ibnrriskmgr/ibnrNotify.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/dividendmgr/maintainDividendRule"
+                type="dti.pm.policymgr.dividendmgr.struts.MaintainDividendRuleAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/dividendmgr/maintainDividendRule.jsp" redirect="false"/>
+            <forward name="saveResult" path="/policymgr/dividendmgr/maintainDividendRule.do?process=loadAllDividendRule"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/dividendmgr/processDividend"
+                type="dti.pm.policymgr.dividendmgr.struts.ProcessDividendAction" parameter="process" scope="request">
+            <forward name="loadPriorResult" path="/policymgr/dividendmgr/processDividend.jsp" redirect="false"/>
+            <forward name="loadCalculatedResult" path="/policymgr/dividendmgr/calculatedDividend.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/dividendmgr/calculateDividend"
+                type="dti.pm.policymgr.dividendmgr.struts.CalculateDividendAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/dividendmgr/calculateDividend.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/dividendmgr/transferDividend"
+                type="dti.pm.policymgr.dividendmgr.struts.TransferDividendAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/dividendmgr/transferDividend.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/dividendmgr/viewDividendAudit"
+                type="dti.pm.policymgr.dividendmgr.struts.ViewDividendAuditAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/dividendmgr/dividendAudit.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/dividendmgr/dividendReport"
+                type="dti.pm.policymgr.dividendmgr.struts.DividendReportAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/dividendmgr/dividendReport.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/processacfmgr/maintainAcf"
+                type="dti.pm.policymgr.processacfmgr.struts.MaintainAcfAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/processacfmgr/maintainAcf.jsp" redirect="false"/>
+            <forward name="saveResult" path="/policymgr/processacfmgr/maintainAcf.do?process=loadAllAcf" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/analyticsmgr/processOpa"
+                type="dti.pm.policymgr.analyticsmgr.struts.ProcessPredictiveAnalyticsAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/analyticsmgr/processPredictiveAnalytics.jsp" redirect="false"/>
+            <forward name="processResult" path="/policymgr/analyticsmgr/processOpa.do?process=loadAll" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/analyticsmgr/opaErrors"
+                type="dti.pm.policymgr.analyticsmgr.struts.MaintainPredictiveAnalyticsErrorsAction" parameter="process"
+                scope="request">
+            <forward name="initResult" path="/policymgr/analyticsmgr/predictiveAnalyticsErrors.jsp"
+                     redirect="false"/>
+            <forward name="initPolicyOpaErrorResult" path="/policymgr/analyticsmgr/opaErrors.do?process=searchScoringError"
+                     redirect="false"/>
+            <forward name="searchScoringErrorResult" path="/policymgr/analyticsmgr/predictiveAnalyticsErrors.jsp"
+                     redirect="false"/>
+            <forward name="loadAllScoringErrorDetailResult"
+                     path="/policymgr/analyticsmgr/predictiveAnalyticsErrorsDetails.jsp" redirect="false"/>
+            <forward name="clearResult" path="/policymgr/analyticsmgr/opaErrors.do?process=init"
+                     redirect="true"/>
+        </action>
+
+        <action path="/policymgr/creditstackmgr/viewCreditStacking"
+                type="dti.pm.policymgr.creditstackmgr.struts.ViewCreditStackingAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/creditstackmgr/viewCreditStacking.jsp" redirect="false"/>
+            <forward name="loadPage" path="/policymgr/creditstackmgr/viewCreditStacking.do?process=loadAllCreditStacking" redirect="false"/>
+        </action>
+
+        <action path="/transactionmgr/shorttermpolicymgr/shortTermPolicyAction"
+                type="dti.pm.transactionmgr.shorttermpolicymgr.struts.ShortTermPolicyAction" parameter="process" scope="request">
+        </action>
+
+        <action path="/riskmgr/nationalprogrammgr/maintainNationalProgram"
+                type="dti.pm.riskmgr.nationalprogrammgr.struts.MaintainNationalProgramAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/nationalprogrammgr/maintainNationalProgram.jsp" redirect="false"/>
+            <forward name="saveResult" path="/riskmgr/nationalprogrammgr/maintainNationalProgram.do?process=loadAllNationalProgram"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/dividendmgr/maintainDividendDeclare"
+                type="dti.pm.policymgr.dividendmgr.struts.MaintainDividendDeclareAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/dividendmgr/maintainDividendDeclare.jsp" redirect="false"/>
+            <forward name="saveResult" path="/policymgr/dividendmgr/maintainDividendDeclare.do?process=loadAllDividendDeclare"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/dividendmgr/previewDividend"
+                type="dti.pm.policymgr.dividendmgr.struts.PreviewDividendAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/dividendmgr/previewDividend.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/dividendmgr/maintainDividend"
+                type="dti.pm.policymgr.dividendmgr.struts.MaintainDividendAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/policymgr/dividendmgr/maintainDividend.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/applicationmgr/manageApplication"
+                type="dti.pm.policymgr.applicationmgr.struts.ManageApplicationAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/applicationmgr/manageApplication.jsp" redirect="false"/>
+            <forward name="saveResult" path="/policymgr/applicationmgr/manageApplication.do?process=loadAllApplication"
+                redirect="false"/>
+        </action>
+
+        <action path="/policymgr/applicationmgr/selectAppReviewer"
+                type="dti.pm.policymgr.applicationmgr.struts.SelectAppReviewerAction" parameter="process"
+                scope="request">
+            <forward name="success" path="/policymgr/applicationmgr/selectAppReviewer.jsp" redirect="false"/>
+        </action>
+
+        <action path="/policymgr/applicationmgr/viewHistory"
+                type="dti.pm.policymgr.applicationmgr.struts.ViewHistoryAction" parameter="process"
+                scope="request">
+            <forward name="success" path="/policymgr/applicationmgr/viewHistory.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/viewInsuredInfo"
+                type="dti.pm.riskmgr.struts.ViewInsuredInfoAction" parameter="process" scope="request">
+            <forward name="loadResult" path="/riskmgr/viewInsuredInfo.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/insuredmgr/maintainInsuredTracking"
+                type="dti.pm.riskmgr.insuredmgr.struts.MaintainInsuredTrackingAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/insuredmgr/maintainInsuredTracking.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/riskmgr/insuredmgr/maintainInsuredTracking.do?process=loadAllInsuredTracking"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policysummarymgr/viewPolicySummary"
+                type="dti.pm.policysummarymgr.struts.PolicySummaryAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policysummarymgr/policySummary.jsp" redirect="false"/>
+            <forward name="saveResult" path="/policysummarymgr/viewPolicySummary.do?process=loadPolicySummary" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/addtlexposuremgr/maintainRiskAddtlExposure"
+                type="dti.pm.riskmgr.addtlexposuremgr.struts.MaintainRiskAddtlExposureAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/riskmgr/addtlexposuremgr/maintainRiskAddtlExposure.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/riskmgr/addtlexposuremgr/maintainRiskAddtlExposure.do?process=loadAllRiskAddtlExposure"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/renewalflagmgr/maintainRenewalFlag"
+                type="dti.pm.policymgr.renewalflagmgr.struts.MaintainRenewalFlagAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/renewalflagmgr/maintainRenewalFlag.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/policymgr/renewalflagmgr/maintainRenewalFlag.do?process=loadAllRenewalFlag"
+                     redirect="false"/>
+        </action>
+
+        <action path="/quotemgr/viewQuote"
+                type="dti.pm.quotemgr.struts.ViewQuoteAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/quotemgr/viewQuote.jsp" redirect="false"/>
+        </action>
+
+        <action path="/quotemgr/maintainQuoteTransfer"
+                type="dti.pm.quotemgr.struts.MaintainQuoteTransferAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/quotemgr/maintainQuoteTransfer.jsp" redirect="false"/>
+            <forward name="saveResult"
+                     path="/quotemgr/maintainQuoteTransfer.do?process=loadQuoteTransfer"
+                     redirect="false"/>
+        </action>
+
+        <action path="/policymgr/validationmgr/viewsoftvalidation"
+                type="dti.pm.policymgr.validationmgr.struts.ViewSoftValidationAction" parameter="process"
+                scope="request">
+            <forward name="loadResult" path="/policymgr/validationmgr/viewSoftValidation.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/viewExpDiscHistory"
+                type="dti.pm.riskmgr.struts.ViewExpDiscHistoryAction" parameter="process" scope="request">
+            <forward name="loadExpHistoryInfo" path="/riskmgr/viewExpDiscHistory.jsp" redirect="false"/>
+        </action>
+
+        <action path="/riskmgr/viewClaimInfo"
+                type="dti.pm.riskmgr.struts.ViewClaimInfoAction" parameter="process" scope="request">
+            <forward name="loadClaimInfo" path="/riskmgr/viewClaimInfo.jsp" redirect="false"/>
+        </action>
+    </action-mappings>
+
+    <controller processorClass="dti.oasis.struts.DefaultRequestProcessor"/>
+</struts-config>

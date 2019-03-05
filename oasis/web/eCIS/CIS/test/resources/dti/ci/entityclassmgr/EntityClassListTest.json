@@ -1,0 +1,27 @@
+{
+  "testLoadEntityClassList": {
+    "inputRecord": {
+      "pk": "12345678"
+    },
+    "expectedFieldNames":[
+      "entityClassId",
+      "entityId",
+      "userCanUpdateB",
+      "entityClassCode",
+      "entityClassCodeDesc",
+      "entitySubClassCode",
+      "entitySubClassCodeDesc",
+      "entitySubTypeCode",
+      "entitySubTypeCodeDesc",
+      "effectiveFromDate",
+      "effectiveToDate",
+      "assignmentCount",
+      "noteind",
+      "networkDiscount",
+      "cisB",
+      "origin",
+      "SELECT_IND",
+      "edit"
+    ]
+  }
+}

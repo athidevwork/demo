@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="OasisTags.lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../OasisTags/src/web/OasisTags/WEB-INF/lib" />
+      <root url="file://$PROJECT_DIR$/../OasisTags/test/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../../../../tools/spring/spring-framework-3.0.2/src" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../tools/struts/struts-1.2.7/src/struts-1.2.7-src.zip!/struts-1.2.7-src/src/share" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../OasisTags/src/web/OasisTags/WEB-INF/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../OasisTags/test/lib" recursive="false" />
+  </library>
+</component>

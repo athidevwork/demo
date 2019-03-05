@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/../eCS/CS/CS.war/WEB-INF/web.xml" />
+          <deploymentDescriptor name="weblogic.xml" url="file://$MODULE_DIR$/../eCS/CS/CS.war/WEB-INF/weblogic.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/../eCS/CS/CS.war/resources" relative="/" />
+          <root url="file://$MODULE_DIR$/../eCS/CS/CS.war/WEB-INF" relative="/WEB-INF" />
+        </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/../eCS/CS/src" />
+        </sourceRoots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../CommonServices">
+      <sourceFolder url="file://$MODULE_DIR$/../CommonServices/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../CommonServices/ows/jaxbsrc" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="CIS" />
+    <orderEntry type="module" module-name="OasisTags" />
+    <orderEntry type="library" name="CS.lib" level="project" />
+    <orderEntry type="library" name="CIS.lib" level="project" />
+    <orderEntry type="library" name="OasisTags.lib" level="project" />
+    <orderEntry type="library" name="Drools.lib" level="project" />
+    <orderEntry type="library" name="weblogic.lib" level="project" />
+  </component>
+</module>

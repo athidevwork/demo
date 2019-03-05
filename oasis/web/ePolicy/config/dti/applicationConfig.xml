@@ -1,0 +1,3012 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+
+    <!-- ************************************************************** -->
+    <!-- Import Spring configuration files for all dependant projects.
+            If a bean is defined more than once, the LAST bean defined is used.
+            Therefore, include Spring configuration files in order of precedence from Low to High.-->
+    <!-- ************************************************************** -->
+    <!-- Dependant projects -->
+    <import resource="classpath:dti/applicationConfig-core.xml"/>
+    <import resource="classpath:dti/applicationConfig-cs.xml"/>
+    <import resource="classpath:dti/applicationConfig-cis.xml"/>
+
+    <!-- Workflow Config files -->
+    <import resource="classpath:dti/saveOfficialWorkflowConfig.xml"/>
+    <import resource="classpath:dti/saveEndorsementQuoteWorkflowConfig.xml"/>
+    <import resource="classpath:dti/validateAndRateTransactionWorkflowConfig.xml"/>
+    <import resource="classpath:dti/processCancellationTailWorkflowConfig.xml"/>
+    <import resource="classpath:dti/saveTailOfficialWorkflowConfig.xml"/>
+    <import resource="classpath:dti/relatedPolicyWorkflowConfig.xml"/>
+    <import resource="classpath:dti/saveAsOfficialDetailWorkflowConfig.xml"/>
+    <import resource="classpath:dti/saveWipWorkflowConfig.xml"/>
+    <import resource="classpath:dti/saveCoiHolderWorkflowConfig.xml"/>
+    <import resource="classpath:dti/saveAdditionalInsuredWorkflowConfig.xml"/>
+    <import resource="classpath:dti/rateTransactionWorkflowConfig.xml"/>
+    <import resource="classpath:dti/denyQuoteWorkflowConfig.xml"/>
+    <import resource="classpath:dti/applyEndorsementQuoteWorkflowConfig.xml"/>
+    <import resource="classpath:dti/acceptShortTermPolicyWorkflowConfig.xml"/>
+    <import resource="classpath:dti/saveMultiCancellationOfficialWorkflowConfig.xml"/>
+    <import resource="classpath:dti/reRatePolicyWorkflowConfig.xml"/>
+
+    <!-- ************************************************************** -->
+    <!-- Properties for key-value replacement                           -->
+    <!-- ************************************************************** -->
+    <bean id="PropertyPlaceholderConfigurer" class="dti.oasis.app.impl.PropertyPlaceholderConfigurer">
+        <!-- If a property is defined more than once, the LAST property defined is used.
+                Therefore, include property files in order of precedence from Low to High.
+                   1) Include property files from dependant projects first so we can override them
+                   2) Include this application's property file next
+                   3) Include the customer application properties (highest precedence) last! -->
+        <property name="locations">
+            <list>
+                <!-- Build Info to be set during build by Release Engineering -->
+                <value>dti/buildInfo.properties</value>
+                <!-- Dependant projects -->
+                <value>dti/applicationConfig-core.properties</value>
+                <value>dti/applicationConfig-cs.properties</value>
+                <value>dti/applicationConfig-cis.properties</value>
+                <!-- Spell Checker Config -->
+                <value>dti/spellex.properties</value>
+                <!-- This application -->
+                <value>dti/applicationConfig.properties</value>
+                <!-- Customer overrides -->
+                <value>dti/customApplicationConfig.properties</value>
+                <value>dti/customApplicationConfigEnv.properties</value>
+                <value>dti/customApplicationConfig-pm.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="utf-8" />
+    </bean>
+
+    <bean id="propertyOverrideConfigurer" class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+        <property name="locations">
+            <list>
+                <value>dti/customApplicationConfigXML.properties</value>
+            </list>
+        </property>
+        <property name="beanNameSeparator" value=">"/>
+        <property name="ignoreInvalidKeys" value="true"/>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <!-- If a message resource is defined more than once, the FIRST message resource defined is used.
+                Therefore, include message resource files in order of precedence from High to Low.
+                   1) Include the customer message resource files (highest precedence) first!
+                   2) Include this application's message resource file next
+                   2) Include message resource files from dependant projects last so we can override them -->
+        <property name="basenames">
+            <list>
+                <!-- Customer overrides -->
+                <value>dti/customApplicationResources-pm</value>
+                <value>dti/customApplicationResources</value>
+                <!-- This application -->
+                <value>dti/applicationResources-pm</value>
+                <!-- Dependant projects -->
+                <value>dti/applicationResources-core</value>
+                <value>dti/applicationResources-cs</value>
+                <value>dti/applicationResources-cis</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="utf-8" />
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Core Framework Configuration                                -->
+    <!-- ************************************************************** -->
+    <!-- Override ReadOnlyDataSource for use in ePolicy to minimize the open cursors for long running transactions -->
+    <bean id="ReadOnlyDataSource" class="dti.oasis.data.ReadOnlyDelegatingDataSource">
+        <property name="targetDataSource" ref="SetupUserConnectionDataSourceProxy"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Base Action Configuration                                      -->
+    <!-- ************************************************************** -->
+
+    <bean id="PMBaseAction" abstract="true">
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="coverageManager" ref="CoverageManager"/>
+        <property name="readOnlyDataSource" ref="ReadOnlyDataSource"/>
+        <property name="gridHeaderDefinesDisplayableColumnOrder" value="true"/>
+        <property name="useMapWithoutPrefixes" value="false"/>
+        <property name="lockManager" ref="LockManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="activityHistoryManager" ref="ActivityHistoryManager"/>
+        <property name="quoteManager" ref="QuoteManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Database Transaction Configuration                                 -->
+    <!-- ************************************************************** -->
+    <!-- Transaction Interceptor set up to do PROPAGATION_REQUIRED on all methods -->
+    <bean id="PM.TxAttributes" class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+        <property name="nameMap">
+            <map>
+                <entry key="add*" value="PROPAGATION_REQUIRED"/>
+                <entry key="save*" value="PROPAGATION_REQUIRED"/>
+                <entry key="savePolicy" value="PROPAGATION_REQUIRED"/>
+                <entry key="saveAllRisk" value="PROPAGATION_REQUIRED"/>
+                <entry key="update*" value="PROPAGATION_REQUIRED"/>
+                <entry key="delete*" value="PROPAGATION_REQUIRED"/>
+                <entry key="perform*" value="PROPAGATION_REQUIRED"/>
+                <entry key="copy*" value="PROPAGATION_REQUIRED"/>
+                <entry key="cancel*" value="PROPAGATION_REQUIRED"/>
+                <entry key="renewPolicy" value="PROPAGATION_REQUIRED"/>
+                <entry key="submitEod" value="PROPAGATION_REQUIRED"/>
+                <entry key="submitForm" value="PROPAGATION_REQUIRED"/>
+                <entry key="resubmitForm" value="PROPAGATION_REQUIRED"/>
+                <entry key="reissuePolicy" value="PROPAGATION_REQUIRED"/>
+                <entry key="copyQuote" value="PROPAGATION_REQUIRED"/>
+                <entry key="copyPolicyToQuote" value="PROPAGATION_REQUIRED"/>
+                <entry key="acceptQuote" value="PROPAGATION_REQUIRED"/>
+                <entry key="reactiveQuote" value="PROPAGATION_REQUIRED"/>
+                <entry key="denyQuote" value="PROPAGATION_REQUIRED"/>
+                <entry key="generateAllCoi" value="PROPAGATION_REQUIRED"/>
+                <entry key="generateAllAddIns" value="PROPAGATION_REQUIRED"/>
+                <entry key="createTransaction" value="PROPAGATION_REQUIRED"/>
+                <entry key="lockPolicy" value="PROPAGATION_REQUIRED"/>
+                <entry key="unLockPolicy" value="PROPAGATION_REQUIRED"/>
+                <entry key="applyEndorsementQuote" value="PROPAGATION_REQUIRED"/>
+                <entry key="copyEndorsementQuote" value="PROPAGATION_REQUIRED"/>
+                <entry key="generateRenewalQuestionnaire" value="PROPAGATION_REQUIRED"/>
+                <entry key="createCoiRenewal" value="PROPAGATION_REQUIRED"/>
+                <entry key="completeQuickPayTransaction" value="PROPAGATION_REQUIRED"/>
+                <entry key="processUndoTerm" value="PROPAGATION_REQUIRED"/>
+                <entry key="processQuestionnaireRequest" value="PROPAGATION_REQUIRED"/>
+                <entry key="owsLockPolicy" value="PROPAGATION_REQUIRED"/>
+                <entry key="owsUnlockPolicy" value="PROPAGATION_REQUIRES_NEW"/>
+                <entry key="owsLoadPolicyHeader" value="PROPAGATION_REQUIRED"/>
+                <entry key="owsCreateTransaction" value="PROPAGATION_REQUIRED"/>
+                <entry key="processMultiCancelConfirmation" value="PROPAGATION_REQUIRES_NEW"/>
+                <entry key="createPolicy" value="PROPAGATION_REQUIRED"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="PM.TxInterceptor" class="dti.oasis.data.DBTransactionInterceptor">
+        <property name="transactionManager" ref="TxManager"/>
+        <property name="transactionAttributeSource" ref="PM.TxAttributes"/>
+        <property name="errorHandlerController" ref="ErrorHandlerController"/>
+    </bean>
+
+    <bean id="OBR.SaveEventInterceptor" class="dti.oasis.obr.SaveEventInterceptor">
+        <property name="transactionAttributeSource" ref="PM.TxAttributes"/>
+        <property name="excludeMethodNames">
+            <list>
+                <!--<value>lockPolicy</value>-->
+            </list>
+        </property>
+        <property name="excludeBeanNames">
+            <list>
+                <idref bean="LockManager"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="CSRF.CSRFInterceptor" class="dti.oasis.security.CSRFInterceptor">
+        <property name="transactionAttributeSource" ref="PM.TxAttributes"/>
+        <property name="excludeMethodNames">
+            <list>
+            </list>
+        </property>
+        <property name="excludeBeanNames">
+            <list>
+                <idref bean="LockManager"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="PM.TxAutoProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="interceptorNames">
+            <list>
+                <idref bean="PM.TxInterceptor"/>
+                <idref bean="OBR.SaveEventInterceptor"/>
+                <idref bean="CSRF.CSRFInterceptor"/>
+            </list>
+        </property>
+        <property name="beanNames">
+            <list>
+                <idref bean="PolicyManager"/>
+                <idref bean="RiskManager"/>
+                <idref bean="CoverageManager"/>
+                <idref bean="CoverageClassManager"/>
+                <idref bean="ComponentManager"/>
+                <idref bean="TransactionManager"/>
+                <idref bean="SecurityManager"/>
+                <idref bean="PMDefaultManager"/>
+                <idref bean="EntityManager"/>
+                <idref bean="BillingManager"/>
+                <idref bean="UnderwriterManager"/>
+                <idref bean="AccountLookupManager"/>
+                <idref bean="AgentManager"/>
+                <idref bean="SpecialHandlingManager"/>
+                <idref bean="ReinsuranceManager"/>
+                <idref bean="PremiumManager"/>
+                <idref bean="ScheduleManager"/>
+                <idref bean="RenewalProcessManager"/>
+                <idref bean="ReissueProcessManager"/>
+                <idref bean="CancelProcessManager"/>
+                <idref bean="LockManager"/>
+                <idref bean="ReinstateProcessManager"/>
+                <idref bean="TailManager"/>
+                <idref bean="CoiManager"/>
+                <idref bean="UserViewManager"/>
+                <idref bean="BatchRenewalProcessManager"/>
+                <idref bean="CoiRenewalManager"/>
+                <idref bean="MinitailManager"/>
+                <idref bean="AdditionalInsuredManager"/>
+                <idref bean="EmployedPhysicianManager"/>
+                <idref bean="PriorActManager"/>
+                <idref bean="LimitSharingManager"/>
+                <idref bean="TailQuoteManager"/>
+                <idref bean="AffiliationManager"/>
+                <idref bean="UnderlyingPolicyManager"/>
+                <idref bean="UnderlyingCoverageManager"/>
+                <idref bean="RenewalQuestionnaireManager"/>
+                <idref bean="PremiumAdjustmentManager"/>
+                <idref bean="VLCoverageManager"/>
+                <idref bean="RegionalTeamManager"/>
+                <idref bean="ExperienceComponentManager"/>
+                <idref bean="ApplicationManager"/>
+                <idref bean="QuickPayManager"/>
+                <idref bean="ShortTermPolicyManager"/>
+                <idref bean="DividendManager"/>
+                <idref bean="PolicyInquiryServiceManager"/>
+                <idref bean="PolicyChangeServiceManager"/>
+                <idref bean="PolicyPremiumInquiryServiceManager"/>
+                <idref bean="QuickQuoteServiceManager"/>
+                <idref bean="PolicyNumberGenerationServiceManager"/>
+                <idref bean="QuoteAcceptServiceManager"/>
+                <idref bean="InsuredTrackingManager"/>
+                <idref bean="RenewalFlagManager"/>
+                <idref bean="PolicyChangeServiceHelper"/>
+                <idref bean="QuoteManager"/>
+                <idref bean="ManuscriptManager"/>
+                <idref bean="SoftValidationManager"/>
+                <idref bean="QuoteCopyServiceManager"/>
+                <idref bean="PolicyCertificateOfInsuranceChangeServiceManager"/>
+                <idref bean="RiskAddtlExposureManager"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Performance and Trace Intercepter Configuration                -->
+    <!-- ************************************************************** -->
+    <!--
+            <bean id="TraceAutoProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+                <property name="beanNames">
+                    <list>
+                        <idref bean="RiskManager"/>
+                        <idref bean="TransactionManager"/>
+                        <idref bean="TransactionJdbcDAO"/>
+                        <idref bean="dti.pm.riskmgr.struts.MaintainRiskAction"/>
+                        <idref bean="RiskJdbcDAO"/>
+                        <idref bean="PolicyManager"/>
+                    </list>
+                </property>
+                <property name="interceptorNames">
+                    <list>
+                        <idref bean="PerfMonInterceptor"/>
+                        <idref bean="TraceInterceptor"/>
+                    </list>
+                </property>
+            </bean>
+    -->
+
+    <!-- ************************************************************** -->
+    <!-- Verify Policy Lock Before Save Configuration                   -->
+    <!-- ************************************************************** -->
+    <bean id="VerifyPolicyIsLockedInterceptor" class="dti.pm.policymgr.impl.VerifyPolicyIsLockedInterceptor">
+    </bean>
+    <bean id="VerifyPolicyIsLockedAutoProxy"
+          class="dti.oasis.app.impl.BeanMethodNameAutoProxyCreator">
+        <property name="interceptorNames">
+            <list>
+                <idref bean="VerifyPolicyIsLockedInterceptor"/>
+            </list>
+        </property>
+        <property name="mappedNames">
+            <list>
+                <value>add*</value>
+                <value>save*</value>
+                <value>update*</value>
+                <value>delete*</value>
+                <!--<value>perform*</value>-->
+            </list>
+        </property>
+        <property name="excludeMethodNames">
+            <list>
+                <value>saveEntityRoleAddress</value>
+                <value>savePolicyAdministrator</value>
+                <value>updateTransactionStatusNoLock</value>
+                <value>saveAllPriorCarrier</value>
+                <value>saveQuoteStatus</value>
+            </list>
+        </property>
+        <property name="beanNames">
+            <list>
+                <idref bean="PolicyManager"/>
+                <idref bean="RiskManager"/>
+                <idref bean="CoverageManager"/>
+                <idref bean="CoverageClassManager"/>
+                <idref bean="ComponentManager"/>
+                <idref bean="TransactionManager"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Long Running Transaction Proxy Configuration                   -->
+    <!-- ************************************************************** -->
+    <bean id="JobQueueManager" class="dti.pm.workflowmgr.jobqueuemgr.impl.JobQueueManagerImpl">
+        <property name="maxMediumTransactionProcessors"
+                  value="${long.running.transaction.manager.maxMediumTransactionProcessors}"/>
+        <property name="maxLongTransactionProcessors"
+                  value="${long.running.transaction.manager.maxLongTransactionProcessors}"/>
+        <property name="maxProcessorResetAttempts"
+                  value="${long.running.transaction.manager.processor.reset.attempts}"/>
+        <property name="processorMonitorRate"
+                  value="${long.running.transaction.processor.monitor.rate}"/>
+        <property name="maxTimeInResultQueue"
+                  value="${long.running.transaction.manager.maxTimeInResultQueue}"/>
+        <property name="jobCategoryEvaluator" ref="JobCategoryEvaluator"/>
+        <property name="transactionDAO" ref="TransactionJdbcDAO"/>
+    </bean>
+    <bean id="JobCategoryEvaluator" class="dti.pm.workflowmgr.jobqueuemgr.PolicyJobCategoryEvaluator">
+        <property name="transactionDAO" ref="TransactionJdbcDAO"/>
+    </bean>
+    <bean id="LongRunningTransactionInteceptor"
+          class="dti.pm.workflowmgr.jobqueuemgr.impl.LongRunningTransactionInteceptor" scope="prototype">
+        <property name="jobQueueManager" ref="JobQueueManager"/>
+    </bean>
+
+    <bean id="LongRunningTransactionProxy"
+          class="dti.oasis.app.impl.BeanMethodNameAutoProxyCreator">
+        <property name="interceptorNames">
+            <list>
+                <idref bean="LongRunningTransactionInteceptor"/>
+            </list>
+        </property>
+        <property name="mappedNames">
+            <list>
+                <value>performTransactionRating</value>
+                <value>processSaveTransactionAsOfficial</value>
+                <value>processSaveTransactionAsEndorsementQuote</value>
+                <value>saveTransactionAsWip</value>
+                <value>performSaveAllCoiHolder</value>
+                <value>performSaveAllAdditionalInsured</value>
+                <value>performTransactionValidation</value>
+            </list>
+        </property>
+        <property name="beanNames">
+            <list>
+                <idref bean="TransactionManager"/>
+                <idref bean="CoiManager"/>
+                <idref bean="AdditionalInsuredManager"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Action Class Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.core.struts.MaintainStrutsToken" class="dti.pm.core.struts.MaintainStrutsToken"
+          parent="PMBaseAction">
+    </bean>
+
+    <bean id="dti.pm.home.struts.HomeAction" class="dti.pm.home.struts.HomeAction" parent="PMBaseAction">
+    </bean>
+
+    <bean id="dti.pm.policymgr.struts.FindPolicyAction" class="dti.pm.policymgr.struts.FindPolicyAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyTermHistoryId"/>
+        <property name="userViewManager" ref="UserViewManager"/>
+        <property name="applicationManager" ref="ApplicationManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.userviewmgr.struts.ManageAdditionalSqlAction"
+          class="dti.pm.policymgr.userviewmgr.struts.ManageAdditionalSqlAction"
+          parent="PMBaseAction">
+        <property name="userViewManager" ref="UserViewManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <bean id="dti.pm.coverageclassmgr.struts.MaintainCoverageClassAction"
+          class="dti.pm.coverageclassmgr.struts.MaintainCoverageClassAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="coverageClassId"/>
+        <property name="coverageClassManager" ref="CoverageClassManager"/>
+        <property name="pmNavigationManager" ref="PMNavigationManager"/>
+        <property name="alwaysEnabledFieldIds" value="policyNavLevelCode,policyNavSourceId,riskNavSourceId,coverageNavSourceId,coverageGroup"/>
+        <property name="cacheOasisFields" value="${cache.policy.oasis.fields}"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.struts.MaintainCoverageAction" class="dti.pm.coveragemgr.struts.MaintainCoverageAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="coverageId"/>
+        <property name="componentAnchorColumnName" value="policyCovComponentId"/>
+        <!--property name="coverageManager" ref="CoverageManager" / -->
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="pmNavigationManager" ref="PMNavigationManager"/>
+        <property name="alwaysEnabledFieldIds" value="policyNavLevelCode,policyNavSourceId,coverageGroup"/>
+        <property name="cacheOasisFields" value="${cache.policy.oasis.fields}"/>
+    </bean>
+
+    <bean id="dti.pm.policysummarymgr.struts.PolicySummaryAction" class="dti.pm.policysummarymgr.struts.PolicySummaryAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="anchorColumnName"/>
+        <property name="policySummaryManager" ref="PolicySummaryManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.struts.MaintainExcessCoverageAction" class="dti.pm.coveragemgr.struts.MaintainExcessCoverageAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="priorCarrierHistoryId"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.MaintainRiskAction" class="dti.pm.riskmgr.struts.MaintainRiskAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="riskId"/>
+        <property name="cacheOasisFields" value="${cache.policy.oasis.fields}"/>
+        <!--property name="riskManager" ref="RiskManager" /-->
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.ViewRiskSummaryAction" class="dti.pm.riskmgr.struts.ViewRiskSummaryAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="riskId"/>
+        <property name="cacheOasisFields" value="${cache.policy.oasis.fields}"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.MaintainRiskDetailAction" class="dti.pm.riskmgr.struts.MaintainRiskDetailAction"
+          parent="PMBaseAction">
+        <property name="cacheOasisFields" value="${cache.policy.oasis.fields}"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.FindRiskAction" class="dti.pm.riskmgr.struts.FindRiskAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="riskId"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.struts.MaintainPolicyAction" class="dti.pm.policymgr.struts.MaintainPolicyAction"
+          parent="PMBaseAction">
+        <!--property name="policyManager" ref="PolicyManager" /-->
+        <property name="anchorColumnName" value="policyCovComponentId"/>
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="cacheOasisFields" value="${cache.policy.oasis.fields}"/>
+        <property name="recordExistsManager" ref="RecordExistsManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.CaptureTransactionDetailsAction"
+          class="dti.pm.transactionmgr.struts.CaptureTransactionDetailsAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.CaptureTransactionQuoteDetailsAction"
+          class="dti.pm.transactionmgr.struts.CaptureTransactionQuoteDetailsAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.CreateEndorsementTransactionAction"
+          class="dti.pm.transactionmgr.struts.CreateEndorsementTransactionAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="lockManager" ref="LockManager"/>
+    </bean>
+
+    <bean id="dti.pm.billingmgr.struts.MaintainBillingAction" class="dti.pm.billingmgr.struts.MaintainBillingAction"
+          parent="PMBaseAction">
+        <property name="billingManager" ref="BillingManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.DeleteWIPTransactionAction"
+          class="dti.pm.transactionmgr.struts.DeleteWIPTransactionAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+    <bean id="dti.pm.transactionmgr.struts.ExtendCancelTermAction"
+          class="dti.pm.transactionmgr.struts.ExtendCancelTermAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.underwritermgr.struts.MaintainUnderwriterAction"
+          class="dti.pm.policymgr.underwritermgr.struts.MaintainUnderwriterAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="entityRoleId"/>
+        <property name="underwriterManager" ref="UnderwriterManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.underwritermgr.struts.AddUnderwriterAction"
+          class="dti.pm.policymgr.underwritermgr.struts.AddUnderwriterAction" parent="PMBaseAction">
+        <property name="underwriterManager" ref="UnderwriterManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.underwritermgr.struts.TransferUnderwriterAction"
+          class="dti.pm.policymgr.underwritermgr.struts.TransferUnderwriterAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyId"/>
+        <property name="underwriterManager" ref="UnderwriterManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.underwritermgr.struts.ViewTransUWErrorMsgAction"
+          class="dti.pm.policymgr.underwritermgr.struts.ViewTransUWErrorMsgAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="rowId"/>
+    </bean>
+
+    <bean id="dti.pm.schedulemgr.struts.MaintainScheduleAction"
+          class="dti.pm.schedulemgr.struts.MaintainScheduleAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyScheduleId"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="scheduleManager" ref="ScheduleManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.renewalprocessmgr.struts.RenewPolicyAction"
+          class="dti.pm.transactionmgr.renewalprocessmgr.struts.RenewPolicyAction" parent="PMBaseAction">
+        <property name="renewalProcessManager" ref="RenewalProcessManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.cancelprocessmgr.struts.PerformCancellationAction"
+          class="dti.pm.transactionmgr.cancelprocessmgr.struts.PerformCancellationAction" parent="PMBaseAction">
+        <property name="cancelProcessManager" ref="CancelProcessManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="anchorColumnName" value="rownum"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.cancelprocessmgr.struts.FutureCancellationDetailAction"
+          class="dti.pm.transactionmgr.cancelprocessmgr.struts.FutureCancellationDetailAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="detailId"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.cancelprocessmgr.struts.PerformMultiCancellationAction"
+          class="dti.pm.transactionmgr.cancelprocessmgr.struts.PerformMultiCancellationAction" parent="PMBaseAction">
+        <property name="cancelProcessManager" ref="CancelProcessManager"/>
+        <property name="anchorColumnName" value="rownum"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.cancelprocessmgr.struts.ViewMultiCancelInfoAction"
+          class="dti.pm.transactionmgr.cancelprocessmgr.struts.ViewMultiCancelInfoAction" parent="PMBaseAction">
+        <property name="cancelProcessManager" ref="CancelProcessManager"/>
+        <property name="anchorColumnName" value="rownum"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.struts.MassReRateAction"
+          class="dti.pm.policymgr.struts.MassReRateAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="batchLogId"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.struts.MassReRateDetailAction"
+          class="dti.pm.policymgr.struts.MassReRateDetailAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyNo"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.struts.LoadReRateOptionsAction"
+          class="dti.pm.policymgr.struts.LoadReRateOptionsAction" parent="PMBaseAction">
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.cancelprocessmgr.struts.ViewMultiCancelConfirmationAction"
+          class="dti.pm.transactionmgr.cancelprocessmgr.struts.ViewMultiCancelConfirmationAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="transDetailAnchorColumnName" value="rownum"/>
+        <property name="cancelProcessManager" ref="CancelProcessManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.cancelprocessmgr.struts.PurgePolicyAction"
+          class="dti.pm.transactionmgr.cancelprocessmgr.struts.PurgePolicyAction" parent="PMBaseAction">
+        <property name="cancelProcessManager" ref="CancelProcessManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.cancelprocessmgr.struts.FlatCancelPolicyAction"
+          class="dti.pm.transactionmgr.cancelprocessmgr.struts.FlatCancelPolicyAction" parent="PMBaseAction">
+        <property name="cancelProcessManager" ref="CancelProcessManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.reinstateprocessmgr.struts.PerformReinstateAction"
+          class="dti.pm.transactionmgr.reinstateprocessmgr.struts.PerformReinstateAction" parent="PMBaseAction">
+        <property name="reinstateProcessManager" ref="ReinstateProcessManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.renewalquestionnairemgr.struts.GenerateRenewalQustionnaireAction"
+          class="dti.pm.renewalquestionnairemgr.struts.GenerateRenewalQustionnaireAction" parent="PMBaseAction">
+        <property name="renewalQuestionnaireManager" ref="RenewalQuestionnaireManager"/>
+        <property name="anchorColumnName" value="renewFormId"/>
+    </bean>
+    <bean id="dti.pm.renewalquestionnairemgr.struts.GenerateRenewalQustionnaireInformationAction"
+          class="dti.pm.renewalquestionnairemgr.struts.GenerateRenewalQustionnaireInformationAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="renewFormId"/>
+    </bean>
+
+    <bean id="dti.pm.renewalquestionnairemgr.struts.RenewalQuestionnaireMailingEventAction"
+          class="dti.pm.renewalquestionnairemgr.struts.RenewalQuestionnaireMailingEventAction" parent="PMBaseAction">
+        <property name="renewalQuestionnaireManager" ref="RenewalQuestionnaireManager"/>
+        <property name="anchorColumnName" value="rownum"/>
+    </bean>
+
+    <bean id="dti.pm.renewalquestionnairemgr.struts.RenewalMailingEventQuestionnaireAction"
+          class="dti.pm.renewalquestionnairemgr.struts.RenewalMailingEventQuestionnaireAction" parent="PMBaseAction">
+        <property name="renewalQuestionnaireManager" ref="RenewalQuestionnaireManager"/>
+        <property name="anchorColumnName" value="rownum"/>
+    </bean>
+
+    <bean id="dti.pm.renewalquestionnairemgr.struts.AddRenewalQuestionnaireAction"
+          class="dti.pm.renewalquestionnairemgr.struts.AddRenewalQuestionnaireAction" parent="PMBaseAction">
+        <property name="renewalQuestionnaireManager" ref="RenewalQuestionnaireManager"/>
+    </bean>
+
+    <bean id="dti.pm.renewalquestionnairemgr.struts.RenewalMailingEventPrintAction"
+          class="dti.pm.renewalquestionnairemgr.struts.RenewalMailingEventPrintAction" parent="PMBaseAction">
+        <property name="renewalQuestionnaireManager" ref="RenewalQuestionnaireManager"/>
+    </bean>
+
+    <bean id="dti.pm.renewalquestionnairemgr.struts.CaptureResponseErrorAction"
+          class="dti.pm.renewalquestionnairemgr.struts.CaptureResponseErrorAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+    </bean>
+
+    <bean id="dti.pm.renewalquestionnairemgr.struts.RenewalQuestionnaireResponseAction"
+          class="dti.pm.renewalquestionnairemgr.struts.RenewalQuestionnaireResponseAction" parent="PMBaseAction">
+        <property name="renewalQuestionnaireManager" ref="RenewalQuestionnaireManager"/>
+    </bean>
+    <bean id="dti.pm.renewalquestionnairemgr.struts.RenewalQuestionnaireResponseSaveAction"
+          class="dti.pm.renewalquestionnairemgr.struts.RenewalQuestionnaireResponseSaveAction" parent="PMBaseAction">
+    </bean>
+
+    <bean id="dti.pm.tailmgr.struts.MaintainTailAction"
+          class="dti.pm.tailmgr.struts.MaintainTailAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="tailCovBaseRecordId"/>
+        <property name="componentAnchorColumnName" value="policyCovComponentId"/>
+        <property name="tailManager" ref="TailManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+    <bean id="dti.pm.tailmgr.struts.SelectTailAction"
+          class="dti.pm.tailmgr.struts.SelectTailAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="productCovRelationId"/>
+        <property name="tailManager" ref="TailManager"/>
+    </bean>
+    <bean id="dti.pm.tailmgr.struts.ShowTailValidationErrorAction"
+          class="dti.pm.tailmgr.struts.ShowTailValidationErrorAction" parent="PMBaseAction">
+        <property name="tailManager" ref="TailManager"/>
+        <property name="anchorColumnName" value="tailCovBaseRecordId"/>
+    </bean>
+    <bean id="dti.pm.tailmgr.struts.CaptureFinancePercentAction"
+          class="dti.pm.tailmgr.struts.CaptureFinancePercentAction" parent="PMBaseAction">
+        <property name="tailManager" ref="TailManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.reissueprocessmgr.struts.ReissuePolicyAction"
+          class="dti.pm.transactionmgr.reissueprocessmgr.struts.ReissuePolicyAction" parent="PMBaseAction">
+        <property name="reissueProcessManager" ref="ReissueProcessManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+    <!-- ************************************************************** -->
+    <!-- Maintain Policy Configuration                                   -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.struts.ViewPolicySummaryAction" class="dti.pm.policymgr.struts.ViewPolicySummaryAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyId"/>
+        <property name="transactionAnchorColumnName" value="transactionLogId"/>
+        <property name="riskAnchorColumnName" value="riskBaseRecordId"/>
+        <property name="coverageAnchorColumnName" value="coverageId"/>
+        <property name="agentAnchorColumnName" value="producerAgentLicenseId"/>
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="coverageManager" ref="CoverageManager"/>
+        <property name="agentManager" ref="AgentManager"/>
+    </bean>
+    <bean id="dti.pm.policymgr.struts.DenyQuoteAction"
+          class="dti.pm.policymgr.struts.DenyQuoteAction" parent="PMBaseAction">
+        <property name="policyManager" ref="PolicyManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.struts.MaintainQuoteAction"
+          class="dti.pm.policymgr.struts.MaintainQuoteAction" parent="PMBaseAction">
+        <property name="policyManager" ref="PolicyManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.struts.ProcessQuoteStatusAction"
+          class="dti.pm.policymgr.struts.ProcessQuoteStatusAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyStatusHistoryId"/>
+        <property name="policyManager" ref="PolicyManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.struts.CreatePolicyAction" class="dti.pm.policymgr.struts.CreatePolicyAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyTypeId"/>
+        <property name="policyManager" ref="PolicyManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.struts.SelectQuoteRiskCovgAction"
+          class="dti.pm.policymgr.struts.SelectQuoteRiskCovgAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="id"/>
+        <property name="policyManager" ref="PolicyManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.struts.SelectProductCoverageAction"
+          class="dti.pm.coveragemgr.struts.SelectProductCoverageAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="productCoverageId"/>
+        <property name="coverageManager" ref="CoverageManager"/>
+    </bean>
+
+    <bean id="dti.pm.coverageclassmgr.struts.SelectProductCoverageClassAction"
+          class="dti.pm.coverageclassmgr.struts.SelectProductCoverageClassAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="productCoverageClassId"/>
+        <property name="coverageClassManager" ref="CoverageClassManager"/>
+    </bean>
+
+    <bean id="dti.pm.acctlookupmgr.struts.LookupAccountAction" class="dti.pm.acctlookupmgr.struts.LookupAccountAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="billingAccountId"/>
+        <property name="accountLookupManager" ref="AccountLookupManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.SelectRiskTypeAction" class="dti.pm.riskmgr.struts.SelectRiskTypeAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="riskTypeId"/>
+        <property name="riskManager" ref="RiskManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.SelectLocationAction" class="dti.pm.riskmgr.struts.SelectLocationAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="location"/>
+        <property name="riskManager" ref="RiskManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.SelectAffiliationAction" class="dti.pm.riskmgr.struts.SelectAffiliationAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="entityRelationId"/>
+        <property name="affiliationManager" ref="AffiliationManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.affiliationmgr.struts.CaptureAffiliationStartDateAction" class="dti.pm.riskmgr.affiliationmgr.struts.CaptureAffiliationStartDateAction"
+          parent="PMBaseAction">
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.SelectCoiAction" class="dti.pm.riskmgr.struts.SelectCoiAction"
+          parent="PMBaseAction">
+        <property name="coiManager" ref="CoiManager"/>
+        <property name="anchorColumnName" value="coiHolderId"/>
+    </bean>
+    <bean id="dti.pm.riskmgr.struts.SelectScheduleAction" class="dti.pm.riskmgr.struts.SelectScheduleAction"
+          parent="PMBaseAction">
+        <property name="scheduleManager" ref="ScheduleManager"/>
+        <property name="anchorColumnName" value="policyScheduleId"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.SelectExistingRiskAction" class="dti.pm.riskmgr.struts.SelectExistingRiskAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="riskBaseRecordId"/>
+        <property name="riskManager" ref="RiskManager"/>
+    </bean>
+
+    <bean id="dti.pm.entitymgr.struts.LookupEntityAction" class="dti.pm.entitymgr.struts.LookupEntityAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="entityId"/>
+        <property name="entityManager" ref="EntityManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.specialhandlingmgr.struts.MaintainSpecialHandlingAction"
+          class="dti.pm.policymgr.specialhandlingmgr.struts.MaintainSpecialHandlingAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="polSpecialHandlingId"/>
+        <property name="specialhandlingManager" ref="SpecialHandlingManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.reinsurancemgr.struts.MaintainReinsuranceAction"
+          class="dti.pm.policymgr.reinsurancemgr.struts.MaintainReinsuranceAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyReinsuranceId"/>
+        <property name="reinsuranceManager" ref="ReinsuranceManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.limitsharingmgr.struts.MaintainLimitSharingAction"
+          class="dti.pm.policymgr.limitsharingmgr.struts.MaintainLimitSharingAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policySharedGroupMasterId"/>
+        <property name="sharedDetailAnchorColumnName" value="policyShareGroupDtlId"/>
+        <property name="separateLimitAnchorColumnName" value="sepLimRiskId"/>
+        <property name="limitSharingManager" ref="LimitSharingManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.premiumadjustmentprocessmgr.struts.MaintainPremiumAdjustmentAction"
+          class="dti.pm.transactionmgr.premiumadjustmentprocessmgr.struts.MaintainPremiumAdjustmentAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="coverageBaseRecordId"/>
+        <property name="premiumAdjustmentAnchorColumnName" value="policyCovComponentId"/>
+        <property name="premiumAdjustmentManager" ref="PremiumAdjustmentManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.limitsharingmgr.struts.SelectSharedDetailAction"
+          class="dti.pm.policymgr.limitsharingmgr.struts.SelectSharedDetailAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="coverageBaseRecordId"/>
+        <property name="limitSharingManager" ref="LimitSharingManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.mailingmgr.struts.MaintainPolicyMailingAction"
+          class="dti.pm.policymgr.mailingmgr.struts.MaintainPolicyMailingAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyMailingId"/>
+        <property name="mailingAttributeAnchorColumnName" value="policyMailingResendId"/>
+        <property name="mailingRecipientAnchorColumnName" value="policyMailingDtlId"/>
+        <property name="policyMailingManager" ref="PolicyMailingManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.mailingmgr.struts.MaintainProductMailingAction"
+          class="dti.pm.policymgr.mailingmgr.struts.MaintainProductMailingAction" parent="PMBaseAction">
+        <property name="productMailingManager" ref="ProductMailingManager"/>
+        <property name="anchorColumnName" value="productMailingId"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.MaintainEndorsementQuoteAction"
+          class="dti.pm.transactionmgr.struts.MaintainEndorsementQuoteAction" parent="PMBaseAction">
+    </bean>
+
+    <bean id="dti.pm.policymgr.mailingmgr.struts.SelectPastMailingAction"
+          class="dti.pm.policymgr.mailingmgr.struts.SelectPastMailingAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyMailingDtlId"/>
+        <property name="policyMailingManager" ref="PolicyMailingManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.mailingmgr.struts.SelectMailingTypeAction"
+          class="dti.pm.policymgr.mailingmgr.struts.SelectMailingTypeAction" parent="PMBaseAction">
+    </bean>
+
+    <bean id="dti.pm.policymgr.mailingmgr.struts.LoadMailingErrorAction"
+          class="dti.pm.policymgr.mailingmgr.struts.LoadMailingErrorAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="errorId"/>
+        <property name="policyMailingManager" ref="PolicyMailingManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.additionalinsuredmgr.struts.MaintainAdditionalInsuredAction"
+          class="dti.pm.policymgr.additionalinsuredmgr.struts.MaintainAdditionalInsuredAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="additionalInsuredId"/>
+        <property name="additionalInsuredManager" ref="AdditionalInsuredManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.underlyingpolicymgr.struts.MaintainUnderlyingPolicyAction"
+          class="dti.pm.policymgr.underlyingpolicymgr.struts.MaintainUnderlyingPolicyAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyUnderlyingInfoId"/>
+        <property name="underlyingPolicyManager" ref="UnderlyingPolicyManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.underlyingpolicymgr.struts.SelectActivePolicyAction"
+          class="dti.pm.policymgr.underlyingpolicymgr.struts.SelectActivePolicyAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyId"/>
+        <property name="underlyingPolicyManager" ref="UnderlyingPolicyManager"/>
+        <property name="underlyingCoverageManager" ref="UnderlyingCoverageManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.vlcoveragemgr.struts.MaintainVLCoverageAction"
+          class="dti.pm.coveragemgr.vlcoveragemgr.struts.MaintainVLCoverageAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="vlCoverageManager" ref="VLCoverageManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.empphysmgr.struts.MaintainEmployedPhysicianAction"
+          class="dti.pm.riskmgr.empphysmgr.struts.MaintainEmployedPhysicianAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyFteRelationId"/>
+        <property name="employedPhysicianManager" ref="EmployedPhysicianManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.empphysmgr.struts.SelectFteRiskAction"
+          class="dti.pm.riskmgr.empphysmgr.struts.SelectFteRiskAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="riskBaseRecordId"/>
+        <property name="employedPhysicianManager" ref="EmployedPhysicianManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.prioractmgr.struts.MaintainPriorActAction"
+          class="dti.pm.coveragemgr.prioractmgr.struts.MaintainPriorActAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="riskId"/>
+        <property name="coverageAnchorColumnName" value="coverageId"/>
+        <property name="componentAnchorColumnName" value="policyCovComponentId"/>
+        <property name="priorActManager" ref="PriorActManager"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.tailquotemgr.struts.MaintainTailQuoteAction"
+          class="dti.pm.policymgr.tailquotemgr.struts.MaintainTailQuoteAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="transactionLogId"/>
+        <property name="tailQuoteAnchorColumnName" value="pmTailQuoteId"/>
+        <property name="tailQuoteManager" ref="TailQuoteManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.PerformRiskCopyAllAction"
+          class="dti.pm.riskmgr.struts.PerformRiskCopyAllAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="coverageId"/>
+        <property name="componentAnchorColumnName" value="policyCovComponentId"/>
+        <property name="covgClassAnchorColumnName" value="coverageClassId"/>
+        <property name="riskAnchorColumnName" value="riskId"/>
+        <property name="coiAnchorColumnName" value="coiHolderId"/>
+        <property name="scheduleAnchorColumnName" value="policyScheduleId"/>
+        <property name="affiAnchorColumnName" value="entityRelationId"/>
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="coverageClassManager" ref="CoverageClassManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.MaintainRetroDateAction"
+          class="dti.pm.riskmgr.struts.MaintainRetroDateAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="coverageId"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.premiummgr.struts.ViewPremiumAction"
+          class="dti.pm.policymgr.premiummgr.struts.ViewPremiumAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="premiumRecordId"/>
+        <property name="premiumManager" ref="PremiumManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.premiummgr.struts.ViewPremiumAccountingAction"
+          class="dti.pm.policymgr.premiummgr.struts.ViewPremiumAccountingAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="premiumAccountId"/>
+        <property name="premiumManager" ref="PremiumManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.auditmgr.struts.ViewAuditAction"
+          class="dti.pm.transactionmgr.auditmgr.struts.ViewAuditAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="oasisAuditTrailId"/>
+        <property name="auditManager" ref="AuditManager"/>
+        <property name="userPreferenceManager" ref="UserPreferenceManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.auditmgr.struts.SelectAuditLevelAction"
+          class="dti.pm.transactionmgr.auditmgr.struts.SelectAuditLevelAction" parent="PMBaseAction">
+    </bean>
+
+    <bean id="dti.pm.policymgr.taxmgr.struts.ViewTaxAction" class="dti.pm.policymgr.taxmgr.struts.ViewTaxAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="taxRecordId"/>
+        <property name="taxManager" ref="TaxManager"/>
+    </bean>
+    
+    <bean id="dti.pm.policymgr.taxmgr.struts.MaintainTaxAction" class="dti.pm.policymgr.taxmgr.struts.MaintainTaxAction"
+          parent="PMBaseAction">
+        <property name="riskAnchorColumnName" value="riskBaseRecordId"/>
+        <property name="anchorColumnName" value="premiumTaxHeaderId"/>
+        <property name="taxManager" ref="TaxManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.premiummgr.struts.ViewFundAction"
+          class="dti.pm.policymgr.premiummgr.struts.ViewFundAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="recordId"/>
+        <property name="premiumManager" ref="PremiumManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.premiummgr.struts.ViewRatingLogAction"
+          class="dti.pm.policymgr.premiummgr.struts.ViewRatingLogAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="rtTransLogId"/>
+        <property name="premiumManager" ref="PremiumManager"/>
+    </bean>
+    <bean id="dti.pm.policymgr.premiummgr.struts.ViewMemberContributionAction"
+          class="dti.pm.policymgr.premiummgr.struts.ViewMemberContributionAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="memberContributionRecordId"/>
+        <property name="premiumManager" ref="PremiumManager"/>
+    </bean>
+    <bean id="dti.pm.policymgr.premiummgr.struts.ViewLayerDetailAction"
+          class="dti.pm.policymgr.premiummgr.struts.ViewLayerDetailAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="multiLayerPremiumId"/>
+        <property name="premiumManager" ref="PremiumManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.premiummgr.struts.ViewPaymentAction"
+          class="dti.pm.policymgr.premiummgr.struts.ViewPaymentAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="paymentPlanId"/>
+        <property name="premiumManager" ref="PremiumManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ViewRelatedPolicyAction"
+          class="dti.pm.transactionmgr.struts.ViewRelatedPolicyAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="relatedPolicyId"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.regionalmgr.struts.MaintainRegionalTeamAction"
+          class="dti.pm.policymgr.regionalmgr.struts.MaintainRegionalTeamAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="regionalTeamId"/>
+        <property name="memberAnchorColumnName" value="underwriterSequenceId"/>
+        <property name="regionalTeamManager" ref="RegionalTeamManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.LoadSaveOptionsAction"
+          class="dti.pm.transactionmgr.struts.LoadSaveOptionsAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ValidateTransactionAction"
+          class="dti.pm.transactionmgr.struts.ValidateTransactionAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+    <bean id="dti.pm.transactionmgr.struts.ViewValidationErrorAction"
+          class="dti.pm.transactionmgr.struts.ViewValidationErrorAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="validationErrorId"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ViewCopyQuoteValidationErrorAction"
+          class="dti.pm.transactionmgr.struts.ViewCopyQuoteValidationErrorAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="validationErrorId"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ProcessFeeAction" class="dti.pm.transactionmgr.struts.ProcessFeeAction"
+          parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ProcessTaxAction" class="dti.pm.transactionmgr.struts.ProcessTaxAction"
+          parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.NotifyAction" class="dti.pm.transactionmgr.struts.NotifyAction"
+          parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="softValidationManager" ref="SoftValidationManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.CheckClearingReminderAction" class="dti.pm.transactionmgr.struts.CheckClearingReminderAction"
+          parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.RateTransactionAction"
+          class="dti.pm.transactionmgr.struts.RateTransactionAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.SaveWipAction"
+          class="dti.pm.transactionmgr.struts.SaveWipAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.workflowmgr.struts.LongRunningTransactionAction"
+          class="dti.pm.workflowmgr.struts.LongRunningTransactionAction" parent="PMBaseAction">
+        <property name="jobQueueManager" ref="JobQueueManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ValidatePremiumAction"
+          class="dti.pm.transactionmgr.struts.ValidatePremiumAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ValidateBillingRelationAction"
+          class="dti.pm.transactionmgr.struts.ValidateBillingRelationAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ValidateOpenClaimsAction"
+          class="dti.pm.transactionmgr.struts.ValidateOpenClaimsAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ViewRelatedPolicyErrorAction"
+          class="dti.pm.transactionmgr.struts.ViewRelatedPolicyErrorAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="anchorColumnName" value="relatedPolicyId"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ViewPolicyAdministratorHistoryAction"
+          class="dti.pm.transactionmgr.struts.ViewPolicyAdministratorHistoryAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="historicalAdminNum"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.SaveOfficialAction" class="dti.pm.transactionmgr.struts.SaveOfficialAction"
+          parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="batchRenewalProcessManager" ref="BatchRenewalProcessManager"/>
+        <property name="policyAttributesManager" ref="PolicyAttributesManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ViewPmFmDiscrepancyAction"
+          class="dti.pm.transactionmgr.struts.ViewPmFmDiscrepancyAction"
+          parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="anchorColumnName" value="discrepancyCompareId"/>
+        <property name="transAnchorColumnName" value="discrepancyTransId"/>
+        <property name="intfcAnchorColumnName" value="discrepancyInftcId"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.SaveAsEndorsementQuoteAction"
+          class="dti.pm.transactionmgr.struts.SaveAsEndorsementQuoteAction"
+          parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.agentmgr.struts.MaintainPolicyAgentAction" class="dti.pm.agentmgr.struts.MaintainPolicyAgentAction"
+          parent="PMBaseAction">
+        <property name="agentManager" ref="AgentManager"/>
+        <property name="anchorColumnName" value="policyAgentId"/>
+    </bean>
+
+    <bean id="dti.pm.agentmgr.struts.ViewAgentHistoryAction" class="dti.pm.agentmgr.struts.ViewAgentHistoryAction"
+          parent="PMBaseAction">
+        <property name="agentManager" ref="AgentManager"/>
+        <property name="anchorColumnName" value="policyAgentId"/>
+    </bean>
+
+    <bean id="dti.pm.componentmgr.struts.SelectComponentAction"
+          class="dti.pm.componentmgr.struts.SelectComponentAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="productCovComponentId"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+
+    <bean id="dti.pm.componentmgr.struts.ProcessMassComponentAction"
+          class="dti.pm.componentmgr.struts.ProcessMassComponentAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="productCovComponentId"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+
+    <bean id="dti.pm.componentmgr.struts.CycleDetailAction"
+          class="dti.pm.componentmgr.struts.CycleDetailAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="sortOrd"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+
+    <bean id="dti.pm.componentmgr.struts.MaintainSurchargePointsAction"
+          class="dti.pm.componentmgr.struts.MaintainSurchargePointsAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="pmComponentPointOverrideId"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+
+    <bean id="dti.pm.componentmgr.struts.MaintainRmComponentAction"
+          class="dti.pm.componentmgr.struts.MaintainRmComponentAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="pmRmProcessMstrId"/>
+        <property name="detailAnchorColumnName" value="rownum"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+
+    <bean id="dti.pm.componentmgr.struts.ProcessCorpOrgComponentAction"
+          class="dti.pm.componentmgr.struts.ProcessCorpOrgComponentAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyId"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+
+    <bean id="dti.pm.componentmgr.struts.ViewCorpOrgComponentHistoryAction"
+          class="dti.pm.componentmgr.struts.ViewCorpOrgComponentHistoryAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="pmCorporgDiscHistId"/>
+        <property name="detailAnchorColumnName" value="pmCorporgDiscHistDtlId"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ChangeTermDatesAction"
+          class="dti.pm.transactionmgr.struts.ChangeTermDatesAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ChangeTermExpirationDateAction"
+          class="dti.pm.transactionmgr.struts.ChangeTermExpirationDateAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.struts.ChangePolicyAdministratorAction"
+          class="dti.pm.transactionmgr.struts.ChangePolicyAdministratorAction" parent="PMBaseAction">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="userSessionManager" ref="UserSessionManager"/>
+    </bean>
+
+
+    <bean id="dti.pm.riskmgr.affiliationmgr.struts.MaintainAffiliationAction" class="dti.pm.riskmgr.affiliationmgr.struts.MaintainAffiliationAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="entityRelationId"/>
+        <property name="affiliationManager" ref="AffiliationManager"/>
+
+    </bean>
+
+    <bean id="dti.pm.riskmgr.coimgr.struts.MaintainCoiAction" class="dti.pm.riskmgr.coimgr.struts.MaintainCoiAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="coiManager" ref="CoiManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.coimgr.struts.CaptureCoiAsOfDateAction"
+          class="dti.pm.riskmgr.coimgr.struts.CaptureCoiAsOfDateAction"
+          parent="PMBaseAction">
+        <property name="coiManager" ref="CoiManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.additionalinsuredmgr.struts.CaptureAddInsAsOfDateAction"
+          class="dti.pm.policymgr.additionalinsuredmgr.struts.CaptureAddInsAsOfDateAction"
+          parent="PMBaseAction">
+        <property name="additionalInsuredManager" ref="AdditionalInsuredManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.coimgr.struts.CaptureCoiClaimHistoryAction"
+          class="dti.pm.riskmgr.coimgr.struts.CaptureCoiClaimHistoryAction"
+          parent="PMBaseAction">
+        <property name="coiManager" ref="CoiManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.coimgr.struts.StandaloneGenerateCoiAction"
+          class="dti.pm.riskmgr.coimgr.struts.StandaloneGenerateCoiAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="entityRoleId"/>
+        <property name="coiManager" ref="CoiManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.minitailmgr.struts.ProcessMinitailAction"
+          class="dti.pm.coveragemgr.minitailmgr.struts.ProcessMinitailAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="coverageBaseRecordId"/>
+        <property name="childAnchorColumnName" value="miniTailId"/>
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="minitailManager" ref="MinitailManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.minitailmgr.struts.ViewFreeMiniTailAction"
+          class="dti.pm.coveragemgr.minitailmgr.struts.ViewFreeMiniTailAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="minitailManager" ref="MinitailManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.manuscriptmgr.struts.MaintainManuscriptAction"
+          class="dti.pm.coveragemgr.manuscriptmgr.struts.MaintainManuscriptAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="manuscriptEndorsementId"/>
+        <property name="manuscriptManager" ref="ManuscriptManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.manuscriptmgr.struts.SelectManuscriptAction"
+          class="dti.pm.coveragemgr.manuscriptmgr.struts.SelectManuscriptAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="manuscriptId"/>
+        <property name="manuscriptManager" ref="ManuscriptManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.manuscriptmgr.struts.MaintainManuscriptDetailAction"
+          class="dti.pm.coveragemgr.manuscriptmgr.struts.MaintainManuscriptDetailAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="manuscriptEndorsementDtlId"/>
+        <property name="manuscriptManager" ref="ManuscriptManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.underlyingmgr.struts.MaintainUnderlyingCoverageAction"
+          class="dti.pm.coveragemgr.underlyingmgr.struts.MaintainUnderlyingCoverageAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyUnderlyingCovgId"/>
+        <property name="underlyingCoverageManager" ref="UnderlyingCoverageManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.underlyingmgr.struts.SelectUnderlyingRelationAction"
+          class="dti.pm.coveragemgr.underlyingmgr.struts.SelectUnderlyingRelationAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="coverageId"/>
+        <property name="relCoverageAnchorColumnName" value="undCoverageId"/>
+        <property name="underlyingCoverageManager" ref="UnderlyingCoverageManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.lockmgr.struts.MaintainLockAction"
+          class="dti.pm.policymgr.lockmgr.struts.MaintainLockAction" parent="PMBaseAction"/>
+
+    <bean id="dti.pm.policymgr.lockmgr.struts.MaintainUnlockPolicyAction"
+          class="dti.pm.policymgr.lockmgr.struts.MaintainUnlockPolicyAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.SelectProcedureCodeAction"
+          class="dti.pm.riskmgr.struts.SelectProcedureCodeAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="productProcedureCodeId"/>
+        <property name="riskManager" ref="RiskManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.addtlexposuremgr.struts.MaintainRiskAddtlExposureAction"
+          class="dti.pm.riskmgr.addtlexposuremgr.struts.MaintainRiskAddtlExposureAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="riskAddtlExposureId"/>
+        <property name="riskAddtlExposureManager" ref="RiskAddtlExposureManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.MaintainRiskSurchargePointsAction"
+          class="dti.pm.riskmgr.struts.MaintainRiskSurchargePointsAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="pmComponentPointOverrideId"/>
+        <property name="riskManager" ref="RiskManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.insuredmgr.struts.MaintainInsuredTrackingAction"
+          class="dti.pm.riskmgr.insuredmgr.struts.MaintainInsuredTrackingAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="insuredTrackingId"/>
+        <property name="insuredTrackingManager" ref="InsuredTrackingManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.renewalflagmgr.struts.MaintainRenewalFlagAction"
+          class="dti.pm.policymgr.renewalflagmgr.struts.MaintainRenewalFlagAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyRenewalFlagId"/>
+        <property name="renewalFlagManager" ref="RenewalFlagManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.validationmgr.struts.ViewSoftValidationAction"
+          class="dti.pm.policymgr.validationmgr.struts.ViewSoftValidationAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="policySoftValidationId"/>
+        <property name="softValidationManager" ref="SoftValidationManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Maintain Batch Renewal Configuration                           -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.MaintainBatchRenewalProcessAction"
+          class="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.MaintainBatchRenewalProcessAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="renewalEventId"/>
+        <property name="batchRenewalProcessManager" ref="BatchRenewalProcessManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.MaintainBatchRenewalDetailProcessAction"
+          class="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.MaintainBatchRenewalDetailProcessAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="renewalDetailId"/>
+        <property name="batchRenewalProcessManager" ref="BatchRenewalProcessManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.CaptureRenewalBatchPrinterAction"
+          class="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.CaptureRenewalBatchPrinterAction"
+          parent="PMBaseAction">
+        <property name="batchRenewalProcessManager" ref="BatchRenewalProcessManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Create Batch Renewal Configuration                             -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.CreateBatchRenewalProcessAction"
+          class="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.CreateBatchRenewalProcessAction"
+          parent="PMBaseAction">
+        <property name="batchRenewalProcessManager" ref="BatchRenewalProcessManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Create Common Anniversary Batch Renewal Configuration          -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.CreateCommonAnniversaryBatchRenewalProcessAction"
+          class="dti.pm.transactionmgr.batchrenewalprocessmgr.struts.CreateCommonAnniversaryBatchRenewalProcessAction"
+          parent="PMBaseAction">
+        <property name="batchRenewalProcessManager" ref="BatchRenewalProcessManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Create COI Renewal Configuration                               -->
+    <!-- ************************************************************** -->
+
+    <bean id="dti.pm.transactionmgr.coirenewalmgr.struts.CreateCoiRenewalAction"
+          class="dti.pm.transactionmgr.coirenewalmgr.struts.CreateCoiRenewalAction"
+          parent="PMBaseAction">
+        <property name="coiRenewalManager" ref="CoiRenewalManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Maintain COI Renewal Event Configuration                       -->
+    <!-- ************************************************************** -->
+
+    <bean id="dti.pm.transactionmgr.coirenewalmgr.struts.MaintainCoiRenewalEventAction"
+          class="dti.pm.transactionmgr.coirenewalmgr.struts.MaintainCoiRenewalEventAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnNames">
+            <list>
+                <!-- Frist grid's anchor column name -->
+                <value>coiRenewalEventId</value>
+                <!-- Second grid's anchor column name -->
+                <value>rownum</value>
+            </list>
+        </property>
+        <property name="gridHeaderLayerIds">
+            <list>
+                <!-- Frist grid's grid header layer id -->
+                <value>PM_COI_RENEWAL_EVENT_GH</value>
+                <!-- Second grid's grid header layer id -->
+                <value>PM_COI_RENEWAL_DETAIL_GH</value>
+            </list>
+        </property>
+        <property name="coiRenewalManager" ref="CoiRenewalManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- View Quick Pay Details Configuration                           -->
+    <!-- ************************************************************** -->
+
+    <bean id="dti.pm.policymgr.quickpaymgr.struts.ViewQuickPayDetailAction"
+          class="dti.pm.policymgr.quickpaymgr.struts.ViewQuickPayDetailAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnNames">
+            <list>
+                <!-- Frist grid's anchor column name -->
+                <value>qpTransLogId</value>
+                <!-- Second grid's anchor column name -->
+                <value>thirdAnchorColumn</value>
+            </list>
+        </property>
+        <property name="gridHeaderLayerIds">
+            <list>
+                <!-- Frist grid's grid header layer id -->
+                <value>PM_QP_TRANS_GH</value>
+                <!-- Second grid's grid header layer id -->
+                <value>PM_QP_RISK_COVERAGE_GH</value>
+            </list>
+        </property>
+        <property name="quickPayManager" ref="QuickPayManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Manage Quick Pay Configuration                                 -->
+    <!-- ************************************************************** -->
+
+    <bean id="dti.pm.policymgr.quickpaymgr.struts.MaintainQuickPayAction"
+          class="dti.pm.policymgr.quickpaymgr.struts.MaintainQuickPayAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="quickPayManager" ref="QuickPayManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Quick Pay Transaction Details Configuration                    -->
+    <!-- ************************************************************** -->
+
+    <bean id="dti.pm.policymgr.quickpaymgr.struts.MaintainQuickPayTransactionDetailAction"
+          class="dti.pm.policymgr.quickpaymgr.struts.MaintainQuickPayTransactionDetailAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="thirdAnchorColumn"/>
+        <property name="quickPayManager" ref="QuickPayManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Process Quick Pay Configuration                                -->
+    <!-- ************************************************************** -->
+
+    <bean id="dti.pm.policymgr.quickpaymgr.struts.ProcessQuickPayAction"
+          class="dti.pm.policymgr.quickpaymgr.struts.ProcessQuickPayAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="quickPayManager" ref="QuickPayManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Maintain Transaction Configuration                                   -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.transactionmgr.struts.MaintainTransactionAction"
+          class="dti.pm.transactionmgr.struts.MaintainTransactionAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rowNo"/>
+        <property name="childAnchorColumnName" value="changeTableId"/>
+        <property name="transFormAnchorColumnName" value="transactionFormId"/>
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Maintain Risk Relation Configuration                           -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.riskmgr.struts.MaintainRiskRelationAction"
+          class="dti.pm.riskmgr.struts.MaintainRiskRelationAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="riskRelId"/>
+        <property name="riskRelationManager" ref="RiskRelationManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.SelectPolicyInsuredRiskRelationAction"
+          class="dti.pm.riskmgr.struts.SelectPolicyInsuredRiskRelationAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="polInsRiskId"/>
+        <property name="riskRelationManager" ref="RiskRelationManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.SelectCompanyInsuredRiskRelationAction"
+          class="dti.pm.riskmgr.struts.SelectCompanyInsuredRiskRelationAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="compInsRiskId"/>
+        <property name="riskRelationManager" ref="RiskRelationManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.ViewInsuredHistoryAction" class="dti.pm.riskmgr.struts.ViewInsuredHistoryAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.struts.SelectAddressAction"
+          class="dti.pm.policymgr.struts.SelectAddressAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="addressId"/>
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="entityManager" ref="EntityManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.PerformRiskAddressPhoneCopyAction"
+          class="dti.pm.riskmgr.struts.PerformRiskAddressPhoneCopyAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="pkValue"/>
+        <property name="riskNameAnchorColumnName" value="riskId"/>
+    </bean>
+
+    <bean id="dti.pm.notesmgr.struts.MaintainPartTimeNotesAction"
+          class="dti.pm.notesmgr.struts.MaintainPartTimeNotesAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="renewPartTimeId"/>
+        <property name="notesManager" ref="NotesManager"/>
+    </bean>
+
+    <bean id="dti.pm.componentmgr.experiencemgr.struts.ProcessExperienceComponentAction"
+          class="dti.pm.componentmgr.experiencemgr.struts.ProcessExperienceComponentAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="experienceComponentManager" ref="ExperienceComponentManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.applicationmgr.struts.MaintainApplicationAction"
+          class="dti.pm.policymgr.applicationmgr.struts.MaintainApplicationAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="applicationManager" ref="ApplicationManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.quickquotemgr.struts.ProcessQuickQuoteAction"
+          class="dti.pm.policymgr.quickquotemgr.struts.ProcessQuickQuoteAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyLoadEventDetailId"/>
+        <property name="quickQuoteManager" ref="QuickQuoteManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.reviewduplicatemgr.struts.MaintainReviewDuplicateAction"
+          class="dti.pm.policymgr.reviewduplicatemgr.struts.MaintainReviewDuplicateAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="cisAnchorColumnName" value="rownum"/>
+        <property name="reviewDuplicateManager" ref="ReviewDuplicateManager"/>
+    </bean>
+
+    <bean id="dti.pm.coveragemgr.excesspremiummgr.struts.MaintainExcessPremiumAction"
+          class="dti.pm.coveragemgr.excesspremiummgr.struts.MaintainExcessPremiumAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rowNum"/>
+        <property name="excessPremiumManager" ref="ExcessPremiumManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.struts.ViewInsuredInfoAction" class="dti.pm.riskmgr.struts.ViewInsuredInfoAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rowNum"/>
+    </bean>
+
+    <bean id="dti.pm.quotemgr.struts.ViewQuoteAction" class="dti.pm.quotemgr.struts.ViewQuoteAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyId"/>
+        <property name="quoteManager" ref="QuoteManager"/>
+    </bean>
+
+    <bean id="dti.pm.quotemgr.struts.MaintainQuoteTransferAction" class="dti.pm.quotemgr.struts.MaintainQuoteTransferAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyId"/>
+        <property name="quoteManager" ref="QuoteManager"/>
+        <property name="renewalProcessManager" ref="RenewalProcessManager"/>
+    </bean>
+
+    <bean id="dti.pm.transactionmgr.cancelprocessmgr.struts.ViewTransactionSnapshotAction"
+          class="dti.pm.transactionmgr.cancelprocessmgr.struts.ViewTransactionSnapshotAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnNames">
+            <list>
+                <!-- Frist grid's anchor column name -->
+                <value>transactionLogId</value>
+                <!-- Second grid's anchor column name -->
+                <value>policyTermHistoryId</value>
+                <!-- Thrid grid's anchor column name -->
+                <value>policyCovComponentId</value>
+                <!-- Fourth grid's anchor column name -->
+                <value>riskId</value>
+                <!-- Fifth grid's anchor column name -->
+                <value>coverageId</value>
+                <!-- Sixth grid's anchor column name -->
+                <value>policyCovComponentId</value>
+            </list>
+        </property>
+        <property name="gridHeaderLayerIds">
+            <list>
+                <!-- Frist grid's grid header layer id -->
+                <value>TRANS_SNAPSHOT_GH</value>
+                <!-- Second grid's grid header layer id -->
+                <value>TERM_SNAPSHOT_GH</value>
+                <!-- Thrid grid's grid header layer id -->
+                <value>POL_COMP_SNAPSHOT_GH</value>
+                <!-- Fourth grid's grid header layer id -->
+                <value>RISK_SNAPSHOT_GH</value>
+                <!-- Fifth grid's grid header layer id -->
+                <value>COVERAGE_SNAPSHOT_GH</value>
+                <!-- Sixth grid's grid header layer id -->
+                <value>COVG_COMP_SNAPSHOT_GH</value>
+            </list>
+        </property>
+        <property name="cancelProcessManager" ref="CancelProcessManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Maintain Policy Report Configuration                           -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.premiummgr.struts.MaintainPremiumWorkSheetAction"
+          class="dti.pm.policymgr.premiummgr.struts.MaintainPremiumWorkSheetAction"
+          parent="PMBaseAction">
+        <property name="premiumManager" ref="PremiumManager"/>
+    </bean>
+
+    <bean id="dti.pm.policyreportmgr.struts.MaintainPolicyReportAction"
+          class="dti.pm.policyreportmgr.struts.MaintainPolicyReportAction"
+          parent="PMBaseAction">
+        <property name="policyReportManager" ref="PolicyReportManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Predictive Analytics Configuration                             -->
+    <!-- ************************************************************** -->
+
+    <bean id="dti.pm.policymgr.analyticsmgr.struts.ProcessPredictiveAnalyticsAction"
+          class="dti.pm.policymgr.analyticsmgr.struts.ProcessPredictiveAnalyticsAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="opaScoreReqPk"/>
+        <property name="resultAnchorColumnName" value="opaScoreResultPk"/>
+        <property name="reasonAnchorColumnName" value="opaScoreReasonPk"/>
+        <property name="predictiveAnalyticsManager" ref="PredictiveAnalyticsManager"/>
+    </bean>
+
+    <bean id="dti.pm.policymgr.analyticsmgr.struts.MaintainPredictiveAnalyticsErrorsAction"
+          class="dti.pm.policymgr.analyticsmgr.struts.MaintainPredictiveAnalyticsErrorsAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="opaScoreReqPk"/>
+        <property name="opaScoreReqAnchorColumnName" value="opaScoreReqPk"/>
+        <property name="opaScoreErrorLogAnchorColumnName" value="opaScoreErrorPk"/>
+        <property name="predictiveAnalyticsManager" ref="PredictiveAnalyticsManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- View Professional Entity Details Configuration                 -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.transactionmgr.struts.ViewProfessionalEntityDetailAction"
+          class="dti.pm.transactionmgr.struts.ViewProfessionalEntityDetailAction" parent="PMBaseAction">
+        <property name="anchorColumnNames">
+            <list>
+                <!-- Transaction grid's anchor column name -->
+                <value>rownum</value>
+                <!-- Detail grid's anchor column name -->
+                <value>rownum</value>
+            </list>
+        </property>
+        <property name="gridHeaderLayerIds">
+            <list>
+                <!-- Transaction grid's grid header layer id -->
+                <value>PM_VIEW_PROF_TRANS_GH</value>
+                <!-- Detail grid's grid header layer id -->
+                <value>PM_VIEW_PROF_TRANS_DETAIL_GH</value>
+            </list>
+        </property>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <bean id="dti.pm.billingmgr.struts.LoadCoverageBillingAction"
+          class="dti.pm.billingmgr.struts.LoadCoverageBillingAction"
+          parent="PMBaseAction">
+        <property name="billingManager" ref="BillingManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Maintain Undo Term Configuration                               -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.transactionmgr.struts.PerformUndoTermAction"
+          class="dti.pm.transactionmgr.struts.PerformUndoTermAction" parent="PMBaseAction">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- View Shared Limit Configuration                                -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.limitsharingmgr.struts.ViewSharedLimitAction"
+          class="dti.pm.policymgr.limitsharingmgr.struts.ViewSharedLimitAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="limitSharingManager" ref="LimitSharingManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- View Claims Summary Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.riskmgr.struts.ViewClaimsSummaryAction"
+          class="dti.pm.riskmgr.struts.ViewClaimsSummaryAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="claimId"/>
+        <property name="summaryManager" ref="SummaryManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Process Distribution Configuration                             -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.distributionmgr.struts.ProcessDistributionAction"
+          class="dti.pm.policymgr.distributionmgr.struts.ProcessDistributionAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="dividendRuleId"/>
+        <property name="distributionManager" ref="DistributionManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Process ERP Configuration                                      -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.componentmgr.experiencemgr.struts.ProcessErpAction"
+          class="dti.pm.componentmgr.experiencemgr.struts.ProcessErpAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rowNo"/>
+        <property name="processErpManager" ref="ProcessErpManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Select Associated Risk Configuration                           -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.riskmgr.ibnrriskmgr.struts.SelectAssociatedRiskAction"
+          class="dti.pm.riskmgr.ibnrriskmgr.struts.SelectAssociatedRiskAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="riskBaseRecordId"/>
+        <property name="ibnrRiskManager" ref="IbnrRiskManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Maintain IBNR Risk Configuration                               -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.riskmgr.ibnrriskmgr.struts.MaintainIbnrRiskAction"
+          class="dti.pm.riskmgr.ibnrriskmgr.struts.MaintainIbnrRiskAction" parent="PMBaseAction">
+        <property name="anchorColumnNames">
+            <list>
+                <!-- Frist grid's anchor column name -->
+                <value>rownum</value>
+                <!-- Second grid's anchor column name -->
+                <value>ibnrInactiveId</value>
+                <!-- Third grid's anchor column name -->
+                <value>inactiveId</value>
+            </list>
+        </property>
+        <property name="ibnrRiskManager" ref="IbnrRiskManager"/>
+    </bean>
+
+    <bean id="dti.pm.riskmgr.ibnrriskmgr.struts.IbnrNotifyAction" class="dti.pm.riskmgr.ibnrriskmgr.struts.IbnrNotifyAction"
+          parent="PMBaseAction">
+        <property name="ibnrRiskManager" ref="IbnrRiskManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Maintain Dividend Configuration                                -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.dividendmgr.struts.MaintainDividendRuleAction"
+          class="dti.pm.policymgr.dividendmgr.struts.MaintainDividendRuleAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="dividendRuleId"/>
+        <property name="dividendManager" ref="DividendManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Process Dividend Configuration                                 -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.dividendmgr.struts.ProcessDividendAction"
+          class="dti.pm.policymgr.dividendmgr.struts.ProcessDividendAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="dividendRuleId"/>
+        <property name="detailAnchorColumnName" value="rowNum"/>
+        <property name="dividendManager" ref="DividendManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Calculate Dividend Configuration                               -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.dividendmgr.struts.CalculateDividendAction"
+          class="dti.pm.policymgr.dividendmgr.struts.CalculateDividendAction"
+          parent="PMBaseAction">
+        <property name="dividendManager" ref="DividendManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Dividend Report Configuration                                  -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.dividendmgr.struts.DividendReportAction"
+          class="dti.pm.policymgr.dividendmgr.struts.DividendReportAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="dividendEventId"/>
+        <property name="detailAnchorColumnName" value="policyId"/>
+        <property name="dividendManager" ref="DividendManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Dividend Declaration Configuration                                 -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.dividendmgr.struts.MaintainDividendDeclareAction"
+          class="dti.pm.policymgr.dividendmgr.struts.MaintainDividendDeclareAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="dividendRuleId"/>
+        <property name="dividendManager" ref="DividendManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Preview Dividend Configuration                                 -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.dividendmgr.struts.PreviewDividendAction"
+          class="dti.pm.policymgr.dividendmgr.struts.PreviewDividendAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rowNum"/>
+        <property name="dividendManager" ref="DividendManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Post Dividend Configuration                                 -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.dividendmgr.struts.MaintainDividendAction"
+          class="dti.pm.policymgr.dividendmgr.struts.MaintainDividendAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="policyDividendId"/>
+        <property name="dividendManager" ref="DividendManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Transfer Dividend                                              -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.dividendmgr.struts.TransferDividendAction"
+          class="dti.pm.policymgr.dividendmgr.struts.TransferDividendAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rowNo"/>
+        <property name="dividendManager" ref="DividendManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Dividend Audit                                              -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.dividendmgr.struts.ViewDividendAuditAction"
+          class="dti.pm.policymgr.dividendmgr.struts.ViewDividendAuditAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rowNo"/>
+        <property name="dividendManager" ref="DividendManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Process ACF Configuration                                      -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.processacfmgr.struts.MaintainAcfAction"
+          class="dti.pm.policymgr.processacfmgr.struts.MaintainAcfAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnNames">
+            <list>
+                <!-- Frist grid's anchor column name -->
+                <value>productBrokerageId</value>
+                <!-- Second grid's anchor column name -->
+                <value>policyBrokerageOverrideId</value>
+                <!-- Thrid grid's anchor column name -->
+                <value>policyBrokerageDetailId</value>
+                <!-- Fourth grid's anchor column name -->
+                <value>policyBrokerageFeeDetailId</value>
+            </list>
+        </property>
+        <property name="processAcfManager" ref="ProcessAcfManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- View Credit Stacking Configuration                             -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.creditstackmgr.struts.ViewCreditStackingAction"
+          class="dti.pm.policymgr.creditstackmgr.struts.ViewCreditStackingAction" parent="PMBaseAction">
+        <property name="anchorColumnNames">
+            <list>
+                <!-- Frist grid's anchor column name -->
+                <value>selOrder</value>
+                <!-- Second grid's anchor column name -->
+                <value>winBucket</value>
+            </list>
+        </property>
+        <property name="creditStackingManager" ref="CreditStackingManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Short Term Policy Configuration                                -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.transactionmgr.shorttermpolicymgr.struts.ShortTermPolicyAction"
+          class="dti.pm.transactionmgr.shorttermpolicymgr.struts.ShortTermPolicyAction"
+          parent="PMBaseAction">
+        <property name="shortTermPolicyManager" ref="ShortTermPolicyManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Maintain National Program Configuration                        -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.riskmgr.nationalprogrammgr.struts.MaintainNationalProgramAction"
+          class="dti.pm.riskmgr.nationalprogrammgr.struts.MaintainNationalProgramAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="nationalProgramId"/>
+        <property name="nationalProgramManager" ref="NationalProgramManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Manage Application action configuration                      -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.applicationmgr.struts.ManageApplicationAction"
+          class="dti.pm.policymgr.applicationmgr.struts.ManageApplicationAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="webformWorkItemId"/>
+        <property name="applicationManager" ref="ApplicationManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Select app reviewer action configuration                       -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.applicationmgr.struts.SelectAppReviewerAction"
+          class="dti.pm.policymgr.applicationmgr.struts.SelectAppReviewerAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="appReviewerId"/>
+        <property name="applicationManager" ref="ApplicationManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Select underwriter action configuration                      -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.policymgr.applicationmgr.struts.ViewHistoryAction"
+          class="dti.pm.policymgr.applicationmgr.struts.ViewHistoryAction" parent="PMBaseAction">
+        <property name="anchorColumnName" value="webformWorkItemHistoryId"/>
+        <property name="applicationManager" ref="ApplicationManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- View Experience Discount History                               -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.riskmgr.struts.ViewExpDiscHistoryAction"
+          class="dti.pm.riskmgr.struts.ViewExpDiscHistoryAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- View Experience Discount History - Claim Information           -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.riskmgr.struts.ViewClaimInfoAction"
+          class="dti.pm.riskmgr.struts.ViewClaimInfoAction"
+          parent="PMBaseAction">
+        <property name="anchorColumnName" value="rownum"/>
+        <property name="componentManager" ref="ComponentManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Business Component Configurationn                              -->
+    <!-- ************************************************************** -->
+
+    <!-- ************************************************************** -->
+    <!-- Security Manager Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="SecurityManager" class="dti.pm.core.securitymgr.impl.SecurityManagerImpl">
+        <property name="dataSecurityDAO">
+            <bean class="dti.pm.core.securitymgr.dao.DataSecurityJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Page Entitlement Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="PageEntitlementManager" class="dti.oasis.pageentitlementmgr.impl.PageEntitlementManagerImpl">
+        <property name="pageEntitlementFileName" value="dti/pageEntitlements.xml"/>
+        <property name="pageEntitlementSchemaFileName" value="dti/pageEntitlements.xsd"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Add Select Ind column Load Processor Configuration             -->
+    <!-- ************************************************************** -->
+    <bean id="AddSelectIndLoadProcessor"
+          class="dti.pm.core.struts.AddSelectIndLoadProcessor" scope="prototype" lazy-init="true">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- WorkbenchConfiguration Configuration                                   -->
+    <!-- ************************************************************** -->
+    <bean id="WorkbenchConfiguration" class="dti.oasis.busobjs.WorkbenchConfiguration">
+        <property name="readOnlyDataSource" ref="ReadOnlyDataSource"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- PMDefaultManager Configuration                                   -->
+    <!-- ************************************************************** -->
+    <bean id="PMDefaultManager" class="dti.pm.pmdefaultmgr.impl.PMDefaultManagerImpl">
+        <property name="pmDefaultDAO">
+            <bean id="PMDefaultDAO" class="dti.pm.pmdefaultmgr.dao.PMDefaultJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Policy Manager Configuration                                   -->
+    <!-- ************************************************************** -->
+    <bean id="PolicyManager" class="dti.pm.policymgr.impl.PolicyManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="userSessionManager" ref="UserSessionManager"/>
+        <property name="requestStorageManager" ref="RequestStorageManager"/>
+        <property name="pmDefaultManager" ref="PMDefaultManager"/>
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="lockManager" ref="LockManager"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="taxManager" ref="TaxManager"/>
+        <property name="policyDAO" ref="PolicyDAO"/>
+    </bean>
+    <bean id="PolicyDAO" class="dti.pm.policymgr.dao.PolicyJdbcDAO" parent="BaseDAO"/>
+
+    <!-- ************************************************************** -->
+    <!-- Quote Manager Configuration                                    -->
+    <!-- ************************************************************** -->
+    <bean id="QuoteManager" class="dti.pm.quotemgr.impl.QuoteManagerImpl">
+        <property name="quoteDAO">
+            <bean class="dti.pm.quotemgr.dao.QuoteJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="policyDAO" ref="PolicyDAO"/>
+        <property name="renewalProcessManager" ref="RenewalProcessManager"/>
+        <property name="policyAttributesManager" ref="PolicyAttributesManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Policy Data Security Configuration                             -->
+    <!-- ************************************************************** -->
+    <bean id="PolicyDataSecurityPageDefLoadProcessor"
+          class="dti.pm.entitlementmgr.PolicyDataSecurityPageDefLoadProcessor" scope="prototype" lazy-init="true">
+        <property name="securityManager" ref="SecurityManager"/>
+        <property name="visibleActionItemIds" value="PM_COVG_SCH_PUP,PM_SPHND_PUP,PM_UNDW_PUP,PM_TAIL_PUP,PM_VIEW_FUND,PM_VIEW_TAX_PUP,PM_BILLNG_CLOSE,PM_AGNT_CLOSE,PM_AGNT_SCHE,PM_RISK_SCH_PUP,PM_SC_CLOSE,PM_PREMIUM,PM_TRANSACTION,PM_BILLINGSETUP,PM_AGENT"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Risk Manager Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="RiskManager" class="dti.pm.riskmgr.impl.RiskManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="coverageManager" ref="CoverageManager"/>
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="affiliationManager" ref="AffiliationManager"/>
+        <property name="coiManager" ref="CoiManager"/>
+        <property name="scheduleManager" ref="ScheduleManager"/>
+        <property name="coverageClassManager" ref="CoverageClassManager"/>
+        <property name="pmDefaultManager" ref="PMDefaultManager"/>
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="riskDAO" ref="RiskJdbcDAO"/>
+        <property name="policyAttributesManager" ref="PolicyAttributesManager"/>
+    </bean>
+    <bean id="RiskJdbcDAO" class="dti.pm.riskmgr.dao.RiskJdbcDAO" parent="BaseDAO"/>
+
+    <!-- ************************************************************** -->
+    <!-- Coverage Manager Configuration                           -->
+    <!-- ************************************************************** -->
+    <bean id="CoverageManager" class="dti.pm.coveragemgr.impl.CoverageManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="pmDefaultManager" ref="PMDefaultManager"/>
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="coverageClassManager" ref="CoverageClassManager"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="coverageDAO">
+            <bean class="dti.pm.coveragemgr.dao.CoverageJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Coverage Class Manager Configuration                           -->
+    <!-- ************************************************************** -->
+    <bean id="CoverageClassManager" class="dti.pm.coverageclassmgr.impl.CoverageClassManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="pmDefaultManager" ref="PMDefaultManager"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="coverageClassDAO">
+            <bean class="dti.pm.coverageclassmgr.dao.CoverageClassJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="transactionDAO" ref="TransactionJdbcDAO"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Policy Summary Manager Configuration                           -->
+    <!-- ************************************************************** -->
+    <bean id="PolicySummaryManager" class="dti.pm.policysummarymgr.impl.PolicySummaryManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="policySummaryDAO">
+            <bean class="dti.pm.policysummarymgr.dao.PolicySummaryJdbcDAO" parent="BaseDAO" />
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Transaction Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="TransactionManager" class="dti.pm.transactionmgr.impl.TransactionManagerImpl">
+        <property name="transactionDAO" ref="TransactionJdbcDAO"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="lockManager" ref="LockManager"/>
+        <property name="billingManager" ref="BillingManager"/>
+        <property name="jobQueueManager" ref="JobQueueManager"/>
+        <property name="softValidationManager" ref="SoftValidationManager"/>
+    </bean>
+    <bean id="TransactionJdbcDAO" class="dti.pm.transactionmgr.transaction.dao.jdbc.TransactionJdbcDAO"
+          parent="BaseDAO"/>
+
+    <!-- ************************************************************** -->
+    <!-- Entity Manager Configuration                                 -->
+    <!-- ************************************************************** -->
+    <bean id="EntityManager" class="dti.pm.entitymgr.impl.EntityManagerImpl">
+        <property name="entityDAO">
+            <bean id="EntityDAO" class="dti.pm.entitymgr.dao.EntityJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Billing Manager Configuration                                 -->
+    <!-- ************************************************************** -->
+    <bean id="BillingManager" class="dti.pm.billingmgr.impl.BillingManagerImpl">
+        <property name="billingDAO">
+            <bean id="BillingDAO" class="dti.pm.billingmgr.dao.BillingJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="billingAccountInquiryWSClientManager">
+            <bean id="BillingAccountInquiryWSClientManager"
+                  class="dti.pm.billingmgr.service.BillingAccountInquiryWSClientManagerImpl"/>
+        </property>
+        <property name="billingAccountChangeWSClientManager"
+                  ref="BillingAccountChangeWSClientManager" />
+        <property name="initialValuesWSClientManager">
+            <bean id="BillingAccountInitialValuesWSClientManager"
+                  class="dti.pm.billingmgr.service.BillingAccountInitialValuesWSClientManagerImpl"/>
+        </property>
+    </bean>
+
+    <bean id="BillingAccountChangeWSClientManager" class="dti.pm.billingmgr.service.BillingAccountChangeWSClientManagerImpl">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Underwriter Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="UnderwriterManager" class="dti.pm.policymgr.underwritermgr.impl.UnderwriterManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="underwriterDAO">
+            <bean id="UnderwriterDAO" class="dti.pm.policymgr.underwritermgr.dao.UnderwriterJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Account Lookup Manager Configuration                           -->
+    <!-- ************************************************************** -->
+    <bean id="AccountLookupManager" class="dti.pm.acctlookupmgr.impl.AccountLookupManagerImpl">
+        <property name="accountLookupDAO">
+            <bean id="AccountLookupDAO" class="dti.pm.acctlookupmgr.dao.AccountLookupJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Agent Configuration                                            -->
+    <!-- ************************************************************** -->
+    <bean id="AgentManager" class="dti.pm.agentmgr.impl.AgentManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="agentDAO">
+            <bean id="AgentDAO" class="dti.pm.agentmgr.dao.AgentJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Special Handling Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="SpecialHandlingManager" class="dti.pm.policymgr.specialhandlingmgr.impl.SpecialHandlingManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="specialHandlingDAO">
+            <bean id="SpecialHandlingDAO" class="dti.pm.policymgr.specialhandlingmgr.dao.SpecialHandlingJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Reinsurance Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="ReinsuranceManager" class="dti.pm.policymgr.reinsurancemgr.impl.ReinsuranceManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="reinsuranceDAO">
+            <bean id="reinsuranceDAO" class="dti.pm.policymgr.reinsurancemgr.dao.ReinsuranceJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- LimitSharing Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="LimitSharingManager" class="dti.pm.policymgr.limitsharingmgr.impl.LimitSharingManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="limitSharingDAO">
+            <bean id="limtSharingDAO" class="dti.pm.policymgr.limitsharingmgr.dao.LimitSharingJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- PremiumAdjustment Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="PremiumAdjustmentManager" class="dti.pm.transactionmgr.premiumadjustmentprocessmgr.impl.PremiumAdjustmentManagerImpl">
+        <property name="premiumAdjustmentDAO">
+            <bean id="premiumAdjustmentDAO" class="dti.pm.transactionmgr.premiumadjustmentprocessmgr.dao.PremiumAdjustmentJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- PolicyMailing Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="PolicyMailingManager" class="dti.pm.policymgr.mailingmgr.impl.PolicyMailingManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="policyMailingDAO">
+            <bean id="policyMailingDAO" class="dti.pm.policymgr.mailingmgr.dao.PolicyMailingJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="ProductMailingManager" class="dti.pm.policymgr.mailingmgr.impl.ProductMailingManagerImpl">
+        <property name="productMailingDAO">
+            <bean id="productMailingDAO" class="dti.pm.policymgr.mailingmgr.dao.ProductMailingJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Additional Insured Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="AdditionalInsuredManager" class="dti.pm.policymgr.additionalinsuredmgr.impl.AdditionalInsuredManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="additionalInsuredDAO">
+            <bean id="AdditionalInsuredDAO" class="dti.pm.policymgr.additionalinsuredmgr.dao.AdditionalInsuredJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Underlying Policy Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="UnderlyingPolicyManager" class="dti.pm.policymgr.underlyingpolicymgr.impl.UnderlyingPolicyManagerImpl">
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="underlyingPolicyDAO">
+            <bean id="UnderlyingPolicyDAO" class="dti.pm.policymgr.underlyingpolicymgr.dao.UnderlyingPolicyJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Employed Physician Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="EmployedPhysicianManager" class="dti.pm.riskmgr.empphysmgr.impl.EmployedPhysicianManagerImpl">
+        <property name="employedPhysicianDAO">
+            <bean id="EmployedPhysicianDAO" class="dti.pm.riskmgr.empphysmgr.dao.EmployedPhysicianJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Prior Act Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="PriorActManager" class="dti.pm.coveragemgr.prioractmgr.impl.PriorActManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="priorActDAO">
+            <bean id="priorActDAO" class="dti.pm.coveragemgr.prioractmgr.dao.PriorActJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Underlying Coverage Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="UnderlyingCoverageManager" class="dti.pm.coveragemgr.underlyingmgr.impl.UnderlyingCoverageManagerImpl">
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="underlyingCoverageDAO">
+            <bean id="UnderlyingCoverageDAO" class="dti.pm.coveragemgr.underlyingmgr.dao.UnderlyingCoverageJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+
+    <!-- ************************************************************** -->
+    <!-- Tail Quote Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="TailQuoteManager" class="dti.pm.policymgr.tailquotemgr.impl.TailQuoteManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="tailQuoteDAO">
+            <bean id="tailQuoteDAO" class="dti.pm.policymgr.tailquotemgr.dao.TailQuoteJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Affiliation Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="AffiliationManager" class="dti.pm.riskmgr.affiliationmgr.impl.AffiliationManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="affiliationDAO">
+            <bean id="affiliationDAO" class="dti.pm.riskmgr.affiliationmgr.dao.AffiliationJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+        <property name="transactionManager" ref="TransactionManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Premium Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="PremiumManager" class="dti.pm.policymgr.premiummgr.impl.PremiumManagerImpl">
+        <property name="policyReportManager" ref="PolicyReportManager"/>
+        <property name="premiumDAO">
+            <bean id="PremiumDAO" class="dti.pm.policymgr.premiummgr.dao.PremiumJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+    <!-- ************************************************************** -->
+    <!-- Audit Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="AuditManager" class="dti.pm.transactionmgr.auditmgr.impl.AuditManagerImpl">
+        <property name="auditDAO">
+            <bean id="AuditDAO" class="dti.pm.transactionmgr.auditmgr.dao.AuditJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- User View Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="UserViewManager" class="dti.pm.policymgr.userviewmgr.impl.UserViewManagerImpl">
+        <property name="userViewDAO">
+            <bean id="UserViewDAO" class="dti.pm.policymgr.userviewmgr.dao.UserViewJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+    <!-- ************************************************************** -->
+    <!-- Schedule Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="ScheduleManager" class="dti.pm.schedulemgr.impl.ScheduleManagerImpl">
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="scheduleDAO">
+            <bean id="ScheduleDAO" class="dti.pm.schedulemgr.dao.ScheduleJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Renewal Process Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="RenewalProcessManager" class="dti.pm.transactionmgr.renewalprocessmgr.impl.RenewalProcessManagerImpl">
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="lockManager" ref="LockManager"/>
+        <property name="batchRenewalProcessManager" ref="BatchRenewalProcessManager"/>
+        <property name="policyAttributesManager" ref="PolicyAttributesManager"/>
+        <property name="renewalProcessDAO">
+            <bean id="RenewalProcessDAO" class="dti.pm.transactionmgr.renewalprocessmgr.dao.RenewalProcessJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Renewal Questionnaire Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="RenewalQuestionnaireManager" class="dti.pm.renewalquestionnairemgr.impl.RenewalQuestionnaireManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="renewalQuestionnaireDAO">
+            <bean id="RenewalQuestionnaireDAO" class="dti.pm.renewalquestionnairemgr.dao.RenewalQuestionnaireJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Cancel Process Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="CancelProcessManager" class="dti.pm.transactionmgr.cancelprocessmgr.impl.CancelProcessManagerImpl">
+        <property name="lockManager" ref="LockManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="cancelProcessDAO">
+            <bean id="CancelProcessDAO" class="dti.pm.transactionmgr.cancelprocessmgr.dao.CancelProcessJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="componentDAO" ref="ComponentDAO"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Regional Team Manager Configuration                            -->
+    <!-- ************************************************************** -->
+    <bean id="RegionalTeamManager" class="dti.pm.policymgr.regionalmgr.impl.RegionalTeamManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="regionalTeamDAO">
+            <bean id="RegionalTeamDAO" class="dti.pm.policymgr.regionalmgr.dao.RegionalTeamJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Tail Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="TailManager" class="dti.pm.tailmgr.impl.TailManagerImpl">
+        <property name="tailDAO">
+            <bean id="TailDAO" class="dti.pm.tailmgr.dao.TailJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="cancelProcessManager" ref="CancelProcessManager"/>
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="coverageManager" ref="CoverageManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="lockManager" ref="LockManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+    </bean>
+
+
+    <!-- ************************************************************** -->
+    <!-- Reinstate Process Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="ReinstateProcessManager"
+          class="dti.pm.transactionmgr.reinstateprocessmgr.impl.ReinstateProcessManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="lockManager" ref="LockManager"/>
+        <property name="reinstateProcessDAO">
+            <bean id="ReinstateProcessDAO" class="dti.pm.transactionmgr.reinstateprocessmgr.dao.ReinstateProcessJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Reissue Process Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="ReissueProcessManager" class="dti.pm.transactionmgr.reissueprocessmgr.impl.ReissueProcessManagerImpl">
+        <property name="lockManager" ref="LockManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="reissueProcessDAO">
+            <bean id="ReissueProcessDAO" class="dti.pm.transactionmgr.reissueprocessmgr.dao.ReissueProcessJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Coverage Component Manager Configuration                       -->
+    <!-- ************************************************************** -->
+    <bean id="ComponentManager" class="dti.pm.componentmgr.impl.ComponentManagerImpl">
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="pmDefaultManager" ref="PMDefaultManager"/>
+        <property name="componentDAO" ref="ComponentDAO"/>
+        <property name="transactionDAO" ref="TransactionJdbcDAO"/>
+    </bean>
+    
+    <bean id="ComponentDAO" class="dti.pm.componentmgr.dao.ComponentJdbcDAO" parent="BaseDAO"/>
+    
+    <!-- ************************************************************** -->
+    <!-- VL Coverage Component Manager Configuration                       -->
+    <!-- ************************************************************** -->
+    <bean id="VLCoverageManager" class="dti.pm.coveragemgr.vlcoveragemgr.impl.VLCoverageManagerImpl">
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="vlCoverageDAO">
+            <bean id="VLCoverageDAO" class="dti.pm.coveragemgr.vlcoveragemgr.dao.VLCoverageJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Lock Manager Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="LockManager" class="dti.pm.policymgr.lockmgr.impl.LockManagerImpl">
+        <property name="userSessionManager" ref="UserSessionManager"/>
+        <property name="lockDAO">
+            <bean id="LockDAO" class="dti.pm.policymgr.lockmgr.dao.LockJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="ValidationDAO" class="dti.pm.validationmgr.dao.ValidationJdbcDAO" parent="BaseDAO"/>
+
+    <!-- ************************************************************** -->
+    <!-- COI Holder Manager Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="CoiManager" class="dti.pm.riskmgr.coimgr.impl.CoiManagerImpl">
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="coiDAO">
+            <bean class="dti.pm.riskmgr.coimgr.dao.CoiJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Minitail Manager Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="MinitailManager" class="dti.pm.coveragemgr.minitailmgr.impl.MinitailManagerImpl">
+        <property name="minitailDAO">
+            <bean class="dti.pm.coveragemgr.minitailmgr.dao.MinitailJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Manuscript Manager Configuration                               -->
+    <!-- ************************************************************** -->
+    <bean id="ManuscriptManager" class="dti.pm.coveragemgr.manuscriptmgr.impl.ManuscriptManagerImpl">
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="manuscriptDAO">
+            <bean class="dti.pm.coveragemgr.manuscriptmgr.dao.ManuscriptJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Tax Manager Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="TaxManager" class="dti.pm.policymgr.taxmgr.impl.TaxManagerImpl">
+        <property name="taxDAO">
+            <bean class="dti.pm.policymgr.taxmgr.dao.TaxJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- PM Navigation Manager Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="PMNavigationManager" class="dti.pm.pmnavigationmgr.impl.PMNavigationManagerImpl">
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="coverageManager" ref="CoverageManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Batch Renewal Manager Configuration                            -->
+    <!-- ************************************************************** -->
+    <bean id="BatchRenewalProcessManager"
+          class="dti.pm.transactionmgr.batchrenewalprocessmgr.impl.BatchRenewalProcessManagerImpl">
+        <property name="batchRenewalProcessDAO">
+            <bean class="dti.pm.transactionmgr.batchrenewalprocessmgr.dao.BatchRenewalProcessJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="securityManager" ref="SecurityManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- COI Renewal Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="CoiRenewalManager"
+          class="dti.pm.transactionmgr.coirenewalmgr.impl.CoiRenewalManagerImpl">
+        <property name="coiRenewalDAO">
+            <bean class="dti.pm.transactionmgr.coirenewalmgr.dao.CoiRenewalJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Experience Component Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="ExperienceComponentManager" class="dti.pm.componentmgr.experiencemgr.impl.ExperienceComponentManagerImpl">
+        <property name="experienceComponentDAO">
+            <bean class="dti.pm.componentmgr.experiencemgr.dao.ExperienceComponentJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <bean id="ApplicationManager" class="dti.pm.policymgr.applicationmgr.impl.ApplicationManagerImpl">
+        <property name="applicationDAO">
+            <bean class="dti.pm.policymgr.applicationmgr.dao.ApplicationJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+        <property name="policyManager" ref="PolicyManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Predictive Analytics Manager Configuration                     -->
+    <!-- ************************************************************** -->
+    <bean id="PredictiveAnalyticsManager" class="dti.pm.policymgr.analyticsmgr.impl.PredictiveAnalyticsManagerImpl">
+        <property name="predictiveAnalyticsDAO">
+            <bean class="dti.pm.policymgr.analyticsmgr.dao.PredictiveAnalyticsJdbcDAO"  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Risk Relation Manager Configuration                            -->
+    <!-- ************************************************************** -->
+    <bean id="RiskRelationManager" class="dti.pm.riskmgr.impl.RiskRelationManagerImpl">
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="pmDefaultManager" ref="PMDefaultManager"/>
+        <property name="cancelProcessManager" ref="CancelProcessManager"/>
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="riskRelationDAO">
+            <bean class="dti.pm.riskmgr.dao.RiskRelationJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="riskDAO" ref="RiskJdbcDAO"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Part Time Notes Configuration                                  -->
+    <!-- ************************************************************** -->
+    <bean id="NotesManager" class="dti.pm.notesmgr.impl.NotesManagerImpl">
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="notesDAO">
+            <bean class="dti.pm.notesmgr.dao.NotesJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Quick Quote Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="QuickQuoteManager" class="dti.pm.policymgr.quickquotemgr.impl.QuickQuoteManagerImpl">
+        <property name="quickQuoteDAO">
+            <bean class="dti.pm.policymgr.quickquotemgr.dao.QuickQuoteJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Review Duplicate Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="ReviewDuplicateManager" class="dti.pm.policymgr.reviewduplicatemgr.impl.ReviewDuplicateManagerImpl">
+        <property name="reviewDuplicateDAO">
+            <bean class="dti.pm.policymgr.reviewduplicatemgr.dao.ReviewDuplicateJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+        <property name="quickQuoteDAO">
+            <bean class="dti.pm.policymgr.quickquotemgr.dao.QuickQuoteJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+
+    <!-- ************************************************************** -->
+    <!-- Excess Premium Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="ExcessPremiumManager" class="dti.pm.coveragemgr.excesspremiummgr.impl.ExcessPremiumManagerImpl">
+        <property name="excessPremiumDAO">
+            <bean class="dti.pm.coveragemgr.excesspremiummgr.dao.ExcessPremiumJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Quick Pay Manager Configuration                                -->
+    <!-- ************************************************************** -->
+    <bean id="QuickPayManager"
+          class="dti.pm.policymgr.quickpaymgr.impl.QuickPayManagerImpl">
+        <property name="quickPayDAO">
+            <bean class="dti.pm.policymgr.quickpaymgr.dao.QuickPayJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Distribution Manager Configuration                             -->
+    <!-- ************************************************************** -->
+    <bean id="DistributionManager" class="dti.pm.policymgr.distributionmgr.impl.DistributionManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="distributionDAO">
+            <bean class="dti.pm.policymgr.distributionmgr.dao.DistributionJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Ibnr Risk Manager Configuration                                -->
+    <!-- ************************************************************** -->
+    <bean id="IbnrRiskManager"
+          class="dti.pm.riskmgr.ibnrriskmgr.impl.IbnrRiskManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="ibnrRiskDAO">
+            <bean class="dti.pm.riskmgr.ibnrriskmgr.dao.IbnrRiskJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Policy Report Manager Configuration                            -->
+    <!-- ************************************************************** -->
+    <bean id="PolicyReportManager" class="dti.pm.policyreportmgr.impl.PolicyReportManagerImpl"/>
+
+    <!-- ************************************************************** -->
+    <!-- Process ERP Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="ProcessErpManager" class="dti.pm.componentmgr.experiencemgr.impl.ProcessErpManagerImpl">
+        <property name="processErpDAO">
+            <bean id="processErpDAO" class="dti.pm.componentmgr.experiencemgr.dao.ProcessErpJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Dividend Manager Configuration                                 -->
+    <!-- ************************************************************** -->
+    <bean id="DividendManager" class="dti.pm.policymgr.dividendmgr.impl.DividendManagerImpl">
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="dividendDAO">
+            <bean class="dti.pm.policymgr.dividendmgr.dao.DividendJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="validationDAO" ref="ValidationDAO"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Process ACF Manager Configuration                              -->
+    <!-- ************************************************************** -->
+    <bean id="ProcessAcfManager" class="dti.pm.policymgr.processacfmgr.impl.ProcessAcfManagerImpl">
+        <property name="processAcfDAO">
+            <bean id="ProcessAcfDAO" class="dti.pm.policymgr.processacfmgr.dao.ProcessAcfJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- View Credit Stacking Manager Configuration                     -->
+    <!-- ************************************************************** -->
+    <bean id="CreditStackingManager" class="dti.pm.policymgr.creditstackmgr.impl.CreditStackingManagerImpl">
+        <property name="creditStackingDAO">
+            <bean id="CreditStackingDAO" class="dti.pm.policymgr.creditstackmgr.dao.CreditStackingJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+    <!-- ************************************************************** -->
+    <!-- National Program Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="NationalProgramManager"
+          class="dti.pm.riskmgr.nationalprogrammgr.impl.NationalProgramManagerImpl">
+        <property name="nationalProgramDAO">
+            <bean class="dti.pm.riskmgr.nationalprogrammgr.dao.NationalProgramJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+    <!-- ************************************************************** -->
+    <!-- Short Term Policy Manager Configuration                        -->
+    <!-- ************************************************************** -->
+    <bean id="ShortTermPolicyManager" class="dti.pm.transactionmgr.shorttermpolicymgr.impl.ShortTermPolicyManagerImpl">
+        <property name="lockManager" ref="LockManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="shortTermPolicyDAO">
+            <bean id="ShortTermPolicyDAO" class="dti.pm.transactionmgr.shorttermpolicymgr.dao.ShortTermPolicyJdbcDAO"
+                  parent="BaseDAO"/>
+        </property>
+    </bean>
+    <!-- ************************************************************** -->
+    <!-- Insured Tracking Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="InsuredTrackingManager" class="dti.pm.riskmgr.insuredmgr.impl.InsuredTrackingManagerImpl">
+        <property name="insuredTrackingDAO">
+            <bean class="dti.pm.riskmgr.insuredmgr.dao.InsuredTrackingJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="riskDAO" ref="RiskJdbcDAO"/>
+    </bean>
+    
+    <!-- Risk Additional Exposure Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="RiskAddtlExposureManager" class="dti.pm.riskmgr.addtlexposuremgr.impl.RiskAddtlExposureManagerImpl">
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+        <property name="riskAddtlExposureDAO">
+            <bean class="dti.pm.riskmgr.addtlexposuremgr.dao.RiskAddtlExposureJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="riskDAO" ref="RiskJdbcDAO"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Renewal Flag Manager Configuration                         -->
+    <!-- ************************************************************** -->
+    <bean id="RenewalFlagManager" class="dti.pm.policymgr.renewalflagmgr.impl.RenewalFlagManagerImpl">
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="renewalFlagDAO">
+            <bean id="renewalFlagDAO" class="dti.pm.policymgr.renewalflagmgr.dao.RenewalFlagJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Soft Validation Manager Configuration                          -->
+    <!-- ************************************************************** -->
+    <bean id="SoftValidationManager" class="dti.pm.policymgr.validationmgr.impl.SoftValidationManagerImpl">
+        <property name="softValidationDAO">
+            <bean id="softValidationDAO" class="dti.pm.policymgr.validationmgr.dao.SoftValidationJdbcDAO" parent="BaseDAO"/>
+        </property>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="policyDAO" ref="PolicyDAO"/>
+    </bean>
+
+    <!-- ALL WORKFLOW RELATED ITEMS BELOW-->
+
+    <!-- ************************************************************** -->
+    <!-- Workflow Action Class                                          -->
+    <!-- ************************************************************** -->
+    <bean id="dti.pm.workflowmgr.struts.PolicyWorkflowAction" class="dti.pm.workflowmgr.struts.PolicyWorkflowAction">
+        <property name="readOnlyDataSource" ref="ReadOnlyDataSource"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Workflow Agent Configuration                                   -->
+    <!-- ************************************************************** -->
+    <bean id="OasisWorkflowAgentImpl" class="dti.oasis.workflowmgr.impl.WorkflowAgentImpl" scope="prototype" lazy-init="true">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Workflow Agent Configuration                                   -->
+    <!-- It overrides the implementation of OasisTags.                  -->
+    <!-- ************************************************************** -->
+    <bean id="WorkflowAgentImpl" class="dti.pm.workflowmgr.impl.WorkflowAgentImpl" scope="prototype" lazy-init="true">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Policy Cache Configuration                                     -->
+    <!-- ************************************************************** -->
+    <bean id="PolicyCacheManager" class="dti.pm.core.cachemgr.PolicyCacheManager">
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Pm Attributes Cache Configuration                               -->
+    <!-- ************************************************************** -->
+    <bean id="PolicyAttributesManager" class="dti.pm.policyattributesmgr.impl.PolicyAttributesManagerImpl">
+        <property name="policyAttributesDAO">
+            <bean class="dti.pm.policyattributesmgr.dao.PolicyAttributesJdbcDAO" parent="BaseDAO"/>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- COI Change Service Manager Configuration                       -->
+    <!-- ************************************************************** -->
+    <bean id="PolicyCertificateOfInsuranceChangeServiceManager" class="dti.pm.policymgr.service.impl.PolicyCertificateOfInsuranceChangeServiceManagerImpl">
+        <property name="coiManager" ref="CoiManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Policy Inquiry Service Manager Configuration                        -->
+    <!-- ************************************************************** -->
+    <bean id="PolicyInquiryServiceHelper" class="dti.pm.policymgr.service.impl.PolicyInquiryServiceHelperImpl">
+         <property name="policyManager" ref="PolicyManager"/>
+    </bean>
+
+    <bean id="PolicyInquiryServiceManager" class="dti.pm.policymgr.service.impl.PolicyInquiryServiceManagerImpl">
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="underwriterManager" ref="UnderwriterManager"/>
+        <property name="agentManager" ref="AgentManager"/>
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="coverageManager" ref="CoverageManager"/>
+        <property name="coverageClassManager" ref="CoverageClassManager"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="policyInquiryServiceHelper" ref="PolicyInquiryServiceHelper"/>
+        <property name="requestStorageManager" ref="RequestStorageManager"/>
+        <property name="threadPoolCategoryName" value="PolicyInquiry"/>
+        <property name="OasisExecutorServiceManager" ref="OasisExecutorServiceManager"/>
+        <property name="riskAddtlExposureManager" ref="RiskAddtlExposureManager"/>
+    </bean>
+
+    <bean id="QuickQuoteServiceManager" class="dti.pm.policymgr.service.impl.QuickQuoteServiceManagerImpl">
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="coverageManager" ref="CoverageManager"/>
+        <property name="coverageClassManager" ref="CoverageClassManager"/>
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="requestStorageManager" ref="RequestStorageManager"/>
+        <property name="quickQuoteServiceDAO" ref="QuickQuoteServiceDAO"/>
+    </bean>
+
+    <bean id="QuickQuoteServiceDAO" class="dti.pm.policymgr.service.dao.QuickQuoteServiceJdbcDAO" parent="BaseDAO"/>
+
+    <bean id="PolicyNumberGenerationServiceManager" class="dti.pm.policymgr.service.impl.PolicyNumberGenerationServiceManagerImpl">
+        <property name="policyManager" ref="PolicyManager"/>
+    </bean>
+
+    <bean id="PolicyPremiumInquiryServiceManager"
+          class="dti.pm.policymgr.service.impl.PolicyPremiumInquiryServiceManagerImpl">
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="underwriterManager" ref="UnderwriterManager"/>
+        <property name="agentManager" ref="AgentManager"/>
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="partyInquiryServiceManager" ref="PartyInquiryServiceManager"/>
+        <property name="premiumManager" ref="PremiumManager"/>
+        <property name="entityManager" ref="EntityManager"/>
+        <property name="policyInquiryServiceHelper" ref="PolicyInquiryServiceHelper"/>
+    </bean>
+
+    <bean id="QuoteAcceptServiceManager"
+          class="dti.pm.policymgr.service.impl.QuoteAcceptServiceManagerImpl">
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="policyInquiryServiceManager" ref="PolicyInquiryServiceManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="PolicyChangeServiceHelper" ref="PolicyChangeServiceHelper"/>
+        <property name="lockManager" ref="LockManager"/>
+    </bean>
+
+    <bean id="PolicyChangeServiceHelper"
+          class="dti.pm.policymgr.service.impl.PolicyChangeServiceHelperImpl">
+        <property name="billingManager" ref="BillingManager"/>
+        <property name="billingAccountChangeWSClientManager"
+                  ref="BillingAccountChangeWSClientManager" />
+        <property name="softValidationManager" ref="SoftValidationManager"/>
+    </bean>
+
+    <bean id="PolicyChangeServiceManager" class="dti.pm.policymgr.service.impl.PolicyChangeServiceManagerImpl">
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="componentManager" ref="ComponentManager"/>
+        <property name="riskManager" ref="RiskManager"/>
+        <property name="coverageManager" ref="CoverageManager"/>
+        <property name="coverageClassManager" ref="CoverageClassManager"/>
+        <property name="partyChangeServiceManager" ref="PartyChangeServiceManager"/>
+        <property name="lockManager" ref="LockManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="billingManager" ref="BillingManager"/>
+        <property name="agentManager" ref="AgentManager"/>
+        <property name="underwriterManager" ref="UnderwriterManager"/>
+        <property name="workbenchConfiguration" ref="WorkbenchConfiguration"/>
+        <property name="billingAccountChangeWSClientManager"
+                  ref="BillingAccountChangeWSClientManager" />
+        <property name="PolicyChangeServiceHelper" ref="PolicyChangeServiceHelper"/>
+        <property name="riskAddtlExposureManager" ref="RiskAddtlExposureManager"/>
+        <property name="policyInquiryServiceHelper" ref="PolicyInquiryServiceHelper"/>
+        <property name="dbUtilityManager" ref="DBUtilityManager"/>
+    </bean>
+
+    <bean id="QuoteCopyServiceManager" class="dti.pm.policymgr.service.impl.QuoteCopyServiceManagerImpl">
+        <property name="policyManager" ref="PolicyManager"/>
+        <property name="transactionManager" ref="TransactionManager"/>
+        <property name="policyChangeServiceSaveProcessor" ref="PolicyChangeServiceManager"/>
+        <property name="policyInquiryServiceManager" ref="PolicyInquiryServiceManager"/>
+        <property name="lockManager" ref="LockManager"/>
+        <property name="policyChangeServiceHelper" ref="PolicyChangeServiceHelper"/>
+    </bean>
+
+    <bean id="InitiateElectronicApplicationServiceManager" class="dti.pm.policymgr.service.impl.InitiateElectronicApplicationServiceManagerImpl">
+        <property name="policyInquiryServiceHelper" ref="PolicyInquiryServiceHelper"/>
+        <property name="applicationManager" ref="ApplicationManager"/>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Application Health Check Configuration (/core/healthCheck.jsp) -->
+    <!-- ************************************************************** -->
+    <bean id="HealthCheckManager" class="dti.oasis.healthcheckmgr.impl.HealthCheckManagerImpl">
+        <property name="name">
+            <value>Health Check</value>
+        </property>
+        <property name="moduleList">
+            <list>
+                <bean id="PMModule" class="dti.oasis.healthcheckmgr.HealthCheckWebAppModule">
+                    <property name="healthCheckList">
+                        <list>
+                            <bean id="PMWebServicesHealthCheck" class="dti.oasis.healthcheckmgr.impl.DataSourceHealthCheckImpl">
+                                <property name="dataSourceHealthCheckDAO">
+                                    <bean id="DataSourceHealthCheckDAO" class="dti.oasis.healthcheckmgr.dao.DataSourceHealthCheckJdbcDAO"/>
+                                </property>
+                            </bean>
+                        </list>
+                    </property>
+                    <property name="displayName">
+                        <value>ePolicy Application</value>
+                    </property>
+                    <property name="displayHeight">
+                        <value>60</value>
+                    </property>
+                    <property name="name">
+                        <value>PM</value>
+                    </property>
+                </bean>
+                <bean id="wsPolicyModule" class="dti.oasis.healthcheckmgr.HealthCheckWebAppModule">
+                    <property name="healthCheckList">
+                        <list>
+                            <bean id="wsPolicyWebServicesHealthCheck" class="dti.oasis.healthcheckmgr.impl.WebServicesHealthCheckImpl">
+                                <property name="wsdlURI">
+                                    <list>
+                                        <value>PolicyInquiryService</value>
+                                        <value>PolicyChangeService</value>
+                                        <value>PolicyPremiumInquiryService</value>
+                                        <value>QuoteAcceptService</value>
+                                        <value>PolicyNumberGenerationService</value>
+                                        <value>QuoteCopyService</value>
+                                        <value>InitiateElectronicApplicationService</value>
+                                        <value>PolicyCertificateOfInsuranceChangeService</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </list>
+                    </property>
+                    <property name="displayName">
+                        <value>Policy Web Service</value>
+                    </property>
+                    <property name="displayHeight">
+                        <value>450</value>
+                    </property>
+                    <property name="name">
+                        <value>wsPolicy</value>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!-- ************************************************************** -->
+    <!-- Third Party Web Services Configuration:                        -->
+    <!-- 1. AllocateAddressWebService - Tax Rates Web Service           -->
+    <!-- ************************************************************** -->
+    <bean id="WebServiceConfigManager" class="dti.pm.soapmgr.WebServiceConfigManagerImpl">
+        <property name="webServiceList">
+            <list>
+                <bean id="AllocateAddressWebService" class="dti.pm.soapmgr.WebServiceModule">
+                    <property name="name" value="${tax.rate.web.service.name}"/>
+                    <property name="enable" value="${tax.rate.web.service.enable}"/>
+                    <property name="webMethodPrefix" value="${tax.rate.web.service.webMethodPrefix}"/>
+                    <property name="webServiceUrl" value="${tax.rate.web.service.webServiceUrl}"/>
+                    <property name="userId" value="${tax.rate.web.service.userId}"/>
+                    <property name="password" value="${tax.rate.web.service.password}"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+</beans>

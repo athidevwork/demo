@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="DBNavigator.Module.ConnectionManager">
+    <connections />
+  </component>
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/../CommonServices/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/../OasisTags/src/web/OasisTags" relative="/core" />
+        </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/../OasisTags/src/java" />
+        </sourceRoots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/exploded/eCIS/APP-INF/classes" />
+    <output-test url="file://$MODULE_DIR$/package/test/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../OasisTags">
+      <sourceFolder url="file://$MODULE_DIR$/../OasisTags/src/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../OasisTags/test/src" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../OasisTags/config" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../OasisTags/test/config" type="java-test-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="TEST" name="unit-test.lib" level="project" />
+    <orderEntry type="library" name="OasisTags.lib" level="project" />
+    <orderEntry type="library" name="Drools.lib" level="project" />
+    <orderEntry type="library" name="weblogic.lib" level="project" />
+  </component>
+</module>

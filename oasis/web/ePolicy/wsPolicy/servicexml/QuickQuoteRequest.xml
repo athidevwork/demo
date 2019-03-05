@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<QuickQuoteRequest>
+    <ContractPeriod>
+        <StartDate/>
+        <EndDate/>
+    </ContractPeriod>
+    <PolicyTypeCode/>
+    <!--One or more elements -->
+    <Insured key="">
+        <PostalCode/>
+        <PracticeStateOrProvinceCode/>
+        <InsuredTypeCode/>
+        <PracticeCountyCode/>
+        <InsuredClassCode/>
+    </Insured>
+    <Insured key="">
+        <PostalCode/>
+        <PracticeStateOrProvinceCode/>
+        <InsuredTypeCode/>
+        <PracticeCountyCode/>
+        <InsuredClassCode/>
+    </Insured>
+    <!--One or more elements -->
+    <MedicalMalpracticeCoverage key="">
+        <ReferredInsured insuredReference=""/>
+        <PolicyFormCode/>
+        <MedicalMalpracticeCoverageCode/>
+        <Limit>
+            <LimitTypeCode/>
+        </Limit>
+        <ClaimMadeLiabilityPolicyInformation>
+            <CurrentRetroactiveDate/>
+        </ClaimMadeLiabilityPolicyInformation>
+    </MedicalMalpracticeCoverage>
+    <MedicalMalpracticeCoverage key="">
+        <ReferredInsured insuredReference=""/>
+        <PolicyFormCode/>
+        <MedicalMalpracticeCoverageCode/>
+        <Limit>
+            <LimitTypeCode/>
+        </Limit>
+        <ClaimMadeLiabilityPolicyInformation>
+            <CurrentRetroactiveDate/>
+        </ClaimMadeLiabilityPolicyInformation>
+    </MedicalMalpracticeCoverage>
+    <!--One or more elements -->
+    <CreditSurchargeDeductible>
+        <ReferredMedicalMalpracticeCoverage
+                medicalMalpracticeCoverageReference=""/>
+        <CreditSurchargeDeductibleCode/>
+        <NumericValue/>
+    </CreditSurchargeDeductible>
+    <CreditSurchargeDeductible>
+        <ReferredMedicalMalpracticeCoverage
+                medicalMalpracticeCoverageReference=""/>
+        <CreditSurchargeDeductibleCode/>
+        <NumericValue/>
+    </CreditSurchargeDeductible>
+</QuickQuoteRequest>

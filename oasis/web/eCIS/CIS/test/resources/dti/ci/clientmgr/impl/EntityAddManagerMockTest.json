@@ -1,0 +1,92 @@
+{
+  "testSaveEntity_duplicateEntityFound": {
+    "saveEntityResultRecord": {
+      "entityCreated": "N",
+      "newEntityId": -1,
+      "newEntityClientId": "",
+      "entityDupCount": 1,
+      "taxIdDupCount": 1,
+      "mergedDupCount": 1,
+      "entityDupXmlDoc": "<?xml version=\"1.0\"?><duplicates><duplicate><entityPK><![CDATA[554476]]></entityPK><clientID><![CDATA[BM659]]></clientID><taxID><![CDATA[999999999]]></taxID><fullName><![CDATA[Glaser Agency,]]></fullName><addr1><![CDATA[]]></addr1><addr2><![CDATA[]]></addr2><cityState><![CDATA[Tacoma, WA]]></cityState><zipcode><![CDATA[]]></zipcode><license><![CDATA[]]></license><email><![CDATA[]]></email></duplicate><isTruncated>Y</isTruncated></duplicates>",
+      "taxIdDupXmlDoc": "<?xml version=\"1.0\"?><duplicates><duplicate><entityPK><![CDATA[554476]]></entityPK><clientID><![CDATA[BM659]]></clientID><taxID><![CDATA[999999999]]></taxID><fullName><![CDATA[Glaser Agency,]]></fullName><addr1><![CDATA[]]></addr1><addr2><![CDATA[]]></addr2><cityState><![CDATA[Tacoma, WA]]></cityState><zipcode><![CDATA[]]></zipcode><license><![CDATA[]]></license><email><![CDATA[]]></email></duplicate></duplicates>",
+      "mergedDupXmlDoc": "<?xml version=\"1.0\"?><duplicates><duplicate><entityPK><![CDATA[554476]]></entityPK><clientID><![CDATA[BM659]]></clientID><taxID><![CDATA[999999999]]></taxID><fullName><![CDATA[Glaser Agency,]]></fullName><addr1><![CDATA[]]></addr1><addr2><![CDATA[]]></addr2><cityState><![CDATA[Tacoma, WA]]></cityState><zipcode><![CDATA[]]></zipcode><license><![CDATA[]]></license><email><![CDATA[]]></email></duplicate><isTruncated>Y</isTruncated></duplicates>",
+      "userCanDupTaxID": "Y",
+      "dupTaxIDSysParm": ""
+    },
+    "duplicateEntityMsgKey": "ci.entity.message.duplicate.info"
+  },
+  "testSaveEntity_entityAddSuccess": {
+    "saveEntityResultRecord": {
+      "entityCreated": "Y",
+      "newEntityId": 1234,
+      "newEntityClientId": "1234",
+      "entityDupCount": 1,
+      "taxIdDupCount": 1,
+      "mergedDupCount": 1,
+      "entityDupXmlDoc": "<?xml version=\"1.0\"?><duplicates></duplicates>",
+      "taxIdDupXmlDoc": "<?xml version=\"1.0\"?><duplicates></duplicates>",
+      "mergedDupXmlDoc": "<?xml version=\"1.0\"?><duplicates></duplicates>",
+      "userCanDupTaxID": "Y",
+      "dupTaxIDSysParm": ""
+    },
+    "duplicateEntityMsgKey": "ci.entity.message.duplicate.info"
+  },
+  "testValidateAddrAndSaveEntity_validateAddrFail": {
+    "addressRecord": {
+      "address_usaAddressB": "Y",
+      "address_addressTypeCode": "PREMISE"
+    },
+    "countyCodeRecord": {
+      "countyCode": ""
+    },
+    "errorAddressTypePremiseMsgKey": "error.usaaddress.addresstypepremise"
+  },
+  "testValidateAddrAndSaveEntity_saveSuccess": {
+    "inputRecord": {
+      "entity_firstName": "Dylan",
+      "phoneNumber_phoneNumber": "123456",
+      "entityClass_entityClassCode": "EWITNESS",
+      "address_Name": "New York",
+      "address_usaAddressB": "Y",
+      "address_addressTypeCode": "AAOMS",
+      "address_legacyDataId": "1234"
+    },
+    "saveEntityResultRecord": {
+      "entityCreated": "Y",
+      "newEntityId": 1234,
+      "newEntityClientId": "1234",
+      "entityDupCount": 1,
+      "taxIdDupCount": 1,
+      "mergedDupCount": 1,
+      "entityDupXmlDoc": "<?xml version=\"1.0\"?><duplicates></duplicates>",
+      "taxIdDupXmlDoc": "<?xml version=\"1.0\"?><duplicates></duplicates>",
+      "mergedDupXmlDoc": "<?xml version=\"1.0\"?><duplicates></duplicates>",
+      "userCanDupTaxID": "Y",
+      "dupTaxIDSysParm": ""
+    },
+    "duplicateEntityMsgKey": "ci.entity.message.duplicate.info"
+  },
+  "testSaveActivityHistForAddEntity_personAndOrg": [
+    {
+      "inputRecord": {
+        "entityType": "P",
+        "entityNameComputed": "Sky, Arely"
+      }
+    },
+    {
+      "inputRecord": {
+        "entityType": "O",
+        "organizationName": "Jackson Family Medicine"
+      }
+    }
+  ],
+  "testSaveActivityHistForAddEntity_org": {
+    "inputRecord": {
+      "entityType": "O",
+      "entityNameComputed": "Jackson Family Medicine"
+    },
+    "activHistoryDisplayInfoMsgKey": "cs.cis.activityHistory.displayInformation"
+  }
+}
+
+

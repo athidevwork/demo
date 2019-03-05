@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="BOE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../eCS/CS/CS.war/WEB-INF/lib/cecore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../eCS/CS/CS.war/WEB-INF/lib/celib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../eCS/CS/CS.war/WEB-INF/lib/cereports.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../eCS/CS/CS.war/WEB-INF/lib/cesession.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../eCS/CS/CS.war/WEB-INF/lib/rasapp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../eCS/CS/CS.war/WEB-INF/lib/rascore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../eCS/CS/CS.war/WEB-INF/lib/Serialization.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../eCS/CS/CS.war/WEB-INF/lib/webreporting.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../eCS/CS/CS.war/WEB-INF/lib/httpclient-4.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../eCS/CS/CS.war/WEB-INF/lib/httpcore-4.2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

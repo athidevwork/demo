@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CIS.iml" filepath="$PROJECT_DIR$/CIS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eClaim/CM/CM.iml" filepath="$PROJECT_DIR$/../eClaim/CM/CM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CS.iml" filepath="$PROJECT_DIR$/CS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eFM/FM/FM.iml" filepath="$PROJECT_DIR$/../eFM/FM/FM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../OasisTags/OasisTags.iml" filepath="$PROJECT_DIR$/../OasisTags/OasisTags.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ePolicy/PM/PM.iml" filepath="$PROJECT_DIR$/../ePolicy/PM/PM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../RAMS/RAMSweb.iml" filepath="$PROJECT_DIR$/../RAMS/RAMSweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eRM/RM/RM.iml" filepath="$PROJECT_DIR$/../eRM/RM/RM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../WebConfigIntegrator/WebConfigIntegrator.iml" filepath="$PROJECT_DIR$/../WebConfigIntegrator/WebConfigIntegrator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../../../qa/util/WebTemplate/WebTemplate.iml" filepath="$PROJECT_DIR$/../../../../../../qa/util/WebTemplate/WebTemplate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../WebWB/WebWB.iml" filepath="$PROJECT_DIR$/../WebWB/WebWB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../db/db.iml" filepath="$PROJECT_DIR$/../../db/db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../db/db.iml" filepath="$PROJECT_DIR$/../db/db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eAdmin/eAdmin.iml" filepath="$PROJECT_DIR$/../eAdmin/eAdmin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eApp/eApp.iml" filepath="$PROJECT_DIR$/../eApp/eApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eApp/installer/java/eAppInstaller.iml" filepath="$PROJECT_DIR$/../eApp/installer/java/eAppInstaller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eCIS/eCIS.iml" filepath="$PROJECT_DIR$/../eCIS/eCIS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eCMA/eCMA.iml" filepath="$PROJECT_DIR$/../eCMA/eCMA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eCS/eCS.iml" filepath="$PROJECT_DIR$/../eCS/eCS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eOasis.iml" filepath="$PROJECT_DIR$/eOasis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../oasis2Portal/oasis2Common.iml" filepath="$PROJECT_DIR$/../oasis2Portal/oasis2Common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../oasis2Core/owsCore/oasis2Core.iml" filepath="$PROJECT_DIR$/../oasis2Core/owsCore/oasis2Core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../oasis2Portal/owsPortal/oasis2Portal.iml" filepath="$PROJECT_DIR$/../oasis2Portal/owsPortal/oasis2Portal.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,517 @@
+<style>
+    #menu {
+        position: relative;
+        margin:-1px;
+        width:100%;
+        height: 30px;
+        background-image: url('../images/bg-menu-blue.gif');
+        background-repeat: repeat;
+        font-family: Arial, Verdana, "Trebuchet MS";
+        font-style: normal;
+        font-weight: normal;
+        font-size:12px;
+        z-index:1000;
+    }
+
+    #menu dl {
+        float: left;
+        width: 10em;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    #menu dt, .workflowAttention {
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+        border: 0px solid red;
+        margin: 0px;
+        height: 30px;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        width:100%;
+    }
+
+    #menu dd {
+        display: block;
+        border: 1px solid blue;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        width:100%;
+    }
+
+    #menu li {
+        text-align: center;
+        background: #fff;
+        vertical-align: bottom;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        width:100%;
+    }
+
+    #menu li a, #menu dt a {
+        color: white;
+        font-weight:bold;
+        border:0px solid red;
+        text-decoration: none;
+        display: block;
+        height: 100%;
+    }
+
+    #menu li a:hover, #menu li a:focus, #menu dt a:hover, #menu dt a:focus, #menu li a:active, #menu dt a:active {
+        color: white;
+        font-weight:bold;
+        text-decoration: underline;
+        cursor:pointer;
+    }
+
+    #menu a.selectedMenu {
+        background-image: url(../images/bg-menu-grey.gif);
+        background-repeat: repeat-x;
+        text-decoration: none;
+        border:none;
+    }
+
+    #menu a.selectedMenu:hover, a.selectedMenu:active, a.selectedMenu:visited {
+        text-decoration: none;
+    }
+
+    #menu span{
+        color: white;
+        font-weight:bold;
+        line-height: 30px;
+        height:100%;
+    }
+
+    #menu span.showDropDownImage{
+        color: white;
+        background-image: url(../images/ico-arrow-down-grey.gif);
+        background-position: right;
+        background-repeat: no-repeat;
+        padding-right:20px;
+    }
+
+    #menu span.selectedMenu{
+        color: #666;
+        font-size: 13px;
+    }
+
+    #menu span.selectedMenuWithDropDownImage{
+        color: #666;
+        font-size:13px;
+        background-image: url(../images/ico-arrow-down-grey.gif);
+        background-position: right;
+        background-repeat: no-repeat;
+        padding-right:20px;
+    }
+
+    #menu .subMenuLinks {
+        color: white;
+        font-weight:bold;
+        height: 100%;
+        width:100%;
+        background-image: url(../images/ico-arrow-down-grey.gif);
+        background-position: right;
+        background-repeat: no-repeat;
+    }
+
+    #menu .subMenuLinks a:hover, #subMenuLinks a:focus {
+        text-decoration: underline;
+        cursor:pointer;
+    }
+
+    #menu #smenu {
+        width:100%;
+    }
+
+    #menu #smenu dd, #menu #smenu dl {
+        list-style-type:none;
+        display:none;
+        position:absolute;
+        z-index: 100;
+        left: 11em;
+        width: 12em;
+        margin-top: -0.8em;
+        border-top:0px solid #369;
+        border-left:0px solid #369;
+        border-right:0px solid #369;
+        border-bottom:0px solid #369;
+        background-color:#6699cc;
+    }
+
+    #menu #smenu ul, #menu #smenu1 ul {
+        margin:0;
+        list-style:none;
+        padding: 0px;
+        border-bottom:1px solid #369;
+    }
+
+    #menu #smenu li, #menu #smenu1 li {
+        list-style:none;
+        text-align: left;
+        height: 18px;
+        width: 100%;
+        line-height: 18px;
+        padding: 0px;
+        background-image: url(../images/bg-menu-blue.gif) ;
+        background-repeat:repeat;
+    }
+
+    #menu #smenu iframe{
+        display:none;/*sorry for IE5*/
+        display/**/:block;/*sorry for IE5*/
+        position:absolute;
+        top:0;/*must have*/
+        left:0;/*must have*/
+        z-index:-1;/*must have*/
+        filter:mask();
+        width:145px;
+        height:24px;
+        border-bottom:0px solid red;
+    }
+
+    #menu #smenu li a, #menu #smenu dt a, #menu #smenu1 li a, #menu #smenu1 dt a {
+        width:100%;
+        padding:2px;
+        padding-left:5px;
+        color: white;
+        font-weight:bold;
+        text-decoration: none;
+        display: block;
+        border-top:1px solid #369;
+        border-left:1px solid #369;
+        border-right:1px solid #369;
+        border-bottom:0px solid #369;
+    }
+
+    #menu #smenu li a:hover, #menu #smenu1 li a:hover {
+        text-decoration: underline;
+    }
+
+    #tabMenu {
+        position:relative;
+        float:left;
+        padding:0 0 0 0;
+        margin:0;
+        list-style:none;
+        border-left: 1px solid #ccc!important;
+    }
+
+    #tabMenu LI {
+        float:left;
+        margin:0;
+        padding:0;
+        display:inline;
+    }
+
+    #tabMenu LI.tab {
+        border-left: 0px solid #ccc!important;
+    }
+
+    #tabMenu LI.selectedTab, #tabMenu LI.firstSelectedTab {
+        border-left: 0px solid #999!important;
+    }
+
+    #tabMenu LI.selectedTab {
+    }
+
+    #tabMenu LI.firstSelectedTab {
+    }
+
+    #tabMenu A {
+        line-height: 20px;
+        color: #036;
+        font-weight:bold;
+        margin:0;
+    }
+
+    #tabMenu A.tab, #tabMenu A.firstTab {
+        border-top: 1px solid #ccc!important;
+        border-left: 0px solid #ccc!important;
+        border-right: 1px solid #ccc !important;
+        border-bottom:0px solid #999;
+        display:block;
+        text-decoration:none;
+        padding:0.25em 0em;
+        background-image: url('../images/bg-menu-grey.gif');
+        background-repeat: repeat-x;
+    }
+
+    #tabMenu A.firstTab {
+        border-left: 0px solid #ccc!important;
+    }
+
+    #tabMenu A span.tabWithNoDropDownImage {
+        padding:0em 1em;
+        font-weight:bold;
+        border-bottom:1px solid #999;
+        padding-bottom:4px;
+    }
+
+    #tabMenu A span.tabWithDropDownImage {
+        padding:0em 1em;
+        background-image: url(../images/ico-arrow-down-grey.gif);
+        background-position: right;
+        background-repeat: no-repeat;
+        padding-right:20px;
+        font-weight:bold;
+        border-bottom:1px solid #999;
+        padding-bottom:4px;
+    }
+
+    #tabMenu A.selectedTab, #tabMenu A.firstSelectedTab {
+        display:block;
+        text-decoration:none;
+        padding:0.25em 0em;
+        background-color:white;
+        border-top: 1px solid #999 !important;
+        border-right: 1px solid #999 !important;
+        border-bottom: none !important; 
+    }
+
+    #tabMenu A.selectedTab {
+      border-left: 1px solid #999 !important;
+    }
+
+    #tabMenu A.firstSelectedTab {
+      border-left: 0px solid #ccc !important;
+    }
+
+    #tabMenu A span.selectedTabWithNoDropDownImage {
+        padding:0em 1em;
+        font-weight:bold;
+    }
+
+    #tabMenu A span.selectedTabWithDropDownImage {
+        padding:0em 1em;
+        background-image: url(../images/ico-arrow-down-grey.gif);
+        background-position: right;
+        background-repeat: no-repeat;
+        padding-right:20px;
+        font-weight:bold;
+    }
+
+    #tabMenu Span.Filler {
+        display:list-item;
+        border-top:0px solid #999;
+        border-right:0px solid #999;
+        border-bottom:1px solid #999;
+        border-left:0px solid #999;
+        line-height: 26px;
+        width:100%;
+    }
+
+    #tabMenu A.here:link, #tabMenu A.here:visited {
+        background:#bbb;
+    }
+
+    #tabMenu A:hover, #tabMenu A:hover span {
+        text-decoration:underline;
+    }
+
+    #tabMenu A.here:link,
+
+    #tabMenu A.here:visited {
+        position:relative;
+    }
+
+    #subTab{
+        padding:0;
+        margin:0;
+        border-left:1px solid #ccc;
+        border-right:1px solid #ccc;
+        border-bottom:1px solid #ccc;
+        border-top:0px solid red;
+    }
+
+    #subTab LI {
+        display:inline;
+        margin:0;
+        padding:0;
+        padding-left:20px;
+        white-space:nowrap;
+    }
+
+    #subTab LI A span.blueArrow{
+        line-height: 20px;
+        color: #036;
+        font-size:11px;
+        font-weight:bold;
+        margin:0;
+        text-decoration: none;
+        white-space:nowrap;
+    }
+
+    #subTab li a:link , #subTab li a:visited {
+        font-size: 11px;
+        font-weight: bold;
+        color: #036;
+        background-image: url('../images/ico-arrow-link-blue.gif');
+        background-position:left;
+        background-repeat: no-repeat;
+        padding-left:15px;
+        white-space:nowrap;
+    }
+
+    #subTab li a:hover span.blueArrow {
+        color: #6699cc;
+        text-decoration: underline;
+        white-space:nowrap;
+    }
+
+    #subTab li a.active:link span.blueArrow, #subTab li a.active:visited span.blueArrow {
+        color: #6699cc;
+        font-weight: bolder;
+        font-style:italic;
+        text-decoration: none;
+        white-space:nowrap;
+    }
+
+    #tabMenu #smenu {
+        width:100%;
+    }
+
+    #tabMenu #smenu dd {
+        list-style-type:none;
+        display:none;
+        position: absolute;
+        z-index: 100;
+        left: 12em;
+        width: 12em;
+        margin-top: -0.8em;
+        border-top:0px solid #369;
+        border-left:0px solid #369;
+        border-right:0px solid #369;
+        border-bottom:0px solid #369;
+        background-color:#6699cc;
+    }
+
+    #tabMenu #tabSubMenu, #tabMenu .tabSubMenu{
+        position:absolute;
+        margin:0;
+        padding:0;
+        float:none;
+    }
+
+    #tabMenu .tabSubMenu ul {
+        float:left;
+        margin:0;
+        padding: 0px;
+        border:none;
+        border-top:1px solid #999;
+        border-bottom:0px solid #999;
+    }
+
+    #tabMenu .tabSubMenu ul li {
+        float:left;
+        width:150px;
+        height:18px;
+        margin: 0px;
+        padding: 0px;
+        background-color:#fff;
+        border-left:1px solid #999;
+        border-right:1px solid #999;
+        border-bottom:1px solid #999;
+        background-image: url(../images/bg-bot-grey2.gif);
+        background-repeat: repeat-x;
+    }
+
+    #tabMenu .tabSubMenu .subIFrame{
+        display:none;/*sorry for IE5*/
+        display/**/:block;/*sorry for IE5*/
+        position:absolute;
+        top:0;/*must have*/
+        left:0;/*must have*/
+        z-index:-1;/*must have*/
+        filter:mask();
+        width:151px;
+        height:22px;
+        border-bottom:0px solid #999;
+    }
+
+    #tabMenu .tabSubMenu a, #tabMenu .tabSubMenu a {
+        padding-left:10px;
+        font-weight:bold;
+        font-size:11px;
+        text-decoration: none;
+        display: block;
+        width:100%;
+    }
+
+    #tabMenu .tabSubMenu ul li a:hover {
+        text-decoration: underline;
+        width:100%;
+    }
+
+    #tempAI {
+      position:relative;
+      float:left;
+      margin: 5px 2px 5px 2px;
+      padding:0;
+      width:99%;
+      text-align:center;
+      border-bottom:1px solid #369;
+      border-left:1px solid #369;
+      border-right:1px solid #369;
+      border-top:1px solid #369;
+      background-color:#87b2dc;
+    }
+
+    #tempAI UL{
+      margin: 3;
+    }
+
+
+    #tempAI LI {
+      margin: 0; 
+      display: inline;
+      background-image: url('../images/ico-arrow-link-blue.gif');
+      background-repeat: no-repeat;
+      padding-left:15px;
+    }
+
+    #tempAI a, #tempAI a:active, #tempAI a:link, #tempAI a:visited {
+      font-size: 11px;
+      font-weight: bold;
+      margin: 5;
+      margin-right:15;
+      color: white;
+    }
+
+    #tempAI a.active:link, #tempAI a.active:visited {
+      color: white;
+      font-weight: bolder;
+      font-style:italic;
+      text-decoration: underline;
+    }
+
+    #tempAI a:hover {
+      color: #369;
+      text-decoration: none;
+    }
+
+    .tabHeader {
+        border:1px solid #ccc;
+        border-top:none;
+        margin:0px;
+        padding:0;
+        width:100%;
+        float:left; 
+        display:inline;
+    }
+
+    .tabDetail {
+      padding:3px;
+    }
+
+    .workflowAttention {
+        background-image: url(../images/exclamation.16.png);
+        background-repeat: no-repeat;
+    background-position: right;
+    }
+
+</style>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../eApp">
+      <sourceFolder url="file://$MODULE_DIR$/../eApp/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../eApp/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../eApp/installer" />
+      <excludeFolder url="file://$MODULE_DIR$/../eApp/package" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="eApp.lib" level="project" />
+    <orderEntry type="module" module-name="CS" />
+  </component>
+</module>

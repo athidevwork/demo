@@ -1,0 +1,95 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/spellexSpellerStyle.css"/>
+    <script type="text/javascript" src="js/spellex.js"></script>
+    <script type="text/javascript" src="js/spellexSetOptions.js"></script>
+    <title>Set spelling-checker options</title>
+</head>
+<body class="controlWindowBody" onLoad="setOptions()">
+<form name="setOptions">
+    <table cellpadding="0" cellspacing="0" border="0" align="center">
+        <tr>
+            <td>
+                <h4 class="spellexCenter">Set spelling-checker options</h4>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="normal">Use the form below to set options that affect the way the spelling checker works:</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="normalText">
+                <INPUT TYPE=CHECKBOX NAME="ignoreCappedWordsBtn">
+                Ignore capitalized words (e.g., <span class="normalTextItalics">Canada</span>)
+            </td>
+        </tr>
+        <tr>
+            <td class="normalText">
+                <INPUT TYPE=CHECKBOX NAME="ignoreAllCapsWordsBtn">
+                Ignore all-caps words (e.g., <span class="normalTextItalics">ASAP</span>)
+            </td>
+        </tr>
+        <tr>
+            <td class="normalText">
+                <INPUT TYPE=CHECKBOX NAME="ignoreMixedDigitsBtn">
+                Ignore words with numbers (e.g., <span class="normalTextItalics">Win98</span>)
+            </td>
+        </tr>
+        <tr>
+            <td class="normalText">
+                <INPUT TYPE=CHECKBOX NAME="ignoreMixedCaseBtn">
+                Ignore words with mixed case (e.g., <span class="normalTextItalics">SuperBase</span>)
+            </td>
+        </tr>
+        <tr>
+            <td class="normalText">
+                <INPUT TYPE=CHECKBOX NAME="ignoreDomainNamesBtn">
+                Ignore domain names (e.g, <span class="normalTextItalics">xyz.com</span>)
+            </td>
+        </tr>
+        <tr>
+            <td class="normalText">
+                <INPUT TYPE=CHECKBOX NAME="reportCapitalizationBtn">
+                Report capitalization errors (e.g, <span class="normalTextItalics">canada</span>)
+            </td>
+        </tr>
+        <tr>
+            <td class="normalText">
+                <INPUT TYPE=CHECKBOX NAME="reportDoubledWordsBtn">
+                Report doubled words (e.g., the <span class="normalTextItalics">the</span>)
+            </td>
+        </tr>
+        <tr>
+            <td class="normalText">
+                <INPUT TYPE=CHECKBOX NAME="caseSensitiveBtn">
+                Case sensitive
+            </td>
+        </tr>
+        <tr>
+            <td class="normalText">
+                <INPUT TYPE=CHECKBOX NAME="suggestSplitWordsBtn">
+                Suggest split words (e.g., suggest the boy for <span class="normalTextItalics">theboy</span>)
+            </td>
+        </tr>
+        <tr>
+            <td class="normalText">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <input class="buttonDefault" type="button" name="okBtn" fckLang="SpellexBtnEditDictionary" value="OK"
+                       onClick="onOkBtn();">
+                &nbsp;&nbsp;
+                <input class="buttonDefault" type="button" name="cancelBtn" fckLang="SpellexBtnClose" value="Close"
+                       onClick="onCloseBtn();">
+                &nbsp;&nbsp;
+                <input class="buttonDefault" type="button" name="helpBtn" fckLang="SpellexBtnHelp" value="Help"
+                       onClick="openHelpWindow('spellexSetOptionsHelp.html');">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
