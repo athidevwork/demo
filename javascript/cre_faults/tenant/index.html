@@ -1,0 +1,402 @@
+<head>
+<title>Tenant Page</title>
+<meta charset="UTF-8" />
+<meta name="description" content="Fault Console" />
+<meta name="keywords"
+	content="Fault, ai-blockchain faults, blockchain faults" />
+<meta name="robots" content="index, follow" />
+
+<link rel="stylesheet" href="../css/faults.css">
+
+<link rel="stylesheet" href="../css/jquery-ui.min.css">
+<script src="../css/external/jquery/jquery.js"></script>
+<script src="../css/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="../css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/jquery-ui-1.9.2.custom.css">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+
+<!-- add the jQuery script -->
+<script type="text/javascript" src="../css/scripts/jquery-1.11.1.min.js"></script>
+<!-- add the jQWidgets framework -->
+<script type="text/javascript" src="../css/jqwidgets/jqxcore.js"></script>
+<!-- add one or more widgets -->
+<script type="text/javascript" src="../css/jqwidgets/jqxbuttons.js"></script>
+<!-- add the jQWidgets base styles and one of the theme stylesheets -->
+<link rel="stylesheet" href="../css/jqwidgets/styles/jqx.base.css"
+	type="text/css" />
+<link rel="stylesheet" href="../css/jqwidgets/styles/jqx.summer.css" type="text/css" />	
+<link rel="stylesheet" href="../css/jqwidgets/styles/jqx.darkblue.css"
+	type="text/css" />
+
+<link rel="stylesheet" href="../css/jqwidgets/styles/jqx.base.css"
+	type="text/css" />
+<script type="text/javascript" src="../css/scripts/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxdata.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxbuttons.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxscrollbar.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxmenu.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxcombobox.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxcheckbox.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxlistbox.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxdropdownlist.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxgrid.js"></script>
+<script type="text/javascript"
+	src="../css/jqwidgets/jqxgrid.selection.js"></script>
+<script type="text/javascript"
+	src="../css/jqwidgets/jqxgrid.columnsresize.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxgrid.filter.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxgrid.sort.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxgrid.pager.js"></script>
+<script type="text/javascript"
+	src="../css/jqwidgets/jqxgrid.grouping.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxgrid.edit.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxtextarea.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxtooltip.js"></script>
+<script type="text/javascript" src="../css/jqwidgets/jqxtabs.js"></script>
+
+<link rel="icon" href="favicon.ico" />
+</head>
+
+<body>
+	<a id="homepage" href="../index.html">Home</a>
+	<script src="../js/restclient.js"></script>
+	
+	<h1 class='text-info'>Tenant Page</h1>
+	<div class="bg-primary" id="loggedUser"></div>
+	<hr />
+	<script type="text/javascript">
+        $(document).ready(function () {
+        	$('#successMsg').hide();
+        	$('#infoMsg').hide();
+        	$('#warningMsg').hide();
+        	$('#errorMsg').hide();
+        	
+            $('#jqxTabs').jqxTabs({ width: 1250, height: 950, theme: 'summer' });
+            /*$('#jqxTabs').jqxTabs('disableAt', 2);            
+            $('#jqxTabs').jqxTabs('disableAt', 3);
+            $('#jqxTabs').jqxTabs('disableAt', 4);*/            
+            
+            var buildingSource = [
+                "Building_1",
+                "Building_2",
+                "Building_3",
+                "Building_4",
+                "Building_5",
+                "Building_6",
+                "Building_7",
+                "Building_8",
+                "Building_9",
+	        ];            
+            
+            var building;
+         	// Create a jqxComboBox
+            $("#buildingjqxcombobox").jqxComboBox({ source: buildingSource, selectedIndex: 0, width: '200px', height: '25px',});            
+            //$("#jqxcombobox").jqxComboBox('selectIndex', 1);
+            $('#buildingjqxcombobox').bind('select', function (event) {
+                var args = event.args;
+                building = $('#buildingjqxcombobox').jqxComboBox('getItem', args.index);
+                //alert('Selected: ' + building.label);
+            });
+            building = $('#buildingjqxcombobox').jqxComboBox('getItem', 0);
+
+            var locationSource = [
+                "1st_Floor",
+                "2nd_Floor",
+                "3rd_Floor",
+                "4th_Floor",
+                "5th_Floor",
+                "6th_Floor",
+                "7th_Floor",
+                "8th_Floor",
+                "9th_Floor",
+	        ];            
+            
+         	// Create a jqxComboBox
+         	var location;
+            $("#locationjqxcombobox").jqxComboBox({ source: locationSource, selectedIndex: 0, width: '200px', height: '25px',});            
+            //$("#jqxcombobox").jqxComboBox('selectIndex', 1);
+            $('#locationjqxcombobox').bind('select', function (event) {
+                var args = event.args;
+                location = $('#locationjqxcombobox').jqxComboBox('getItem', args.index);
+                //alert('Selected: ' + location.label);
+            });  
+            location = $('#locationjqxcombobox').jqxComboBox('getItem', 0);
+
+            var unitSource = [
+                "1A",
+                "1B",
+                "1C",
+                "1D",
+                "2A",
+                "2B",
+                "2C",
+                "2D",
+                "3A",
+                "3B",
+                "3C",
+                "3D",                
+	        ];            
+            
+         	// Create a jqxComboBox
+         	var unit;
+            $("#unitjqxcombobox").jqxComboBox({ source: unitSource, selectedIndex: 0, width: '200px', height: '25px',});            
+            //$("#jqxcombobox").jqxComboBox('selectIndex', 1);
+            $('#unitjqxcombobox').bind('select', function (event) {
+                var args = event.args;
+                unit = $('#unitjqxcombobox').jqxComboBox('getItem', args.index);
+                //alert('Selected: ' + unit.label);
+            });
+            unit = $('#unitjqxcombobox').jqxComboBox('getItem', 0);
+            
+            var faultCategorySource = [
+                "Roof_Leakage",
+                "Floor_Leakage",
+                "A/C Problem",
+                "Kitchen",
+                "Bath_Room",
+                "Living_Room",
+                "Basement",
+                "Washer/Dryer",
+                "Refrigerator",
+	        ];            
+            
+         	// Create a jqxComboBox
+         	var faultCat;
+            $("#faultcategoryjqxcombobox").jqxComboBox({ source: faultCategorySource, selectedIndex: 0, width: '200px', height: '25px',});
+            $('#faultcategoryjqxcombobox').bind('select', function (event) {
+                var args = event.args;
+                faultCat = $('#faultcategoryjqxcombobox').jqxComboBox('getItem', args.index);
+                //alert('Selected: ' + faultCat.label);
+            }); 
+            faultCat = $('#faultcategoryjqxcombobox').jqxComboBox('getItem', 0);
+
+            var faultSubCategorySource = [
+                "Shingles",
+                "Hardwood",
+                "Water_Heater",
+                "HVAC",
+                "Leaky Faucets",
+                "Master_Bath",
+                "Powder_Room",
+                "Common_Bath",
+                "Add Freon",
+	        ];            
+            
+         	// Create a jqxComboBox
+         	var faultSubCat;
+            $("#faultsubcategoryjqxcombobox").jqxComboBox({ source: faultSubCategorySource, selectedIndex: 0, width: '200px', height: '25px',});
+            $('#faultsubcategoryjqxcombobox').bind('select', function (event) {
+                var args = event.args;
+                faultSubCat = $('#faultsubcategoryjqxcombobox').jqxComboBox('getItem', args.index);
+                //alert('Selected: ' + faultSubCat.label);
+            }); 
+            faultSubCat = $('#faultsubcategoryjqxcombobox').jqxComboBox('getItem', 0);
+
+            $(document).ready(function () {
+                $('#jqxTextArea').jqxTextArea({ width: 500, height: 100, placeHolder: 'Enter Fault Description' });
+                //$('#jqxTextAreaRequest').jqxTextArea({ width: 950, height: 100, placeHolder: 'Fault Request' });
+                //$('#jqxTextAreaResponse').jqxTextArea({ width: 950, height: 100, placeHolder: 'Fault Response' });
+                /* $('#jqxTextAreaGetFaults').jqxTextArea({ width: 950, height: 100, placeHolder: 'Get Fault Response' }); */            
+            });
+
+            $('#SubmitFault').on('click', function (event) {
+            	var faultDesc = $('#jqxTextArea').val();
+            	var attr = '';
+            	attr += "Building = " + building.label + ", ";
+            	attr += "Location = " + location.label + ", ";
+            	attr += "Unit = " + unit.label + ", ";
+            	attr += "Fault Category = " + faultCat.label + ", ";
+            	attr += "Fault Sub Category = " + faultSubCat.label + ", ";
+            	attr += "Description = " + faultDesc + "\n";
+            	//var finalRequest = faultDesc + " - Test string";
+            	//$('#jqxTextAreaRequest').jqxTextArea('val', attr);
+            	//$('#jqxTextAreaRequest').jqxTextArea('val', 'jQWidgets is a comprehensive and innovative widget library built on top of the jQuery JavaScript Library. It empowers developers to deliver professional, cross-browser compatible web applications, while significantly minimizing their development time. jQWidgets contains more than 60 UI widgets and is one of the fastest growing JavaScript UI frameworks on the Web.');
+                //alert('Button is Clicked');
+                
+                //create json request
+                var faultRequest = {};
+                var fault = { 
+                		"building" : building.label,
+                		"location" : location.label, 
+                		"unit" : unit.label,
+                		"description" : building.label+"_"+location.label+"_"+unit.label,
+                		"faults" : [
+                			{
+                				"category" : faultCat.label,
+                				"subCategory" : faultSubCat.label,
+                				"description" : faultDesc
+                			}
+                		]
+                	};
+                
+                console.log(JSON.stringify(fault));
+                //$('#jqxTextAreaResponse').jqxTextArea('val', JSON.stringify(fault));
+                //send a rest client request
+            	sendFaultRequest(JSON.stringify(fault), 'create');
+            });
+
+            $('#GetFaultsByBuildingLocationUnit').on('click', function (event) {
+            	//alert ("not yet implemented");
+            	setupGetUnitFaultsGrid(building.label, location.label, unit.label); 
+            	//getFaults();
+    			//setupGetAllFaultsGrid();  
+            });
+ 
+            $('#clear').on('click', function (event) {
+                $('#jqxUnitFaultsgrid').jqxGrid('clear');
+                //.jqxGrid('setGridParam', {data: data, datatype: 'json'})
+                //.trigger('reloadGrid');
+            });
+            
+            $('#GetFaults').on('click', function (event) {
+            	//getFaults();
+    			setupGetAllFaultsGrid();  
+            });
+            
+            // Create jqxTooltip Request
+            //$("#jqxTextAreaRequest").jqxTooltip({ content: 'Json Request.' });
+
+            // Create jqxTooltip Response
+            //$("#jqxTextAreaResponse").jqxTooltip({ content: 'Json Response.' });       
+            
+			//setupExampleGrid();
+        });
+    </script>
+
+	<div id="successMsg" class="alert alert-success">
+	  <!-- <strong>Success!</strong> Indicates a successful or positive action. -->
+	</div>
+	<div id="infoMsg"  class="alert alert-info">
+	  <!-- <strong>Info!</strong> Indicates a neutral informative change or action. -->
+	</div>
+	
+	<div id="warningMsg"  class="alert alert-warning">
+	  <!-- <strong>Warning!</strong> Indicates a warning that might need attention. -->
+	</div>
+	
+	<div id="errorMsg"  class="alert alert-danger">
+	  <!-- <strong>Danger!</strong> Indicates a dangerous or potentially negative action. -->
+	</div>
+	<div id='jqxTabs'>
+	    <ul style='margin-left: 20px;'>
+	        <li>Create Fault</li>
+	        <li>Get Faults</li>
+<!-- 	        <li>Tab 3</li>
+	        <li>Tab 4</li>
+	        <li>Tab 5</li> -->
+	    </ul>
+    <div>
+        <!--  Content 1 -->
+        <p></p>
+		<button class="btn-primary" id="GetFaultsByBuildingLocationUnit">Get Faults for Unit</button>  
+		<button class="btn-primary" id="clear">Clear</button>  		
+        <div id='jqxWidget' style="font-size: 13px; font-family: Verdana; float: left;">
+			<div id="jqxUnitFaultsgrid"></div>
+		</div>	
+		<p></p>			
+		<p></p>          
+		<div id='buildingjqxcombobox'></div>
+		<p></p>
+		<div id='locationjqxcombobox'></div>
+		<p></p>
+		<div id='unitjqxcombobox'></div>
+		<p></p>
+		<div id='faultcategoryjqxcombobox'></div>
+		<p></p>
+		<div id='faultsubcategoryjqxcombobox'></div>
+		<p></p>
+		<div id="jqxTextArea"></div>
+<!-- 		<p></p>
+		<span class = "label label-info">Request</span>
+		<div id="jqxTextAreaRequest"></div>
+		<p></p>
+		<span class = "label label-info">Response</span>
+		<div id="jqxTextAreaResponse"></div>	 -->
+		<p></p>
+		<button class="btn-primary" id="SubmitFault">Submit Fault</button>
+		<p></p>        
+    </div>
+    <div>
+        <!--Content 2-->
+		<p></p>
+		<button class="btn-primary" id="GetFaults">Get All Faults</button>  
+		<p></p>    
+<!-- 		<div id="jqxTextAreaGetFaults"></div>
+		<p></p> -->
+        <div id='jqxWidget' style="font-size: 13px; font-family: Verdana; float: left;">
+			<div id="jqxFaultsgrid"></div>
+		</div>	
+		<p></p>	
+<!--         <div id='jqxWidget'
+		style="font-size: 13px; font-family: Verdana; float: left;">
+		<div id="jqxgrid"></div> 
+		</div>
+		<p></p>-->
+    </div>
+<!--     <div>
+        Content 3
+    </div>
+    <div>
+        Content 4
+    </div>
+    <div>
+        Content 5
+    </div> -->
+</div>
+
+	<!-- <div id="jsGrid"></div> -->
+	<script>
+/*
+    var clients = [
+        { "Name": "Otto Clay", "Age": 25, "Country": 1, "Address": "Ap #897-1459 Quam Avenue", "Married": false },
+        { "Name": "Connor Johnston", "Age": 45, "Country": 2, "Address": "Ap #370-4647 Dis Av.", "Married": true },
+        { "Name": "Lacey Hess", "Age": 29, "Country": 3, "Address": "Ap #365-8835 Integer St.", "Married": false },
+        { "Name": "Timothy Henson", "Age": 56, "Country": 1, "Address": "911-5143 Luctus Ave", "Married": true },
+        { "Name": "Ramona Benton", "Age": 32, "Country": 3, "Address": "Ap #614-689 Vehicula Street", "Married": false }
+    ];
+ 
+    var countries = [
+        { Name: "", Id: 0 },
+        { Name: "United States", Id: 1 },
+        { Name: "Canada", Id: 2 },
+        { Name: "United Kingdom", Id: 3 }
+    ];
+ 
+ $(function() {
+         // Instantiate a button
+        $( ".button-color button" ).button();
+		
+    $("#jsGrid").jsGrid({
+        width: "100%",
+        height: "400px",
+ 
+		filtering: true,
+        inserting: true,
+        editing: true,
+        sorting: true,
+        paging: true,
+		autoload: true,
+
+        pageSize: 15,
+        pageButtonCount: 5,
+ 
+        deleteConfirm: "Do you really want to delete the client?",
+		
+        data: clients,
+ 
+        fields: [
+            { name: "Name", type: "text", width: 150, validate: "required" },
+            { name: "Age", type: "number", width: 50 },
+            { name: "Address", type: "text", width: 200 },
+            { name: "Country", type: "select", items: countries, valueField: "Id", textField: "Name" },
+            { name: "Married", type: "checkbox", title: "Is Married", sorting: false },
+            { type: "control" }
+        ]
+    });
+});
+*/
+</script>
+</body>
+</html>

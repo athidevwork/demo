@@ -25,6 +25,7 @@ REM 01/22/2018 myw  1.0.3  - (191024)Stop recording the password to the log file
 REM 02/02/2018 myw  1.0.4  - Call Pre/Post Install scripts before/after applying 
 REM                          delivery.
 REM                        - Parse the build logs and compare invalids.
+REM 07/24/2018 myw  1.0.5  - Fix the problem with the log parsing not chatching error.
 REM ###########################################################################
 
 SET SCRIPT_VER=1.0.4
@@ -329,6 +330,13 @@ echo Command: sqlplus -l %CONNSTR_NO_PWD% @%INSTALL_SCRIPT%>>%BAT_SCRIPT_LOG%
 echo.>>%BAT_SCRIPT_LOG%
 sqlplus -l %DATABASE_CONN_STR% @%INSTALL_SCRIPT%
 
+echo Copying, parsing and zipping the log files.>>%BAT_SCRIPT_LOG%
+REM copy and ZIP log files.
+REM copy *.log and *.lis files to the log folder
+copy /Y *.log %LOG_FOLDER_NAME% 1>nul
+copy /Y *.lis %LOG_FOLDER_NAME% 1>nul
+REM copy /Y %LOGPARSER_OUTPUT% %LOG_FOLDER_NAME% 1>nul
+
 REM Parse log files for any errors.
 set LOGPARSER_OUTPUT=log_parser_%CUR_BUILD_ID%.log
 
@@ -338,13 +346,7 @@ echo.>>%BAT_SCRIPT_LOG%
 FOR /F %%v IN ('%LOG_PARSER% -c -p %LOG_FOLDER_NAME% -o %LOGPARSER_OUTPUT%') DO SET /a build_errcnt=%%v
 set /a total_errcnt=%total_errcnt%+%build_errcnt%
 
-echo Copying and zipping the log files.>>%BAT_SCRIPT_LOG%
-REM copy and ZIP log files.
-REM copy *.log and *.lis files to the log folder
-copy /Y *.log %LOG_FOLDER_NAME% 1>nul
-copy /Y *.lis %LOG_FOLDER_NAME% 1>nul
-REM copy /Y %LOGPARSER_OUTPUT% %LOG_FOLDER_NAME% 1>nul
-
+REM zipping log files.
 cd %LOG_FOLDER_NAME%
 for /F "tokens=*" %%a in ('dir /b *.log') do (zip -r -p "%ZIPFILENAME%" "%%a") 1>nul
 for /F "tokens=*" %%a in ('dir /b *.lis') do (zip -r -p "%ZIPFILENAME%" "%%a") 1>nul
@@ -443,18 +445,18 @@ IF %total_errcnt% GTR 0 (
 REM write to log file
 	echo * WARNINIG >>%BAT_SCRIPT_LOG%
 	echo * ========>>%BAT_SCRIPT_LOG%
-	echo * Patch install was completed with errors. Please contact Release Engineering to review the logs.>>%BAT_SCRIPT_LOG%
+	echo * Patch install was completed with errors. Please contact Delphi to review the logs.>>%BAT_SCRIPT_LOG%
 REM Display on the screen
 	echo * WARNINIG
 	echo * ========
-	echo * Patch install was completed with errors. Please contact Release Engineering to review the logs.
+	echo * Patch install was completed with errors. Please contact Delphi to review the logs.
 ) else (
 REM write to log file
 	echo * Patch install was completed successfully. You do NOT need to contact>>%BAT_SCRIPT_LOG%
-	echo * Release Engineering to review the logs.>>%BAT_SCRIPT_LOG%
+	echo * Delphi to review the logs.>>%BAT_SCRIPT_LOG%
 REM Display on the screen
 	echo * Patch install was completed successfully. You do NOT need to contact
-	echo * Release Engineering to review the logs.
+	echo * Delphi to review the logs.
 )
 REM write to log file
 echo *>>%BAT_SCRIPT_LOG%

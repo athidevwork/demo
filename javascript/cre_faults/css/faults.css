@@ -1,0 +1,12 @@
+#buildingjqxcombobox { float: left; }
+#locationjqxcombobox {float: left;}
+#unitjqxcombobox {float: left;}
+#faultcategoryjqxcombobox {float: left;}
+
+#GetPendingFaults {float: left; margin: 2px;}
+#ProcessPendingFaults {float: left; margin: 2px;}
+#pendingclear {float: left; margin: 2px;}
+
+#homepage {
+	float: right;
+}
