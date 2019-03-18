@@ -7,7 +7,7 @@ pipeline {
                 bat '''echo Performing Deploy Preview with Build Parameters : build_env= %DEPLOY_ENV%, base=%INSTALL_PATH%, issue=%ISSUE%, conn_str=%DB_CONN_STR%, file=%FILE_WITH_PATH%'''
                 bat 'unzip -o -d %INSTALL_PATH%\\%ISSUE%_preview_%DEPLOY_ENV% %FILE_WITH_PATH%'
                 bat 'type %INSTALL_PATH%\\%ISSUE%_preview_%DEPLOY_ENV%\\%ISSUE%\\db_blds.txt'
-                bat 'if exist %FILE_WITH_PATH%if exist %FILE_WITH_PATH%d rd /S /Q %INSTALL_PATH%\\%ISSUE%_preview_%DEPLOY_ENV%'
+                bat 'if exist %INSTALL_PATH%\\%ISSUE%_preview_%DEPLOY_ENV% rd /S /Q %INSTALL_PATH%\\%ISSUE%_preview_%DEPLOY_ENV%'
                 //bat 'unzip -o -d C:\\dev\\configprop\\193580_DB_preview C:\\dev\\configprop\\193580_DB_Test.zip'
                 //bat 'type C:\\dev\\configprop\\193580_DB_preview\\193580_DB\\db_blds.txt'
                 //bat 'rd /S /Q C:\\dev\\configprop\\193580_DB_preview'
@@ -17,7 +17,7 @@ pipeline {
         stage('Deploy_PreInstall') { 
             steps {
                 bat 'echo Deploy preinstall with Build Parameters : build_env= %DEPLOY_ENV%, base=%INSTALL_PATH%, issue=%ISSUE%, conn_str=%DB_CONN_STR%, file=%FILE_WITH_PATH%'
-                bat 'if exist %FILE_WITH_PATH% rd /S /Q %INSTALL_PATH%\\%ISSUE%_preinstall_%DEPLOY_ENV%'
+                bat 'if exist %INSTALL_PATH%\\%ISSUE%_preinstall_%DEPLOY_ENV% rd /S /Q %INSTALL_PATH%\\%ISSUE%_preinstall_%DEPLOY_ENV%'
                 bat 'unzip -o -d %INSTALL_PATH%\\%ISSUE%_preinstall_%DEPLOY_ENV% %FILE_WITH_PATH%'
                 bat 'mkdir %INSTALL_PATH%\\%ISSUE%_preinstall_%DEPLOY_ENV%\\%ISSUE%\\logs'
                 bat 'sqlplus -l %DB_CONN_STR% @%INSTALL_PATH%\\%ISSUE%_preinstall_%DEPLOY_ENV%\\%ISSUE%\\pre_install.sql>> %INSTALL_PATH%\\%ISSUE%_preinstall_%DEPLOY_ENV%\\%ISSUE%\\logs/pre_install.log'
@@ -32,7 +32,7 @@ pipeline {
         stage('Deploy_PostInstall') { 
             steps {
                 bat 'echo Deploy post install with Build Parameters : build_env= %DEPLOY_ENV%, base=%INSTALL_PATH%, issue=%ISSUE%, conn_str=%DB_CONN_STR%, file=%FILE_WITH_PATH%'
-                bat 'if exist %FILE_WITH_PATH% rd /S /Q %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV%'
+                bat 'if exist %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV% rd /S /Q %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV%'
                 bat 'unzip -o -d %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV% %FILE_WITH_PATH%'
                 bat 'mkdir %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV%\\%ISSUE%\\logs'
                 bat 'sqlplus -l %DB_CONN_STR% @%INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV%\\%ISSUE%\\post_install.sql>> %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV%\\%ISSUE%\\logs/post_install.log'
