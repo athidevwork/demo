@@ -1,0 +1,47 @@
+pipeline {
+    agent any 
+
+    stages {
+        stage('Deploy_Preview') { 
+            steps {
+                bat '''echo Performing Deploy Preview with Build Parameters : build_env= %DEPLOY_ENV%, base=%INSTALL_PATH%, issue=%ISSUE%, conn_str=%DB_CONN_STR%, file=%FILE_WITH_PATH%'''
+                bat 'unzip -o -d %INSTALL_PATH%\\%ISSUE%_preview %FILE_WITH_PATH%'
+                bat 'type %INSTALL_PATH%\\%ISSUE%_preview\\%ISSUE%\\db_blds.txt'
+                bat 'rd /S /Q %INSTALL_PATH%\\%ISSUE%_preview'
+                //bat 'unzip -o -d C:\\dev\\configprop\\193580_DB_preview C:\\dev\\configprop\\193580_DB_Test.zip'
+                //bat 'type C:\\dev\\configprop\\193580_DB_preview\\193580_DB\\db_blds.txt'
+                //bat 'rd /S /Q C:\\dev\\configprop\\193580_DB_preview'
+                input 'Do you want to continue to preinstall?'
+            }
+        }
+        stage('Deploy_PreInstall') { 
+            steps {
+                bat 'echo Deploy preinstall with Build Parameters : build_env= %DEPLOY_ENV%, base=%INSTALL_PATH%, issue=%ISSUE%, conn_str=%DB_CONN_STR%, file=%FILE_WITH_PATH%'
+                bat 'rd /S /Q %INSTALL_PATH%\\%ISSUE%_preinstall'
+                bat 'unzip -o -d %INSTALL_PATH%\\%ISSUE%_preinstall %FILE_WITH_PATH%'
+                bat 'mkdir %INSTALL_PATH%\\%ISSUE%_preinstall\\%ISSUE%\\logs'
+                bat 'sqlplus -l %DB_CONN_STR% @%INSTALL_PATH%\\%ISSUE%_preinstall\\%ISSUE%\\pre_install.sql>> %INSTALL_PATH%\\%ISSUE%_preinstall\\%ISSUE%\\logs/pre_install.log'
+                //rd /S /Q C:\dev\configprop\193580_DB_preinstall
+                //unzip -o -d C:\dev\configprop\193580_DB_preinstall C:\dev\configprop\193580_DB_Test.zip
+                //cd C:\dev\configprop\193580_DB_preinstall\193580_DB
+                //mkdir logs
+                //sqlplus -l UAT/UAT@NY2ORA12CPOC01_RE201XSE @pre_install.sql>> logs/pre_install.log
+                input 'Do you want to continue to postinstall?'
+            }
+        }
+        stage('Deploy_PostInstall') { 
+            steps {
+                bat 'echo Deploy post install with Build Parameters : build_env= %DEPLOY_ENV%, base=%INSTALL_PATH%, issue=%ISSUE%, conn_str=%DB_CONN_STR%, file=%FILE_WITH_PATH%'
+                bat 'rd /S /Q %INSTALL_PATH%\\%ISSUE%_postinstall'
+                bat 'unzip -o -d %INSTALL_PATH%\\%ISSUE%_postinstall %FILE_WITH_PATH%'
+                bat 'mkdir %INSTALL_PATH%\\%ISSUE%_postinstall\\%ISSUE%\\logs'
+                bat 'sqlplus -l %DB_CONN_STR% @%INSTALL_PATH%\\%ISSUE%_postinstall\\%ISSUE%\\post_install.sql>> %INSTALL_PATH%\\%ISSUE%_postinstall\\%ISSUE%\\logs/post_install.log'
+                //rd /S /Q C:\dev\configprop\193580_DB_postinstall
+                //unzip -o -d C:\dev\configprop\193580_DB_postinstall C:\dev\configprop\193580_DB_Test.zip
+                //cd C:\dev\configprop\193580_DB_postinstall\193580_DB
+                //mkdir logs
+                //sqlplus -l UAT/UAT@NY2ORA12CPOC01_RE201XSE @post_install.sql>> logs/post_install.log
+            }
+        }
+    }
+}
