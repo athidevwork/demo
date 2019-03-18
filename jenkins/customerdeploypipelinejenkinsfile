@@ -5,7 +5,7 @@ pipeline {
         stage('Deploy') { 
             steps {
                 bat 'echo Deploy post install with Build Parameters : build_env= %DEPLOY_ENV%, base=%INSTALL_PATH%, issue=%ISSUE%, conn_str=%DB_CONN_STR%, file=%FILE_WITH_PATH%'
-                bat 'rd /S /Q %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV%'
+                bat 'if exist %FILE_WITH_PATH% rd /S /Q %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV%'
                 bat 'unzip -o -d %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV% %FILE_WITH_PATH%'
                 bat 'mkdir %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV%\\%ISSUE%\\logs'
                 bat 'sqlplus -l %DB_CONN_STR% @%INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV%\\%ISSUE%\\post_install.sql>> %INSTALL_PATH%\\%ISSUE%_postinstall_%DEPLOY_ENV%\\%ISSUE%\\logs/post_install.log'
