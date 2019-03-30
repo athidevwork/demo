@@ -1,0 +1,9 @@
+docker build -t vfi-app .
+
+docker images
+
+docker run -p 8090:8090 vfi-app
+
+export DOCKER_HOST=tcp://10.192.16.128:2375
+mvn clean install -Ddocker
+
