@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import com.vfi.demo.rest.service.VfiService;
  */
 @RestController
 @RequestMapping("/api/vfi")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class VfiController {
 	@Autowired
 	VfiService service;
@@ -49,10 +51,10 @@ public class VfiController {
 		StringBuilder sb = new StringBuilder();
 		sb.append(sub).append("\n").append(tag).append("\n").append(num).append("\n").append(pre);
 		
-		System.out.println(sub.toString());
+		/*System.out.println(sub.toString());
 		System.out.println(tag.toString());
 		System.out.println(num.toString());
-		System.out.println(pre.toString());
+		System.out.println(pre.toString());*/
 		
 		/*sub.forEach(item -> {
 			item.setNum(num);
@@ -65,12 +67,16 @@ public class VfiController {
 		service.saveNum(num);
 		service.savePre(pre);
 		
-		//return "Added dom json data";
 		return "Added data to database.\n" + sb.toString();
 	}
 	
+	@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	public List<Sub> getSubs() {
+		return service.getSubs();
+	}
+	
 	@GetMapping(path = "/{adsh}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public Sub getWeatherByAdsh(@PathVariable(name = "adsh") String adsh) {
+	public Sub getSubByAdsh(@PathVariable(name = "adsh") String adsh) {
 		return service.getSub(adsh);
 	}
 }

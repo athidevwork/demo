@@ -8,3 +8,8 @@ http://localhost:8090/api/vfi/data
 ###GET a Sub
 http://localhost:8090/api/vfi/0000002178-18-000067
 
+ng new vfi-app
+
+ng serve
+ng generate service vfiweb
+

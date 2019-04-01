@@ -66,4 +66,8 @@ public class VfiService {
 			preRepo.save(item);
 			});
 	}
+
+	public List<Sub> getSubs() {
+		return subRepo.findAll();
+	}
 }
