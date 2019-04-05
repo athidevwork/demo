@@ -1,5 +1,8 @@
-# build app
+# build server app
 mvn clean package
+
+# Run server app
+mvn spring-boot:run  or java -jar target/demo-0.0.1-SNAPSHOT.jar
 
 ### Access database
 http://localhost:8090/h2-console/
