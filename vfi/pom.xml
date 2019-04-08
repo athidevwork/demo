@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Demo project withSpring Boot for VFI</description>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -53,6 +54,55 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--
+		<dependency>
+    			<groupId>javax.xml.bind</groupId>
+    			<artifactId>jaxb-api</artifactId>
+    			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+    			<groupId>org.eclipse.persistence</groupId>
+    			<artifactId>eclipselink</artifactId>
+    			<version>2.7.0</version>
+		</dependency>
+		<dependency>
+    			<groupId>org.eclipse.persistence</groupId>
+    			<artifactId>org.eclipse.persistence.moxy</artifactId>
+    			<version>2.7.3</version>
+		</dependency>
+		-->
+		<dependency>
+    			<groupId>javax.xml.bind</groupId>
+    			<artifactId>jaxb-api</artifactId>
+    			<version>2.2.11</version>
+		</dependency>
+		<dependency>
+    			<groupId>com.sun.xml.bind</groupId>
+    			<artifactId>jaxb-core</artifactId>
+    			<version>2.2.11</version>
+		</dependency>
+		<dependency>
+    			<groupId>com.sun.xml.bind</groupId>
+    			<artifactId>jaxb-impl</artifactId>
+    			<version>2.2.11</version>
+		</dependency>
+		<dependency>
+    			<groupId>javax.activation</groupId>
+    			<artifactId>activation</artifactId>
+    			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+        		<groupId>org.springframework.boot</groupId>
+        		<artifactId>spring-boot-starter-tomcat</artifactId>
+        		<scope>provided</scope>
+    		</dependency>
+
+    		<dependency>
+        		<groupId>org.apache.tomcat.embed</groupId>
+        		<artifactId>tomcat-embed-jasper</artifactId>
+        		<scope>provided</scope>
+    		</dependency>
 	</dependencies>
 
 	<build>

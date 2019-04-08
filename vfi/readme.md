@@ -21,3 +21,8 @@ ng serve
 ng new vfi-app
 ng generate service vfiweb
 
+### Build docker image
+docker build -t vfi .
+
+### Run docker image
+docker run --rm -it -p 8090:8090 --name vfi vfi:latest 
